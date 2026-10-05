@@ -24,3 +24,17 @@ Shape/stride entries use Stage 1 bounded signed metadata. Slice length is a coun
 `serialize()` produces canonical JSON in fixed field order, classic locale, with `version=1` and deterministic typed attributes. This is a diagnostic/fixture format, not a general deserializer or graph persistence API. Backend hint (`cpu:N`/`cuda:N`) is advisory and does not cause allocation, execution or implicit transfers. Later semantic extensions must be explicit, never silently introduce broadcasting.
 
 No performance claim is made. Stage 2 acceptance is CPU-only; a GPU/Colab gate is not required by this task book.
+
+## S2-C2: pure inference and bindings
+
+`infer_operator(desc, TensorInputs)` receives existing Stage 1 tensors in descriptor input-ID order. It reads only checked metadata, never values, kernels or buffers; binding resolution is the future graph's responsibility. Success exposes one `OutputContract`; errors expose no output. Output contracts are declarative requirements, not another executable Tensor representation:
+
+- `NewTensor`: caller/executor must supply contiguous storage of inferred dtype/shape/device. Canonical strides/byte sizes are checked before returning the contract, including zero axes and output overflow. Inference does **not** allocate that buffer.
+- `Alias`: the optional alias is an actual Stage 1 Tensor sharing the input Storage. View/reshape/slice/transpose/permutation reuse Stage 1 validation and lifetime semantics.
+- `Write`: COPY returns the predeclared destination Tensor alias, with a new logical output/state ID. Future graph write ordering is mandatory; no unrestricted cache mutation is introduced here.
+
+`validate_output_binding` checks the caller's output metadata; aliases/writes must bind exactly the inferred Storage/offset/stride. Arithmetic (ADD/MUL/MATMUL) is FP32, same-device and contiguous, with no promotion, broadcasting or implicit materialization. ADD/MUL require exact equal shapes, including scalar/empty cases. MATMUL is rank-2 A[M,K]×B[K,N]→[M,N], including K=0 and empty outputs. INT32 is data-only at this stage (COPY/views/materialization), never arithmetic.
+
+COPY's source/destination **ranges are explicit checked Tensor views**, not raw unchecked byte offsets. Both layouts may be strided, but shape/dtype must match. The shared Stage 1 `same_tensor_layout`/`memory_spans_overlap` helpers enforce the existing conservative span policy, including different wrappers over one address. Different Device identities are distinct address spaces. Explicit cross-device COPY may be *declared/inferred*; CPU reference execution still rejects it and CUDA copy implementation is deferred to S8.
+
+MATERIALIZE is a graph-visible request for a **new independent canonical output**, even for a contiguous input. It is not a hidden call to `Tensor::contiguous()` (which keeps its documented already-contiguous alias behavior). Alias transforms themselves allocate zero backing buffers. Backends must either meet declared layout requirements or receive explicit MATERIALIZE/COPY nodes later.
