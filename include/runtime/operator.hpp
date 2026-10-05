@@ -17,7 +17,7 @@ inline constexpr unsigned OP_SEMANTICS_VERSION = 1;
 enum class StatusCode {
     Ok, InvalidArgument, ArityMismatch, AttributeMismatch, ShapeMismatch,
     DTypeMismatch, LayoutMismatch, DeviceMismatch, OutOfRange, Overflow,
-    Aliasing, Unsupported, NonFinite
+    Aliasing, Unsupported, NonFinite, ResourceExhausted
 };
 struct Status {
     StatusCode code = StatusCode::Ok;

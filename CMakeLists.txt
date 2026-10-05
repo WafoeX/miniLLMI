@@ -59,7 +59,7 @@ target_compile_options(stage0_common PRIVATE -Wall -Wextra -Wpedantic)
 
 add_library(runtime src/runtime/storage.cpp src/runtime/tensor.cpp src/runtime/copy.cpp
     src/runtime/operator.cpp src/runtime/shape_inference.cpp src/runtime/reference.cpp
-    src/runtime/layout.cpp src/runtime/graph.cpp)
+    src/runtime/layout.cpp src/runtime/graph.cpp src/runtime/graph_executor.cpp)
 target_include_directories(runtime PUBLIC include)
 target_compile_options(runtime PRIVATE -Wall -Wextra -Wpedantic)
 
@@ -122,9 +122,20 @@ if(BUILD_TESTING)
     target_compile_options(test_graph PRIVATE -Wall -Wextra -Wpedantic)
     add_test(NAME graph COMMAND test_graph)
     set_tests_properties(graph PROPERTIES LABELS "cpu;graph")
+    add_executable(test_graph_executor tests/test_graph_executor.cpp)
+    target_link_libraries(test_graph_executor PRIVATE runtime)
+    target_compile_options(test_graph_executor PRIVATE -Wall -Wextra -Wpedantic)
+    add_test(NAME graph_executor COMMAND test_graph_executor)
+    set_tests_properties(graph_executor PROPERTIES LABELS "cpu;graph")
+    add_executable(test_graph_fixtures tests/test_graph_fixtures.cpp)
+    target_link_libraries(test_graph_fixtures PRIVATE runtime)
+    target_compile_options(test_graph_fixtures PRIVATE -Wall -Wextra -Wpedantic)
+    add_test(NAME graph_fixtures COMMAND "${Python3_EXECUTABLE}" "${CMAKE_SOURCE_DIR}/tests/run_graph_fixtures.py"
+        --binary "$<TARGET_FILE:test_graph_fixtures>" --root "${CMAKE_SOURCE_DIR}/tests/fixtures/operators-v1")
+    set_tests_properties(graph_fixtures PROPERTIES LABELS "cpu;graph")
     add_custom_target(check_graph
         COMMAND "${CMAKE_CTEST_COMMAND}" --output-on-failure --verbose -L graph
-        DEPENDS test_graph USES_TERMINAL)
+        DEPENDS test_graph test_graph_executor test_graph_fixtures USES_TERMINAL)
     if(ENABLE_SANITIZERS)
         add_custom_target(check_graph_sanitizers DEPENDS check_graph)
     endif()

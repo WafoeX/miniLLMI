@@ -23,7 +23,7 @@ const char* status_name(StatusCode code) {
     RUNTIME_STATUS_NAME(LayoutMismatch); RUNTIME_STATUS_NAME(DeviceMismatch);
     RUNTIME_STATUS_NAME(OutOfRange); RUNTIME_STATUS_NAME(Overflow);
     RUNTIME_STATUS_NAME(Aliasing); RUNTIME_STATUS_NAME(Unsupported);
-    RUNTIME_STATUS_NAME(NonFinite);
+    RUNTIME_STATUS_NAME(NonFinite); RUNTIME_STATUS_NAME(ResourceExhausted);
 #undef RUNTIME_STATUS_NAME
     }
     throw std::invalid_argument("unknown status code");
