@@ -1,8 +1,21 @@
-# mini-llm-runtime — Stage 3
+# mini-llm-runtime — Stage 4
 
-基于 C++17/CUDA 的推理引擎项目。**Stage 0 已通过 T4 验收；Stage 1 统一 Tensor/shared Storage；Stage 2 实现 backend-neutral 算子与 core reference；Stage 3 实现冻结 DAG、确定性拓扑、顺序 CPU executor、最后使用释放/alias 保活及有界执行 trace。** Tensor 支持 FP32/INT32、checked shape/stride/offset、CPU storage、零拷贝变换和显式 CPU copy。Transformer 仍只有契约/validators 和离线 expected fixtures，尚无 Transformer kernels、Arena/planner、scheduler、模型执行、KV Cache 或量化实现。
+基于 C++17/CUDA 的推理引擎项目。**Stage 0 已通过 T4 验收；Stage 1 统一 Tensor/shared Storage；Stage 2 实现 backend-neutral 算子与 core reference；Stage 3 实现冻结 DAG、确定性拓扑、顺序 CPU executor、最后使用释放/alias 保活及有界执行 trace。** Tensor 支持 FP32/INT32、checked shape/stride/offset、CPU storage、零拷贝变换和显式 CPU copy。Transformer 仍只有契约/validators 和离线 expected fixtures，Stage 4 增加对齐 CPU arena、first-fit 复用和显式 allocation provider；尚无 Transformer kernels、planner、scheduler、模型执行、KV Cache 或量化实现。
 
 Stage 0 naive GEMM 与历史结果保持不变。Stage 1 的 gate 是 CPU-only Debug/Release、属性测试与 ASan/UBSan；不要求 CUDA allocation 或服务器性能数据。后续按 [路线图](docs/roadmap.md) 与 [Change 任务书](docs/tasks/README.md) 执行。
+
+## Stage 4 验收（明确 CPU-only，无需 GPU）
+
+```bash
+# clean 已提交源码；fresh Release/Debug/ASan+UBSan/production 正确性证据
+python3 tools/validate_arena.py
+# 独立 CPU-only 诊断基准：3 paired runs / 3 warmups / 10 samples / batch 20
+python3 tools/run_allocator_benchmark.py
+# 有本地未跟踪源码时，用 clean worktree；dirty 只允许正确性验证，不允许计时：
+# python3 tools/validate_arena.py --allow-dirty
+```
+
+[Arena / provider / benchmark 契约](docs/arena.md)、[Stage 4 验收记录](docs/stage4_report.md)。默认 executor 仍为 S3 dynamic baseline；arena 明确 opt-in，容量不足无 malloc fallback，持有输出/alias 时禁止覆盖同一 context。基准含 synthetic、chain、diamond，较慢结果保留；不宣称 Stage 5 planner、零 C++ heap 或模型吞吐收益。
 
 ## Stage 3 验收（CPU-only，无需 GPU）
 
@@ -15,7 +28,7 @@ python3 tools/validate_graph.py
 # cmake --build build-local --target check_graph
 ```
 
-[Graph / executor / trace 契约](docs/graph.md)、[Stage 3 验收记录](docs/stage3_report.md)。动态 baseline 每个 NewTensor 节点在 execute 内分配输出，最后使用释放、graph outputs pin backing，alias 保留 base；没有隐式 copy、arena 或性能收益声明。所有执行复用 S2 CPU reference。
+[Graph / executor / trace 契约](docs/graph.md)、[Stage 3 验收记录](docs/stage3_report.md)。动态 baseline 每个 NewTensor 节点在 execute 内分配输出，最后使用释放、graph outputs pin backing，alias 保留 base；没有隐式 copy 或自动切换到 arena；S4 仅通过显式 provider 选择策略。所有执行复用 S2 CPU reference。
 
 ## Stage 2 验收（无需 GPU / Colab 服务器）
 

@@ -1,5 +1,7 @@
 # Stage 4 — Arena allocator
 
+**Status:** S4-C1–C4 implemented; [contracts](../arena.md) and [actual acceptance evidence](../stage4_report.md). Benchmark scope is explicitly CPU-only host diagnostics, not CUDA/server/model/planner performance. Dynamic default remains stable; arena is opt-in, slower valid runs retained.
+
 **Goal:** independently correct reusable arena before graph liveness. **Prerequisite:** S3-C4. **Gate:** allocator invariants pass under deterministic and randomized tests.
 
 ## S4-C1 — Allocation interface and accounting

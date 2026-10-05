@@ -17,9 +17,10 @@ from provenance import inspect
 def configuration(stage):
     configurations = {1: ("tensor", "check_tensor_sanitizers"),
                       2: ("operators", "check_operator_sanitizers"),
-                      3: ("graph", "check_graph_sanitizers")}
+                      3: ("graph", "check_graph_sanitizers"),
+                      4: ("allocator", "check_arena_sanitizers")}
     if stage not in configurations:
-        raise ValueError("only CPU Stage 1/2/3 validation is supported")
+        raise ValueError("only CPU Stage 1/2/3/4 validation is supported")
     return configurations[stage]
 
 

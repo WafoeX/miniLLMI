@@ -64,6 +64,10 @@ add_library(runtime src/runtime/storage.cpp src/runtime/tensor.cpp src/runtime/c
 target_include_directories(runtime PUBLIC include)
 target_compile_options(runtime PRIVATE -Wall -Wextra -Wpedantic)
 
+add_executable(bench_allocator bench/bench_allocator.cpp)
+target_link_libraries(bench_allocator PRIVATE runtime stage0_common)
+target_compile_options(bench_allocator PRIVATE -Wall -Wextra -Wpedantic)
+
 if(BUILD_TESTING)
     target_compile_definitions(runtime PUBLIC RUNTIME_TESTING=1)
     add_executable(test_tensor tests/test_tensor.cpp)
@@ -155,9 +159,13 @@ if(BUILD_TESTING)
     target_compile_options(test_allocation_provider PRIVATE -Wall -Wextra -Wpedantic)
     add_test(NAME allocation_provider COMMAND test_allocation_provider)
     set_tests_properties(allocation_provider PROPERTIES LABELS "cpu;arena;graph")
+    add_test(NAME allocator_benchmark_workloads COMMAND bench_allocator --self-test)
+    set_tests_properties(allocator_benchmark_workloads PROPERTIES LABELS "cpu;arena")
+    add_test(NAME allocator_tools COMMAND "${Python3_EXECUTABLE}" "${CMAKE_SOURCE_DIR}/tests/test_allocator_tools.py")
+    set_tests_properties(allocator_tools PROPERTIES LABELS "cpu;arena")
     add_custom_target(check_arena
         COMMAND "${CMAKE_CTEST_COMMAND}" --output-on-failure --verbose -L arena
-        DEPENDS test_arena test_allocation_provider USES_TERMINAL)
+        DEPENDS test_arena test_allocation_provider bench_allocator USES_TERMINAL)
     if(ENABLE_SANITIZERS)
         add_custom_target(check_arena_sanitizers DEPENDS check_arena)
     endif()

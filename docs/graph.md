@@ -5,6 +5,11 @@ planner, optimized backend or model executor. Stage 0 GEMM is untouched. All
 execution uses the existing `runtime::Tensor`, shared `Storage`, S2 operators
 and CPU reference kernels. There is no second tensor/allocator path.
 
+Stage 4 adds an optional third `AllocationProvider*` argument to execute_graph;
+the null-provider behavior below remains the stable S3 dynamic baseline. See
+[arena/provider contracts](arena.md) for opt-in arena spans, output-context
+pinning, expanded counters and BlockAllocate/BlockFree trace events.
+
 ## Ownership, construction and freeze
 
 `include/runtime/graph.hpp` owns value records in ID-keyed maps, not raw node
