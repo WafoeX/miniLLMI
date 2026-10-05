@@ -2,6 +2,7 @@
 #include "runtime/shape.hpp"
 #include "runtime/storage.hpp"
 #include "runtime/tensor.hpp"
+#include "runtime/copy.hpp"
 #include <iostream>
 #include <limits>
 #include <stdexcept>
@@ -210,6 +211,76 @@ void test_views() {
     throws<std::overflow_error>([&] { (void)source.slice(1, 0, 1, std::numeric_limits<std::int64_t>::max()); }, "slice stride overflow accepted");
     throws<std::overflow_error>([&] { (void)head.view(Shape{0}, Stride{1}, std::numeric_limits<std::size_t>::max()); }, "nested offset overflow accepted");
 }
+void test_transpose_copy() {
+    using namespace runtime;
+    auto source = Tensor::allocate_cpu(Shape{2, 3});
+    for (std::size_t i = 0; i < source.numel(); ++i) source.data<float>()[i] = static_cast<float>(i);
+    const auto before = testing::cpu_allocation_counts();
+    auto transposed = source.transpose(0, 1);
+    require(transposed.shape() == Shape{3, 2} && transposed.stride() == Stride{1, 3} && !transposed.is_contiguous(), "2D transpose strides/contiguity");
+    require(transposed.at<float>({2, 1}) == source.at<float>({1, 2}), "2D transpose indexing");
+    transposed.at<float>({1, 0}) = 99;
+    require(source.at<float>({0, 1}) == 99, "transpose mutation alias");
+    require(testing::cpu_allocation_counts().allocations == before.allocations, "transpose buffer allocation delta must be zero");
+    auto materialized = transposed.contiguous();
+    require(materialized.is_contiguous() && materialized.storage() != source.storage() &&
+            testing::cpu_allocation_counts().allocations == before.allocations + 1, "materialization must allocate once");
+    for (std::int64_t i = 0; i < 3; ++i) for (std::int64_t j = 0; j < 2; ++j)
+        require(materialized.at<float>({i, j}) == source.at<float>({j, i}), "materialized transpose values");
+    materialized.at<float>({0, 0}) = -7;
+    require(source.at<float>({0, 0}) == 0, "materialized data must be independent");
+    require(source.contiguous().storage() == source.storage(), "already contiguous is an alias");
+    auto destination = Tensor::allocate_cpu(transposed.shape());
+    const auto copy_before = testing::cpu_allocation_counts();
+    require(copy_cpu(transposed, destination) == 24, "copy reports logical bytes");
+    require(testing::cpu_allocation_counts().allocations == copy_before.allocations, "copy allocates no buffers");
+    require(copy_cpu(destination, destination) == 0, "exact self-copy no-op");
+    auto cube = Tensor::allocate_cpu(Shape{2, 3, 4}, DType::INT32);
+    for (std::size_t i = 0; i < cube.numel(); ++i) cube.data<std::int32_t>()[i] = static_cast<std::int32_t>(i);
+    auto permutation = cube.permute({2, 0, 1});
+    require(permutation.shape() == Shape{4, 2, 3} && permutation.stride() == Stride{1, 12, 4} && !permutation.is_contiguous(), "3D permutation strides");
+    auto dense = permutation.contiguous();
+    for (std::int64_t i = 0; i < 4; ++i) for (std::int64_t j = 0; j < 2; ++j) for (std::int64_t k = 0; k < 3; ++k)
+        require(dense.at<std::int32_t>({i, j, k}) == cube.at<std::int32_t>({j, k, i}), "3D materialization values");
+    auto padded_owner = Tensor::allocate_cpu(Shape{4, 2, 6}, DType::INT32);
+    auto padded = padded_owner.slice(2, 0, 3, 2);
+    require(copy_cpu(permutation, padded) == cube.nbytes(), "strided destination copy");
+    require(padded.at<std::int32_t>({3, 1, 2}) == cube.at<std::int32_t>({1, 2, 3}) &&
+            padded_owner.at<std::int32_t>({3, 1, 5}) == 0, "strided copy preserves holes");
+    auto overlap_owner = Tensor::allocate_cpu(Shape{8});
+    auto left = overlap_owner.narrow(0, 0, 4);
+    auto right = overlap_owner.narrow(0, 2, 4);
+    throws<std::invalid_argument>([&] { (void)copy_cpu(left, right); }, "overlapping spans accepted");
+    auto disjoint = overlap_owner.narrow(0, 4, 4);
+    left.at<float>({0}) = 8;
+    require(copy_cpu(left, disjoint) == 16 && disjoint.at<float>({0}) == 8, "disjoint same-storage copy");
+    auto second_wrapper = Storage::wrap(Device{}, overlap_owner.nbytes(), overlap_owner.data<float>(), [](void*) noexcept {});
+    Tensor duplicate(second_wrapper, DType::FP32, Shape{4}, Stride{1});
+    throws<std::invalid_argument>([&] { (void)copy_cpu(left, duplicate); }, "overlap across Storage wrappers accepted");
+    throws<std::invalid_argument>([&] { (void)copy_cpu(source, transposed); }, "copy shape mismatch accepted");
+    auto int_destination = Tensor::allocate_cpu(source.shape(), DType::INT32);
+    throws<std::invalid_argument>([&] { (void)copy_cpu(source, int_destination); }, "copy dtype mismatch accepted");
+    throws<std::invalid_argument>([&] { (void)source.permute({0, 0}); }, "duplicate permutation accepted");
+    throws<std::invalid_argument>([&] { (void)source.permute({0}); }, "permutation rank mismatch accepted");
+    throws<std::invalid_argument>([&] { (void)source.permute({0, 2}); }, "invalid permutation axis accepted");
+    throws<std::out_of_range>([&] { (void)source.transpose(0, 2); }, "transpose axis accepted");
+    auto singleton = Tensor::allocate_cpu(Shape{2, 1, 3}).transpose(0, 1);
+    require(singleton.is_contiguous(), "singleton axes do not constrain contiguous layout");
+    auto empty = Tensor::allocate_cpu(Shape{2, 0, 3}).transpose(0, 2);
+    const auto empty_before = testing::cpu_allocation_counts();
+    auto empty_dense = empty.contiguous();
+    require(empty_dense.is_contiguous() && copy_cpu(empty, empty_dense) == 0 &&
+            testing::cpu_allocation_counts().allocations == empty_before.allocations, "empty materialization has no backing allocation");
+    auto scalar = Tensor::allocate_cpu(Shape{});
+    require(scalar.permute({}).is_contiguous(), "scalar identity permutation");
+    auto simulated = Storage::wrap(Device(DeviceType::CUDA, 0), source.nbytes(), source.data<float>(), [](void*) noexcept {});
+    Tensor cuda_tensor(simulated, DType::FP32, source.shape(), source.stride());
+    throws<std::runtime_error>([&] { (void)cuda_tensor.contiguous(); }, "CUDA contiguous silently uses host");
+    throws<std::runtime_error>([&] { (void)cuda_tensor.transpose(0, 1).contiguous(); }, "CUDA strided materialization accepted");
+    throws<std::runtime_error>([&] { (void)copy_cpu(cuda_tensor, source); }, "CUDA source copy accepted");
+    throws<std::runtime_error>([&] { (void)copy_cpu(source, cuda_tensor); }, "CUDA destination copy accepted");
+    std::cout << "Allocation checks: views/transpose=0 buffers; nonempty materialize=1; copy=24 logical bytes, 0 buffers\n";
+}
 } // namespace
 int main() {
     try {
@@ -217,7 +288,8 @@ int main() {
         test_storage();
         test_construction();
         test_views();
-        std::cout << "Tensor metadata/storage/construction/views: PASS\n";
+        test_transpose_copy();
+        std::cout << "Tensor metadata/storage/construction/views/copy: PASS\n";
         return 0;
     } catch (const std::exception& error) {
         std::cerr << "test_tensor: " << error.what() << '\n';

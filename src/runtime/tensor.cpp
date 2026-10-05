@@ -1,7 +1,8 @@
 #include "runtime/tensor.hpp"
+#include "runtime/copy.hpp"
 #include <algorithm>
 #include <cstdint>
-#include <new>
+#include <memory>
 #include <stdexcept>
 #include <utility>
 
@@ -46,13 +47,15 @@ Tensor Tensor::allocate_cpu(Shape shape, DType dtype) {
     const auto count = runtime::numel(shape);
     auto storage = Storage::allocate_cpu(runtime::nbytes(shape, dtype));
     // Start typed object lifetimes explicitly in C++17; all elements are zero.
-    switch (dtype) {
-    case DType::FP32:
-        for (std::size_t i = 0; i < count; ++i) ::new (static_cast<float*>(storage->data()) + i) float{};
-        break;
-    case DType::INT32:
-        for (std::size_t i = 0; i < count; ++i) ::new (static_cast<std::int32_t*>(storage->data()) + i) std::int32_t{};
-        break;
+    if (count != 0) {
+        switch (dtype) {
+        case DType::FP32:
+            std::uninitialized_value_construct_n(static_cast<float*>(storage->data()), count);
+            break;
+        case DType::INT32:
+            std::uninitialized_value_construct_n(static_cast<std::int32_t*>(storage->data()), count);
+            break;
+        }
     }
     return Tensor(std::move(storage), dtype, std::move(shape), stride);
 }
@@ -97,6 +100,32 @@ Tensor Tensor::slice(std::size_t axis, std::int64_t start, std::int64_t length, 
     if (runtime::numel(result_shape) != 0)
         offset = checked_add(offset, checked_mul(checked_mul(as_size(start), as_size(stride_[axis])), dtype_size(dtype_)));
     return Tensor(storage_, dtype_, std::move(result_shape), Stride(std::move(strides)), offset);
+}
+Tensor Tensor::permute(const std::vector<std::size_t>& axes) const {
+    if (axes.size() != shape_.rank()) throw std::invalid_argument("permutation rank mismatch");
+    std::vector<bool> seen(axes.size(), false);
+    std::vector<std::int64_t> dimensions(axes.size()), strides(axes.size());
+    for (std::size_t i = 0; i < axes.size(); ++i) {
+        if (axes[i] >= axes.size() || seen[axes[i]]) throw std::invalid_argument("invalid dimension permutation");
+        seen[axes[i]] = true;
+        dimensions[i] = shape_[axes[i]];
+        strides[i] = stride_[axes[i]];
+    }
+    return Tensor(storage_, dtype_, Shape(std::move(dimensions)), Stride(std::move(strides)), offset_bytes_);
+}
+Tensor Tensor::transpose(std::size_t first, std::size_t second) const {
+    if (first >= shape_.rank() || second >= shape_.rank()) throw std::out_of_range("transpose axis out of bounds");
+    std::vector<std::size_t> axes(shape_.rank());
+    for (std::size_t i = 0; i < axes.size(); ++i) axes[i] = i;
+    std::swap(axes[first], axes[second]);
+    return permute(axes);
+}
+Tensor Tensor::contiguous() const {
+    if (device().type() != DeviceType::CPU) throw std::runtime_error("contiguous requires CPU storage in Stage 1");
+    if (is_contiguous()) return *this;
+    auto result = allocate_cpu(shape_, dtype_);
+    copy_cpu(*this, result);
+    return result;
 }
 void Tensor::check_access(DType requested) const {
     if (requested != dtype_) throw std::invalid_argument("tensor typed access dtype mismatch");

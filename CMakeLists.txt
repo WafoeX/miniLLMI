@@ -46,7 +46,7 @@ add_dependencies(stage0_common refresh_provenance)
 target_include_directories(stage0_common PUBLIC include "${CMAKE_BINARY_DIR}/generated")
 target_compile_options(stage0_common PRIVATE -Wall -Wextra -Wpedantic)
 
-add_library(runtime src/runtime/storage.cpp src/runtime/tensor.cpp)
+add_library(runtime src/runtime/storage.cpp src/runtime/tensor.cpp src/runtime/copy.cpp)
 target_include_directories(runtime PUBLIC include)
 target_compile_options(runtime PRIVATE -Wall -Wextra -Wpedantic)
 

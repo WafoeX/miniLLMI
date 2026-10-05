@@ -30,6 +30,10 @@ public:
     // length is an element COUNT, not an end index. step must be positive.
     Tensor slice(std::size_t axis, std::int64_t start, std::int64_t length,
                  std::int64_t step = 1) const;
+    Tensor permute(const std::vector<std::size_t>& axes) const;
+    Tensor transpose(std::size_t first, std::size_t second) const;
+    // CPU-only: shares storage when already contiguous, otherwise materializes.
+    Tensor contiguous() const;
 
     // Points at the first logical element, NOT a promise of contiguous layout.
     // Empty data() returns null; dtype/device checks still apply.

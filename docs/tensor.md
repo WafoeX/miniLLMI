@@ -38,3 +38,20 @@ No allocation/performance claim is made by metadata tests. INT8, negative stride
 - `narrow(axis, start, length)` and `slice(axis, start, length, step=1)` use nonnegative start/length; length is an element count, not an end index. Step is strictly positive. Axis and final logical source index are checked before construction. Result strides/offset calculations are overflow-checked.
 - Empty slices (including start=axis size and length=0) retain the source byte offset instead of manufacturing a possibly invalid strided one-past address. Explicit empty views may use an aligned offset up to capacity.
 - These operations allocate **zero backing buffers** (metadata vectors/control blocks are not claimed allocation-free), share mutable elements and keep storage alive independently of the source Tensor's lifetime. Metadata transforms also work for CUDA identity without touching device memory.
+
+## Permutation and copy (S1-C5)
+
+- `permute(axes)` requires a complete unique axis permutation; `transpose(first, second)` swaps two valid axes. They share storage/offset and change only shape/stride; scalar `permute({})` is identity.
+- `contiguous()` is explicitly CPU-only. Already-contiguous inputs return a shared alias; non-contiguous inputs produce independent, canonical CPU storage (one nonzero backing allocation, or zero for an empty result) populated in logical row-major order. CUDA calls always fail, even for an already-contiguous tensor; no hidden host fallback.
+- `copy_cpu(source, destination)` is one CPU **leaf primitive**, not a parallel operator/dispatch stack. S6 must reuse it behind COPY/materialization execution. It accepts identical shapes/dtypes on CPU, including positive strided destinations; returns logical bytes copied, and never allocates backing buffers.
+- Exact same-storage/offset/stride self-copy is a no-op (returns 0). Empty copy returns 0. All other intersecting bounding **address** spans are rejected before mutation, even across different wrappers of one pointer. Conservative rejection includes disjoint logical elements with intersecting spans; caller can materialize to independent storage explicitly. Disjoint subranges of one storage are accepted. No memmove/inplace-copy claim is made.
+
+```cpp
+#include "runtime/tensor.hpp"
+auto x = runtime::Tensor::allocate_cpu({2, 3});
+x.at<float>({1, 2}) = 7.0f;
+auto t = x.transpose(0, 1);           // alias, strides {1, 3}
+auto independent = t.contiguous();   // explicit CPU materialization
+```
+
+Raw pointers and custom wrapped storage remain a trusted low-level interface; checked metadata cannot prevent caller writes through raw pointers or incorrect external lifetime/capacity declarations.
