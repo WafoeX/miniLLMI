@@ -1,7 +1,8 @@
 #pragma once
 
-#include "runtime/shape.hpp"
 #include "runtime/storage.hpp"
+#include <cstdint>
+#include <vector>
 #include <map>
 #include <new>
 
@@ -29,9 +30,11 @@ struct ArenaCounts {
     std::size_t requests = 0, allocations = 0, free_calls = 0, frees = 0, failures = 0;
     std::size_t live_blocks = 0, live_bytes = 0, peak_live_bytes = 0, reused_allocations = 0;
 };
+enum class ArenaPolicy { FirstFit, BumpNoReuse };
+struct FreeRange { std::size_t offset, bytes; };
 class Arena {
 public:
-    explicit Arena(std::size_t capacity_bytes, std::size_t alignment = 64);
+    explicit Arena(std::size_t capacity_bytes, std::size_t alignment = 64, ArenaPolicy policy = ArenaPolicy::FirstFit);
     Arena(const Arena&) = delete;
     Arena& operator=(const Arena&) = delete;
     Block allocate(std::size_t bytes, std::size_t alignment = 64);
@@ -42,10 +45,14 @@ public:
     std::size_t capacity() const noexcept { return storage_->capacity_bytes(); }
     std::size_t alignment() const noexcept { return alignment_; }
     const ArenaCounts& counts() const noexcept { return counts_; }
+    const std::vector<FreeRange>& free_ranges() const noexcept { return free_; }
+    ArenaPolicy policy() const noexcept { return policy_; }
 private:
     std::shared_ptr<const void> identity_;
     std::shared_ptr<Storage> storage_;
     std::size_t alignment_, cursor_ = 0;
+    ArenaPolicy policy_;
+    std::vector<FreeRange> free_;
     std::uint64_t next_ticket_ = 1;
     std::map<std::uint64_t, Block> active_;
     ArenaCounts counts_;
