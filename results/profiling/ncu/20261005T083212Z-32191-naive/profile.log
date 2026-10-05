@@ -1,0 +1,8 @@
+==PROF== Connected to process 32306 (/content/miniLLMI/build/bench_gemm)
+CPU reference 4096x4096x4096 (full single-thread ijk; not timed)
+==PROF== Profiling "sgemm_v0_naive": 0%
+==WARNING== Launching the workload is taking more time than expected. If this continues to hang, terminate the profile and re-try by profiling the range of all related launches using '--replay-mode range'. See https://docs.nvidia.com/nsight-compute/ProfilingGuide/index.html#replay for more details.
+....50%....100% - 33 passes
+sgemm_v0_naive: median=360.30155944824219 ms, 381.455 GFLOPS, max_error=9.34601e-05
+==PROF== Disconnected from process 32306
+==PROF== Report: /content/miniLLMI/results/profiling/ncu/20261005T083212Z-32191-naive/metrics.ncu-rep

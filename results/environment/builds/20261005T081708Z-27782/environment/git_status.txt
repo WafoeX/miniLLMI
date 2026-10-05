@@ -1,0 +1,18 @@
+COMMAND: git status --porcelain=v1 --untracked-files=all
+?? results/environment/builds/20261005T081708Z-27782/CMakeCache.txt
+?? results/environment/builds/20261005T081708Z-27782/build.log
+?? results/environment/builds/20261005T081708Z-27782/build_info.json
+?? results/environment/builds/20261005T081708Z-27782/commands.txt
+?? results/environment/builds/20261005T081708Z-27782/compile_commands.json
+?? results/environment/builds/20261005T081708Z-27782/configure.log
+?? results/environment/builds/20261005T081708Z-27782/environment/git_commit.txt
+?? results/environment/builds/20261005T081708Z-27782/environment/git_status.txt
+?? results/environment/builds/20261005T081708Z-27782/environment/system_info.txt
+?? results/environment/builds/20261005T081708Z-27782/source.json
+?? results/profiling/ncu/20261005T081252Z-26668-naive/binary.json
+?? results/profiling/ncu/20261005T081252Z-26668-naive/source.json
+?? results/profiling/ncu/20261005T081252Z-26668-naive/status.txt
+?? results/profiling/nsys/20261005T081238Z-26586-naive/binary.json
+?? results/profiling/nsys/20261005T081238Z-26586-naive/source.json
+?? results/profiling/nsys/20261005T081238Z-26586-naive/stats.txt
+?? results/profiling/nsys/20261005T081238Z-26586-naive/status.txt

@@ -1,0 +1,61 @@
+COMMAND: git status --porcelain=v1 --untracked-files=all
+ M results/environment/git_commit.txt
+ M results/environment/gpu_clocks.txt
+ M results/environment/gpu_info.txt
+ M results/environment/latest_capture.txt
+ M results/environment/nvidia_smi.txt
+ M results/environment/system_info.txt
+?? results/environment/builds/20261005T081708Z-27782/CMakeCache.txt
+?? results/environment/builds/20261005T081708Z-27782/build.log
+?? results/environment/builds/20261005T081708Z-27782/build_info.json
+?? results/environment/builds/20261005T081708Z-27782/commands.txt
+?? results/environment/builds/20261005T081708Z-27782/compile_commands.json
+?? results/environment/builds/20261005T081708Z-27782/configure.log
+?? results/environment/builds/20261005T081708Z-27782/environment/capture_status.txt
+?? results/environment/builds/20261005T081708Z-27782/environment/cmake_version.txt
+?? results/environment/builds/20261005T081708Z-27782/environment/gcc_version.txt
+?? results/environment/builds/20261005T081708Z-27782/environment/git_commit.txt
+?? results/environment/builds/20261005T081708Z-27782/environment/git_status.txt
+?? results/environment/builds/20261005T081708Z-27782/environment/gpu_clocks.txt
+?? results/environment/builds/20261005T081708Z-27782/environment/gpu_info.txt
+?? results/environment/builds/20261005T081708Z-27782/environment/nvcc_version.txt
+?? results/environment/builds/20261005T081708Z-27782/environment/nvidia_smi.txt
+?? results/environment/builds/20261005T081708Z-27782/environment/source.json
+?? results/environment/builds/20261005T081708Z-27782/environment/system_info.txt
+?? results/environment/builds/20261005T081708Z-27782/source.json
+?? results/environment/builds/20261005T081708Z-27782/status.txt
+?? results/profiling/ncu/20261005T081252Z-26668-naive/binary.json
+?? results/profiling/ncu/20261005T081252Z-26668-naive/source.json
+?? results/profiling/ncu/20261005T081252Z-26668-naive/status.txt
+?? results/profiling/ncu/20261005T083212Z-32191-naive/binary.json
+?? results/profiling/ncu/20261005T083212Z-32191-naive/environment/git_commit.txt
+?? results/profiling/ncu/20261005T083212Z-32191-naive/environment/git_status.txt
+?? results/profiling/ncu/20261005T083212Z-32191-naive/environment/system_info.txt
+?? results/profiling/ncu/20261005T083212Z-32191-naive/source.json
+?? results/profiling/nsys/20261005T081238Z-26586-naive/binary.json
+?? results/profiling/nsys/20261005T081238Z-26586-naive/source.json
+?? results/profiling/nsys/20261005T081238Z-26586-naive/stats.txt
+?? results/profiling/nsys/20261005T081238Z-26586-naive/status.txt
+?? results/profiling/nsys/20261005T081744Z-28302-naive/binary.json
+?? results/profiling/nsys/20261005T081744Z-28302-naive/command.txt
+?? results/profiling/nsys/20261005T081744Z-28302-naive/environment/capture_status.txt
+?? results/profiling/nsys/20261005T081744Z-28302-naive/environment/cmake_version.txt
+?? results/profiling/nsys/20261005T081744Z-28302-naive/environment/gcc_version.txt
+?? results/profiling/nsys/20261005T081744Z-28302-naive/environment/git_commit.txt
+?? results/profiling/nsys/20261005T081744Z-28302-naive/environment/git_status.txt
+?? results/profiling/nsys/20261005T081744Z-28302-naive/environment/gpu_clocks.txt
+?? results/profiling/nsys/20261005T081744Z-28302-naive/environment/gpu_info.txt
+?? results/profiling/nsys/20261005T081744Z-28302-naive/environment/nvcc_version.txt
+?? results/profiling/nsys/20261005T081744Z-28302-naive/environment/nvidia_smi.txt
+?? results/profiling/nsys/20261005T081744Z-28302-naive/environment/source.json
+?? results/profiling/nsys/20261005T081744Z-28302-naive/environment/system_info.txt
+?? results/profiling/nsys/20261005T081744Z-28302-naive/profile.log
+?? results/profiling/nsys/20261005T081744Z-28302-naive/profile_timing.csv
+?? results/profiling/nsys/20261005T081744Z-28302-naive/raw/4096x4096x4096/correctness.csv
+?? results/profiling/nsys/20261005T081744Z-28302-naive/raw/4096x4096x4096/sgemm_v0_naive_samples.csv
+?? results/profiling/nsys/20261005T081744Z-28302-naive/raw/4096x4096x4096/summary.csv
+?? results/profiling/nsys/20261005T081744Z-28302-naive/raw/argv.txt
+?? results/profiling/nsys/20261005T081744Z-28302-naive/raw/build_info.json
+?? results/profiling/nsys/20261005T081744Z-28302-naive/raw/completed.txt
+?? results/profiling/nsys/20261005T081744Z-28302-naive/source.json
+?? results/profiling/nsys/20261005T081744Z-28302-naive/status.txt

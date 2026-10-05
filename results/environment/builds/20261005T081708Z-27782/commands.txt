@@ -1,0 +1,2 @@
+CONFIGURE: cmake -S /content/miniLLMI -B /content/miniLLMI/build -DCMAKE_BUILD_TYPE=Release -DENABLE_CUDA=ON
+BUILD: cmake --build /content/miniLLMI/build --parallel 4 --verbose
