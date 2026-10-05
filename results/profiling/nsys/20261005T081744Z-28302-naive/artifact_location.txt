@@ -1,0 +1,3 @@
+artifact: trace.nsys-rep
+sha256: d0c0c73aac3f4608baad66631a04bf267a7a2ea7ae5703790d716985bc3670a3
+location: Google Drive /MyDrive/miniLLMI/results/profiling/nsys/20261005T081744Z-28302-naive/trace.nsys-rep
