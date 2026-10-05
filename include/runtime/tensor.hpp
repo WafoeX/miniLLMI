@@ -22,6 +22,15 @@ public:
     std::size_t nbytes() const { return runtime::nbytes(shape_, dtype_); }
     bool is_contiguous() const;
 
+    Tensor reshape(Shape shape) const;
+    // Offset is in bytes, relative to this tensor's data_offset. Range is
+    // checked against the shared Storage, not against the source logical shape.
+    Tensor view(Shape shape, Stride stride, std::size_t offset_bytes = 0) const;
+    Tensor narrow(std::size_t axis, std::int64_t start, std::int64_t length) const;
+    // length is an element COUNT, not an end index. step must be positive.
+    Tensor slice(std::size_t axis, std::int64_t start, std::int64_t length,
+                 std::int64_t step = 1) const;
+
     // Points at the first logical element, NOT a promise of contiguous layout.
     // Empty data() returns null; dtype/device checks still apply.
     template<class T> T* data() {

@@ -65,6 +65,39 @@ bool Tensor::is_contiguous() const {
     }
     return true;
 }
+Tensor Tensor::reshape(Shape shape) const {
+    if (!is_contiguous()) throw std::invalid_argument("reshape requires contiguous tensor");
+    if (runtime::numel(shape) != numel()) throw std::invalid_argument("reshape cannot change numel");
+    auto stride = contiguous_stride(shape);
+    return Tensor(storage_, dtype_, std::move(shape), std::move(stride), offset_bytes_);
+}
+Tensor Tensor::view(Shape shape, Stride stride, std::size_t offset_bytes) const {
+    return Tensor(storage_, dtype_, std::move(shape), std::move(stride),
+                  checked_add(offset_bytes_, offset_bytes));
+}
+Tensor Tensor::narrow(std::size_t axis, std::int64_t start, std::int64_t length) const {
+    return slice(axis, start, length, 1);
+}
+Tensor Tensor::slice(std::size_t axis, std::int64_t start, std::int64_t length, std::int64_t step) const {
+    if (axis >= shape_.rank()) throw std::out_of_range("slice axis out of bounds");
+    if (start < 0 || length < 0 || step <= 0) throw std::invalid_argument("invalid slice start/length/step");
+    if (start > shape_[axis]) throw std::out_of_range("slice start out of bounds");
+    if (length > 0) {
+        const auto last = checked_add(as_size(start), checked_mul(as_size(length) - 1, as_size(step)));
+        if (last >= as_size(shape_[axis])) throw std::out_of_range("slice range out of bounds");
+    }
+    auto dimensions = shape_.values();
+    auto strides = stride_.values();
+    dimensions[axis] = length;
+    strides[axis] = as_dimension(checked_mul(as_size(strides[axis]), as_size(step)));
+    Shape result_shape(std::move(dimensions));
+    auto offset = offset_bytes_;
+    // Empty slices keep the source offset, including end-of-axis slices of a
+    // strided tensor. They must never manufacture an out-of-capacity address.
+    if (runtime::numel(result_shape) != 0)
+        offset = checked_add(offset, checked_mul(checked_mul(as_size(start), as_size(stride_[axis])), dtype_size(dtype_)));
+    return Tensor(storage_, dtype_, std::move(result_shape), Stride(std::move(strides)), offset);
+}
 void Tensor::check_access(DType requested) const {
     if (requested != dtype_) throw std::invalid_argument("tensor typed access dtype mismatch");
     if (device().type() != DeviceType::CPU)

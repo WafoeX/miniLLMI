@@ -30,3 +30,11 @@ No allocation/performance claim is made by metadata tests. INT8, negative stride
 - `shape()`, `stride()`, `dtype()`, `device()`, `storage()`, `data_offset()`, `numel()`, `nbytes()`, `is_contiguous()` are the public metadata vocabulary. Singleton axes do not constrain nonempty contiguity. Empty contiguity requires canonical strides.
 - `data<float/int32_t>()` points to the first logical element, **not** a promise that the whole logical tensor is flat/contiguous. `at<T>(indices)` handles strides with checked index rank and bounds. Both reject dtype mismatch and CUDA host access (including empty tensors); const access returns const elements. No unchecked operator kernels are implemented.
 - Copying a Tensor copies metadata and shares storage. Moved-from objects are only valid for destruction/reassignment. Callers own synchronization for concurrent mutation; shared reference counting is not a data-race policy.
+
+## Metadata-only transforms (S1-C4)
+
+- `reshape(shape)` requires contiguous source and equal numel, including scalar/empty cases. It retains storage and byte offset. It never copies on failure.
+- `view(shape, stride, offset_bytes=0)` adds a **relative byte offset** to the current tensor's storage offset with checked arithmetic. The new layout is validated against the shared storage capacity, not the source logical extent; this low-level API may expose other initialized regions in the same storage. Use checked slices for logical subranges.
+- `narrow(axis, start, length)` and `slice(axis, start, length, step=1)` use nonnegative start/length; length is an element count, not an end index. Step is strictly positive. Axis and final logical source index are checked before construction. Result strides/offset calculations are overflow-checked.
+- Empty slices (including start=axis size and length=0) retain the source byte offset instead of manufacturing a possibly invalid strided one-past address. Explicit empty views may use an aligned offset up to capacity.
+- These operations allocate **zero backing buffers** (metadata vectors/control blocks are not claimed allocation-free), share mutable elements and keep storage alive independently of the source Tensor's lifetime. Metadata transforms also work for CUDA identity without touching device memory.

@@ -151,13 +151,73 @@ void test_construction() {
     Tensor cuda_metadata(simulated, DType::FP32, Shape{}, Stride{});
     throws<std::runtime_error>([&] { (void)cuda_metadata.data<float>(); }, "CUDA host dereference accepted");
 }
+void test_views() {
+    using namespace runtime;
+    auto source = Tensor::allocate_cpu(Shape{2, 3, 4});
+    for (std::size_t i = 0; i < source.numel(); ++i) source.data<float>()[i] = static_cast<float>(i);
+    const auto before = testing::cpu_allocation_counts();
+    auto reshaped = source.reshape(Shape{6, 4});
+    require(reshaped.storage() == source.storage() && reshaped.data_offset() == 0 && reshaped.is_contiguous(), "reshape must share storage");
+    reshaped.at<float>({1, 2}) = 123;
+    require(source.at<float>({0, 1, 2}) == 123, "reshape mutation alias");
+    auto head = source.view(Shape{3, 4}, Stride{4, 1}, 12 * 4);
+    require(head.at<float>({1, 2}) == source.at<float>({1, 1, 2}), "byte-relative view address");
+    auto nested = head.view(Shape{4}, Stride{1}, 4 * 4);
+    require(nested.data_offset() == 16 * 4 && nested.data<float>() == source.data<float>() + 16, "nested byte offset");
+    auto range = source.narrow(1, 1, 2);
+    require(range.shape() == Shape{2, 2, 4} && range.stride() == source.stride() && range.data_offset() == 16, "narrow metadata");
+    auto stepped = source.slice(2, 1, 2, 2);
+    require(stepped.stride() == Stride{12, 4, 2} && !stepped.is_contiguous(), "positive-step slice metadata");
+    require(stepped.at<float>({1, 1, 1}) == source.at<float>({1, 1, 3}), "positive-step slice value");
+    stepped.at<float>({1, 1, 1}) = -42;
+    require(source.at<float>({1, 1, 3}) == -42, "slice mutation alias");
+    auto empty = stepped.slice(2, 2, 0, 2);
+    require(empty.numel() == 0 && empty.data_offset() == stepped.data_offset() && empty.data<float>() == nullptr, "empty slice offset rule");
+    require(testing::cpu_allocation_counts().allocations == before.allocations, "reshape/view/slice buffer allocation delta must be zero");
+    auto empty_reshape = Tensor::allocate_cpu(Shape{0, 3}).reshape(Shape{2, 0});
+    require(empty_reshape.numel() == 0, "empty reshape");
+    auto scalar = Tensor::allocate_cpu(Shape{}).reshape(Shape{1, 1});
+    require(scalar.numel() == 1, "scalar reshape");
+    auto after = testing::cpu_allocation_counts();
+    // scalar factory above intentionally allocates; all metadata-only operations do not.
+    require(after.allocations == before.allocations + 1, "views unexpectedly allocated backing buffer");
+    const auto aliases = source.storage().use_count();
+    { auto temporary = source.reshape(Shape{24}); require(source.storage().use_count() == aliases + 1, "view refcount"); }
+    require(source.storage().use_count() == aliases, "view destruction changed live source");
+    std::weak_ptr<Storage> weak;
+    {
+        auto survivor = [&] {
+            auto owner = Tensor::allocate_cpu(Shape{4});
+            owner.at<float>({2}) = 9;
+            weak = owner.storage();
+            return owner.narrow(0, 2, 1);
+        }();
+        require(!weak.expired() && survivor.at<float>({0}) == 9, "view outlives source");
+    }
+    require(weak.expired(), "last view must release storage");
+    throws<std::invalid_argument>([&] { (void)source.reshape(Shape{25}); }, "numel-changing reshape accepted");
+    throws<std::invalid_argument>([&] { (void)stepped.reshape(Shape{12}); }, "noncontiguous reshape accepted");
+    throws<std::out_of_range>([&] { (void)source.view(Shape{1}, Stride{1}, source.nbytes()); }, "view past capacity accepted");
+    throws<std::invalid_argument>([&] { (void)source.view(Shape{2, 2}, Stride{1, 1}); }, "overlapping view accepted");
+    throws<std::out_of_range>([&] { (void)source.slice(3, 0, 1); }, "slice axis accepted");
+    throws<std::invalid_argument>([&] { (void)source.slice(1, -1, 1); }, "negative slice accepted");
+    throws<std::invalid_argument>([&] { (void)source.slice(1, 0, -1); }, "negative length accepted");
+    throws<std::invalid_argument>([&] { (void)source.slice(1, 0, 1, 0); }, "zero step accepted");
+    throws<std::invalid_argument>([&] { (void)source.slice(1, 0, 1, -1); }, "negative step accepted");
+    throws<std::out_of_range>([&] { (void)source.slice(1, 3, 1); }, "nonempty end slice accepted");
+    throws<std::out_of_range>([&] { (void)source.slice(1, 4, 0); }, "empty out-of-bounds start accepted");
+    throws<std::out_of_range>([&] { (void)source.slice(1, 1, 2, 2); }, "stepped overrun accepted");
+    throws<std::overflow_error>([&] { (void)source.slice(1, 0, 1, std::numeric_limits<std::int64_t>::max()); }, "slice stride overflow accepted");
+    throws<std::overflow_error>([&] { (void)head.view(Shape{0}, Stride{1}, std::numeric_limits<std::size_t>::max()); }, "nested offset overflow accepted");
+}
 } // namespace
 int main() {
     try {
         test_metadata();
         test_storage();
         test_construction();
-        std::cout << "Tensor metadata/storage/construction: PASS\n";
+        test_views();
+        std::cout << "Tensor metadata/storage/construction/views: PASS\n";
         return 0;
     } catch (const std::exception& error) {
         std::cerr << "test_tensor: " << error.what() << '\n';
