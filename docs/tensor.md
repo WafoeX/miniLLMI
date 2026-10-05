@@ -21,3 +21,12 @@ No allocation/performance claim is made by metadata tests. INT8, negative stride
 - Device, capacity and pointer are immutable. Storage is noncopyable/nonmovable; `shared_ptr<Storage>` is the ownership handle. Views keep it alive. Wrapped CPU pointers must have adequate alignment and live typed objects for their later dtype; caller-supplied capacity/device identity is trusted.
 - CUDA storage can be described by a wrapped externally owned device pointer, but no CUDA allocation/copy is implemented here. CUDA identity never permits CPU dereference.
 - `RUNTIME_TESTING` exposes cumulative nonzero CPU backing-buffer allocation/free/live counters and one-shot failure injection; these are absent in `BUILD_TESTING=OFF` builds. No timing or throughput claim is made.
+
+## Tensor construction and access (S1-C3)
+
+- `Tensor(storage, dtype, shape, stride, offset_bytes=0)` validates nonnull storage, dtype alignment, offset divisible by element size, rank agreement, positive strides, overflow and bounding span ≤capacity. Empty offsets may be exactly one-past capacity, but never beyond it; `data<T>()` returns null for every empty tensor.
+- Writable overlapping layouts and zero strides are rejected. Non-overlap is conservatively proven by sorting non-singleton axes by stride: each next stride must be at least the bounding span of faster axes. Exotic disjoint layouts that cannot pass this sufficient proof are intentionally unsupported.
+- `Tensor::allocate_cpu(shape, dtype=FP32)` creates canonical, contiguous storage and value-initializes typed C++17 elements to zero. Scalar construction allocates one element; empty construction allocates no backing buffer. Factories validate sizes before allocation.
+- `shape()`, `stride()`, `dtype()`, `device()`, `storage()`, `data_offset()`, `numel()`, `nbytes()`, `is_contiguous()` are the public metadata vocabulary. Singleton axes do not constrain nonempty contiguity. Empty contiguity requires canonical strides.
+- `data<float/int32_t>()` points to the first logical element, **not** a promise that the whole logical tensor is flat/contiguous. `at<T>(indices)` handles strides with checked index rank and bounds. Both reject dtype mismatch and CUDA host access (including empty tensors); const access returns const elements. No unchecked operator kernels are implemented.
+- Copying a Tensor copies metadata and shares storage. Moved-from objects are only valid for destruction/reassignment. Callers own synchronization for concurrent mutation; shared reference counting is not a data-race policy.

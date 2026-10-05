@@ -1,6 +1,7 @@
 #include "runtime/device.hpp"
 #include "runtime/shape.hpp"
 #include "runtime/storage.hpp"
+#include "runtime/tensor.hpp"
 #include <iostream>
 #include <limits>
 #include <stdexcept>
@@ -95,12 +96,68 @@ void test_storage() {
     require(invalid_calls == 0, "invalid wrap must not transfer ownership");
     throws<std::invalid_argument>([] { (void)Storage::wrap(Device{}, 0, nullptr, {}); }, "missing deleter accepted");
 }
+void test_construction() {
+    using namespace runtime;
+    for (const Shape& shape : {Shape{5}, Shape{2, 3}, Shape{2, 3, 4}, Shape{2, 3, 4, 5}}) {
+        auto tensor = Tensor::allocate_cpu(shape);
+        require(tensor.is_contiguous() && tensor.data_offset() == 0 && tensor.nbytes() == tensor.numel() * 4, "contiguous construction");
+        for (std::size_t i = 0; i < tensor.numel(); ++i) tensor.data<float>()[i] = static_cast<float>(i);
+        for (std::size_t i = 0; i < tensor.numel(); ++i) {
+            std::vector<std::int64_t> index(shape.rank());
+            auto remainder = i;
+            for (std::size_t axis = shape.rank(); axis-- > 0;) {
+                index[axis] = static_cast<std::int64_t>(remainder % as_size(shape[axis]));
+                remainder /= as_size(shape[axis]);
+            }
+            require(tensor.at<float>(index) == static_cast<float>(i), "1D-4D checked address mapping");
+        }
+    }
+    auto scalar = Tensor::allocate_cpu(Shape{});
+    require(scalar.at<float>({}) == 0 && scalar.is_contiguous(), "initialized scalar");
+    scalar.at<float>({}) = 7;
+    require(*scalar.data<float>() == 7, "scalar access");
+    auto ids = Tensor::allocate_cpu(Shape{3}, DType::INT32);
+    ids.at<std::int32_t>({1}) = 257;
+    const auto& const_ids = ids;
+    require(const_ids.at<std::int32_t>({1}) == 257 && const_ids.data<std::int32_t>()[0] == 0, "INT32 token-ID/const access");
+    throws<std::invalid_argument>([&] { (void)ids.data<float>(); }, "dtype mismatch accepted");
+    throws<std::invalid_argument>([&] { (void)ids.at<float>({0}); }, "indexed dtype mismatch accepted");
+    throws<std::invalid_argument>([&] { (void)ids.at<std::int32_t>({}); }, "index rank mismatch accepted");
+    throws<std::out_of_range>([&] { (void)ids.at<std::int32_t>({-1}); }, "negative index accepted");
+    throws<std::out_of_range>([&] { (void)ids.at<std::int32_t>({3}); }, "out-of-bounds accepted");
+    auto empty = Tensor::allocate_cpu(Shape{2, 0, 3});
+    require(empty.data<float>() == nullptr && empty.is_contiguous() && empty.nbytes() == 0, "empty tensor policy");
+    throws<std::out_of_range>([&] { (void)empty.at<float>({0, 0, 0}); }, "empty indexing accepted");
+    auto storage = Storage::allocate_cpu(32);
+    Tensor offset(storage, DType::FP32, Shape{2}, Stride{1}, 24);
+    require(offset.data_offset() == 24 && offset.is_contiguous(), "offset subrange");
+    Tensor empty_end(storage, DType::FP32, Shape{0}, Stride{1}, 32);
+    require(empty_end.data<float>() == nullptr, "empty one-past offset");
+    throws<std::invalid_argument>([] { Tensor bad(nullptr, DType::FP32, Shape{}, Stride{}); }, "null storage accepted");
+    throws<std::invalid_argument>([&] { Tensor bad(storage, DType::FP32, Shape{2}, Stride{}); }, "stride rank mismatch accepted");
+    throws<std::invalid_argument>([&] { Tensor bad(storage, DType::FP32, Shape{2}, Stride{0}); }, "broadcast stride accepted");
+    throws<std::invalid_argument>([&] { Tensor bad(storage, DType::FP32, Shape{2, 2}, Stride{1, 1}); }, "overlap accepted");
+    throws<std::invalid_argument>([&] { Tensor bad(storage, DType::FP32, Shape{1}, Stride{1}, 2); }, "unaligned offset accepted");
+    throws<std::out_of_range>([&] { Tensor bad(storage, DType::FP32, Shape{3}, Stride{1}, 24); }, "capacity overrun accepted");
+    throws<std::out_of_range>([&] { Tensor bad(storage, DType::FP32, Shape{0}, Stride{1}, 36); }, "empty past capacity accepted");
+    throws<std::overflow_error>([&] {
+        Tensor bad(storage, DType::FP32, Shape{2}, Stride{1}, std::numeric_limits<std::size_t>::max() - 3);
+    }, "offset/span overflow accepted");
+    auto* raw = new unsigned char[9];
+    auto misaligned = Storage::wrap(Device{}, 8, raw + 1, [raw](void*) noexcept { delete[] raw; });
+    throws<std::invalid_argument>([&] { Tensor bad(misaligned, DType::FP32, Shape{1}, Stride{1}); }, "misaligned pointer accepted");
+    // Device declaration compiles without CUDA. This is not an actual GPU allocation.
+    auto simulated = Storage::wrap(Device(DeviceType::CUDA, 0), 4, scalar.data<float>(), [](void*) noexcept {});
+    Tensor cuda_metadata(simulated, DType::FP32, Shape{}, Stride{});
+    throws<std::runtime_error>([&] { (void)cuda_metadata.data<float>(); }, "CUDA host dereference accepted");
+}
 } // namespace
 int main() {
     try {
         test_metadata();
         test_storage();
-        std::cout << "Tensor metadata/storage: PASS\n";
+        test_construction();
+        std::cout << "Tensor metadata/storage/construction: PASS\n";
         return 0;
     } catch (const std::exception& error) {
         std::cerr << "test_tensor: " << error.what() << '\n';
