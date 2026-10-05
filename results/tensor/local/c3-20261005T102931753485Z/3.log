@@ -1,0 +1,20 @@
+-- Configuring done (0.2s)
+-- Generating done (0.0s)
+-- Build files have been written to: /Users/wafoe/projects/me/CXXEg/build-stage1-sanitizer
+[ 11%] Building CXX object CMakeFiles/runtime.dir/src/runtime/tensor.cpp.o
+[ 11%] Built target refresh_provenance
+[ 33%] Built target stage0_common
+[ 55%] Built target test_common
+[ 66%] Linking CXX static library libruntime.a
+[ 77%] Built target runtime
+[ 88%] Building CXX object CMakeFiles/test_tensor.dir/tests/test_tensor.cpp.o
+[100%] Linking CXX executable test_tensor
+[100%] Built target test_tensor
+/Users/wafoe/projects/me/CXXEg/tests/test_tensor.cpp:101:22: warning: loop variable 'shape' creates a copy from type 'const Shape' (aka 'const Metadata<detail::ShapeTag>') [-Wrange-loop-construct]
+  101 |     for (const Shape shape : {Shape{5}, Shape{2, 3}, Shape{2, 3, 4}, Shape{2, 3, 4, 5}}) {
+      |                      ^
+/Users/wafoe/projects/me/CXXEg/tests/test_tensor.cpp:101:10: note: use reference type 'const Shape &' (aka 'const Metadata<detail::ShapeTag> &') to prevent copying
+  101 |     for (const Shape shape : {Shape{5}, Shape{2, 3}, Shape{2, 3, 4}, Shape{2, 3, 4, 5}}) {
+      |          ^~~~~~~~~~~~~~~~~~~
+      |                      &
+1 warning generated.

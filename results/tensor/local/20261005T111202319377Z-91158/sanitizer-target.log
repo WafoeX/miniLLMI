@@ -1,0 +1,51 @@
+[ 50%] Built target runtime
+[ 75%] Built target test_tensor_properties
+[100%] Built target test_tensor
+UpdateCTestConfiguration  from :/Users/wafoe/projects/me/CXXEg/build-stage1-clean-source/build-stage1-validation/20261005T111202319377Z-91158/sanitizer/DartConfiguration.tcl
+Parse Config file:/Users/wafoe/projects/me/CXXEg/build-stage1-clean-source/build-stage1-validation/20261005T111202319377Z-91158/sanitizer/DartConfiguration.tcl
+Test project /Users/wafoe/projects/me/CXXEg/build-stage1-clean-source/build-stage1-validation/20261005T111202319377Z-91158/sanitizer
+Constructing a list of tests
+Done constructing a list of tests
+Updating test list for fixtures
+Added 0 tests to meet fixture requirements
+Checking test dependency graph...
+Checking test dependency graph end
+test 1
+    Start 1: tensor
+
+1: Test command: /Users/wafoe/projects/me/CXXEg/build-stage1-clean-source/build-stage1-validation/20261005T111202319377Z-91158/sanitizer/test_tensor
+1: Working Directory: /Users/wafoe/projects/me/CXXEg/build-stage1-clean-source/build-stage1-validation/20261005T111202319377Z-91158/sanitizer
+1: Test timeout computed to be: 1500
+1: Allocation checks: views/transpose=0 buffers; nonempty materialize=1; copy=24 logical bytes, 0 buffers
+1: Tensor metadata/storage/construction/views/copy: PASS
+1/3 Test #1: tensor ...........................   Passed    0.50 sec
+test 2
+    Start 2: tensor_properties
+
+2: Test command: /Users/wafoe/projects/me/CXXEg/build-stage1-clean-source/build-stage1-validation/20261005T111202319377Z-91158/sanitizer/test_tensor_properties
+2: Working Directory: /Users/wafoe/projects/me/CXXEg/build-stage1-clean-source/build-stage1-validation/20261005T111202319377Z-91158/sanitizer
+2: Test timeout computed to be: 1500
+2: Tensor properties: PASS seed=20903 trials=600 ranks=0..8 FP32/INT32; padding/offset/permutation/slice/materialization/copy/alias
+2/3 Test #2: tensor_properties ................   Passed    0.54 sec
+test 3
+    Start 3: tensor_validation
+
+3: Test command: /Users/wafoe/miniforge3/bin/python3.14 "/Users/wafoe/projects/me/CXXEg/build-stage1-clean-source/tests/test_tensor_validation.py"
+3: Working Directory: /Users/wafoe/projects/me/CXXEg/build-stage1-clean-source/build-stage1-validation/20261005T111202319377Z-91158/sanitizer
+3: Test timeout computed to be: 1500
+3: ......
+3: ----------------------------------------------------------------------
+3: Ran 6 tests in 0.032s
+3: 
+3: OK
+3/3 Test #3: tensor_validation ................   Passed    0.08 sec
+
+100% tests passed out of 3
+
+Label Time Summary:
+cpu       =   1.12 sec*proc (3 tests)
+tensor    =   1.12 sec*proc (3 tests)
+
+Total Test time (real) =   1.12 sec
+[100%] Built target check_tensor
+[100%] Built target check_tensor_sanitizers

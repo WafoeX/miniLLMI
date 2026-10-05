@@ -1,0 +1,53 @@
+{
+  "commands": [
+    [
+      "python3",
+      "tools/provenance.py"
+    ],
+    [
+      "cmake",
+      "--build",
+      "build-stage1-release",
+      "--parallel",
+      "4"
+    ],
+    [
+      "ctest",
+      "--test-dir",
+      "build-stage1-release",
+      "--output-on-failure"
+    ],
+    [
+      "cmake",
+      "-S",
+      ".",
+      "-B",
+      "build-stage1-sanitizer",
+      "-DCMAKE_BUILD_TYPE=Debug",
+      "-DENABLE_CUDA=OFF",
+      "-DCMAKE_CXX_FLAGS=-fsanitize=address,undefined -fno-omit-frame-pointer",
+      "-DCMAKE_EXE_LINKER_FLAGS=-fsanitize=address,undefined"
+    ],
+    [
+      "cmake",
+      "--build",
+      "build-stage1-sanitizer",
+      "--parallel",
+      "4"
+    ],
+    [
+      "ctest",
+      "--test-dir",
+      "build-stage1-sanitizer",
+      "--output-on-failure"
+    ]
+  ],
+  "exit_codes": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+  ]
+}

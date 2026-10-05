@@ -1,0 +1,28 @@
+[
+  [
+    "python3",
+    "tools/provenance.py"
+  ],
+  [
+    "cmake",
+    "-S",
+    ".",
+    "-B",
+    "build-stage1-release",
+    "-DCMAKE_BUILD_TYPE=Release",
+    "-DENABLE_CUDA=OFF"
+  ],
+  [
+    "cmake",
+    "--build",
+    "build-stage1-release",
+    "--parallel",
+    "4"
+  ],
+  [
+    "ctest",
+    "--test-dir",
+    "build-stage1-release",
+    "--output-on-failure"
+  ]
+]

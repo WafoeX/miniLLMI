@@ -1,0 +1,74 @@
+UpdateCTestConfiguration  from :/Users/wafoe/projects/me/CXXEg/build-stage1-validation/20261005T104442715051Z-84552/sanitizer/DartConfiguration.tcl
+Parse Config file:/Users/wafoe/projects/me/CXXEg/build-stage1-validation/20261005T104442715051Z-84552/sanitizer/DartConfiguration.tcl
+Test project /Users/wafoe/projects/me/CXXEg/build-stage1-validation/20261005T104442715051Z-84552/sanitizer
+Constructing a list of tests
+Done constructing a list of tests
+Updating test list for fixtures
+Added 0 tests to meet fixture requirements
+Checking test dependency graph...
+Checking test dependency graph end
+test 1
+    Start 1: tensor
+
+1: Test command: /Users/wafoe/projects/me/CXXEg/build-stage1-validation/20261005T104442715051Z-84552/sanitizer/test_tensor
+1: Working Directory: /Users/wafoe/projects/me/CXXEg/build-stage1-validation/20261005T104442715051Z-84552/sanitizer
+1: Test timeout computed to be: 1500
+1: Allocation checks: views/transpose=0 buffers; nonempty materialize=1; copy=24 logical bytes, 0 buffers
+1: Tensor metadata/storage/construction/views/copy: PASS
+1/4 Test #1: tensor ...........................   Passed    0.01 sec
+test 2
+    Start 2: tensor_properties
+
+2: Test command: /Users/wafoe/projects/me/CXXEg/build-stage1-validation/20261005T104442715051Z-84552/sanitizer/test_tensor_properties
+2: Working Directory: /Users/wafoe/projects/me/CXXEg/build-stage1-validation/20261005T104442715051Z-84552/sanitizer
+2: Test timeout computed to be: 1500
+2: Tensor properties: PASS seed=20903 trials=600 ranks=0..8 FP32/INT32; padding/offset/permutation/slice/materialization/copy/alias
+2/4 Test #2: tensor_properties ................   Passed    0.07 sec
+test 3
+    Start 3: common
+
+3: Test command: /Users/wafoe/projects/me/CXXEg/build-stage1-validation/20261005T104442715051Z-84552/sanitizer/test_common
+3: Working Directory: /Users/wafoe/projects/me/CXXEg/build-stage1-validation/20261005T104442715051Z-84552/sanitizer
+3: Test timeout computed to be: 1500
+3: CPU reference, validation, statistics, GFLOPS, CSV: PASS
+3/4 Test #3: common ...........................   Passed    0.40 sec
+test 4
+    Start 4: tools
+
+4: Test command: /Users/wafoe/miniforge3/bin/python3.14 "/Users/wafoe/projects/me/CXXEg/tests/test_tools.py"
+4: Working Directory: /Users/wafoe/projects/me/CXXEg/build-stage1-validation/20261005T104442715051Z-84552/sanitizer
+4: Test timeout computed to be: 1500
+4: test_bad_numeric_input (__main__.AnalysisTests.test_bad_numeric_input) ... ok
+4: test_changed_comparison_conditions (__main__.AnalysisTests.test_changed_comparison_conditions) ... ok
+4: test_cli_missing_csv_preserves_existing_report (__main__.AnalysisTests.test_cli_missing_csv_preserves_existing_report) ... ok
+4: test_duplicate_or_single_kernel (__main__.AnalysisTests.test_duplicate_or_single_kernel) ... ok
+4: test_failure_not_success (__main__.AnalysisTests.test_failure_not_success) ... ok
+4: test_invalid_build_and_commit (__main__.AnalysisTests.test_invalid_build_and_commit) ... ok
+4: test_missing_raw_samples (__main__.AnalysisTests.test_missing_raw_samples) ... ok
+4: test_no_data_no_report (__main__.AnalysisTests.test_no_data_no_report) ... ok
+4: test_no_report_without_completed_run (__main__.AnalysisTests.test_no_report_without_completed_run) ... ok
+4: test_path_traversal (__main__.AnalysisTests.test_path_traversal) ... ok
+4: test_ratio_wrong_units (__main__.AnalysisTests.test_ratio_wrong_units) ... ok
+4: test_report_from_raw (__main__.AnalysisTests.test_report_from_raw) ... ok
+4: test_timing_raw_tamper (__main__.AnalysisTests.test_timing_raw_tamper) ... ok
+4: test_wrong_gflops (__main__.AnalysisTests.test_wrong_gflops) ... ok
+4: test_clean_and_dirty_source (__main__.ProvenanceTests.test_clean_and_dirty_source) ... ok
+4: test_header_stable (__main__.ProvenanceTests.test_header_stable) ... ok
+4: test_results_and_report_excluded (__main__.ProvenanceTests.test_results_and_report_excluded) ... ok
+4: test_untracked_source_included (__main__.ProvenanceTests.test_untracked_source_included) ... ok
+4: test_failed_environment_capture_preserved (__main__.ScriptFailureTests.test_failed_environment_capture_preserved) ... ok
+4: test_stale_binary_refused_before_benchmark (__main__.ScriptFailureTests.test_stale_binary_refused_before_benchmark) ... ok
+4: 
+4: ----------------------------------------------------------------------
+4: Ran 20 tests in 1.208s
+4: 
+4: OK
+4/4 Test #4: tools ............................   Passed    1.26 sec
+
+100% tests passed out of 4
+
+Label Time Summary:
+cpu       =   0.08 sec*proc (2 tests)
+tensor    =   0.08 sec*proc (2 tests)
+
+Total Test time (real) =   1.74 sec

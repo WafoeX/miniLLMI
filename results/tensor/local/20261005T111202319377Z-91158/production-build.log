@@ -1,0 +1,39 @@
+Change Dir: '/Users/wafoe/projects/me/CXXEg/build-stage1-clean-source/build-stage1-validation/20261005T111202319377Z-91158/production'
+
+Run Build Command(s): /opt/homebrew/bin/cmake -E env VERBOSE=1 /usr/bin/make -f Makefile -j4
+/opt/homebrew/bin/cmake -S/Users/wafoe/projects/me/CXXEg/build-stage1-clean-source -B/Users/wafoe/projects/me/CXXEg/build-stage1-clean-source/build-stage1-validation/20261005T111202319377Z-91158/production --check-build-system CMakeFiles/Makefile.cmake 0
+/opt/homebrew/bin/cmake -E cmake_progress_start /Users/wafoe/projects/me/CXXEg/build-stage1-clean-source/build-stage1-validation/20261005T111202319377Z-91158/production/CMakeFiles /Users/wafoe/projects/me/CXXEg/build-stage1-clean-source/build-stage1-validation/20261005T111202319377Z-91158/production//CMakeFiles/progress.marks
+/Library/Developer/CommandLineTools/usr/bin/make  -f CMakeFiles/Makefile2 all
+/Library/Developer/CommandLineTools/usr/bin/make  -f CMakeFiles/refresh_provenance.dir/build.make CMakeFiles/refresh_provenance.dir/depend
+/Library/Developer/CommandLineTools/usr/bin/make  -f CMakeFiles/runtime.dir/build.make CMakeFiles/runtime.dir/depend
+cd /Users/wafoe/projects/me/CXXEg/build-stage1-clean-source/build-stage1-validation/20261005T111202319377Z-91158/production && /opt/homebrew/bin/cmake -E cmake_depends "Unix Makefiles" /Users/wafoe/projects/me/CXXEg/build-stage1-clean-source /Users/wafoe/projects/me/CXXEg/build-stage1-clean-source /Users/wafoe/projects/me/CXXEg/build-stage1-clean-source/build-stage1-validation/20261005T111202319377Z-91158/production /Users/wafoe/projects/me/CXXEg/build-stage1-clean-source/build-stage1-validation/20261005T111202319377Z-91158/production /Users/wafoe/projects/me/CXXEg/build-stage1-clean-source/build-stage1-validation/20261005T111202319377Z-91158/production/CMakeFiles/refresh_provenance.dir/DependInfo.cmake "--color=" refresh_provenance
+cd /Users/wafoe/projects/me/CXXEg/build-stage1-clean-source/build-stage1-validation/20261005T111202319377Z-91158/production && /opt/homebrew/bin/cmake -E cmake_depends "Unix Makefiles" /Users/wafoe/projects/me/CXXEg/build-stage1-clean-source /Users/wafoe/projects/me/CXXEg/build-stage1-clean-source /Users/wafoe/projects/me/CXXEg/build-stage1-clean-source/build-stage1-validation/20261005T111202319377Z-91158/production /Users/wafoe/projects/me/CXXEg/build-stage1-clean-source/build-stage1-validation/20261005T111202319377Z-91158/production /Users/wafoe/projects/me/CXXEg/build-stage1-clean-source/build-stage1-validation/20261005T111202319377Z-91158/production/CMakeFiles/runtime.dir/DependInfo.cmake "--color=" runtime
+/Library/Developer/CommandLineTools/usr/bin/make  -f CMakeFiles/runtime.dir/build.make CMakeFiles/runtime.dir/build
+/Library/Developer/CommandLineTools/usr/bin/make  -f CMakeFiles/refresh_provenance.dir/build.make CMakeFiles/refresh_provenance.dir/build
+/Users/wafoe/miniforge3/bin/python3.14 /Users/wafoe/projects/me/CXXEg/build-stage1-clean-source/tools/provenance.py --root /Users/wafoe/projects/me/CXXEg/build-stage1-clean-source --header /Users/wafoe/projects/me/CXXEg/build-stage1-clean-source/build-stage1-validation/20261005T111202319377Z-91158/production/generated/stage0/provenance.hpp
+[ 50%] Building CXX object CMakeFiles/runtime.dir/src/runtime/copy.cpp.o
+[ 50%] Building CXX object CMakeFiles/runtime.dir/src/runtime/storage.cpp.o
+[ 50%] Building CXX object CMakeFiles/runtime.dir/src/runtime/tensor.cpp.o
+/usr/bin/c++  -I/Users/wafoe/projects/me/CXXEg/build-stage1-clean-source/include -O3 -DNDEBUG -std=c++17 -arch arm64 -Wall -Wextra -Wpedantic -MD -MT CMakeFiles/runtime.dir/src/runtime/copy.cpp.o -MF CMakeFiles/runtime.dir/src/runtime/copy.cpp.o.d -o CMakeFiles/runtime.dir/src/runtime/copy.cpp.o -c /Users/wafoe/projects/me/CXXEg/build-stage1-clean-source/src/runtime/copy.cpp
+/usr/bin/c++  -I/Users/wafoe/projects/me/CXXEg/build-stage1-clean-source/include -O3 -DNDEBUG -std=c++17 -arch arm64 -Wall -Wextra -Wpedantic -MD -MT CMakeFiles/runtime.dir/src/runtime/storage.cpp.o -MF CMakeFiles/runtime.dir/src/runtime/storage.cpp.o.d -o CMakeFiles/runtime.dir/src/runtime/storage.cpp.o -c /Users/wafoe/projects/me/CXXEg/build-stage1-clean-source/src/runtime/storage.cpp
+/usr/bin/c++  -I/Users/wafoe/projects/me/CXXEg/build-stage1-clean-source/include -O3 -DNDEBUG -std=c++17 -arch arm64 -Wall -Wextra -Wpedantic -MD -MT CMakeFiles/runtime.dir/src/runtime/tensor.cpp.o -MF CMakeFiles/runtime.dir/src/runtime/tensor.cpp.o.d -o CMakeFiles/runtime.dir/src/runtime/tensor.cpp.o -c /Users/wafoe/projects/me/CXXEg/build-stage1-clean-source/src/runtime/tensor.cpp
+[ 50%] Built target refresh_provenance
+/Library/Developer/CommandLineTools/usr/bin/make  -f CMakeFiles/stage0_common.dir/build.make CMakeFiles/stage0_common.dir/depend
+cd /Users/wafoe/projects/me/CXXEg/build-stage1-clean-source/build-stage1-validation/20261005T111202319377Z-91158/production && /opt/homebrew/bin/cmake -E cmake_depends "Unix Makefiles" /Users/wafoe/projects/me/CXXEg/build-stage1-clean-source /Users/wafoe/projects/me/CXXEg/build-stage1-clean-source /Users/wafoe/projects/me/CXXEg/build-stage1-clean-source/build-stage1-validation/20261005T111202319377Z-91158/production /Users/wafoe/projects/me/CXXEg/build-stage1-clean-source/build-stage1-validation/20261005T111202319377Z-91158/production /Users/wafoe/projects/me/CXXEg/build-stage1-clean-source/build-stage1-validation/20261005T111202319377Z-91158/production/CMakeFiles/stage0_common.dir/DependInfo.cmake "--color=" stage0_common
+/Library/Developer/CommandLineTools/usr/bin/make  -f CMakeFiles/stage0_common.dir/build.make CMakeFiles/stage0_common.dir/build
+[ 66%] Building CXX object CMakeFiles/stage0_common.dir/src/common.cpp.o
+/usr/bin/c++  -I/Users/wafoe/projects/me/CXXEg/build-stage1-clean-source/include -I/Users/wafoe/projects/me/CXXEg/build-stage1-clean-source/build-stage1-validation/20261005T111202319377Z-91158/production/generated -O3 -DNDEBUG -std=c++17 -arch arm64 -Wall -Wextra -Wpedantic -MD -MT CMakeFiles/stage0_common.dir/src/common.cpp.o -MF CMakeFiles/stage0_common.dir/src/common.cpp.o.d -o CMakeFiles/stage0_common.dir/src/common.cpp.o -c /Users/wafoe/projects/me/CXXEg/build-stage1-clean-source/src/common.cpp
+[ 83%] Linking CXX static library libruntime.a
+/opt/homebrew/bin/cmake -P CMakeFiles/runtime.dir/cmake_clean_target.cmake
+/opt/homebrew/bin/cmake -E cmake_link_script CMakeFiles/runtime.dir/link.txt --verbose=1
+/usr/bin/ar qc libruntime.a CMakeFiles/runtime.dir/src/runtime/storage.cpp.o CMakeFiles/runtime.dir/src/runtime/tensor.cpp.o CMakeFiles/runtime.dir/src/runtime/copy.cpp.o
+/usr/bin/ranlib libruntime.a
+[ 83%] Built target runtime
+[100%] Linking CXX static library libstage0_common.a
+/opt/homebrew/bin/cmake -P CMakeFiles/stage0_common.dir/cmake_clean_target.cmake
+/opt/homebrew/bin/cmake -E cmake_link_script CMakeFiles/stage0_common.dir/link.txt --verbose=1
+/usr/bin/ar qc libstage0_common.a CMakeFiles/stage0_common.dir/src/common.cpp.o
+/usr/bin/ranlib libstage0_common.a
+[100%] Built target stage0_common
+/opt/homebrew/bin/cmake -E cmake_progress_start /Users/wafoe/projects/me/CXXEg/build-stage1-clean-source/build-stage1-validation/20261005T111202319377Z-91158/production/CMakeFiles 0
+

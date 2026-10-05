@@ -1,0 +1,86 @@
+{
+  "schema_version": 1,
+  "run_id": "20261005T105341356551Z-87359",
+  "scope": "CPU-only correctness, no performance claim",
+  "source": {
+    "commit": "1c491cc51aa1a4a6b3c1a78ec84a27bfc6ed9432",
+    "source_digest": "2380f055a90e0e79487a5d2004d820c8080efb928449aa34331e62407392c4ef",
+    "source_dirty": true
+  },
+  "host": "Wafoe-MacBook.local",
+  "platform": "macOS-26.7-arm64-arm-64bit-Mach-O",
+  "machine": "arm64",
+  "python": "3.14.6 | packaged by conda-forge | (main, Aug 11 2026, 10:24:52) [Clang 20.1.8 ]",
+  "sanitizer_environment": {
+    "ASAN_OPTIONS": "halt_on_error=1:detect_leaks=0",
+    "UBSAN_OPTIONS": "halt_on_error=1:print_stacktrace=1"
+  },
+  "commands": [
+    {
+      "argv": [
+        "cmake",
+        "--version"
+      ],
+      "cwd": "/Users/wafoe/projects/me/CXXEg",
+      "log": "cmake-version.log",
+      "exit_code": 0
+    },
+    {
+      "argv": [
+        "git",
+        "--version"
+      ],
+      "cwd": "/Users/wafoe/projects/me/CXXEg",
+      "log": "git-version.log",
+      "exit_code": 0
+    },
+    {
+      "argv": [
+        "cmake",
+        "-S",
+        "/Users/wafoe/projects/me/CXXEg",
+        "-B",
+        "/Users/wafoe/projects/me/CXXEg/build-stage1-validation/20261005T105341356551Z-87359/release",
+        "-DCMAKE_BUILD_TYPE=Release",
+        "-DENABLE_CUDA=OFF",
+        "-DENABLE_SANITIZERS=OFF",
+        "-DBUILD_TESTING=ON"
+      ],
+      "cwd": "/Users/wafoe/projects/me/CXXEg",
+      "log": "release-configure.log",
+      "exit_code": 0
+    },
+    {
+      "argv": [
+        "cmake",
+        "--build",
+        "/Users/wafoe/projects/me/CXXEg/build-stage1-validation/20261005T105341356551Z-87359/release",
+        "--parallel",
+        "4",
+        "--verbose"
+      ],
+      "cwd": "/Users/wafoe/projects/me/CXXEg",
+      "log": "release-build.log",
+      "exit_code": 0
+    },
+    {
+      "argv": [
+        "ctest",
+        "--test-dir",
+        "/Users/wafoe/projects/me/CXXEg/build-stage1-validation/20261005T105341356551Z-87359/release",
+        "--output-on-failure",
+        "--verbose"
+      ],
+      "cwd": "/Users/wafoe/projects/me/CXXEg",
+      "log": "release-ctest.log",
+      "exit_code": 8
+    }
+  ],
+  "status": "failed",
+  "error": "Command failed; preserved full log: /Users/wafoe/projects/me/CXXEg/results/tensor/local/20261005T105341356551Z-87359/release-ctest.log",
+  "source_after": {
+    "commit": "1c491cc51aa1a4a6b3c1a78ec84a27bfc6ed9432",
+    "source_digest": "2380f055a90e0e79487a5d2004d820c8080efb928449aa34331e62407392c4ef",
+    "source_dirty": true
+  }
+}

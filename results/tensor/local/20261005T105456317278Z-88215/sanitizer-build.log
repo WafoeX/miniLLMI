@@ -1,0 +1,66 @@
+Change Dir: '/Users/wafoe/projects/me/CXXEg/build-stage1-validation/20261005T105456317278Z-88215/sanitizer'
+
+Run Build Command(s): /opt/homebrew/bin/cmake -E env VERBOSE=1 /usr/bin/make -f Makefile -j4
+/opt/homebrew/bin/cmake -S/Users/wafoe/projects/me/CXXEg -B/Users/wafoe/projects/me/CXXEg/build-stage1-validation/20261005T105456317278Z-88215/sanitizer --check-build-system CMakeFiles/Makefile.cmake 0
+/opt/homebrew/bin/cmake -E cmake_progress_start /Users/wafoe/projects/me/CXXEg/build-stage1-validation/20261005T105456317278Z-88215/sanitizer/CMakeFiles /Users/wafoe/projects/me/CXXEg/build-stage1-validation/20261005T105456317278Z-88215/sanitizer//CMakeFiles/progress.marks
+/Library/Developer/CommandLineTools/usr/bin/make  -f CMakeFiles/Makefile2 all
+/Library/Developer/CommandLineTools/usr/bin/make  -f CMakeFiles/refresh_provenance.dir/build.make CMakeFiles/refresh_provenance.dir/depend
+/Library/Developer/CommandLineTools/usr/bin/make  -f CMakeFiles/runtime.dir/build.make CMakeFiles/runtime.dir/depend
+cd /Users/wafoe/projects/me/CXXEg/build-stage1-validation/20261005T105456317278Z-88215/sanitizer && /opt/homebrew/bin/cmake -E cmake_depends "Unix Makefiles" /Users/wafoe/projects/me/CXXEg /Users/wafoe/projects/me/CXXEg /Users/wafoe/projects/me/CXXEg/build-stage1-validation/20261005T105456317278Z-88215/sanitizer /Users/wafoe/projects/me/CXXEg/build-stage1-validation/20261005T105456317278Z-88215/sanitizer /Users/wafoe/projects/me/CXXEg/build-stage1-validation/20261005T105456317278Z-88215/sanitizer/CMakeFiles/refresh_provenance.dir/DependInfo.cmake "--color=" refresh_provenance
+cd /Users/wafoe/projects/me/CXXEg/build-stage1-validation/20261005T105456317278Z-88215/sanitizer && /opt/homebrew/bin/cmake -E cmake_depends "Unix Makefiles" /Users/wafoe/projects/me/CXXEg /Users/wafoe/projects/me/CXXEg /Users/wafoe/projects/me/CXXEg/build-stage1-validation/20261005T105456317278Z-88215/sanitizer /Users/wafoe/projects/me/CXXEg/build-stage1-validation/20261005T105456317278Z-88215/sanitizer /Users/wafoe/projects/me/CXXEg/build-stage1-validation/20261005T105456317278Z-88215/sanitizer/CMakeFiles/runtime.dir/DependInfo.cmake "--color=" runtime
+/Library/Developer/CommandLineTools/usr/bin/make  -f CMakeFiles/refresh_provenance.dir/build.make CMakeFiles/refresh_provenance.dir/build
+/Library/Developer/CommandLineTools/usr/bin/make  -f CMakeFiles/runtime.dir/build.make CMakeFiles/runtime.dir/build
+/Users/wafoe/miniforge3/bin/python3.14 /Users/wafoe/projects/me/CXXEg/tools/provenance.py --root /Users/wafoe/projects/me/CXXEg --header /Users/wafoe/projects/me/CXXEg/build-stage1-validation/20261005T105456317278Z-88215/sanitizer/generated/stage0/provenance.hpp
+[ 25%] Building CXX object CMakeFiles/runtime.dir/src/runtime/copy.cpp.o
+[ 25%] Building CXX object CMakeFiles/runtime.dir/src/runtime/storage.cpp.o
+[ 25%] Building CXX object CMakeFiles/runtime.dir/src/runtime/tensor.cpp.o
+/usr/bin/c++ -DRUNTIME_TESTING=1 -I/Users/wafoe/projects/me/CXXEg/include -g -std=c++17 -arch arm64 -fsanitize=address,undefined -fno-sanitize-recover=undefined -fno-omit-frame-pointer -Wall -Wextra -Wpedantic -MD -MT CMakeFiles/runtime.dir/src/runtime/copy.cpp.o -MF CMakeFiles/runtime.dir/src/runtime/copy.cpp.o.d -o CMakeFiles/runtime.dir/src/runtime/copy.cpp.o -c /Users/wafoe/projects/me/CXXEg/src/runtime/copy.cpp
+/usr/bin/c++ -DRUNTIME_TESTING=1 -I/Users/wafoe/projects/me/CXXEg/include -g -std=c++17 -arch arm64 -fsanitize=address,undefined -fno-sanitize-recover=undefined -fno-omit-frame-pointer -Wall -Wextra -Wpedantic -MD -MT CMakeFiles/runtime.dir/src/runtime/storage.cpp.o -MF CMakeFiles/runtime.dir/src/runtime/storage.cpp.o.d -o CMakeFiles/runtime.dir/src/runtime/storage.cpp.o -c /Users/wafoe/projects/me/CXXEg/src/runtime/storage.cpp
+/usr/bin/c++ -DRUNTIME_TESTING=1 -I/Users/wafoe/projects/me/CXXEg/include -g -std=c++17 -arch arm64 -fsanitize=address,undefined -fno-sanitize-recover=undefined -fno-omit-frame-pointer -Wall -Wextra -Wpedantic -MD -MT CMakeFiles/runtime.dir/src/runtime/tensor.cpp.o -MF CMakeFiles/runtime.dir/src/runtime/tensor.cpp.o.d -o CMakeFiles/runtime.dir/src/runtime/tensor.cpp.o -c /Users/wafoe/projects/me/CXXEg/src/runtime/tensor.cpp
+[ 25%] Built target refresh_provenance
+/Library/Developer/CommandLineTools/usr/bin/make  -f CMakeFiles/stage0_common.dir/build.make CMakeFiles/stage0_common.dir/depend
+cd /Users/wafoe/projects/me/CXXEg/build-stage1-validation/20261005T105456317278Z-88215/sanitizer && /opt/homebrew/bin/cmake -E cmake_depends "Unix Makefiles" /Users/wafoe/projects/me/CXXEg /Users/wafoe/projects/me/CXXEg /Users/wafoe/projects/me/CXXEg/build-stage1-validation/20261005T105456317278Z-88215/sanitizer /Users/wafoe/projects/me/CXXEg/build-stage1-validation/20261005T105456317278Z-88215/sanitizer /Users/wafoe/projects/me/CXXEg/build-stage1-validation/20261005T105456317278Z-88215/sanitizer/CMakeFiles/stage0_common.dir/DependInfo.cmake "--color=" stage0_common
+/Library/Developer/CommandLineTools/usr/bin/make  -f CMakeFiles/stage0_common.dir/build.make CMakeFiles/stage0_common.dir/build
+[ 33%] Building CXX object CMakeFiles/stage0_common.dir/src/common.cpp.o
+/usr/bin/c++  -I/Users/wafoe/projects/me/CXXEg/include -I/Users/wafoe/projects/me/CXXEg/build-stage1-validation/20261005T105456317278Z-88215/sanitizer/generated -g -std=c++17 -arch arm64 -fsanitize=address,undefined -fno-sanitize-recover=undefined -fno-omit-frame-pointer -Wall -Wextra -Wpedantic -MD -MT CMakeFiles/stage0_common.dir/src/common.cpp.o -MF CMakeFiles/stage0_common.dir/src/common.cpp.o.d -o CMakeFiles/stage0_common.dir/src/common.cpp.o -c /Users/wafoe/projects/me/CXXEg/src/common.cpp
+[ 41%] Linking CXX static library libruntime.a
+/opt/homebrew/bin/cmake -P CMakeFiles/runtime.dir/cmake_clean_target.cmake
+/opt/homebrew/bin/cmake -E cmake_link_script CMakeFiles/runtime.dir/link.txt --verbose=1
+/usr/bin/ar qc libruntime.a CMakeFiles/runtime.dir/src/runtime/storage.cpp.o CMakeFiles/runtime.dir/src/runtime/tensor.cpp.o CMakeFiles/runtime.dir/src/runtime/copy.cpp.o
+/usr/bin/ranlib libruntime.a
+[ 41%] Built target runtime
+/Library/Developer/CommandLineTools/usr/bin/make  -f CMakeFiles/test_tensor.dir/build.make CMakeFiles/test_tensor.dir/depend
+/Library/Developer/CommandLineTools/usr/bin/make  -f CMakeFiles/test_tensor_properties.dir/build.make CMakeFiles/test_tensor_properties.dir/depend
+cd /Users/wafoe/projects/me/CXXEg/build-stage1-validation/20261005T105456317278Z-88215/sanitizer && /opt/homebrew/bin/cmake -E cmake_depends "Unix Makefiles" /Users/wafoe/projects/me/CXXEg /Users/wafoe/projects/me/CXXEg /Users/wafoe/projects/me/CXXEg/build-stage1-validation/20261005T105456317278Z-88215/sanitizer /Users/wafoe/projects/me/CXXEg/build-stage1-validation/20261005T105456317278Z-88215/sanitizer /Users/wafoe/projects/me/CXXEg/build-stage1-validation/20261005T105456317278Z-88215/sanitizer/CMakeFiles/test_tensor.dir/DependInfo.cmake "--color=" test_tensor
+cd /Users/wafoe/projects/me/CXXEg/build-stage1-validation/20261005T105456317278Z-88215/sanitizer && /opt/homebrew/bin/cmake -E cmake_depends "Unix Makefiles" /Users/wafoe/projects/me/CXXEg /Users/wafoe/projects/me/CXXEg /Users/wafoe/projects/me/CXXEg/build-stage1-validation/20261005T105456317278Z-88215/sanitizer /Users/wafoe/projects/me/CXXEg/build-stage1-validation/20261005T105456317278Z-88215/sanitizer /Users/wafoe/projects/me/CXXEg/build-stage1-validation/20261005T105456317278Z-88215/sanitizer/CMakeFiles/test_tensor_properties.dir/DependInfo.cmake "--color=" test_tensor_properties
+/Library/Developer/CommandLineTools/usr/bin/make  -f CMakeFiles/test_tensor.dir/build.make CMakeFiles/test_tensor.dir/build
+/Library/Developer/CommandLineTools/usr/bin/make  -f CMakeFiles/test_tensor_properties.dir/build.make CMakeFiles/test_tensor_properties.dir/build
+[ 58%] Building CXX object CMakeFiles/test_tensor_properties.dir/tests/test_tensor_properties.cpp.o
+[ 58%] Building CXX object CMakeFiles/test_tensor.dir/tests/test_tensor.cpp.o
+/usr/bin/c++ -DRUNTIME_TESTING=1 -I/Users/wafoe/projects/me/CXXEg/include -g -std=c++17 -arch arm64 -fsanitize=address,undefined -fno-sanitize-recover=undefined -fno-omit-frame-pointer -Wall -Wextra -Wpedantic -MD -MT CMakeFiles/test_tensor.dir/tests/test_tensor.cpp.o -MF CMakeFiles/test_tensor.dir/tests/test_tensor.cpp.o.d -o CMakeFiles/test_tensor.dir/tests/test_tensor.cpp.o -c /Users/wafoe/projects/me/CXXEg/tests/test_tensor.cpp
+/usr/bin/c++ -DRUNTIME_TESTING=1 -I/Users/wafoe/projects/me/CXXEg/include -g -std=c++17 -arch arm64 -fsanitize=address,undefined -fno-sanitize-recover=undefined -fno-omit-frame-pointer -Wall -Wextra -Wpedantic -MD -MT CMakeFiles/test_tensor_properties.dir/tests/test_tensor_properties.cpp.o -MF CMakeFiles/test_tensor_properties.dir/tests/test_tensor_properties.cpp.o.d -o CMakeFiles/test_tensor_properties.dir/tests/test_tensor_properties.cpp.o -c /Users/wafoe/projects/me/CXXEg/tests/test_tensor_properties.cpp
+[ 66%] Linking CXX static library libstage0_common.a
+/opt/homebrew/bin/cmake -P CMakeFiles/stage0_common.dir/cmake_clean_target.cmake
+/opt/homebrew/bin/cmake -E cmake_link_script CMakeFiles/stage0_common.dir/link.txt --verbose=1
+/usr/bin/ar qc libstage0_common.a CMakeFiles/stage0_common.dir/src/common.cpp.o
+/usr/bin/ranlib libstage0_common.a
+[ 66%] Built target stage0_common
+/Library/Developer/CommandLineTools/usr/bin/make  -f CMakeFiles/test_common.dir/build.make CMakeFiles/test_common.dir/depend
+cd /Users/wafoe/projects/me/CXXEg/build-stage1-validation/20261005T105456317278Z-88215/sanitizer && /opt/homebrew/bin/cmake -E cmake_depends "Unix Makefiles" /Users/wafoe/projects/me/CXXEg /Users/wafoe/projects/me/CXXEg /Users/wafoe/projects/me/CXXEg/build-stage1-validation/20261005T105456317278Z-88215/sanitizer /Users/wafoe/projects/me/CXXEg/build-stage1-validation/20261005T105456317278Z-88215/sanitizer /Users/wafoe/projects/me/CXXEg/build-stage1-validation/20261005T105456317278Z-88215/sanitizer/CMakeFiles/test_common.dir/DependInfo.cmake "--color=" test_common
+/Library/Developer/CommandLineTools/usr/bin/make  -f CMakeFiles/test_common.dir/build.make CMakeFiles/test_common.dir/build
+[ 75%] Building CXX object CMakeFiles/test_common.dir/tests/test_common.cpp.o
+/usr/bin/c++  -I/Users/wafoe/projects/me/CXXEg/include -I/Users/wafoe/projects/me/CXXEg/build-stage1-validation/20261005T105456317278Z-88215/sanitizer/generated -g -std=c++17 -arch arm64 -fsanitize=address,undefined -fno-sanitize-recover=undefined -fno-omit-frame-pointer -Wall -Wextra -Wpedantic -MD -MT CMakeFiles/test_common.dir/tests/test_common.cpp.o -MF CMakeFiles/test_common.dir/tests/test_common.cpp.o.d -o CMakeFiles/test_common.dir/tests/test_common.cpp.o -c /Users/wafoe/projects/me/CXXEg/tests/test_common.cpp
+[ 83%] Linking CXX executable test_tensor_properties
+/opt/homebrew/bin/cmake -E cmake_link_script CMakeFiles/test_tensor_properties.dir/link.txt --verbose=1
+/usr/bin/c++ -g -arch arm64 -Wl,-search_paths_first -Wl,-headerpad_max_install_names -fsanitize=address,undefined CMakeFiles/test_tensor_properties.dir/tests/test_tensor_properties.cpp.o -o test_tensor_properties  libruntime.a
+[ 83%] Built target test_tensor_properties
+[ 91%] Linking CXX executable test_tensor
+/opt/homebrew/bin/cmake -E cmake_link_script CMakeFiles/test_tensor.dir/link.txt --verbose=1
+/usr/bin/c++ -g -arch arm64 -Wl,-search_paths_first -Wl,-headerpad_max_install_names -fsanitize=address,undefined CMakeFiles/test_tensor.dir/tests/test_tensor.cpp.o -o test_tensor  libruntime.a
+[ 91%] Built target test_tensor
+[100%] Linking CXX executable test_common
+/opt/homebrew/bin/cmake -E cmake_link_script CMakeFiles/test_common.dir/link.txt --verbose=1
+/usr/bin/c++ -g -arch arm64 -Wl,-search_paths_first -Wl,-headerpad_max_install_names -fsanitize=address,undefined CMakeFiles/test_common.dir/tests/test_common.cpp.o -o test_common  libstage0_common.a
+[100%] Built target test_common
+/opt/homebrew/bin/cmake -E cmake_progress_start /Users/wafoe/projects/me/CXXEg/build-stage1-validation/20261005T105456317278Z-88215/sanitizer/CMakeFiles 0
+

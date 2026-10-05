@@ -1,0 +1,86 @@
+UpdateCTestConfiguration  from :/Users/wafoe/projects/me/CXXEg/build-stage1-clean-source/build-stage1-validation/20261005T111202319377Z-91158/release/DartConfiguration.tcl
+Parse Config file:/Users/wafoe/projects/me/CXXEg/build-stage1-clean-source/build-stage1-validation/20261005T111202319377Z-91158/release/DartConfiguration.tcl
+Test project /Users/wafoe/projects/me/CXXEg/build-stage1-clean-source/build-stage1-validation/20261005T111202319377Z-91158/release
+Constructing a list of tests
+Done constructing a list of tests
+Updating test list for fixtures
+Added 0 tests to meet fixture requirements
+Checking test dependency graph...
+Checking test dependency graph end
+test 1
+    Start 1: tensor
+
+1: Test command: /Users/wafoe/projects/me/CXXEg/build-stage1-clean-source/build-stage1-validation/20261005T111202319377Z-91158/release/test_tensor
+1: Working Directory: /Users/wafoe/projects/me/CXXEg/build-stage1-clean-source/build-stage1-validation/20261005T111202319377Z-91158/release
+1: Test timeout computed to be: 1500
+1: Allocation checks: views/transpose=0 buffers; nonempty materialize=1; copy=24 logical bytes, 0 buffers
+1: Tensor metadata/storage/construction/views/copy: PASS
+1/5 Test #1: tensor ...........................   Passed    0.55 sec
+test 2
+    Start 2: tensor_properties
+
+2: Test command: /Users/wafoe/projects/me/CXXEg/build-stage1-clean-source/build-stage1-validation/20261005T111202319377Z-91158/release/test_tensor_properties
+2: Working Directory: /Users/wafoe/projects/me/CXXEg/build-stage1-clean-source/build-stage1-validation/20261005T111202319377Z-91158/release
+2: Test timeout computed to be: 1500
+2: Tensor properties: PASS seed=20903 trials=600 ranks=0..8 FP32/INT32; padding/offset/permutation/slice/materialization/copy/alias
+2/5 Test #2: tensor_properties ................   Passed    0.37 sec
+test 3
+    Start 3: tensor_validation
+
+3: Test command: /Users/wafoe/miniforge3/bin/python3.14 "/Users/wafoe/projects/me/CXXEg/build-stage1-clean-source/tests/test_tensor_validation.py"
+3: Working Directory: /Users/wafoe/projects/me/CXXEg/build-stage1-clean-source/build-stage1-validation/20261005T111202319377Z-91158/release
+3: Test timeout computed to be: 1500
+3: ......
+3: ----------------------------------------------------------------------
+3: Ran 6 tests in 0.035s
+3: 
+3: OK
+3/5 Test #3: tensor_validation ................   Passed    0.10 sec
+test 4
+    Start 4: common
+
+4: Test command: /Users/wafoe/projects/me/CXXEg/build-stage1-clean-source/build-stage1-validation/20261005T111202319377Z-91158/release/test_common
+4: Working Directory: /Users/wafoe/projects/me/CXXEg/build-stage1-clean-source/build-stage1-validation/20261005T111202319377Z-91158/release
+4: Test timeout computed to be: 1500
+4: CPU reference, validation, statistics, GFLOPS, CSV: PASS
+4/5 Test #4: common ...........................   Passed    0.39 sec
+test 5
+    Start 5: tools
+
+5: Test command: /Users/wafoe/miniforge3/bin/python3.14 "/Users/wafoe/projects/me/CXXEg/build-stage1-clean-source/tests/test_tools.py"
+5: Working Directory: /Users/wafoe/projects/me/CXXEg/build-stage1-clean-source/build-stage1-validation/20261005T111202319377Z-91158/release
+5: Test timeout computed to be: 1500
+5: test_bad_numeric_input (__main__.AnalysisTests.test_bad_numeric_input) ... ok
+5: test_changed_comparison_conditions (__main__.AnalysisTests.test_changed_comparison_conditions) ... ok
+5: test_cli_missing_csv_preserves_existing_report (__main__.AnalysisTests.test_cli_missing_csv_preserves_existing_report) ... ok
+5: test_duplicate_or_single_kernel (__main__.AnalysisTests.test_duplicate_or_single_kernel) ... ok
+5: test_failure_not_success (__main__.AnalysisTests.test_failure_not_success) ... ok
+5: test_invalid_build_and_commit (__main__.AnalysisTests.test_invalid_build_and_commit) ... ok
+5: test_missing_raw_samples (__main__.AnalysisTests.test_missing_raw_samples) ... ok
+5: test_no_data_no_report (__main__.AnalysisTests.test_no_data_no_report) ... ok
+5: test_no_report_without_completed_run (__main__.AnalysisTests.test_no_report_without_completed_run) ... ok
+5: test_path_traversal (__main__.AnalysisTests.test_path_traversal) ... ok
+5: test_ratio_wrong_units (__main__.AnalysisTests.test_ratio_wrong_units) ... ok
+5: test_report_from_raw (__main__.AnalysisTests.test_report_from_raw) ... ok
+5: test_timing_raw_tamper (__main__.AnalysisTests.test_timing_raw_tamper) ... ok
+5: test_wrong_gflops (__main__.AnalysisTests.test_wrong_gflops) ... ok
+5: test_clean_and_dirty_source (__main__.ProvenanceTests.test_clean_and_dirty_source) ... ok
+5: test_header_stable (__main__.ProvenanceTests.test_header_stable) ... ok
+5: test_results_and_report_excluded (__main__.ProvenanceTests.test_results_and_report_excluded) ... ok
+5: test_untracked_source_included (__main__.ProvenanceTests.test_untracked_source_included) ... ok
+5: test_failed_environment_capture_preserved (__main__.ScriptFailureTests.test_failed_environment_capture_preserved) ... ok
+5: test_stale_binary_refused_before_benchmark (__main__.ScriptFailureTests.test_stale_binary_refused_before_benchmark) ... ok
+5: 
+5: ----------------------------------------------------------------------
+5: Ran 20 tests in 1.970s
+5: 
+5: OK
+5/5 Test #5: tools ............................   Passed    2.03 sec
+
+100% tests passed out of 5
+
+Label Time Summary:
+cpu       =   1.02 sec*proc (3 tests)
+tensor    =   1.02 sec*proc (3 tests)
+
+Total Test time (real) =   3.44 sec

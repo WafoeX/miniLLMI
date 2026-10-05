@@ -1,0 +1,299 @@
+{
+  "source_tested": {
+    "commit": "f0aa8ac7fc86e3cd9bc485f9e637f90d1f118bde",
+    "source_digest": "c3677499650bb58118c44f2d5af8e944130fd394d878e2ff602567c0d9647728",
+    "source_dirty": false
+  },
+  "source_before_after_equal": true,
+  "production_has_testing_defines": false,
+  "production_nm_exit": 0,
+  "production_test_symbols": [],
+  "stage0_protected_paths": [
+    "backend",
+    "include/stage0",
+    "src/common.cpp",
+    "bench",
+    "tests/test_common.cpp",
+    "tests/test_cuda_gemm.cpp",
+    "tests/test_tools.py",
+    "tools/provenance.py",
+    "results/environment",
+    "results/gemm",
+    "results/profiling",
+    "docs/baseline.md"
+  ],
+  "stage0_diff_exit": 0,
+  "stage0_changed_paths": [],
+  "links": [
+    {
+      "file": "README.md",
+      "link": "docs/roadmap.md",
+      "exists": true
+    },
+    {
+      "file": "README.md",
+      "link": "docs/tasks/README.md",
+      "exists": true
+    },
+    {
+      "file": "README.md",
+      "link": "docs/tensor.md",
+      "exists": true
+    },
+    {
+      "file": "README.md",
+      "link": "docs/stage1_report.md",
+      "exists": true
+    },
+    {
+      "file": "README.md",
+      "link": "docs/stage1_colab.md",
+      "exists": true
+    },
+    {
+      "file": "README.md",
+      "link": "docs/baseline.md",
+      "exists": true
+    },
+    {
+      "file": "README.md",
+      "link": "docs/profiling.md",
+      "exists": true
+    },
+    {
+      "file": "README.md",
+      "link": "docs/stage0.md",
+      "exists": true
+    },
+    {
+      "file": "README.md",
+      "link": "docs/architecture.md",
+      "exists": true
+    },
+    {
+      "file": "README.md",
+      "link": "docs/experiments.md",
+      "exists": true
+    },
+    {
+      "file": "README.md",
+      "link": "docs/stage0_report.md",
+      "exists": true
+    },
+    {
+      "file": "docs/stage1_colab.md",
+      "link": "stage1_report.md",
+      "exists": true
+    },
+    {
+      "file": "docs/stage1_report.md",
+      "link": "../results/tensor/local/20261005T111202319377Z-91158/manifest.json",
+      "exists": true
+    },
+    {
+      "file": "docs/stage1_report.md",
+      "link": "../results/tensor/local/20261005T111202319377Z-91158/release-build.log",
+      "exists": true
+    },
+    {
+      "file": "docs/stage1_report.md",
+      "link": "../results/tensor/local/20261005T111202319377Z-91158/release-ctest.log",
+      "exists": true
+    },
+    {
+      "file": "docs/stage1_report.md",
+      "link": "../results/tensor/local/20261005T111202319377Z-91158/debug-build.log",
+      "exists": true
+    },
+    {
+      "file": "docs/stage1_report.md",
+      "link": "../results/tensor/local/20261005T111202319377Z-91158/debug-ctest.log",
+      "exists": true
+    },
+    {
+      "file": "docs/stage1_report.md",
+      "link": "../results/tensor/local/20261005T111202319377Z-91158/sanitizer-target.log",
+      "exists": true
+    },
+    {
+      "file": "docs/stage1_report.md",
+      "link": "../results/tensor/local/20261005T111202319377Z-91158/sanitizer-ctest.log",
+      "exists": true
+    },
+    {
+      "file": "docs/stage1_report.md",
+      "link": "../results/tensor/local/20261005T111202319377Z-91158/production-build.log",
+      "exists": true
+    },
+    {
+      "file": "docs/stage1_report.md",
+      "link": "../results/tensor/local/20261005T111202319377Z-91158/production-compile_commands.json",
+      "exists": true
+    },
+    {
+      "file": "docs/stage1_report.md",
+      "link": "tensor.md",
+      "exists": true
+    },
+    {
+      "file": "docs/stage1_report.md",
+      "link": "../tools/validate_tensor.py",
+      "exists": true
+    },
+    {
+      "file": "docs/stage1_report.md",
+      "link": "../results/tensor/local/",
+      "exists": true
+    },
+    {
+      "file": "docs/stage1_report.md",
+      "link": "../results/tensor/local/20261005T104347214226Z-84114/manifest.json",
+      "exists": true
+    },
+    {
+      "file": "docs/stage1_report.md",
+      "link": "../results/tensor/local/20261005T105341356551Z-87359/manifest.json",
+      "exists": true
+    },
+    {
+      "file": "docs/stage1_report.md",
+      "link": "stage1_colab.md",
+      "exists": true
+    },
+    {
+      "file": "docs/roadmap.md",
+      "link": "tensor.md",
+      "exists": true
+    },
+    {
+      "file": "docs/roadmap.md",
+      "link": "stage1_report.md",
+      "exists": true
+    },
+    {
+      "file": "docs/roadmap.md",
+      "link": "tasks/README.md",
+      "exists": true
+    },
+    {
+      "file": "docs/tasks/README.md",
+      "link": "../stage1_report.md",
+      "exists": true
+    },
+    {
+      "file": "docs/tasks/README.md",
+      "link": "../roadmap.md",
+      "exists": true
+    },
+    {
+      "file": "docs/tasks/README.md",
+      "link": "../taskbook_review.md",
+      "exists": true
+    },
+    {
+      "file": "docs/tasks/README.md",
+      "link": "stage-01-tensor.md",
+      "exists": true
+    },
+    {
+      "file": "docs/tasks/README.md",
+      "link": "stage-02-operators.md",
+      "exists": true
+    },
+    {
+      "file": "docs/tasks/README.md",
+      "link": "stage-03-graph.md",
+      "exists": true
+    },
+    {
+      "file": "docs/tasks/README.md",
+      "link": "stage-04-arena.md",
+      "exists": true
+    },
+    {
+      "file": "docs/tasks/README.md",
+      "link": "stage-05-planner.md",
+      "exists": true
+    },
+    {
+      "file": "docs/tasks/README.md",
+      "link": "stage-06-cpu-backend.md",
+      "exists": true
+    },
+    {
+      "file": "docs/tasks/README.md",
+      "link": "stage-07-cpu-parallel.md",
+      "exists": true
+    },
+    {
+      "file": "docs/tasks/README.md",
+      "link": "stage-08-cuda-backend.md",
+      "exists": true
+    },
+    {
+      "file": "docs/tasks/README.md",
+      "link": "stage-09-cuda-gemm.md",
+      "exists": true
+    },
+    {
+      "file": "docs/tasks/README.md",
+      "link": "stage-10-profiling.md",
+      "exists": true
+    },
+    {
+      "file": "docs/tasks/README.md",
+      "link": "stage-11-scheduler.md",
+      "exists": true
+    },
+    {
+      "file": "docs/tasks/README.md",
+      "link": "stage-12-transformer-ops.md",
+      "exists": true
+    },
+    {
+      "file": "docs/tasks/README.md",
+      "link": "stage-13-decoder.md",
+      "exists": true
+    },
+    {
+      "file": "docs/tasks/README.md",
+      "link": "stage-14-kv-cache.md",
+      "exists": true
+    },
+    {
+      "file": "docs/tasks/README.md",
+      "link": "stage-15-tokenizer-loader.md",
+      "exists": true
+    },
+    {
+      "file": "docs/tasks/README.md",
+      "link": "stage-16-int8.md",
+      "exists": true
+    },
+    {
+      "file": "docs/tasks/README.md",
+      "link": "stage-17-cli.md",
+      "exists": true
+    },
+    {
+      "file": "docs/tasks/README.md",
+      "link": "stage-18-evaluation.md",
+      "exists": true
+    },
+    {
+      "file": "docs/tasks/README.md",
+      "link": "stage-19-documentation.md",
+      "exists": true
+    },
+    {
+      "file": "docs/tasks/stage-01-tensor.md",
+      "link": "../tensor.md",
+      "exists": true
+    },
+    {
+      "file": "docs/tasks/stage-01-tensor.md",
+      "link": "../stage1_report.md",
+      "exists": true
+    }
+  ]
+}

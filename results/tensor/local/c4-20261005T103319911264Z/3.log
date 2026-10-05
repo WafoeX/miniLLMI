@@ -1,0 +1,9 @@
+[ 11%] Building CXX object CMakeFiles/runtime.dir/src/runtime/tensor.cpp.o
+[ 11%] Built target refresh_provenance
+[ 33%] Built target stage0_common
+[ 55%] Built target test_common
+[ 66%] Linking CXX static library libruntime.a
+[ 77%] Built target runtime
+[ 88%] Building CXX object CMakeFiles/test_tensor.dir/tests/test_tensor.cpp.o
+[100%] Linking CXX executable test_tensor
+[100%] Built target test_tensor

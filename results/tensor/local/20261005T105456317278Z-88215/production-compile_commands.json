@@ -1,0 +1,26 @@
+[
+{
+  "directory": "/Users/wafoe/projects/me/CXXEg/build-stage1-validation/20261005T105456317278Z-88215/production",
+  "command": "/usr/bin/c++  -I/Users/wafoe/projects/me/CXXEg/include -I/Users/wafoe/projects/me/CXXEg/build-stage1-validation/20261005T105456317278Z-88215/production/generated -O3 -DNDEBUG -std=c++17 -arch arm64 -Wall -Wextra -Wpedantic -o CMakeFiles/stage0_common.dir/src/common.cpp.o -c /Users/wafoe/projects/me/CXXEg/src/common.cpp",
+  "file": "/Users/wafoe/projects/me/CXXEg/src/common.cpp",
+  "output": "CMakeFiles/stage0_common.dir/src/common.cpp.o"
+},
+{
+  "directory": "/Users/wafoe/projects/me/CXXEg/build-stage1-validation/20261005T105456317278Z-88215/production",
+  "command": "/usr/bin/c++  -I/Users/wafoe/projects/me/CXXEg/include -O3 -DNDEBUG -std=c++17 -arch arm64 -Wall -Wextra -Wpedantic -o CMakeFiles/runtime.dir/src/runtime/storage.cpp.o -c /Users/wafoe/projects/me/CXXEg/src/runtime/storage.cpp",
+  "file": "/Users/wafoe/projects/me/CXXEg/src/runtime/storage.cpp",
+  "output": "CMakeFiles/runtime.dir/src/runtime/storage.cpp.o"
+},
+{
+  "directory": "/Users/wafoe/projects/me/CXXEg/build-stage1-validation/20261005T105456317278Z-88215/production",
+  "command": "/usr/bin/c++  -I/Users/wafoe/projects/me/CXXEg/include -O3 -DNDEBUG -std=c++17 -arch arm64 -Wall -Wextra -Wpedantic -o CMakeFiles/runtime.dir/src/runtime/tensor.cpp.o -c /Users/wafoe/projects/me/CXXEg/src/runtime/tensor.cpp",
+  "file": "/Users/wafoe/projects/me/CXXEg/src/runtime/tensor.cpp",
+  "output": "CMakeFiles/runtime.dir/src/runtime/tensor.cpp.o"
+},
+{
+  "directory": "/Users/wafoe/projects/me/CXXEg/build-stage1-validation/20261005T105456317278Z-88215/production",
+  "command": "/usr/bin/c++  -I/Users/wafoe/projects/me/CXXEg/include -O3 -DNDEBUG -std=c++17 -arch arm64 -Wall -Wextra -Wpedantic -o CMakeFiles/runtime.dir/src/runtime/copy.cpp.o -c /Users/wafoe/projects/me/CXXEg/src/runtime/copy.cpp",
+  "file": "/Users/wafoe/projects/me/CXXEg/src/runtime/copy.cpp",
+  "output": "CMakeFiles/runtime.dir/src/runtime/copy.cpp.o"
+}
+]

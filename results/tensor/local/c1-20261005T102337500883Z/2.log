@@ -1,0 +1,10 @@
+[ 16%] Building CXX object CMakeFiles/test_tensor.dir/tests/test_tensor.cpp.o
+[ 16%] Built target refresh_provenance
+[ 33%] Building CXX object CMakeFiles/stage0_common.dir/src/common.cpp.o
+[ 50%] Linking CXX executable test_tensor
+[ 50%] Built target test_tensor
+[ 66%] Linking CXX static library libstage0_common.a
+[ 66%] Built target stage0_common
+[ 83%] Building CXX object CMakeFiles/test_common.dir/tests/test_common.cpp.o
+[100%] Linking CXX executable test_common
+[100%] Built target test_common

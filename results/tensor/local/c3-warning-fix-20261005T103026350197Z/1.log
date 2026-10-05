@@ -1,0 +1,7 @@
+[ 33%] Built target runtime
+[ 44%] Building CXX object CMakeFiles/test_tensor.dir/tests/test_tensor.cpp.o
+[ 44%] Built target refresh_provenance
+[ 66%] Built target stage0_common
+[ 88%] Built target test_common
+[100%] Linking CXX executable test_tensor
+[100%] Built target test_tensor

@@ -1,0 +1,13 @@
+-- Configuring done (0.2s)
+-- Generating done (0.0s)
+-- Build files have been written to: /Users/wafoe/projects/me/CXXEg/build-stage1-sanitizer
+[ 20%] Building CXX object CMakeFiles/runtime.dir/src/runtime/copy.cpp.o
+[ 20%] Building CXX object CMakeFiles/runtime.dir/src/runtime/tensor.cpp.o
+[ 20%] Built target refresh_provenance
+[ 40%] Built target stage0_common
+[ 60%] Built target test_common
+[ 70%] Linking CXX static library libruntime.a
+[ 80%] Built target runtime
+[ 90%] Building CXX object CMakeFiles/test_tensor.dir/tests/test_tensor.cpp.o
+[100%] Linking CXX executable test_tensor
+[100%] Built target test_tensor

@@ -1,0 +1,532 @@
+UpdateCTestConfiguration  from :/Users/wafoe/projects/me/CXXEg/build-stage1-validation/20261005T105341356551Z-87359/release/DartConfiguration.tcl
+Parse Config file:/Users/wafoe/projects/me/CXXEg/build-stage1-validation/20261005T105341356551Z-87359/release/DartConfiguration.tcl
+Test project /Users/wafoe/projects/me/CXXEg/build-stage1-validation/20261005T105341356551Z-87359/release
+Constructing a list of tests
+Done constructing a list of tests
+Updating test list for fixtures
+Added 0 tests to meet fixture requirements
+Checking test dependency graph...
+Checking test dependency graph end
+test 1
+    Start 1: tensor
+
+1: Test command: /Users/wafoe/projects/me/CXXEg/build-stage1-validation/20261005T105341356551Z-87359/release/test_tensor
+1: Working Directory: /Users/wafoe/projects/me/CXXEg/build-stage1-validation/20261005T105341356551Z-87359/release
+1: Test timeout computed to be: 1500
+1: Allocation checks: views/transpose=0 buffers; nonempty materialize=1; copy=24 logical bytes, 0 buffers
+1: Tensor metadata/storage/construction/views/copy: PASS
+1/5 Test #1: tensor ...........................   Passed    0.56 sec
+test 2
+    Start 2: tensor_properties
+
+2: Test command: /Users/wafoe/projects/me/CXXEg/build-stage1-validation/20261005T105341356551Z-87359/release/test_tensor_properties
+2: Working Directory: /Users/wafoe/projects/me/CXXEg/build-stage1-validation/20261005T105341356551Z-87359/release
+2: Test timeout computed to be: 1500
+2: Tensor properties: PASS seed=20903 trials=600 ranks=0..8 FP32/INT32; padding/offset/permutation/slice/materialization/copy/alias
+2/5 Test #2: tensor_properties ................   Passed    0.46 sec
+test 3
+    Start 3: tensor_validation
+
+3: Test command: /Users/wafoe/miniforge3/bin/python3.14 "/Users/wafoe/projects/me/CXXEg/tests/test_tensor_validation.py"
+3: Working Directory: /Users/wafoe/projects/me/CXXEg/build-stage1-validation/20261005T105341356551Z-87359/release
+3: Test timeout computed to be: 1500
+3: EE.E.E
+3: ======================================================================
+3: ERROR: test_complete_manifest_and_snapshots (__main__.ValidationTest.test_complete_manifest_and_snapshots)
+3: ----------------------------------------------------------------------
+3: Traceback (most recent call last):
+3:   File "/Users/wafoe/projects/me/CXXEg/tests/test_tensor_validation.py", line 48, in test_complete_manifest_and_snapshots
+3:     output = self.call()
+3:   File "/Users/wafoe/projects/me/CXXEg/tests/test_tensor_validation.py", line 45, in call
+3:     return validate_tensor.validate(self.root, self.results, 2, allow_dirty)
+3:            ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+3:   File "/Users/wafoe/projects/me/CXXEg/tools/validate_tensor.py", line 31, in validate
+3:     "source": source, "host": platform.node(), "platform": platform.platform(),
+3:                                                            ~~~~~~~~~~~~~~~~~^^
+3:   File "/Users/wafoe/miniforge3/lib/python3.14/platform.py", line 1360, in platform
+3:     system, node, release, version, machine, processor = uname()
+3:     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+3:   File "/Users/wafoe/miniforge3/lib/python3.14/platform.py", line 964, in __iter__
+3:     (self.processor,)
+3:      ^^^^^^^^^^^^^^
+3:   File "/Users/wafoe/miniforge3/lib/python3.14/functools.py", line 1126, in __get__
+3:     val = self.func(instance)
+3:   File "/Users/wafoe/miniforge3/lib/python3.14/platform.py", line 959, in processor
+3:     return _unknown_as_blank(_Processor.get())
+3:                              ~~~~~~~~~~~~~~^^
+3:   File "/Users/wafoe/miniforge3/lib/python3.14/platform.py", line 891, in get
+3:     return func() or ''
+3:            ~~~~^^
+3:   File "/Users/wafoe/miniforge3/lib/python3.14/platform.py", line 927, in from_subprocess
+3:     return subprocess.check_output(
+3:            ~~~~~~~~~~~~~~~~~~~~~~~^
+3:         ['uname', '-p'],
+3:         ^^^^^^^^^^^^^^^^
+3:     ...<2 lines>...
+3:         encoding="utf8",
+3:         ^^^^^^^^^^^^^^^^
+3:     ).strip()
+3:     ^
+3:   File "/Users/wafoe/miniforge3/lib/python3.14/subprocess.py", line 473, in check_output
+3:     return run(*popenargs, stdout=PIPE, timeout=timeout, check=True,
+3:            ~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+3:                **kwargs).stdout
+3:                ^^^^^^^^^
+3:   File "/Users/wafoe/miniforge3/lib/python3.14/unittest/mock.py", line 1176, in __call__
+3:     return self._mock_call(*args, **kwargs)
+3:            ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+3:   File "/Users/wafoe/miniforge3/lib/python3.14/unittest/mock.py", line 1180, in _mock_call
+3:     return self._execute_mock_call(*args, **kwargs)
+3:            ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+3:   File "/Users/wafoe/miniforge3/lib/python3.14/unittest/mock.py", line 1247, in _execute_mock_call
+3:     result = effect(*args, **kwargs)
+3:   File "/Users/wafoe/projects/me/CXXEg/tests/test_tensor_validation.py", line 33, in fake_run
+3:     kwargs["stdout"].write("mock command output (not real build evidence)\n")
+3:     ^^^^^^^^^^^^^^^^^^^^^^
+3: AttributeError: 'int' object has no attribute 'write'
+3: 
+3: ======================================================================
+3: ERROR: test_development_dirty_is_explicitly_labelled (__main__.ValidationTest.test_development_dirty_is_explicitly_labelled)
+3: ----------------------------------------------------------------------
+3: Traceback (most recent call last):
+3:   File "/Users/wafoe/projects/me/CXXEg/tests/test_tensor_validation.py", line 63, in test_development_dirty_is_explicitly_labelled
+3:     output = self.call(source={**self.source, "source_dirty": True}, allow_dirty=True)
+3:   File "/Users/wafoe/projects/me/CXXEg/tests/test_tensor_validation.py", line 45, in call
+3:     return validate_tensor.validate(self.root, self.results, 2, allow_dirty)
+3:            ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+3:   File "/Users/wafoe/projects/me/CXXEg/tools/validate_tensor.py", line 31, in validate
+3:     "source": source, "host": platform.node(), "platform": platform.platform(),
+3:                                                            ~~~~~~~~~~~~~~~~~^^
+3:   File "/Users/wafoe/miniforge3/lib/python3.14/platform.py", line 1360, in platform
+3:     system, node, release, version, machine, processor = uname()
+3:     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+3:   File "/Users/wafoe/miniforge3/lib/python3.14/platform.py", line 964, in __iter__
+3:     (self.processor,)
+3:      ^^^^^^^^^^^^^^
+3:   File "/Users/wafoe/miniforge3/lib/python3.14/functools.py", line 1126, in __get__
+3:     val = self.func(instance)
+3:   File "/Users/wafoe/miniforge3/lib/python3.14/platform.py", line 959, in processor
+3:     return _unknown_as_blank(_Processor.get())
+3:                              ~~~~~~~~~~~~~~^^
+3:   File "/Users/wafoe/miniforge3/lib/python3.14/platform.py", line 891, in get
+3:     return func() or ''
+3:            ~~~~^^
+3:   File "/Users/wafoe/miniforge3/lib/python3.14/platform.py", line 927, in from_subprocess
+3:     return subprocess.check_output(
+3:            ~~~~~~~~~~~~~~~~~~~~~~~^
+3:         ['uname', '-p'],
+3:         ^^^^^^^^^^^^^^^^
+3:     ...<2 lines>...
+3:         encoding="utf8",
+3:         ^^^^^^^^^^^^^^^^
+3:     ).strip()
+3:     ^
+3:   File "/Users/wafoe/miniforge3/lib/python3.14/subprocess.py", line 473, in check_output
+3:     return run(*popenargs, stdout=PIPE, timeout=timeout, check=True,
+3:            ~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+3:                **kwargs).stdout
+3:                ^^^^^^^^^
+3:   File "/Users/wafoe/miniforge3/lib/python3.14/unittest/mock.py", line 1176, in __call__
+3:     return self._mock_call(*args, **kwargs)
+3:            ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+3:   File "/Users/wafoe/miniforge3/lib/python3.14/unittest/mock.py", line 1180, in _mock_call
+3:     return self._execute_mock_call(*args, **kwargs)
+3:            ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+3:   File "/Users/wafoe/miniforge3/lib/python3.14/unittest/mock.py", line 1247, in _execute_mock_call
+3:     result = effect(*args, **kwargs)
+3:   File "/Users/wafoe/projects/me/CXXEg/tests/test_tensor_validation.py", line 33, in fake_run
+3:     kwargs["stdout"].write("mock command output (not real build evidence)\n")
+3:     ^^^^^^^^^^^^^^^^^^^^^^
+3: AttributeError: 'int' object has no attribute 'write'
+3: 
+3: ======================================================================
+3: ERROR: test_failure_preserves_log_and_exit_status (__main__.ValidationTest.test_failure_preserves_log_and_exit_status)
+3: ----------------------------------------------------------------------
+3: Traceback (most recent call last):
+3:   File "/Users/wafoe/projects/me/CXXEg/tests/test_tensor_validation.py", line 73, in test_failure_preserves_log_and_exit_status
+3:     self.call(runner=fail)
+3:     ~~~~~~~~~^^^^^^^^^^^^^
+3:   File "/Users/wafoe/projects/me/CXXEg/tests/test_tensor_validation.py", line 45, in call
+3:     return validate_tensor.validate(self.root, self.results, 2, allow_dirty)
+3:            ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+3:   File "/Users/wafoe/projects/me/CXXEg/tools/validate_tensor.py", line 31, in validate
+3:     "source": source, "host": platform.node(), "platform": platform.platform(),
+3:                                                            ~~~~~~~~~~~~~~~~~^^
+3:   File "/Users/wafoe/miniforge3/lib/python3.14/platform.py", line 1360, in platform
+3:     system, node, release, version, machine, processor = uname()
+3:     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+3:   File "/Users/wafoe/miniforge3/lib/python3.14/platform.py", line 964, in __iter__
+3:     (self.processor,)
+3:      ^^^^^^^^^^^^^^
+3:   File "/Users/wafoe/miniforge3/lib/python3.14/functools.py", line 1126, in __get__
+3:     val = self.func(instance)
+3:   File "/Users/wafoe/miniforge3/lib/python3.14/platform.py", line 959, in processor
+3:     return _unknown_as_blank(_Processor.get())
+3:                              ~~~~~~~~~~~~~~^^
+3:   File "/Users/wafoe/miniforge3/lib/python3.14/platform.py", line 891, in get
+3:     return func() or ''
+3:            ~~~~^^
+3:   File "/Users/wafoe/miniforge3/lib/python3.14/platform.py", line 927, in from_subprocess
+3:     return subprocess.check_output(
+3:            ~~~~~~~~~~~~~~~~~~~~~~~^
+3:         ['uname', '-p'],
+3:         ^^^^^^^^^^^^^^^^
+3:     ...<2 lines>...
+3:         encoding="utf8",
+3:         ^^^^^^^^^^^^^^^^
+3:     ).strip()
+3:     ^
+3:   File "/Users/wafoe/miniforge3/lib/python3.14/subprocess.py", line 473, in check_output
+3:     return run(*popenargs, stdout=PIPE, timeout=timeout, check=True,
+3:            ~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+3:                **kwargs).stdout
+3:                ^^^^^^^^^
+3:   File "/Users/wafoe/miniforge3/lib/python3.14/unittest/mock.py", line 1176, in __call__
+3:     return self._mock_call(*args, **kwargs)
+3:            ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+3:   File "/Users/wafoe/miniforge3/lib/python3.14/unittest/mock.py", line 1180, in _mock_call
+3:     return self._execute_mock_call(*args, **kwargs)
+3:            ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+3:   File "/Users/wafoe/miniforge3/lib/python3.14/unittest/mock.py", line 1247, in _execute_mock_call
+3:     result = effect(*args, **kwargs)
+3:   File "/Users/wafoe/projects/me/CXXEg/tests/test_tensor_validation.py", line 71, in fail
+3:     return self.fake_run(argv, **kwargs)
+3:            ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^
+3:   File "/Users/wafoe/projects/me/CXXEg/tests/test_tensor_validation.py", line 33, in fake_run
+3:     kwargs["stdout"].write("mock command output (not real build evidence)\n")
+3:     ^^^^^^^^^^^^^^^^^^^^^^
+3: AttributeError: 'int' object has no attribute 'write'
+3: 
+3: ======================================================================
+3: ERROR: test_source_change_invalidates_success (__main__.ValidationTest.test_source_change_invalidates_success)
+3: ----------------------------------------------------------------------
+3: Traceback (most recent call last):
+3:   File "/Users/wafoe/projects/me/CXXEg/tests/test_tensor_validation.py", line 86, in test_source_change_invalidates_success
+3:     validate_tensor.validate(self.root, self.results, 2, False)
+3:     ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+3:   File "/Users/wafoe/projects/me/CXXEg/tools/validate_tensor.py", line 31, in validate
+3:     "source": source, "host": platform.node(), "platform": platform.platform(),
+3:                                                            ~~~~~~~~~~~~~~~~~^^
+3:   File "/Users/wafoe/miniforge3/lib/python3.14/platform.py", line 1360, in platform
+3:     system, node, release, version, machine, processor = uname()
+3:     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+3:   File "/Users/wafoe/miniforge3/lib/python3.14/platform.py", line 964, in __iter__
+3:     (self.processor,)
+3:      ^^^^^^^^^^^^^^
+3:   File "/Users/wafoe/miniforge3/lib/python3.14/functools.py", line 1126, in __get__
+3:     val = self.func(instance)
+3:   File "/Users/wafoe/miniforge3/lib/python3.14/platform.py", line 959, in processor
+3:     return _unknown_as_blank(_Processor.get())
+3:                              ~~~~~~~~~~~~~~^^
+3:   File "/Users/wafoe/miniforge3/lib/python3.14/platform.py", line 891, in get
+3:     return func() or ''
+3:            ~~~~^^
+3:   File "/Users/wafoe/miniforge3/lib/python3.14/platform.py", line 927, in from_subprocess
+3:     return subprocess.check_output(
+3:            ~~~~~~~~~~~~~~~~~~~~~~~^
+3:         ['uname', '-p'],
+3:         ^^^^^^^^^^^^^^^^
+3:     ...<2 lines>...
+3:         encoding="utf8",
+3:         ^^^^^^^^^^^^^^^^
+3:     ).strip()
+3:     ^
+3:   File "/Users/wafoe/miniforge3/lib/python3.14/subprocess.py", line 473, in check_output
+3:     return run(*popenargs, stdout=PIPE, timeout=timeout, check=True,
+3:            ~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+3:                **kwargs).stdout
+3:                ^^^^^^^^^
+3:   File "/Users/wafoe/miniforge3/lib/python3.14/unittest/mock.py", line 1176, in __call__
+3:     return self._mock_call(*args, **kwargs)
+3:            ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+3:   File "/Users/wafoe/miniforge3/lib/python3.14/unittest/mock.py", line 1180, in _mock_call
+3:     return self._execute_mock_call(*args, **kwargs)
+3:            ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+3:   File "/Users/wafoe/miniforge3/lib/python3.14/unittest/mock.py", line 1247, in _execute_mock_call
+3:     result = effect(*args, **kwargs)
+3:   File "/Users/wafoe/projects/me/CXXEg/tests/test_tensor_validation.py", line 33, in fake_run
+3:     kwargs["stdout"].write("mock command output (not real build evidence)\n")
+3:     ^^^^^^^^^^^^^^^^^^^^^^
+3: AttributeError: 'int' object has no attribute 'write'
+3: 
+3: ----------------------------------------------------------------------
+3: Ran 6 tests in 0.008s
+3: 
+3: FAILED (errors=4)
+3/5 Test #3: tensor_validation ................***Failed    0.08 sec
+EE.E.E
+======================================================================
+ERROR: test_complete_manifest_and_snapshots (__main__.ValidationTest.test_complete_manifest_and_snapshots)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/wafoe/projects/me/CXXEg/tests/test_tensor_validation.py", line 48, in test_complete_manifest_and_snapshots
+    output = self.call()
+  File "/Users/wafoe/projects/me/CXXEg/tests/test_tensor_validation.py", line 45, in call
+    return validate_tensor.validate(self.root, self.results, 2, allow_dirty)
+           ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/wafoe/projects/me/CXXEg/tools/validate_tensor.py", line 31, in validate
+    "source": source, "host": platform.node(), "platform": platform.platform(),
+                                                           ~~~~~~~~~~~~~~~~~^^
+  File "/Users/wafoe/miniforge3/lib/python3.14/platform.py", line 1360, in platform
+    system, node, release, version, machine, processor = uname()
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/wafoe/miniforge3/lib/python3.14/platform.py", line 964, in __iter__
+    (self.processor,)
+     ^^^^^^^^^^^^^^
+  File "/Users/wafoe/miniforge3/lib/python3.14/functools.py", line 1126, in __get__
+    val = self.func(instance)
+  File "/Users/wafoe/miniforge3/lib/python3.14/platform.py", line 959, in processor
+    return _unknown_as_blank(_Processor.get())
+                             ~~~~~~~~~~~~~~^^
+  File "/Users/wafoe/miniforge3/lib/python3.14/platform.py", line 891, in get
+    return func() or ''
+           ~~~~^^
+  File "/Users/wafoe/miniforge3/lib/python3.14/platform.py", line 927, in from_subprocess
+    return subprocess.check_output(
+           ~~~~~~~~~~~~~~~~~~~~~~~^
+        ['uname', '-p'],
+        ^^^^^^^^^^^^^^^^
+    ...<2 lines>...
+        encoding="utf8",
+        ^^^^^^^^^^^^^^^^
+    ).strip()
+    ^
+  File "/Users/wafoe/miniforge3/lib/python3.14/subprocess.py", line 473, in check_output
+    return run(*popenargs, stdout=PIPE, timeout=timeout, check=True,
+           ~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+               **kwargs).stdout
+               ^^^^^^^^^
+  File "/Users/wafoe/miniforge3/lib/python3.14/unittest/mock.py", line 1176, in __call__
+    return self._mock_call(*args, **kwargs)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/Users/wafoe/miniforge3/lib/python3.14/unittest/mock.py", line 1180, in _mock_call
+    return self._execute_mock_call(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/Users/wafoe/miniforge3/lib/python3.14/unittest/mock.py", line 1247, in _execute_mock_call
+    result = effect(*args, **kwargs)
+  File "/Users/wafoe/projects/me/CXXEg/tests/test_tensor_validation.py", line 33, in fake_run
+    kwargs["stdout"].write("mock command output (not real build evidence)\n")
+    ^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'int' object has no attribute 'write'
+
+======================================================================
+ERROR: test_development_dirty_is_explicitly_labelled (__main__.ValidationTest.test_development_dirty_is_explicitly_labelled)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/wafoe/projects/me/CXXEg/tests/test_tensor_validation.py", line 63, in test_development_dirty_is_explicitly_labelled
+    output = self.call(source={**self.source, "source_dirty": True}, allow_dirty=True)
+  File "/Users/wafoe/projects/me/CXXEg/tests/test_tensor_validation.py", line 45, in call
+    return validate_tensor.validate(self.root, self.results, 2, allow_dirty)
+           ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/wafoe/projects/me/CXXEg/tools/validate_tensor.py", line 31, in validate
+    "source": source, "host": platform.node(), "platform": platform.platform(),
+                                                           ~~~~~~~~~~~~~~~~~^^
+  File "/Users/wafoe/miniforge3/lib/python3.14/platform.py", line 1360, in platform
+    system, node, release, version, machine, processor = uname()
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/wafoe/miniforge3/lib/python3.14/platform.py", line 964, in __iter__
+    (self.processor,)
+     ^^^^^^^^^^^^^^
+  File "/Users/wafoe/miniforge3/lib/python3.14/functools.py", line 1126, in __get__
+    val = self.func(instance)
+  File "/Users/wafoe/miniforge3/lib/python3.14/platform.py", line 959, in processor
+    return _unknown_as_blank(_Processor.get())
+                             ~~~~~~~~~~~~~~^^
+  File "/Users/wafoe/miniforge3/lib/python3.14/platform.py", line 891, in get
+    return func() or ''
+           ~~~~^^
+  File "/Users/wafoe/miniforge3/lib/python3.14/platform.py", line 927, in from_subprocess
+    return subprocess.check_output(
+           ~~~~~~~~~~~~~~~~~~~~~~~^
+        ['uname', '-p'],
+        ^^^^^^^^^^^^^^^^
+    ...<2 lines>...
+        encoding="utf8",
+        ^^^^^^^^^^^^^^^^
+    ).strip()
+    ^
+  File "/Users/wafoe/miniforge3/lib/python3.14/subprocess.py", line 473, in check_output
+    return run(*popenargs, stdout=PIPE, timeout=timeout, check=True,
+           ~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+               **kwargs).stdout
+               ^^^^^^^^^
+  File "/Users/wafoe/miniforge3/lib/python3.14/unittest/mock.py", line 1176, in __call__
+    return self._mock_call(*args, **kwargs)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/Users/wafoe/miniforge3/lib/python3.14/unittest/mock.py", line 1180, in _mock_call
+    return self._execute_mock_call(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/Users/wafoe/miniforge3/lib/python3.14/unittest/mock.py", line 1247, in _execute_mock_call
+    result = effect(*args, **kwargs)
+  File "/Users/wafoe/projects/me/CXXEg/tests/test_tensor_validation.py", line 33, in fake_run
+    kwargs["stdout"].write("mock command output (not real build evidence)\n")
+    ^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'int' object has no attribute 'write'
+
+======================================================================
+ERROR: test_failure_preserves_log_and_exit_status (__main__.ValidationTest.test_failure_preserves_log_and_exit_status)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/wafoe/projects/me/CXXEg/tests/test_tensor_validation.py", line 73, in test_failure_preserves_log_and_exit_status
+    self.call(runner=fail)
+    ~~~~~~~~~^^^^^^^^^^^^^
+  File "/Users/wafoe/projects/me/CXXEg/tests/test_tensor_validation.py", line 45, in call
+    return validate_tensor.validate(self.root, self.results, 2, allow_dirty)
+           ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/wafoe/projects/me/CXXEg/tools/validate_tensor.py", line 31, in validate
+    "source": source, "host": platform.node(), "platform": platform.platform(),
+                                                           ~~~~~~~~~~~~~~~~~^^
+  File "/Users/wafoe/miniforge3/lib/python3.14/platform.py", line 1360, in platform
+    system, node, release, version, machine, processor = uname()
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/wafoe/miniforge3/lib/python3.14/platform.py", line 964, in __iter__
+    (self.processor,)
+     ^^^^^^^^^^^^^^
+  File "/Users/wafoe/miniforge3/lib/python3.14/functools.py", line 1126, in __get__
+    val = self.func(instance)
+  File "/Users/wafoe/miniforge3/lib/python3.14/platform.py", line 959, in processor
+    return _unknown_as_blank(_Processor.get())
+                             ~~~~~~~~~~~~~~^^
+  File "/Users/wafoe/miniforge3/lib/python3.14/platform.py", line 891, in get
+    return func() or ''
+           ~~~~^^
+  File "/Users/wafoe/miniforge3/lib/python3.14/platform.py", line 927, in from_subprocess
+    return subprocess.check_output(
+           ~~~~~~~~~~~~~~~~~~~~~~~^
+        ['uname', '-p'],
+        ^^^^^^^^^^^^^^^^
+    ...<2 lines>...
+        encoding="utf8",
+        ^^^^^^^^^^^^^^^^
+    ).strip()
+    ^
+  File "/Users/wafoe/miniforge3/lib/python3.14/subprocess.py", line 473, in check_output
+    return run(*popenargs, stdout=PIPE, timeout=timeout, check=True,
+           ~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+               **kwargs).stdout
+               ^^^^^^^^^
+  File "/Users/wafoe/miniforge3/lib/python3.14/unittest/mock.py", line 1176, in __call__
+    return self._mock_call(*args, **kwargs)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/Users/wafoe/miniforge3/lib/python3.14/unittest/mock.py", line 1180, in _mock_call
+    return self._execute_mock_call(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/Users/wafoe/miniforge3/lib/python3.14/unittest/mock.py", line 1247, in _execute_mock_call
+    result = effect(*args, **kwargs)
+  File "/Users/wafoe/projects/me/CXXEg/tests/test_tensor_validation.py", line 71, in fail
+    return self.fake_run(argv, **kwargs)
+           ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^
+  File "/Users/wafoe/projects/me/CXXEg/tests/test_tensor_validation.py", line 33, in fake_run
+    kwargs["stdout"].write("mock command output (not real build evidence)\n")
+    ^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'int' object has no attribute 'write'
+
+======================================================================
+ERROR: test_source_change_invalidates_success (__main__.ValidationTest.test_source_change_invalidates_success)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/wafoe/projects/me/CXXEg/tests/test_tensor_validation.py", line 86, in test_source_change_invalidates_success
+    validate_tensor.validate(self.root, self.results, 2, False)
+    ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/wafoe/projects/me/CXXEg/tools/validate_tensor.py", line 31, in validate
+    "source": source, "host": platform.node(), "platform": platform.platform(),
+                                                           ~~~~~~~~~~~~~~~~~^^
+  File "/Users/wafoe/miniforge3/lib/python3.14/platform.py", line 1360, in platform
+    system, node, release, version, machine, processor = uname()
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/wafoe/miniforge3/lib/python3.14/platform.py", line 964, in __iter__
+    (self.processor,)
+     ^^^^^^^^^^^^^^
+  File "/Users/wafoe/miniforge3/lib/python3.14/functools.py", line 1126, in __get__
+    val = self.func(instance)
+  File "/Users/wafoe/miniforge3/lib/python3.14/platform.py", line 959, in processor
+    return _unknown_as_blank(_Processor.get())
+                             ~~~~~~~~~~~~~~^^
+  File "/Users/wafoe/miniforge3/lib/python3.14/platform.py", line 891, in get
+    return func() or ''
+           ~~~~^^
+  File "/Users/wafoe/miniforge3/lib/python3.14/platform.py", line 927, in from_subprocess
+    return subprocess.check_output(
+           ~~~~~~~~~~~~~~~~~~~~~~~^
+        ['uname', '-p'],
+        ^^^^^^^^^^^^^^^^
+    ...<2 lines>...
+        encoding="utf8",
+        ^^^^^^^^^^^^^^^^
+    ).strip()
+    ^
+  File "/Users/wafoe/miniforge3/lib/python3.14/subprocess.py", line 473, in check_output
+    return run(*popenargs, stdout=PIPE, timeout=timeout, check=True,
+           ~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+               **kwargs).stdout
+               ^^^^^^^^^
+  File "/Users/wafoe/miniforge3/lib/python3.14/unittest/mock.py", line 1176, in __call__
+    return self._mock_call(*args, **kwargs)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/Users/wafoe/miniforge3/lib/python3.14/unittest/mock.py", line 1180, in _mock_call
+    return self._execute_mock_call(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/Users/wafoe/miniforge3/lib/python3.14/unittest/mock.py", line 1247, in _execute_mock_call
+    result = effect(*args, **kwargs)
+  File "/Users/wafoe/projects/me/CXXEg/tests/test_tensor_validation.py", line 33, in fake_run
+    kwargs["stdout"].write("mock command output (not real build evidence)\n")
+    ^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'int' object has no attribute 'write'
+
+----------------------------------------------------------------------
+Ran 6 tests in 0.008s
+
+FAILED (errors=4)
+
+test 4
+    Start 4: common
+
+4: Test command: /Users/wafoe/projects/me/CXXEg/build-stage1-validation/20261005T105341356551Z-87359/release/test_common
+4: Working Directory: /Users/wafoe/projects/me/CXXEg/build-stage1-validation/20261005T105341356551Z-87359/release
+4: Test timeout computed to be: 1500
+4: CPU reference, validation, statistics, GFLOPS, CSV: PASS
+4/5 Test #4: common ...........................   Passed    0.37 sec
+test 5
+    Start 5: tools
+
+5: Test command: /Users/wafoe/miniforge3/bin/python3.14 "/Users/wafoe/projects/me/CXXEg/tests/test_tools.py"
+5: Working Directory: /Users/wafoe/projects/me/CXXEg/build-stage1-validation/20261005T105341356551Z-87359/release
+5: Test timeout computed to be: 1500
+5: test_bad_numeric_input (__main__.AnalysisTests.test_bad_numeric_input) ... ok
+5: test_changed_comparison_conditions (__main__.AnalysisTests.test_changed_comparison_conditions) ... ok
+5: test_cli_missing_csv_preserves_existing_report (__main__.AnalysisTests.test_cli_missing_csv_preserves_existing_report) ... ok
+5: test_duplicate_or_single_kernel (__main__.AnalysisTests.test_duplicate_or_single_kernel) ... ok
+5: test_failure_not_success (__main__.AnalysisTests.test_failure_not_success) ... ok
+5: test_invalid_build_and_commit (__main__.AnalysisTests.test_invalid_build_and_commit) ... ok
+5: test_missing_raw_samples (__main__.AnalysisTests.test_missing_raw_samples) ... ok
+5: test_no_data_no_report (__main__.AnalysisTests.test_no_data_no_report) ... ok
+5: test_no_report_without_completed_run (__main__.AnalysisTests.test_no_report_without_completed_run) ... ok
+5: test_path_traversal (__main__.AnalysisTests.test_path_traversal) ... ok
+5: test_ratio_wrong_units (__main__.AnalysisTests.test_ratio_wrong_units) ... ok
+5: test_report_from_raw (__main__.AnalysisTests.test_report_from_raw) ... ok
+5: test_timing_raw_tamper (__main__.AnalysisTests.test_timing_raw_tamper) ... ok
+5: test_wrong_gflops (__main__.AnalysisTests.test_wrong_gflops) ... ok
+5: test_clean_and_dirty_source (__main__.ProvenanceTests.test_clean_and_dirty_source) ... ok
+5: test_header_stable (__main__.ProvenanceTests.test_header_stable) ... ok
+5: test_results_and_report_excluded (__main__.ProvenanceTests.test_results_and_report_excluded) ... ok
+5: test_untracked_source_included (__main__.ProvenanceTests.test_untracked_source_included) ... ok
+5: test_failed_environment_capture_preserved (__main__.ScriptFailureTests.test_failed_environment_capture_preserved) ... ok
+5: test_stale_binary_refused_before_benchmark (__main__.ScriptFailureTests.test_stale_binary_refused_before_benchmark) ... ok
+5: 
+5: ----------------------------------------------------------------------
+5: Ran 20 tests in 1.961s
+5: 
+5: OK
+5/5 Test #5: tools ............................   Passed    2.02 sec
+
+80% tests passed, 1 tests failed out of 5
+
+Label Time Summary:
+cpu       =   1.11 sec*proc (3 tests)
+tensor    =   1.11 sec*proc (3 tests)
+
+Total Test time (real) =   3.50 sec
+
+The following tests FAILED:
+	  3 - tensor_validation (Failed)                        cpu tensor
+Errors while running CTest
