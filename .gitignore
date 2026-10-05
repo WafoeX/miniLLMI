@@ -1,0 +1,12 @@
+/build*/
+/.venv/
+/.cache/
+__pycache__/
+*.pyc
+.DS_Store
+/compile_commands.json
+# 原始 CSV、文本日志、环境和报告允许提交；大型 profiler 二进制用外部制品保存。
+*.nsys-rep
+*.ncu-rep
+*.sqlite
+/results/.stage0.lock/

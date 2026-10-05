@@ -1,0 +1,74 @@
+cmake_minimum_required(VERSION 3.24)
+project(mini_llm_runtime VERSION 0.1.0 LANGUAGES CXX)
+
+# Stage 0 only. No runtime, tensor, graph or quantization implementation.
+option(ENABLE_CUDA "Build CUDA Stage 0 baselines (requires GPU for native architecture)" OFF)
+if(CMAKE_CONFIGURATION_TYPES)
+    message(FATAL_ERROR "Use a single-config generator, e.g. Ninja or Unix Makefiles")
+endif()
+if(NOT CMAKE_BUILD_TYPE)
+    set(CMAKE_BUILD_TYPE Release CACHE STRING "Build type" FORCE)
+endif()
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_CXX_EXTENSIONS OFF)
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
+find_package(Python3 3.8 REQUIRED COMPONENTS Interpreter)
+find_package(Git REQUIRED)
+include(CTest)
+
+if(ENABLE_CUDA)
+    # Detect the actual visible GPU; do not assume T4 specs or hardcode SM75.
+    if(NOT DEFINED CMAKE_CUDA_ARCHITECTURES)
+        set(CMAKE_CUDA_ARCHITECTURES native CACHE STRING "CUDA architectures")
+    endif()
+    enable_language(CUDA)
+    set(CMAKE_CUDA_STANDARD 17)
+    set(CMAKE_CUDA_STANDARD_REQUIRED ON)
+    set(CMAKE_CUDA_EXTENSIONS OFF)
+    set(CMAKE_CUDA_RUNTIME_LIBRARY Shared)
+    find_package(CUDAToolkit 11.0 REQUIRED)
+endif()
+
+file(MAKE_DIRECTORY "${CMAKE_BINARY_DIR}/generated/stage0")
+configure_file(include/stage0/build_info.hpp.in generated/stage0/build_info.hpp @ONLY)
+set(PROVENANCE_HEADER "${CMAKE_BINARY_DIR}/generated/stage0/provenance.hpp")
+execute_process(COMMAND "${Python3_EXECUTABLE}" "${CMAKE_SOURCE_DIR}/tools/provenance.py"
+    --root "${CMAKE_SOURCE_DIR}" --header "${PROVENANCE_HEADER}"
+    COMMAND_ERROR_IS_FATAL ANY)
+# Refresh on every build, not only configure. Script only writes changed content.
+add_custom_target(refresh_provenance
+    COMMAND "${Python3_EXECUTABLE}" "${CMAKE_SOURCE_DIR}/tools/provenance.py"
+        --root "${CMAKE_SOURCE_DIR}" --header "${PROVENANCE_HEADER}"
+    BYPRODUCTS "${PROVENANCE_HEADER}" VERBATIM)
+add_library(stage0_common src/common.cpp)
+add_dependencies(stage0_common refresh_provenance)
+target_include_directories(stage0_common PUBLIC include "${CMAKE_BINARY_DIR}/generated")
+target_compile_options(stage0_common PRIVATE -Wall -Wextra -Wpedantic)
+
+if(BUILD_TESTING)
+    add_executable(test_common tests/test_common.cpp)
+    target_link_libraries(test_common PRIVATE stage0_common)
+    target_compile_options(test_common PRIVATE -Wall -Wextra -Wpedantic)
+    add_test(NAME common COMMAND test_common)
+    add_test(NAME tools COMMAND "${Python3_EXECUTABLE}" "${CMAKE_SOURCE_DIR}/tests/test_tools.py")
+endif()
+
+if(ENABLE_CUDA)
+    add_library(stage0_cuda backend/cuda/sgemm_v0_naive.cu backend/cuda/cublas_gemm.cu)
+    target_link_libraries(stage0_cuda PUBLIC stage0_common CUDA::cudart CUDA::cublas)
+    target_compile_options(stage0_cuda PRIVATE $<$<COMPILE_LANGUAGE:CUDA>:-lineinfo>)
+    # Host-only orchestration is compiled as C++17; only kernels/wrappers use nvcc.
+    add_executable(gpu_info bench/gpu_info.cpp)
+    target_link_libraries(gpu_info PRIVATE stage0_cuda)
+    target_compile_options(gpu_info PRIVATE -Wall -Wextra -Wpedantic)
+    add_executable(bench_gemm bench/bench_gemm.cpp)
+    target_link_libraries(bench_gemm PRIVATE stage0_cuda)
+    target_compile_options(bench_gemm PRIVATE -Wall -Wextra -Wpedantic)
+    if(BUILD_TESTING)
+        add_executable(test_cuda_gemm tests/test_cuda_gemm.cpp)
+        target_link_libraries(test_cuda_gemm PRIVATE stage0_cuda)
+        add_test(NAME cuda_gemm COMMAND test_cuda_gemm)
+        set_tests_properties(cuda_gemm PROPERTIES LABELS "gpu")
+    endif()
+endif()
