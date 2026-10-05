@@ -1,0 +1,209 @@
+{
+  "schema_version": 1,
+  "stage": 2,
+  "run_id": "20261005T121705133744Z-8132",
+  "scope": "CPU-only correctness, no performance claim",
+  "source": {
+    "commit": "48e18d2fd06303a59330866b69a91b215e6fcd5d",
+    "source_digest": "7719aa199e5c48185094161234a2c0b90aaeac407357e935d192d71ec94a4cc6",
+    "source_dirty": false
+  },
+  "host": "Wafoe-MacBook.local",
+  "platform": "macOS-26.7-arm64-arm-64bit-Mach-O",
+  "machine": "arm64",
+  "python": "3.14.6 | packaged by conda-forge | (main, Aug 11 2026, 10:24:52) [Clang 20.1.8 ]",
+  "sanitizer_environment": {
+    "ASAN_OPTIONS": "halt_on_error=1:detect_leaks=0",
+    "UBSAN_OPTIONS": "halt_on_error=1:print_stacktrace=1"
+  },
+  "commands": [
+    {
+      "argv": [
+        "cmake",
+        "--version"
+      ],
+      "cwd": "/Users/wafoe/projects/me/CXXEg/build-stage2-clean-source",
+      "log": "cmake-version.log",
+      "exit_code": 0
+    },
+    {
+      "argv": [
+        "git",
+        "--version"
+      ],
+      "cwd": "/Users/wafoe/projects/me/CXXEg/build-stage2-clean-source",
+      "log": "git-version.log",
+      "exit_code": 0
+    },
+    {
+      "argv": [
+        "cmake",
+        "-S",
+        "/Users/wafoe/projects/me/CXXEg/build-stage2-clean-source",
+        "-B",
+        "/Users/wafoe/projects/me/CXXEg/build-stage2-clean-source/build-stage2-validation/20261005T121705133744Z-8132/release",
+        "-DCMAKE_BUILD_TYPE=Release",
+        "-DENABLE_CUDA=OFF",
+        "-DENABLE_SANITIZERS=OFF",
+        "-DBUILD_TESTING=ON"
+      ],
+      "cwd": "/Users/wafoe/projects/me/CXXEg/build-stage2-clean-source",
+      "log": "release-configure.log",
+      "exit_code": 0
+    },
+    {
+      "argv": [
+        "cmake",
+        "--build",
+        "/Users/wafoe/projects/me/CXXEg/build-stage2-clean-source/build-stage2-validation/20261005T121705133744Z-8132/release",
+        "--parallel",
+        "4",
+        "--verbose"
+      ],
+      "cwd": "/Users/wafoe/projects/me/CXXEg/build-stage2-clean-source",
+      "log": "release-build.log",
+      "exit_code": 0
+    },
+    {
+      "argv": [
+        "ctest",
+        "--test-dir",
+        "/Users/wafoe/projects/me/CXXEg/build-stage2-clean-source/build-stage2-validation/20261005T121705133744Z-8132/release",
+        "--output-on-failure",
+        "--verbose"
+      ],
+      "cwd": "/Users/wafoe/projects/me/CXXEg/build-stage2-clean-source",
+      "log": "release-ctest.log",
+      "exit_code": 0
+    },
+    {
+      "argv": [
+        "cmake",
+        "-S",
+        "/Users/wafoe/projects/me/CXXEg/build-stage2-clean-source",
+        "-B",
+        "/Users/wafoe/projects/me/CXXEg/build-stage2-clean-source/build-stage2-validation/20261005T121705133744Z-8132/debug",
+        "-DCMAKE_BUILD_TYPE=Debug",
+        "-DENABLE_CUDA=OFF",
+        "-DENABLE_SANITIZERS=OFF",
+        "-DBUILD_TESTING=ON"
+      ],
+      "cwd": "/Users/wafoe/projects/me/CXXEg/build-stage2-clean-source",
+      "log": "debug-configure.log",
+      "exit_code": 0
+    },
+    {
+      "argv": [
+        "cmake",
+        "--build",
+        "/Users/wafoe/projects/me/CXXEg/build-stage2-clean-source/build-stage2-validation/20261005T121705133744Z-8132/debug",
+        "--parallel",
+        "4",
+        "--verbose"
+      ],
+      "cwd": "/Users/wafoe/projects/me/CXXEg/build-stage2-clean-source",
+      "log": "debug-build.log",
+      "exit_code": 0
+    },
+    {
+      "argv": [
+        "ctest",
+        "--test-dir",
+        "/Users/wafoe/projects/me/CXXEg/build-stage2-clean-source/build-stage2-validation/20261005T121705133744Z-8132/debug",
+        "--output-on-failure",
+        "--verbose"
+      ],
+      "cwd": "/Users/wafoe/projects/me/CXXEg/build-stage2-clean-source",
+      "log": "debug-ctest.log",
+      "exit_code": 0
+    },
+    {
+      "argv": [
+        "cmake",
+        "-S",
+        "/Users/wafoe/projects/me/CXXEg/build-stage2-clean-source",
+        "-B",
+        "/Users/wafoe/projects/me/CXXEg/build-stage2-clean-source/build-stage2-validation/20261005T121705133744Z-8132/sanitizer",
+        "-DCMAKE_BUILD_TYPE=Debug",
+        "-DENABLE_CUDA=OFF",
+        "-DENABLE_SANITIZERS=ON",
+        "-DBUILD_TESTING=ON"
+      ],
+      "cwd": "/Users/wafoe/projects/me/CXXEg/build-stage2-clean-source",
+      "log": "sanitizer-configure.log",
+      "exit_code": 0
+    },
+    {
+      "argv": [
+        "cmake",
+        "--build",
+        "/Users/wafoe/projects/me/CXXEg/build-stage2-clean-source/build-stage2-validation/20261005T121705133744Z-8132/sanitizer",
+        "--parallel",
+        "4",
+        "--verbose"
+      ],
+      "cwd": "/Users/wafoe/projects/me/CXXEg/build-stage2-clean-source",
+      "log": "sanitizer-build.log",
+      "exit_code": 0
+    },
+    {
+      "argv": [
+        "cmake",
+        "--build",
+        "/Users/wafoe/projects/me/CXXEg/build-stage2-clean-source/build-stage2-validation/20261005T121705133744Z-8132/sanitizer",
+        "--target",
+        "check_operator_sanitizers"
+      ],
+      "cwd": "/Users/wafoe/projects/me/CXXEg/build-stage2-clean-source",
+      "log": "sanitizer-target.log",
+      "exit_code": 0
+    },
+    {
+      "argv": [
+        "ctest",
+        "--test-dir",
+        "/Users/wafoe/projects/me/CXXEg/build-stage2-clean-source/build-stage2-validation/20261005T121705133744Z-8132/sanitizer",
+        "--output-on-failure",
+        "--verbose"
+      ],
+      "cwd": "/Users/wafoe/projects/me/CXXEg/build-stage2-clean-source",
+      "log": "sanitizer-ctest.log",
+      "exit_code": 0
+    },
+    {
+      "argv": [
+        "cmake",
+        "-S",
+        "/Users/wafoe/projects/me/CXXEg/build-stage2-clean-source",
+        "-B",
+        "/Users/wafoe/projects/me/CXXEg/build-stage2-clean-source/build-stage2-validation/20261005T121705133744Z-8132/production",
+        "-DCMAKE_BUILD_TYPE=Release",
+        "-DENABLE_CUDA=OFF",
+        "-DENABLE_SANITIZERS=OFF",
+        "-DBUILD_TESTING=OFF"
+      ],
+      "cwd": "/Users/wafoe/projects/me/CXXEg/build-stage2-clean-source",
+      "log": "production-configure.log",
+      "exit_code": 0
+    },
+    {
+      "argv": [
+        "cmake",
+        "--build",
+        "/Users/wafoe/projects/me/CXXEg/build-stage2-clean-source/build-stage2-validation/20261005T121705133744Z-8132/production",
+        "--parallel",
+        "4",
+        "--verbose"
+      ],
+      "cwd": "/Users/wafoe/projects/me/CXXEg/build-stage2-clean-source",
+      "log": "production-build.log",
+      "exit_code": 0
+    }
+  ],
+  "status": "passed",
+  "source_after": {
+    "commit": "48e18d2fd06303a59330866b69a91b215e6fcd5d",
+    "source_digest": "7719aa199e5c48185094161234a2c0b90aaeac407357e935d192d71ec94a4cc6",
+    "source_dirty": false
+  }
+}

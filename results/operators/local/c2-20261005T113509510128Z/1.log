@@ -1,0 +1,22 @@
+-- Configuring done (0.2s)
+-- Generating done (0.0s)
+-- Build files have been written to: /Users/wafoe/projects/me/CXXEg/build-stage2-release
+[ 16%] Building CXX object CMakeFiles/runtime.dir/src/runtime/shape_inference.cpp.o
+[ 16%] Building CXX object CMakeFiles/runtime.dir/src/runtime/tensor.cpp.o
+[ 16%] Building CXX object CMakeFiles/runtime.dir/src/runtime/copy.cpp.o
+[ 16%] Built target refresh_provenance
+[ 27%] Built target stage0_common
+[ 38%] Built target test_common
+[ 44%] Linking CXX static library libruntime.a
+[ 55%] Built target runtime
+[ 61%] Building CXX object CMakeFiles/test_shape_inference.dir/tests/test_shape_inference.cpp.o
+[ 77%] Building CXX object CMakeFiles/test_tensor_properties.dir/tests/test_tensor_properties.cpp.o
+[ 77%] Building CXX object CMakeFiles/test_tensor.dir/tests/test_tensor.cpp.o
+[ 77%] Linking CXX executable test_operator
+[ 83%] Built target test_operator
+[ 88%] Linking CXX executable test_shape_inference
+[ 88%] Built target test_shape_inference
+[ 94%] Linking CXX executable test_tensor_properties
+[ 94%] Built target test_tensor_properties
+[100%] Linking CXX executable test_tensor
+[100%] Built target test_tensor

@@ -1,0 +1,120 @@
+UpdateCTestConfiguration  from :/Users/wafoe/projects/me/CXXEg/build-stage2-release/DartConfiguration.tcl
+Parse Config file:/Users/wafoe/projects/me/CXXEg/build-stage2-release/DartConfiguration.tcl
+Test project /Users/wafoe/projects/me/CXXEg/build-stage2-release
+Constructing a list of tests
+Done constructing a list of tests
+Updating test list for fixtures
+Added 0 tests to meet fixture requirements
+Checking test dependency graph...
+Checking test dependency graph end
+test 1
+    Start 1: tensor
+
+1: Test command: /Users/wafoe/projects/me/CXXEg/build-stage2-release/test_tensor
+1: Working Directory: /Users/wafoe/projects/me/CXXEg/build-stage2-release
+1: Test timeout computed to be: 1500
+1: Allocation checks: views/transpose=0 buffers; nonempty materialize=1; copy=24 logical bytes, 0 buffers
+1: Tensor metadata/storage/construction/views/copy: PASS
+1/9 Test #1: tensor ...........................   Passed    0.66 sec
+test 2
+    Start 2: tensor_properties
+
+2: Test command: /Users/wafoe/projects/me/CXXEg/build-stage2-release/test_tensor_properties
+2: Working Directory: /Users/wafoe/projects/me/CXXEg/build-stage2-release
+2: Test timeout computed to be: 1500
+2: Tensor properties: PASS seed=20903 trials=600 ranks=0..8 FP32/INT32; padding/offset/permutation/slice/materialization/copy/alias
+2/9 Test #2: tensor_properties ................   Passed    0.43 sec
+test 3
+    Start 3: tensor_validation
+
+3: Test command: /Users/wafoe/miniforge3/bin/python3.14 "/Users/wafoe/projects/me/CXXEg/tests/test_tensor_validation.py"
+3: Working Directory: /Users/wafoe/projects/me/CXXEg/build-stage2-release
+3: Test timeout computed to be: 1500
+3: ......
+3: ----------------------------------------------------------------------
+3: Ran 6 tests in 0.036s
+3: 
+3: OK
+3/9 Test #3: tensor_validation ................   Passed    0.11 sec
+test 4
+    Start 4: operator
+
+4: Test command: /Users/wafoe/projects/me/CXXEg/build-stage2-release/test_operator
+4: Working Directory: /Users/wafoe/projects/me/CXXEg/build-stage2-release
+4: Test timeout computed to be: 1500
+4: Operator schema/arity/typed attributes/ID/status/serialization: PASS
+4/9 Test #4: operator .........................   Passed    0.37 sec
+test 5
+    Start 5: shape_inference
+
+5: Test command: /Users/wafoe/projects/me/CXXEg/build-stage2-release/test_shape_inference
+5: Working Directory: /Users/wafoe/projects/me/CXXEg/build-stage2-release
+5: Test timeout computed to be: 1500
+5: Pure core shape/dtype/contiguity/overflow/alias/COPY inference: PASS
+5/9 Test #5: shape_inference ..................   Passed    0.54 sec
+test 6
+    Start 6: operator_reference
+
+6: Test command: /Users/wafoe/projects/me/CXXEg/build-stage2-release/test_reference
+6: Working Directory: /Users/wafoe/projects/me/CXXEg/build-stage2-release
+6: Test timeout computed to be: 1500
+6: Reference random MATMUL: PASS seed=20995 trials=100 (zero/rectangular), no performance claim
+6: CPU reference ADD/MUL/MATMUL/COPY/MATERIALIZE: PASS
+6/9 Test #6: operator_reference ...............   Passed    0.38 sec
+test 7
+    Start 7: transformer_contracts
+
+7: Test command: /Users/wafoe/projects/me/CXXEg/build-stage2-release/test_transformer_contracts
+7: Working Directory: /Users/wafoe/projects/me/CXXEg/build-stage2-release
+7: Test timeout computed to be: 1500
+7: Transformer schema/inference/positions/head-lowering/cache-write contract: PASS (no transformer kernels)
+7/9 Test #7: transformer_contracts ............   Passed    0.37 sec
+test 8
+    Start 8: common
+
+8: Test command: /Users/wafoe/projects/me/CXXEg/build-stage2-release/test_common
+8: Working Directory: /Users/wafoe/projects/me/CXXEg/build-stage2-release
+8: Test timeout computed to be: 1500
+8: CPU reference, validation, statistics, GFLOPS, CSV: PASS
+8/9 Test #8: common ...........................   Passed    0.00 sec
+test 9
+    Start 9: tools
+
+9: Test command: /Users/wafoe/miniforge3/bin/python3.14 "/Users/wafoe/projects/me/CXXEg/tests/test_tools.py"
+9: Working Directory: /Users/wafoe/projects/me/CXXEg/build-stage2-release
+9: Test timeout computed to be: 1500
+9: test_bad_numeric_input (__main__.AnalysisTests.test_bad_numeric_input) ... ok
+9: test_changed_comparison_conditions (__main__.AnalysisTests.test_changed_comparison_conditions) ... ok
+9: test_cli_missing_csv_preserves_existing_report (__main__.AnalysisTests.test_cli_missing_csv_preserves_existing_report) ... ok
+9: test_duplicate_or_single_kernel (__main__.AnalysisTests.test_duplicate_or_single_kernel) ... ok
+9: test_failure_not_success (__main__.AnalysisTests.test_failure_not_success) ... ok
+9: test_invalid_build_and_commit (__main__.AnalysisTests.test_invalid_build_and_commit) ... ok
+9: test_missing_raw_samples (__main__.AnalysisTests.test_missing_raw_samples) ... ok
+9: test_no_data_no_report (__main__.AnalysisTests.test_no_data_no_report) ... ok
+9: test_no_report_without_completed_run (__main__.AnalysisTests.test_no_report_without_completed_run) ... ok
+9: test_path_traversal (__main__.AnalysisTests.test_path_traversal) ... ok
+9: test_ratio_wrong_units (__main__.AnalysisTests.test_ratio_wrong_units) ... ok
+9: test_report_from_raw (__main__.AnalysisTests.test_report_from_raw) ... ok
+9: test_timing_raw_tamper (__main__.AnalysisTests.test_timing_raw_tamper) ... ok
+9: test_wrong_gflops (__main__.AnalysisTests.test_wrong_gflops) ... ok
+9: test_clean_and_dirty_source (__main__.ProvenanceTests.test_clean_and_dirty_source) ... ok
+9: test_header_stable (__main__.ProvenanceTests.test_header_stable) ... ok
+9: test_results_and_report_excluded (__main__.ProvenanceTests.test_results_and_report_excluded) ... ok
+9: test_untracked_source_included (__main__.ProvenanceTests.test_untracked_source_included) ... ok
+9: test_failed_environment_capture_preserved (__main__.ScriptFailureTests.test_failed_environment_capture_preserved) ... ok
+9: test_stale_binary_refused_before_benchmark (__main__.ScriptFailureTests.test_stale_binary_refused_before_benchmark) ... ok
+9: 
+9: ----------------------------------------------------------------------
+9: Ran 20 tests in 2.042s
+9: 
+9: OK
+9/9 Test #9: tools ............................   Passed    2.10 sec
+
+100% tests passed out of 9
+
+Label Time Summary:
+cpu          =   2.86 sec*proc (7 tests)
+operators    =   1.65 sec*proc (4 tests)
+tensor       =   1.20 sec*proc (3 tests)
+
+Total Test time (real) =   4.97 sec

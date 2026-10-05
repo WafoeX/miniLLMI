@@ -1,0 +1,175 @@
+UpdateCTestConfiguration  from :/Users/wafoe/projects/me/CXXEg/build-stage2-clean-source/build-stage2-validation/20261005T121705133744Z-8132/sanitizer/DartConfiguration.tcl
+Parse Config file:/Users/wafoe/projects/me/CXXEg/build-stage2-clean-source/build-stage2-validation/20261005T121705133744Z-8132/sanitizer/DartConfiguration.tcl
+Test project /Users/wafoe/projects/me/CXXEg/build-stage2-clean-source/build-stage2-validation/20261005T121705133744Z-8132/sanitizer
+Constructing a list of tests
+Done constructing a list of tests
+Updating test list for fixtures
+Added 0 tests to meet fixture requirements
+Checking test dependency graph...
+Checking test dependency graph end
+test 1
+      Start  1: tensor
+
+1: Test command: /Users/wafoe/projects/me/CXXEg/build-stage2-clean-source/build-stage2-validation/20261005T121705133744Z-8132/sanitizer/test_tensor
+1: Working Directory: /Users/wafoe/projects/me/CXXEg/build-stage2-clean-source/build-stage2-validation/20261005T121705133744Z-8132/sanitizer
+1: Test timeout computed to be: 1500
+1: Allocation checks: views/transpose=0 buffers; nonempty materialize=1; copy=24 logical bytes, 0 buffers
+1: Tensor metadata/storage/construction/views/copy: PASS
+ 1/11 Test  #1: tensor ...........................   Passed    0.44 sec
+test 2
+      Start  2: tensor_properties
+
+2: Test command: /Users/wafoe/projects/me/CXXEg/build-stage2-clean-source/build-stage2-validation/20261005T121705133744Z-8132/sanitizer/test_tensor_properties
+2: Working Directory: /Users/wafoe/projects/me/CXXEg/build-stage2-clean-source/build-stage2-validation/20261005T121705133744Z-8132/sanitizer
+2: Test timeout computed to be: 1500
+2: Tensor properties: PASS seed=20903 trials=600 ranks=0..8 FP32/INT32; padding/offset/permutation/slice/materialization/copy/alias
+ 2/11 Test  #2: tensor_properties ................   Passed    0.47 sec
+test 3
+      Start  3: tensor_validation
+
+3: Test command: /Users/wafoe/miniforge3/bin/python3.14 "/Users/wafoe/projects/me/CXXEg/build-stage2-clean-source/tests/test_tensor_validation.py"
+3: Working Directory: /Users/wafoe/projects/me/CXXEg/build-stage2-clean-source/build-stage2-validation/20261005T121705133744Z-8132/sanitizer
+3: Test timeout computed to be: 1500
+3: ........
+3: ----------------------------------------------------------------------
+3: Ran 8 tests in 0.037s
+3: 
+3: OK
+ 3/11 Test  #3: tensor_validation ................   Passed    0.09 sec
+test 4
+      Start  4: operator
+
+4: Test command: /Users/wafoe/projects/me/CXXEg/build-stage2-clean-source/build-stage2-validation/20261005T121705133744Z-8132/sanitizer/test_operator
+4: Working Directory: /Users/wafoe/projects/me/CXXEg/build-stage2-clean-source/build-stage2-validation/20261005T121705133744Z-8132/sanitizer
+4: Test timeout computed to be: 1500
+4: Operator schema/arity/typed attributes/ID/status/serialization: PASS
+ 4/11 Test  #4: operator .........................   Passed    0.01 sec
+test 5
+      Start  5: shape_inference
+
+5: Test command: /Users/wafoe/projects/me/CXXEg/build-stage2-clean-source/build-stage2-validation/20261005T121705133744Z-8132/sanitizer/test_shape_inference
+5: Working Directory: /Users/wafoe/projects/me/CXXEg/build-stage2-clean-source/build-stage2-validation/20261005T121705133744Z-8132/sanitizer
+5: Test timeout computed to be: 1500
+5: Pure core shape/dtype/contiguity/overflow/alias/COPY inference: PASS
+ 5/11 Test  #5: shape_inference ..................   Passed    0.01 sec
+test 6
+      Start  6: operator_reference
+
+6: Test command: /Users/wafoe/projects/me/CXXEg/build-stage2-clean-source/build-stage2-validation/20261005T121705133744Z-8132/sanitizer/test_reference
+6: Working Directory: /Users/wafoe/projects/me/CXXEg/build-stage2-clean-source/build-stage2-validation/20261005T121705133744Z-8132/sanitizer
+6: Test timeout computed to be: 1500
+6: Reference random MATMUL: PASS seed=20995 trials=100 (zero/rectangular), no performance claim
+6: CPU reference ADD/MUL/MATMUL/COPY/MATERIALIZE: PASS
+ 6/11 Test  #6: operator_reference ...............   Passed    0.01 sec
+test 7
+      Start  7: transformer_contracts
+
+7: Test command: /Users/wafoe/projects/me/CXXEg/build-stage2-clean-source/build-stage2-validation/20261005T121705133744Z-8132/sanitizer/test_transformer_contracts
+7: Working Directory: /Users/wafoe/projects/me/CXXEg/build-stage2-clean-source/build-stage2-validation/20261005T121705133744Z-8132/sanitizer
+7: Test timeout computed to be: 1500
+7: Transformer schema/inference/positions/head-lowering/cache-write contract: PASS (no transformer kernels)
+ 7/11 Test  #7: transformer_contracts ............   Passed    0.01 sec
+test 8
+      Start  8: operator_fixtures
+
+8: Test command: /Users/wafoe/miniforge3/bin/python3.14 "/Users/wafoe/projects/me/CXXEg/build-stage2-clean-source/tests/run_operator_fixtures.py" "--binary" "/Users/wafoe/projects/me/CXXEg/build-stage2-clean-source/build-stage2-validation/20261005T121705133744Z-8132/sanitizer/test_operator_fixtures" "--root" "/Users/wafoe/projects/me/CXXEg/build-stage2-clean-source/tests/fixtures/operators-v1"
+8: Working Directory: /Users/wafoe/projects/me/CXXEg/build-stage2-clean-source/build-stage2-validation/20261005T121705133744Z-8132/sanitizer
+8: Test timeout computed to be: 1500
+8: Fixture checksum/provenance: PASS; tiny weights=21 tensors, 461056 bytes (not model execution)
+8: fixture add_hand core=PASS max_abs=0 atol=1e-06 rtol=1e-05
+8: descriptor {"version":1,"op":"ADD","inputs":[0,1],"outputs":[2],"attributes":{},"backend_hint":null}
+8: fixture mul_scalar core=PASS max_abs=0 atol=1e-06 rtol=1e-05
+8: descriptor {"version":1,"op":"MUL","inputs":[0,1],"outputs":[2],"attributes":{},"backend_hint":null}
+8: fixture matmul_rectangular core=PASS max_abs=0 atol=1e-06 rtol=1e-05
+8: descriptor {"version":1,"op":"MATMUL","inputs":[0,1],"outputs":[2],"attributes":{},"backend_hint":null}
+8: fixture matmul_zero_inner core=PASS max_abs=0 atol=1e-06 rtol=1e-05
+8: descriptor {"version":1,"op":"MATMUL","inputs":[0,1],"outputs":[2],"attributes":{},"backend_hint":null}
+8: fixture copy_ids_transpose core=PASS max_abs=0 atol=1e-06 rtol=1e-05
+8: descriptor {"version":1,"op":"COPY","inputs":[0,1],"outputs":[2],"attributes":{"overlap":"reject_except_exact_self"},"backend_hint":null}
+8: fixture copy_fp32 core=PASS max_abs=0 atol=1e-06 rtol=1e-05
+8: descriptor {"version":1,"op":"COPY","inputs":[0,1],"outputs":[2],"attributes":{"overlap":"reject_except_exact_self"},"backend_hint":null}
+8: fixture materialize_transpose core=PASS max_abs=0 atol=1e-06 rtol=1e-05
+8: descriptor {"version":1,"op":"MATERIALIZE","inputs":[0],"outputs":[1],"attributes":{},"backend_hint":null}
+8: fixture add_empty core=PASS max_abs=0 atol=1e-06 rtol=1e-05
+8: descriptor {"version":1,"op":"ADD","inputs":[0,1],"outputs":[2],"attributes":{},"backend_hint":null}
+8: fixture rmsnorm_hand_zero_row metadata=PASS numeric=pending-S12
+8: descriptor {"version":1,"op":"RMSNORM","inputs":[0,1],"outputs":[2],"attributes":{"epsilon":1.0000000000000001e-05},"backend_hint":null}
+8: fixture softmax_stable metadata=PASS numeric=pending-S12
+8: descriptor {"version":1,"op":"SOFTMAX","inputs":[0],"outputs":[1],"attributes":{"causal":false,"query_position":0,"key_position":0,"max_positions":1088},"backend_hint":null}
+8: fixture softmax_decode_offset metadata=PASS numeric=pending-S12
+8: descriptor {"version":1,"op":"SOFTMAX","inputs":[0],"outputs":[1],"attributes":{"causal":true,"query_position":2,"key_position":0,"max_positions":1088},"backend_hint":null}
+8: fixture softmax_all_masked metadata=PASS numeric=pending-S12
+8: descriptor {"version":1,"op":"SOFTMAX","inputs":[0],"outputs":[1],"attributes":{"causal":true,"query_position":0,"key_position":2,"max_positions":1088},"backend_hint":null}
+8: fixture rope_interleaved_hand metadata=PASS numeric=pending-S12
+8: descriptor {"version":1,"op":"ROPE","inputs":[0],"outputs":[1],"attributes":{"position":1,"base":10000,"max_positions":1088},"backend_hint":null}
+8: fixture rope_tiny_heads metadata=PASS numeric=pending-S12
+8: descriptor {"version":1,"op":"ROPE","inputs":[0],"outputs":[1],"attributes":{"position":17,"base":10000,"max_positions":1088},"backend_hint":null}
+8: fixture embedding_hand metadata=PASS numeric=pending-S12
+8: descriptor {"version":1,"op":"EMBEDDING","inputs":[0,1],"outputs":[2],"attributes":{},"backend_hint":null}
+8: fixture swiglu_hand metadata=PASS numeric=pending-S12
+8: descriptor {"version":1,"op":"SWIGLU","inputs":[0,1],"outputs":[2],"attributes":{},"backend_hint":null}
+8: fixture attention_decode_tiny_geometry metadata=PASS numeric=pending-S12
+8: descriptor {"version":1,"op":"ATTENTION","inputs":[0,1,2],"outputs":[3],"attributes":{"heads":4,"head_dim":16,"causal":true,"query_position":2,"key_position":0,"max_positions":1088},"backend_hint":null}
+8: Operator fixtures: PASS numeric_core=8 transformer_metadata=9 malformed_reader=10
+ 8/11 Test  #8: operator_fixtures ................   Passed    0.04 sec
+test 9
+      Start  9: operator_fixture_tools
+
+9: Test command: /Users/wafoe/miniforge3/bin/python3.14 "/Users/wafoe/projects/me/CXXEg/build-stage2-clean-source/tests/test_operator_fixture_tools.py"
+9: Working Directory: /Users/wafoe/projects/me/CXXEg/build-stage2-clean-source/build-stage2-validation/20261005T121705133744Z-8132/sanitizer
+9: Test timeout computed to be: 1500
+9: .........
+9: ----------------------------------------------------------------------
+9: Ran 9 tests in 0.042s
+9: 
+9: OK
+ 9/11 Test  #9: operator_fixture_tools ...........   Passed    0.08 sec
+test 10
+      Start 10: common
+
+10: Test command: /Users/wafoe/projects/me/CXXEg/build-stage2-clean-source/build-stage2-validation/20261005T121705133744Z-8132/sanitizer/test_common
+10: Working Directory: /Users/wafoe/projects/me/CXXEg/build-stage2-clean-source/build-stage2-validation/20261005T121705133744Z-8132/sanitizer
+10: Test timeout computed to be: 1500
+10: CPU reference, validation, statistics, GFLOPS, CSV: PASS
+10/11 Test #10: common ...........................   Passed    0.46 sec
+test 11
+      Start 11: tools
+
+11: Test command: /Users/wafoe/miniforge3/bin/python3.14 "/Users/wafoe/projects/me/CXXEg/build-stage2-clean-source/tests/test_tools.py"
+11: Working Directory: /Users/wafoe/projects/me/CXXEg/build-stage2-clean-source/build-stage2-validation/20261005T121705133744Z-8132/sanitizer
+11: Test timeout computed to be: 1500
+11: test_bad_numeric_input (__main__.AnalysisTests.test_bad_numeric_input) ... ok
+11: test_changed_comparison_conditions (__main__.AnalysisTests.test_changed_comparison_conditions) ... ok
+11: test_cli_missing_csv_preserves_existing_report (__main__.AnalysisTests.test_cli_missing_csv_preserves_existing_report) ... ok
+11: test_duplicate_or_single_kernel (__main__.AnalysisTests.test_duplicate_or_single_kernel) ... ok
+11: test_failure_not_success (__main__.AnalysisTests.test_failure_not_success) ... ok
+11: test_invalid_build_and_commit (__main__.AnalysisTests.test_invalid_build_and_commit) ... ok
+11: test_missing_raw_samples (__main__.AnalysisTests.test_missing_raw_samples) ... ok
+11: test_no_data_no_report (__main__.AnalysisTests.test_no_data_no_report) ... ok
+11: test_no_report_without_completed_run (__main__.AnalysisTests.test_no_report_without_completed_run) ... ok
+11: test_path_traversal (__main__.AnalysisTests.test_path_traversal) ... ok
+11: test_ratio_wrong_units (__main__.AnalysisTests.test_ratio_wrong_units) ... ok
+11: test_report_from_raw (__main__.AnalysisTests.test_report_from_raw) ... ok
+11: test_timing_raw_tamper (__main__.AnalysisTests.test_timing_raw_tamper) ... ok
+11: test_wrong_gflops (__main__.AnalysisTests.test_wrong_gflops) ... ok
+11: test_clean_and_dirty_source (__main__.ProvenanceTests.test_clean_and_dirty_source) ... ok
+11: test_header_stable (__main__.ProvenanceTests.test_header_stable) ... ok
+11: test_results_and_report_excluded (__main__.ProvenanceTests.test_results_and_report_excluded) ... ok
+11: test_untracked_source_included (__main__.ProvenanceTests.test_untracked_source_included) ... ok
+11: test_failed_environment_capture_preserved (__main__.ScriptFailureTests.test_failed_environment_capture_preserved) ... ok
+11: test_stale_binary_refused_before_benchmark (__main__.ScriptFailureTests.test_stale_binary_refused_before_benchmark) ... ok
+11: 
+11: ----------------------------------------------------------------------
+11: Ran 20 tests in 1.264s
+11: 
+11: OK
+11/11 Test #11: tools ............................   Passed    1.32 sec
+
+100% tests passed out of 11
+
+Label Time Summary:
+cpu          =   1.16 sec*proc (9 tests)
+operators    =   0.16 sec*proc (6 tests)
+tensor       =   1.00 sec*proc (3 tests)
+
+Total Test time (real) =   2.94 sec

@@ -1,0 +1,92 @@
+[
+{
+  "directory": "/Users/wafoe/projects/me/CXXEg/build-stage2-validation/20261005T121314359821Z-5937/release",
+  "command": "/usr/bin/c++  -I/Users/wafoe/projects/me/CXXEg/include -I/Users/wafoe/projects/me/CXXEg/build-stage2-validation/20261005T121314359821Z-5937/release/generated -O3 -DNDEBUG -std=c++17 -arch arm64 -Wall -Wextra -Wpedantic -o CMakeFiles/stage0_common.dir/src/common.cpp.o -c /Users/wafoe/projects/me/CXXEg/src/common.cpp",
+  "file": "/Users/wafoe/projects/me/CXXEg/src/common.cpp",
+  "output": "CMakeFiles/stage0_common.dir/src/common.cpp.o"
+},
+{
+  "directory": "/Users/wafoe/projects/me/CXXEg/build-stage2-validation/20261005T121314359821Z-5937/release",
+  "command": "/usr/bin/c++ -DRUNTIME_TESTING=1 -I/Users/wafoe/projects/me/CXXEg/include -O3 -DNDEBUG -std=c++17 -arch arm64 -Wall -Wextra -Wpedantic -o CMakeFiles/runtime.dir/src/runtime/storage.cpp.o -c /Users/wafoe/projects/me/CXXEg/src/runtime/storage.cpp",
+  "file": "/Users/wafoe/projects/me/CXXEg/src/runtime/storage.cpp",
+  "output": "CMakeFiles/runtime.dir/src/runtime/storage.cpp.o"
+},
+{
+  "directory": "/Users/wafoe/projects/me/CXXEg/build-stage2-validation/20261005T121314359821Z-5937/release",
+  "command": "/usr/bin/c++ -DRUNTIME_TESTING=1 -I/Users/wafoe/projects/me/CXXEg/include -O3 -DNDEBUG -std=c++17 -arch arm64 -Wall -Wextra -Wpedantic -o CMakeFiles/runtime.dir/src/runtime/tensor.cpp.o -c /Users/wafoe/projects/me/CXXEg/src/runtime/tensor.cpp",
+  "file": "/Users/wafoe/projects/me/CXXEg/src/runtime/tensor.cpp",
+  "output": "CMakeFiles/runtime.dir/src/runtime/tensor.cpp.o"
+},
+{
+  "directory": "/Users/wafoe/projects/me/CXXEg/build-stage2-validation/20261005T121314359821Z-5937/release",
+  "command": "/usr/bin/c++ -DRUNTIME_TESTING=1 -I/Users/wafoe/projects/me/CXXEg/include -O3 -DNDEBUG -std=c++17 -arch arm64 -Wall -Wextra -Wpedantic -o CMakeFiles/runtime.dir/src/runtime/copy.cpp.o -c /Users/wafoe/projects/me/CXXEg/src/runtime/copy.cpp",
+  "file": "/Users/wafoe/projects/me/CXXEg/src/runtime/copy.cpp",
+  "output": "CMakeFiles/runtime.dir/src/runtime/copy.cpp.o"
+},
+{
+  "directory": "/Users/wafoe/projects/me/CXXEg/build-stage2-validation/20261005T121314359821Z-5937/release",
+  "command": "/usr/bin/c++ -DRUNTIME_TESTING=1 -I/Users/wafoe/projects/me/CXXEg/include -O3 -DNDEBUG -std=c++17 -arch arm64 -Wall -Wextra -Wpedantic -o CMakeFiles/runtime.dir/src/runtime/operator.cpp.o -c /Users/wafoe/projects/me/CXXEg/src/runtime/operator.cpp",
+  "file": "/Users/wafoe/projects/me/CXXEg/src/runtime/operator.cpp",
+  "output": "CMakeFiles/runtime.dir/src/runtime/operator.cpp.o"
+},
+{
+  "directory": "/Users/wafoe/projects/me/CXXEg/build-stage2-validation/20261005T121314359821Z-5937/release",
+  "command": "/usr/bin/c++ -DRUNTIME_TESTING=1 -I/Users/wafoe/projects/me/CXXEg/include -O3 -DNDEBUG -std=c++17 -arch arm64 -Wall -Wextra -Wpedantic -o CMakeFiles/runtime.dir/src/runtime/shape_inference.cpp.o -c /Users/wafoe/projects/me/CXXEg/src/runtime/shape_inference.cpp",
+  "file": "/Users/wafoe/projects/me/CXXEg/src/runtime/shape_inference.cpp",
+  "output": "CMakeFiles/runtime.dir/src/runtime/shape_inference.cpp.o"
+},
+{
+  "directory": "/Users/wafoe/projects/me/CXXEg/build-stage2-validation/20261005T121314359821Z-5937/release",
+  "command": "/usr/bin/c++ -DRUNTIME_TESTING=1 -I/Users/wafoe/projects/me/CXXEg/include -O3 -DNDEBUG -std=c++17 -arch arm64 -Wall -Wextra -Wpedantic -o CMakeFiles/runtime.dir/src/runtime/reference.cpp.o -c /Users/wafoe/projects/me/CXXEg/src/runtime/reference.cpp",
+  "file": "/Users/wafoe/projects/me/CXXEg/src/runtime/reference.cpp",
+  "output": "CMakeFiles/runtime.dir/src/runtime/reference.cpp.o"
+},
+{
+  "directory": "/Users/wafoe/projects/me/CXXEg/build-stage2-validation/20261005T121314359821Z-5937/release",
+  "command": "/usr/bin/c++ -DRUNTIME_TESTING=1 -I/Users/wafoe/projects/me/CXXEg/include -O3 -DNDEBUG -std=c++17 -arch arm64 -Wall -Wextra -Wpedantic -o CMakeFiles/test_tensor.dir/tests/test_tensor.cpp.o -c /Users/wafoe/projects/me/CXXEg/tests/test_tensor.cpp",
+  "file": "/Users/wafoe/projects/me/CXXEg/tests/test_tensor.cpp",
+  "output": "CMakeFiles/test_tensor.dir/tests/test_tensor.cpp.o"
+},
+{
+  "directory": "/Users/wafoe/projects/me/CXXEg/build-stage2-validation/20261005T121314359821Z-5937/release",
+  "command": "/usr/bin/c++ -DRUNTIME_TESTING=1 -I/Users/wafoe/projects/me/CXXEg/include -O3 -DNDEBUG -std=c++17 -arch arm64 -Wall -Wextra -Wpedantic -o CMakeFiles/test_tensor_properties.dir/tests/test_tensor_properties.cpp.o -c /Users/wafoe/projects/me/CXXEg/tests/test_tensor_properties.cpp",
+  "file": "/Users/wafoe/projects/me/CXXEg/tests/test_tensor_properties.cpp",
+  "output": "CMakeFiles/test_tensor_properties.dir/tests/test_tensor_properties.cpp.o"
+},
+{
+  "directory": "/Users/wafoe/projects/me/CXXEg/build-stage2-validation/20261005T121314359821Z-5937/release",
+  "command": "/usr/bin/c++ -DRUNTIME_TESTING=1 -I/Users/wafoe/projects/me/CXXEg/include -O3 -DNDEBUG -std=c++17 -arch arm64 -Wall -Wextra -Wpedantic -o CMakeFiles/test_operator.dir/tests/test_operator.cpp.o -c /Users/wafoe/projects/me/CXXEg/tests/test_operator.cpp",
+  "file": "/Users/wafoe/projects/me/CXXEg/tests/test_operator.cpp",
+  "output": "CMakeFiles/test_operator.dir/tests/test_operator.cpp.o"
+},
+{
+  "directory": "/Users/wafoe/projects/me/CXXEg/build-stage2-validation/20261005T121314359821Z-5937/release",
+  "command": "/usr/bin/c++ -DRUNTIME_TESTING=1 -I/Users/wafoe/projects/me/CXXEg/include -O3 -DNDEBUG -std=c++17 -arch arm64 -Wall -Wextra -Wpedantic -o CMakeFiles/test_shape_inference.dir/tests/test_shape_inference.cpp.o -c /Users/wafoe/projects/me/CXXEg/tests/test_shape_inference.cpp",
+  "file": "/Users/wafoe/projects/me/CXXEg/tests/test_shape_inference.cpp",
+  "output": "CMakeFiles/test_shape_inference.dir/tests/test_shape_inference.cpp.o"
+},
+{
+  "directory": "/Users/wafoe/projects/me/CXXEg/build-stage2-validation/20261005T121314359821Z-5937/release",
+  "command": "/usr/bin/c++ -DRUNTIME_TESTING=1 -I/Users/wafoe/projects/me/CXXEg/include -O3 -DNDEBUG -std=c++17 -arch arm64 -Wall -Wextra -Wpedantic -o CMakeFiles/test_reference.dir/tests/test_reference.cpp.o -c /Users/wafoe/projects/me/CXXEg/tests/test_reference.cpp",
+  "file": "/Users/wafoe/projects/me/CXXEg/tests/test_reference.cpp",
+  "output": "CMakeFiles/test_reference.dir/tests/test_reference.cpp.o"
+},
+{
+  "directory": "/Users/wafoe/projects/me/CXXEg/build-stage2-validation/20261005T121314359821Z-5937/release",
+  "command": "/usr/bin/c++ -DRUNTIME_TESTING=1 -I/Users/wafoe/projects/me/CXXEg/include -O3 -DNDEBUG -std=c++17 -arch arm64 -Wall -Wextra -Wpedantic -o CMakeFiles/test_transformer_contracts.dir/tests/test_transformer_contracts.cpp.o -c /Users/wafoe/projects/me/CXXEg/tests/test_transformer_contracts.cpp",
+  "file": "/Users/wafoe/projects/me/CXXEg/tests/test_transformer_contracts.cpp",
+  "output": "CMakeFiles/test_transformer_contracts.dir/tests/test_transformer_contracts.cpp.o"
+},
+{
+  "directory": "/Users/wafoe/projects/me/CXXEg/build-stage2-validation/20261005T121314359821Z-5937/release",
+  "command": "/usr/bin/c++ -DRUNTIME_TESTING=1 -I/Users/wafoe/projects/me/CXXEg/include -O3 -DNDEBUG -std=c++17 -arch arm64 -Wall -Wextra -Wpedantic -o CMakeFiles/test_operator_fixtures.dir/tests/test_operator_fixtures.cpp.o -c /Users/wafoe/projects/me/CXXEg/tests/test_operator_fixtures.cpp",
+  "file": "/Users/wafoe/projects/me/CXXEg/tests/test_operator_fixtures.cpp",
+  "output": "CMakeFiles/test_operator_fixtures.dir/tests/test_operator_fixtures.cpp.o"
+},
+{
+  "directory": "/Users/wafoe/projects/me/CXXEg/build-stage2-validation/20261005T121314359821Z-5937/release",
+  "command": "/usr/bin/c++  -I/Users/wafoe/projects/me/CXXEg/include -I/Users/wafoe/projects/me/CXXEg/build-stage2-validation/20261005T121314359821Z-5937/release/generated -O3 -DNDEBUG -std=c++17 -arch arm64 -Wall -Wextra -Wpedantic -o CMakeFiles/test_common.dir/tests/test_common.cpp.o -c /Users/wafoe/projects/me/CXXEg/tests/test_common.cpp",
+  "file": "/Users/wafoe/projects/me/CXXEg/tests/test_common.cpp",
+  "output": "CMakeFiles/test_common.dir/tests/test_common.cpp.o"
+}
+]

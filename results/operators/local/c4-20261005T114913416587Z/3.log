@@ -1,0 +1,27 @@
+-- Configuring done (0.2s)
+-- Generating done (0.0s)
+-- Build files have been written to: /Users/wafoe/projects/me/CXXEg/build-stage2-sanitizer
+[ 13%] Building CXX object CMakeFiles/runtime.dir/src/runtime/operator.cpp.o
+[ 13%] Building CXX object CMakeFiles/runtime.dir/src/runtime/reference.cpp.o
+[ 13%] Building CXX object CMakeFiles/runtime.dir/src/runtime/shape_inference.cpp.o
+[ 13%] Built target refresh_provenance
+[ 21%] Built target stage0_common
+[ 30%] Built target test_common
+[ 34%] Linking CXX static library libruntime.a
+[ 47%] Built target runtime
+[ 65%] Building CXX object CMakeFiles/test_operator.dir/tests/test_operator.cpp.o
+[ 65%] Linking CXX executable test_tensor
+[ 65%] Building CXX object CMakeFiles/test_shape_inference.dir/tests/test_shape_inference.cpp.o
+[ 65%] Linking CXX executable test_tensor_properties
+[ 69%] Built target test_tensor_properties
+[ 73%] Built target test_tensor
+[ 78%] Building CXX object CMakeFiles/test_transformer_contracts.dir/tests/test_transformer_contracts.cpp.o
+[ 82%] Building CXX object CMakeFiles/test_reference.dir/tests/test_reference.cpp.o
+[ 86%] Linking CXX executable test_operator
+[ 86%] Built target test_operator
+[ 91%] Linking CXX executable test_shape_inference
+[ 91%] Built target test_shape_inference
+[ 95%] Linking CXX executable test_transformer_contracts
+[100%] Linking CXX executable test_reference
+[100%] Built target test_transformer_contracts
+[100%] Built target test_reference

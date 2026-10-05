@@ -1,0 +1,17 @@
+[
+  [
+    "python3",
+    "tools/generate_operator_fixtures.py",
+    "--check"
+  ],
+  [
+    "cmake",
+    "-S",
+    ".",
+    "-B",
+    "build-stage2-release",
+    "-DCMAKE_BUILD_TYPE=Release",
+    "-DENABLE_CUDA=OFF",
+    "-DENABLE_SANITIZERS=OFF"
+  ]
+]

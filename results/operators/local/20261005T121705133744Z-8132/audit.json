@@ -1,0 +1,47 @@
+{
+  "source_tested": {
+    "commit": "48e18d2fd06303a59330866b69a91b215e6fcd5d",
+    "source_digest": "7719aa199e5c48185094161234a2c0b90aaeac407357e935d192d71ec94a4cc6",
+    "source_dirty": false
+  },
+  "source_before_after_equal": true,
+  "snapshot_bytes_equal": [
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true
+  ],
+  "fixture_regeneration_exit": 0,
+  "production_nm_exit": 0,
+  "production_test_symbols": [],
+  "production_has_testing_define": false,
+  "protected_paths": [
+    "backend",
+    "include/stage0",
+    "src/common.cpp",
+    "bench",
+    "tests/test_common.cpp",
+    "tests/test_cuda_gemm.cpp",
+    "tests/test_tools.py",
+    "tools/provenance.py",
+    "results/environment",
+    "results/gemm",
+    "results/profiling",
+    "docs/baseline.md",
+    "results/tensor",
+    "include/runtime/dtype.hpp",
+    "include/runtime/device.hpp",
+    "include/runtime/shape.hpp",
+    "include/runtime/storage.hpp",
+    "include/runtime/tensor.hpp",
+    "src/runtime/storage.cpp",
+    "src/runtime/tensor.cpp",
+    "docs/tensor.md"
+  ],
+  "protected_diff_exit": 0,
+  "protected_changed_paths": []
+}
