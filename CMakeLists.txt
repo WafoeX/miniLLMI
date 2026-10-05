@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.24)
 project(mini_llm_runtime VERSION 0.1.0 LANGUAGES CXX)
 
-# Stage 0 only. No runtime, tensor, graph or quantization implementation.
+# Preserved Stage 0 baselines plus the backend-neutral Stage 1 runtime foundation.
 option(ENABLE_CUDA "Build CUDA Stage 0 baselines (requires GPU for native architecture)" OFF)
 if(CMAKE_CONFIGURATION_TYPES)
     message(FATAL_ERROR "Use a single-config generator, e.g. Ninja or Unix Makefiles")
@@ -46,7 +46,15 @@ add_dependencies(stage0_common refresh_provenance)
 target_include_directories(stage0_common PUBLIC include "${CMAKE_BINARY_DIR}/generated")
 target_compile_options(stage0_common PRIVATE -Wall -Wextra -Wpedantic)
 
+add_library(runtime INTERFACE)
+target_include_directories(runtime INTERFACE include)
+
 if(BUILD_TESTING)
+    add_executable(test_tensor tests/test_tensor.cpp)
+    target_link_libraries(test_tensor PRIVATE runtime)
+    target_compile_options(test_tensor PRIVATE -Wall -Wextra -Wpedantic)
+    add_test(NAME tensor COMMAND test_tensor)
+    set_tests_properties(tensor PROPERTIES LABELS "cpu;tensor")
     add_executable(test_common tests/test_common.cpp)
     target_link_libraries(test_common PRIVATE stage0_common)
     target_compile_options(test_common PRIVATE -Wall -Wextra -Wpedantic)
