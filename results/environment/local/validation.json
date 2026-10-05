@@ -1,0 +1,103 @@
+{
+  "kind": "local_CPU_ONLY_validation_not_GPU_benchmark",
+  "timestamp": "2026-10-05T03:42:58.189532+00:00",
+  "code_provenance": {
+    "commit": "a4d8b035c9e32b85cced3a8062412cfaa94f64fc",
+    "source_digest": "cc1414e52e4d27fb04e3ffd597dd3313bb6d8956f1ddcbedf9762e801a20dc0c",
+    "source_dirty": false
+  },
+  "commands": [
+    {
+      "argv": [
+        "cmake",
+        "-S",
+        ".",
+        "-B",
+        "build-local",
+        "-DCMAKE_BUILD_TYPE=Release",
+        "-DENABLE_CUDA=OFF"
+      ],
+      "returncode": 0,
+      "log": "validation-0.log"
+    },
+    {
+      "argv": [
+        "cmake",
+        "--build",
+        "build-local",
+        "--parallel",
+        "4"
+      ],
+      "returncode": 0,
+      "log": "validation-1.log"
+    },
+    {
+      "argv": [
+        "bash",
+        "scripts/run_tests.sh"
+      ],
+      "returncode": 0,
+      "log": "validation-2.log"
+    },
+    {
+      "argv": [
+        "python3",
+        "tests/test_tools.py"
+      ],
+      "returncode": 0,
+      "log": "validation-3.log"
+    },
+    {
+      "argv": [
+        "cmake",
+        "--build",
+        "build-local-asan",
+        "--parallel",
+        "4"
+      ],
+      "returncode": 0,
+      "log": "validation-4.log"
+    },
+    {
+      "argv": [
+        "ctest",
+        "--test-dir",
+        "build-local-asan",
+        "--output-on-failure"
+      ],
+      "returncode": 0,
+      "log": "validation-5.log"
+    }
+  ],
+  "bash_syntax": [
+    {
+      "script": "scripts/build_server.sh",
+      "returncode": 0
+    },
+    {
+      "script": "scripts/collect_environment.sh",
+      "returncode": 0
+    },
+    {
+      "script": "scripts/common.sh",
+      "returncode": 0
+    },
+    {
+      "script": "scripts/profile_gemm.sh",
+      "returncode": 0
+    },
+    {
+      "script": "scripts/run_benchmarks.sh",
+      "returncode": 0
+    },
+    {
+      "script": "scripts/run_gemm_benchmark.sh",
+      "returncode": 0
+    },
+    {
+      "script": "scripts/run_tests.sh",
+      "returncode": 0
+    }
+  ],
+  "CUDA_status": "UNVERIFIED: no local nvcc/NVIDIA GPU; no CUDA performance data"
+}

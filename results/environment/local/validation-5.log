@@ -1,0 +1,9 @@
+Test project /Users/wafoe/projects/me/CXXEg/build-local-asan
+    Start 1: common
+1/2 Test #1: common ...........................   Passed    0.05 sec
+    Start 2: tools
+2/2 Test #2: tools ............................   Passed    1.29 sec
+
+100% tests passed out of 2
+
+Total Test time (real) =   1.35 sec

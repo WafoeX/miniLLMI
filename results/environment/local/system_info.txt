@@ -1,0 +1,26 @@
+LOCAL CPU-ONLY ENVIRONMENT; NOT T4 SERVER
+2026-10-05T03:42:58.189845+00:00
+
+COMMAND: uname -a
+Darwin Wafoe-MacBook.local 25.6.0 Darwin Kernel Version 25.6.0: Tue Aug 18 17:51:47 PDT 2026; root:xnu-12377.161.15.700.19~2/RELEASE_ARM64_T6050 arm64
+
+COMMAND: c++ --version
+Apple clang version 21.0.0 (clang-2100.3.34.2)
+Target: arm64-apple-darwin25.6.0
+Thread model: posix
+InstalledDir: /Library/Developer/CommandLineTools/usr/bin
+
+COMMAND: cmake --version
+cmake version 4.4.3
+
+CMake suite maintained and supported by Kitware (kitware.com/cmake).
+
+COMMAND: python3 --version
+Python 3.14.6
+
+COMMAND: git --version
+git version 2.55.0
+
+nvcc executable: None
+nvidia-smi executable: None
+GPU validation: pending server execution

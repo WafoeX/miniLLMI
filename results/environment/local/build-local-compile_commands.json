@@ -1,0 +1,14 @@
+[
+{
+  "directory": "/Users/wafoe/projects/me/CXXEg/build-local",
+  "command": "/usr/bin/c++  -I/Users/wafoe/projects/me/CXXEg/include -I/Users/wafoe/projects/me/CXXEg/build-local/generated -O3 -DNDEBUG -std=c++17 -arch arm64 -Wall -Wextra -Wpedantic -o CMakeFiles/stage0_common.dir/src/common.cpp.o -c /Users/wafoe/projects/me/CXXEg/src/common.cpp",
+  "file": "/Users/wafoe/projects/me/CXXEg/src/common.cpp",
+  "output": "CMakeFiles/stage0_common.dir/src/common.cpp.o"
+},
+{
+  "directory": "/Users/wafoe/projects/me/CXXEg/build-local",
+  "command": "/usr/bin/c++  -I/Users/wafoe/projects/me/CXXEg/include -I/Users/wafoe/projects/me/CXXEg/build-local/generated -O3 -DNDEBUG -std=c++17 -arch arm64 -Wall -Wextra -Wpedantic -o CMakeFiles/test_common.dir/tests/test_common.cpp.o -c /Users/wafoe/projects/me/CXXEg/tests/test_common.cpp",
+  "file": "/Users/wafoe/projects/me/CXXEg/tests/test_common.cpp",
+  "output": "CMakeFiles/test_common.dir/tests/test_common.cpp.o"
+}
+]
