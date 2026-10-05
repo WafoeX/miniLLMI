@@ -3,6 +3,7 @@
 #include <iostream>
 #include <limits>
 #include <stdexcept>
+#include <utility>
 
 namespace {
 using namespace runtime;
@@ -17,6 +18,10 @@ void core_inference() {
     auto a = Tensor::allocate_cpu({2, 3});
     auto b = Tensor::allocate_cpu({3, 4});
     auto equal = Tensor::allocate_cpu({2, 3});
+    auto movable = binary(OpCode::ADD);
+    auto moved = std::move(movable);
+    expect(infer_operator(moved, {a, equal}), StatusCode::Ok);
+    expect(infer_operator(movable, {}), StatusCode::ArityMismatch);
     auto matmul = infer_operator(binary(OpCode::MATMUL), {a, b});
     expect(matmul, StatusCode::Ok);
     require(matmul.output->shape == Shape{2, 4} && matmul.output->stride == Stride{4, 1} &&

@@ -1,5 +1,7 @@
 # Stage 2 — Operator definitions and shape semantics
 
+**Implementation status:** S2-C1–C5 implemented. Frozen public contracts/fixtures: [operators](../operators.md); per-Change acceptance/source evidence: [Stage 2 report](../stage2_report.md). Original scope/criteria below are retained. No graph, scheduler or CUDA dispatch is included.
+
 **Goal:** define one declarative operator layer so graph/model code expresses semantics and backends provide implementations. **Prerequisite:** S1-C6. **Stage gate:** CPU-only operator validation and reference execution tests pass; no graph scheduler or CUDA dispatch.
 
 ## S2-C1 — Operator schema and attributes

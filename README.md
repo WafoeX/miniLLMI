@@ -1,8 +1,20 @@
-# mini-llm-runtime — Stage 1
+# mini-llm-runtime — Stage 2
 
-基于 C++17/CUDA 的推理引擎项目。**Stage 0 已通过 T4 验收；Stage 1 实现统一 Tensor/shared Storage 基础层**：FP32/INT32、checked shape/stride/offset、CPU storage、零拷贝 reshape/view/slice/transpose 和显式 CPU contiguous copy。尚不包含 Operators、Graph、Arena、Transformer、KV Cache 或量化实现。
+基于 C++17/CUDA 的推理引擎项目。**Stage 0 已通过 T4 验收；Stage 1 统一 Tensor/shared Storage；Stage 2 实现 backend-neutral 算子描述、shape/dtype 推导、CPU core reference 与版本化 conformance fixtures。** Tensor 支持 FP32/INT32、checked shape/stride/offset、CPU storage、零拷贝变换和显式 CPU copy。Transformer 本阶段只有契约/validators 和离线 expected fixtures，尚无 Transformer kernels、Graph、Arena、模型执行、KV Cache 或量化实现。
 
 Stage 0 naive GEMM 与历史结果保持不变。Stage 1 的 gate 是 CPU-only Debug/Release、属性测试与 ASan/UBSan；不要求 CUDA allocation 或服务器性能数据。后续按 [路线图](docs/roadmap.md) 与 [Change 任务书](docs/tasks/README.md) 执行。
+
+## Stage 2 验收（无需 GPU / Colab 服务器）
+
+```bash
+# clean 已提交源码；新建唯一 CPU 验收 run，保存 Debug/Release/sanitizer/production 原始证据
+python3 tools/validate_operators.py
+python3 tools/generate_operator_fixtures.py --check
+# 开发源码带未跟踪文件时，仅作 labelled development validation：
+# python3 tools/validate_operators.py --allow-dirty
+```
+
+[Operator / tiny-model 契约](docs/operators.md)、[Stage 2 验收记录](docs/stage2_report.md)。无隐藏 materialization、buffer allocation 或 CUDA host fallback；没有性能收益声明。用户选择不进行 Stage 1 服务器复验，本阶段亦无强制 GPU gate，未执行服务器验收。
 
 ## Stage 1 验收
 

@@ -1,6 +1,6 @@
 # Change task books
 
-Stage 1 is implemented (see [acceptance evidence](../stage1_report.md)); Stage 2–19 task books remain **Proposed Design**, not implemented functionality. Execute one Change at a time after its listed prerequisites pass. Follow the corrected DAG and sufficient-benefit gates in [the roadmap](../roadmap.md). An optional Change may be recorded as `skipped_optional` with a reason; downstream gates include required Changes only. Completing a stage does not require exploring every variant.
+Stages 1–2 are implemented (see [Stage 1 evidence](../stage1_report.md) and [Stage 2 evidence](../stage2_report.md)); Stage 3–19 task books remain **Proposed Design**, not implemented functionality. Execute one Change at a time after its listed prerequisites pass. Follow the corrected DAG and sufficient-benefit gates in [the roadmap](../roadmap.md). An optional Change may be recorded as `skipped_optional` with a reason; downstream gates include required Changes only. Completing a stage does not require exploring every variant.
 
 ## Required Change record
 

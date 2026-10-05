@@ -34,7 +34,10 @@ Status math_inputs(const TensorInputs& inputs) {
 }
 } // namespace
 InferenceResult infer_operator(const OpDesc& descriptor, const TensorInputs& inputs) {
-    if (inputs.size() != descriptor.inputs().size()) return fail(StatusCode::ArityMismatch, "binding count differs from descriptor input arity");
+    // Defensively recheck the schema before indexing bindings, including a moved-from descriptor.
+    const auto schema = validate_schema(descriptor.code(), descriptor.inputs(), descriptor.outputs(), descriptor.attrs());
+    if (!schema.ok()) return {schema, std::nullopt};
+    if (inputs.empty() || inputs.size() != descriptor.inputs().size()) return fail(StatusCode::ArityMismatch, "binding count differs from descriptor input arity");
     const auto& first = inputs[0].get();
     try {
         switch (descriptor.code()) {

@@ -1,0 +1,269 @@
+{
+  "format": "fixture-only-raw-fp32-le",
+  "model_contract": {
+    "batch": 1,
+    "bias": false,
+    "bos": 256,
+    "eos": 257,
+    "ffn": 128,
+    "head_dim": 16,
+    "heads": 4,
+    "hidden": 64,
+    "layers": 2,
+    "max_seq": 1088,
+    "projection_output_channel_axis": 1,
+    "rms_epsilon": 1e-05,
+    "rope_base": 10000,
+    "rope_layout": "interleaved",
+    "version": 1,
+    "vocab": 258
+  },
+  "rng": "xorshift32; integer dyadic scale 1/8192",
+  "seed": 20997,
+  "sha256": "72b86c70ff0f1388665bf70c336081e5769f2e56e59d578a5c007aef234b2604",
+  "tensors": [
+    {
+      "dtype": "FP32",
+      "name": "token_embedding",
+      "nbytes": 66048,
+      "offset_bytes": 0,
+      "sha256": "3003e6d06405a9bcf34fd329aa49e6830ba2132c0404eca717dae65efca49237",
+      "shape": [
+        258,
+        64
+      ]
+    },
+    {
+      "dtype": "FP32",
+      "name": "layers.0.attn_norm",
+      "nbytes": 256,
+      "offset_bytes": 66048,
+      "sha256": "2f20cd03c9cd392a406c56232b0ff93a15f6d6d7da79086bfa14f55d4a4031b0",
+      "shape": [
+        64
+      ]
+    },
+    {
+      "dtype": "FP32",
+      "name": "layers.0.q_proj",
+      "nbytes": 16384,
+      "offset_bytes": 66304,
+      "output_channel_axis": 1,
+      "sha256": "f48d194e0d606395c1e28ac51d9058d4edd8c5679f42305d4580a5fe2a846c15",
+      "shape": [
+        64,
+        64
+      ]
+    },
+    {
+      "dtype": "FP32",
+      "name": "layers.0.k_proj",
+      "nbytes": 16384,
+      "offset_bytes": 82688,
+      "output_channel_axis": 1,
+      "sha256": "1aa3263a892485c34d8695582498129750bdb784fb9d2e6b1845a91256f7c41b",
+      "shape": [
+        64,
+        64
+      ]
+    },
+    {
+      "dtype": "FP32",
+      "name": "layers.0.v_proj",
+      "nbytes": 16384,
+      "offset_bytes": 99072,
+      "output_channel_axis": 1,
+      "sha256": "a9b3dfb9a61e1fdabb3b1fd23ba482e35100d2fd2861ac295908aad62446e2e6",
+      "shape": [
+        64,
+        64
+      ]
+    },
+    {
+      "dtype": "FP32",
+      "name": "layers.0.o_proj",
+      "nbytes": 16384,
+      "offset_bytes": 115456,
+      "output_channel_axis": 1,
+      "sha256": "fc46097c42591e09714adabe80bcc504b9c209c1b576d7ba46d884be836e1364",
+      "shape": [
+        64,
+        64
+      ]
+    },
+    {
+      "dtype": "FP32",
+      "name": "layers.0.ffn_norm",
+      "nbytes": 256,
+      "offset_bytes": 131840,
+      "sha256": "2f20cd03c9cd392a406c56232b0ff93a15f6d6d7da79086bfa14f55d4a4031b0",
+      "shape": [
+        64
+      ]
+    },
+    {
+      "dtype": "FP32",
+      "name": "layers.0.gate_proj",
+      "nbytes": 32768,
+      "offset_bytes": 132096,
+      "output_channel_axis": 1,
+      "sha256": "91d3033c29ab06d65a9652a5b8a0553d4265aaae79d28b21c10111d152baaece",
+      "shape": [
+        64,
+        128
+      ]
+    },
+    {
+      "dtype": "FP32",
+      "name": "layers.0.up_proj",
+      "nbytes": 32768,
+      "offset_bytes": 164864,
+      "output_channel_axis": 1,
+      "sha256": "b455c7e1037390a1b169da70868e3297dcb87baefceb4f909f44ddec5cc3c295",
+      "shape": [
+        64,
+        128
+      ]
+    },
+    {
+      "dtype": "FP32",
+      "name": "layers.0.down_proj",
+      "nbytes": 32768,
+      "offset_bytes": 197632,
+      "output_channel_axis": 1,
+      "sha256": "6fba7739b24bf0b1e45238a586dac4c88f59cd1bc5be025a82225dfd617f75db",
+      "shape": [
+        128,
+        64
+      ]
+    },
+    {
+      "dtype": "FP32",
+      "name": "layers.1.attn_norm",
+      "nbytes": 256,
+      "offset_bytes": 230400,
+      "sha256": "2f20cd03c9cd392a406c56232b0ff93a15f6d6d7da79086bfa14f55d4a4031b0",
+      "shape": [
+        64
+      ]
+    },
+    {
+      "dtype": "FP32",
+      "name": "layers.1.q_proj",
+      "nbytes": 16384,
+      "offset_bytes": 230656,
+      "output_channel_axis": 1,
+      "sha256": "d773c48cd7ab74435ecaea784b4dc214681eb03c32185400713e0da7f57ce277",
+      "shape": [
+        64,
+        64
+      ]
+    },
+    {
+      "dtype": "FP32",
+      "name": "layers.1.k_proj",
+      "nbytes": 16384,
+      "offset_bytes": 247040,
+      "output_channel_axis": 1,
+      "sha256": "41c24c32642927577bc3dd43dc749e94f26fb1b33f8ab7dabc49ad6a1865ca90",
+      "shape": [
+        64,
+        64
+      ]
+    },
+    {
+      "dtype": "FP32",
+      "name": "layers.1.v_proj",
+      "nbytes": 16384,
+      "offset_bytes": 263424,
+      "output_channel_axis": 1,
+      "sha256": "af99ad95993ba2ae84be22142881d6374b9e334ccfb95bfd687ab310eb277f62",
+      "shape": [
+        64,
+        64
+      ]
+    },
+    {
+      "dtype": "FP32",
+      "name": "layers.1.o_proj",
+      "nbytes": 16384,
+      "offset_bytes": 279808,
+      "output_channel_axis": 1,
+      "sha256": "0b95cdf6552c5466d7ec7655b6d37a5a571c11c0655b93e9eb46e6c6c54ff486",
+      "shape": [
+        64,
+        64
+      ]
+    },
+    {
+      "dtype": "FP32",
+      "name": "layers.1.ffn_norm",
+      "nbytes": 256,
+      "offset_bytes": 296192,
+      "sha256": "2f20cd03c9cd392a406c56232b0ff93a15f6d6d7da79086bfa14f55d4a4031b0",
+      "shape": [
+        64
+      ]
+    },
+    {
+      "dtype": "FP32",
+      "name": "layers.1.gate_proj",
+      "nbytes": 32768,
+      "offset_bytes": 296448,
+      "output_channel_axis": 1,
+      "sha256": "28cafde7235fed2a63f41769124a0e95a87067a4984f70adb42e892f553fa11f",
+      "shape": [
+        64,
+        128
+      ]
+    },
+    {
+      "dtype": "FP32",
+      "name": "layers.1.up_proj",
+      "nbytes": 32768,
+      "offset_bytes": 329216,
+      "output_channel_axis": 1,
+      "sha256": "63d17e7d3e0f6706f7406711b5cc0f019242c72063f88100d06ceef9b86a30a4",
+      "shape": [
+        64,
+        128
+      ]
+    },
+    {
+      "dtype": "FP32",
+      "name": "layers.1.down_proj",
+      "nbytes": 32768,
+      "offset_bytes": 361984,
+      "output_channel_axis": 1,
+      "sha256": "ce4b3f0a66131c352ee96c73e026775b024cc2c2be6077771fbdc754d63052c0",
+      "shape": [
+        128,
+        64
+      ]
+    },
+    {
+      "dtype": "FP32",
+      "name": "final_norm",
+      "nbytes": 256,
+      "offset_bytes": 394752,
+      "sha256": "2f20cd03c9cd392a406c56232b0ff93a15f6d6d7da79086bfa14f55d4a4031b0",
+      "shape": [
+        64
+      ]
+    },
+    {
+      "dtype": "FP32",
+      "name": "lm_head",
+      "nbytes": 66048,
+      "offset_bytes": 395008,
+      "output_channel_axis": 1,
+      "sha256": "18b5e194d406198da32f2613e15d1e649aa1d48ab616e04fb861be1b8b0866be",
+      "shape": [
+        64,
+        258
+      ]
+    }
+  ],
+  "total_bytes": 461056,
+  "version": 1
+}

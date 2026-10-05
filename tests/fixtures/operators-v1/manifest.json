@@ -1,0 +1,624 @@
+{
+  "cases": [
+    {
+      "atol": 1e-06,
+      "attrs": [],
+      "inputs": [
+        {
+          "dtype": "FP32",
+          "shape": [
+            4
+          ],
+          "transpose": null
+        },
+        {
+          "dtype": "FP32",
+          "shape": [
+            4
+          ],
+          "transpose": null
+        }
+      ],
+      "name": "add_hand",
+      "op": "ADD",
+      "output": [
+        {
+          "dtype": "FP32",
+          "shape": [
+            4
+          ],
+          "transpose": null
+        }
+      ],
+      "rtol": 1e-05
+    },
+    {
+      "atol": 1e-06,
+      "attrs": [],
+      "inputs": [
+        {
+          "dtype": "FP32",
+          "shape": [],
+          "transpose": null
+        },
+        {
+          "dtype": "FP32",
+          "shape": [],
+          "transpose": null
+        }
+      ],
+      "name": "mul_scalar",
+      "op": "MUL",
+      "output": [
+        {
+          "dtype": "FP32",
+          "shape": [],
+          "transpose": null
+        }
+      ],
+      "rtol": 1e-05
+    },
+    {
+      "atol": 1e-06,
+      "attrs": [],
+      "inputs": [
+        {
+          "dtype": "FP32",
+          "shape": [
+            2,
+            3
+          ],
+          "transpose": null
+        },
+        {
+          "dtype": "FP32",
+          "shape": [
+            3,
+            4
+          ],
+          "transpose": null
+        }
+      ],
+      "name": "matmul_rectangular",
+      "op": "MATMUL",
+      "output": [
+        {
+          "dtype": "FP32",
+          "shape": [
+            2,
+            4
+          ],
+          "transpose": null
+        }
+      ],
+      "rtol": 1e-05
+    },
+    {
+      "atol": 1e-06,
+      "attrs": [],
+      "inputs": [
+        {
+          "dtype": "FP32",
+          "shape": [
+            2,
+            0
+          ],
+          "transpose": null
+        },
+        {
+          "dtype": "FP32",
+          "shape": [
+            0,
+            3
+          ],
+          "transpose": null
+        }
+      ],
+      "name": "matmul_zero_inner",
+      "op": "MATMUL",
+      "output": [
+        {
+          "dtype": "FP32",
+          "shape": [
+            2,
+            3
+          ],
+          "transpose": null
+        }
+      ],
+      "rtol": 1e-05
+    },
+    {
+      "atol": 1e-06,
+      "attrs": [],
+      "inputs": [
+        {
+          "dtype": "INT32",
+          "shape": [
+            2,
+            3
+          ],
+          "transpose": [
+            0,
+            1
+          ]
+        },
+        {
+          "dtype": "INT32",
+          "shape": [
+            3,
+            2
+          ],
+          "transpose": null
+        }
+      ],
+      "name": "copy_ids_transpose",
+      "op": "COPY",
+      "output": [
+        {
+          "dtype": "INT32",
+          "shape": [
+            3,
+            2
+          ],
+          "transpose": null
+        }
+      ],
+      "rtol": 1e-05
+    },
+    {
+      "atol": 1e-06,
+      "attrs": [],
+      "inputs": [
+        {
+          "dtype": "FP32",
+          "shape": [
+            3
+          ],
+          "transpose": null
+        },
+        {
+          "dtype": "FP32",
+          "shape": [
+            3
+          ],
+          "transpose": null
+        }
+      ],
+      "name": "copy_fp32",
+      "op": "COPY",
+      "output": [
+        {
+          "dtype": "FP32",
+          "shape": [
+            3
+          ],
+          "transpose": null
+        }
+      ],
+      "rtol": 1e-05
+    },
+    {
+      "atol": 1e-06,
+      "attrs": [],
+      "inputs": [
+        {
+          "dtype": "FP32",
+          "shape": [
+            2,
+            3
+          ],
+          "transpose": [
+            0,
+            1
+          ]
+        }
+      ],
+      "name": "materialize_transpose",
+      "op": "MATERIALIZE",
+      "output": [
+        {
+          "dtype": "FP32",
+          "shape": [
+            3,
+            2
+          ],
+          "transpose": null
+        }
+      ],
+      "rtol": 1e-05
+    },
+    {
+      "atol": 1e-06,
+      "attrs": [],
+      "inputs": [
+        {
+          "dtype": "FP32",
+          "shape": [
+            0,
+            3
+          ],
+          "transpose": null
+        },
+        {
+          "dtype": "FP32",
+          "shape": [
+            0,
+            3
+          ],
+          "transpose": null
+        }
+      ],
+      "name": "add_empty",
+      "op": "ADD",
+      "output": [
+        {
+          "dtype": "FP32",
+          "shape": [
+            0,
+            3
+          ],
+          "transpose": null
+        }
+      ],
+      "rtol": 1e-05
+    },
+    {
+      "atol": 2e-05,
+      "attrs": [
+        1e-05
+      ],
+      "inputs": [
+        {
+          "dtype": "FP32",
+          "shape": [
+            2,
+            4
+          ],
+          "transpose": null
+        },
+        {
+          "dtype": "FP32",
+          "shape": [
+            4
+          ],
+          "transpose": null
+        }
+      ],
+      "name": "rmsnorm_hand_zero_row",
+      "op": "RMSNORM",
+      "output": [
+        {
+          "dtype": "FP32",
+          "shape": [
+            2,
+            4
+          ],
+          "transpose": null
+        }
+      ],
+      "rtol": 0.0002
+    },
+    {
+      "atol": 2e-05,
+      "attrs": [
+        0,
+        0,
+        0,
+        1088
+      ],
+      "inputs": [
+        {
+          "dtype": "FP32",
+          "shape": [
+            2,
+            3
+          ],
+          "transpose": null
+        }
+      ],
+      "name": "softmax_stable",
+      "op": "SOFTMAX",
+      "output": [
+        {
+          "dtype": "FP32",
+          "shape": [
+            2,
+            3
+          ],
+          "transpose": null
+        }
+      ],
+      "rtol": 0.0002
+    },
+    {
+      "atol": 2e-05,
+      "attrs": [
+        1,
+        2,
+        0,
+        1088
+      ],
+      "inputs": [
+        {
+          "dtype": "FP32",
+          "shape": [
+            1,
+            4
+          ],
+          "transpose": null
+        }
+      ],
+      "name": "softmax_decode_offset",
+      "op": "SOFTMAX",
+      "output": [
+        {
+          "dtype": "FP32",
+          "shape": [
+            1,
+            4
+          ],
+          "transpose": null
+        }
+      ],
+      "rtol": 0.0002
+    },
+    {
+      "atol": 2e-05,
+      "attrs": [
+        1,
+        0,
+        2,
+        1088
+      ],
+      "inputs": [
+        {
+          "dtype": "FP32",
+          "shape": [
+            2,
+            3
+          ],
+          "transpose": null
+        }
+      ],
+      "name": "softmax_all_masked",
+      "op": "SOFTMAX",
+      "output": [
+        {
+          "dtype": "FP32",
+          "shape": [
+            2,
+            3
+          ],
+          "transpose": null
+        }
+      ],
+      "rtol": 0.0002
+    },
+    {
+      "atol": 2e-05,
+      "attrs": [
+        1,
+        10000,
+        1088
+      ],
+      "inputs": [
+        {
+          "dtype": "FP32",
+          "shape": [
+            1,
+            4
+          ],
+          "transpose": null
+        }
+      ],
+      "name": "rope_interleaved_hand",
+      "op": "ROPE",
+      "output": [
+        {
+          "dtype": "FP32",
+          "shape": [
+            1,
+            4
+          ],
+          "transpose": null
+        }
+      ],
+      "rtol": 0.0002
+    },
+    {
+      "atol": 2e-05,
+      "attrs": [
+        17,
+        10000,
+        1088
+      ],
+      "inputs": [
+        {
+          "dtype": "FP32",
+          "shape": [
+            2,
+            4,
+            16
+          ],
+          "transpose": null
+        }
+      ],
+      "name": "rope_tiny_heads",
+      "op": "ROPE",
+      "output": [
+        {
+          "dtype": "FP32",
+          "shape": [
+            2,
+            4,
+            16
+          ],
+          "transpose": null
+        }
+      ],
+      "rtol": 0.0002
+    },
+    {
+      "atol": 2e-05,
+      "attrs": [],
+      "inputs": [
+        {
+          "dtype": "INT32",
+          "shape": [
+            3
+          ],
+          "transpose": null
+        },
+        {
+          "dtype": "FP32",
+          "shape": [
+            4,
+            3
+          ],
+          "transpose": null
+        }
+      ],
+      "name": "embedding_hand",
+      "op": "EMBEDDING",
+      "output": [
+        {
+          "dtype": "FP32",
+          "shape": [
+            3,
+            3
+          ],
+          "transpose": null
+        }
+      ],
+      "rtol": 0.0002
+    },
+    {
+      "atol": 2e-05,
+      "attrs": [],
+      "inputs": [
+        {
+          "dtype": "FP32",
+          "shape": [
+            2,
+            2
+          ],
+          "transpose": null
+        },
+        {
+          "dtype": "FP32",
+          "shape": [
+            2,
+            2
+          ],
+          "transpose": null
+        }
+      ],
+      "name": "swiglu_hand",
+      "op": "SWIGLU",
+      "output": [
+        {
+          "dtype": "FP32",
+          "shape": [
+            2,
+            2
+          ],
+          "transpose": null
+        }
+      ],
+      "rtol": 0.0002
+    },
+    {
+      "atol": 2e-05,
+      "attrs": [
+        4,
+        16,
+        1,
+        2,
+        0,
+        1088
+      ],
+      "inputs": [
+        {
+          "dtype": "FP32",
+          "shape": [
+            1,
+            4,
+            16
+          ],
+          "transpose": null
+        },
+        {
+          "dtype": "FP32",
+          "shape": [
+            3,
+            4,
+            16
+          ],
+          "transpose": null
+        },
+        {
+          "dtype": "FP32",
+          "shape": [
+            3,
+            4,
+            16
+          ],
+          "transpose": null
+        }
+      ],
+      "name": "attention_decode_tiny_geometry",
+      "op": "ATTENTION",
+      "output": [
+        {
+          "dtype": "FP32",
+          "shape": [
+            1,
+            4,
+            16
+          ],
+          "transpose": null
+        }
+      ],
+      "rtol": 0.0002
+    }
+  ],
+  "files": {
+    "operators-v1.txt": {
+      "bytes": 11700,
+      "sha256": "8fb61e25f1d8f27bfe6d86b07b0a521379945e11f441582d01262b40e6909098"
+    },
+    "tiny-weights-v1.bin": {
+      "bytes": 461056,
+      "sha256": "72b86c70ff0f1388665bf70c336081e5769f2e56e59d578a5c007aef234b2604"
+    },
+    "tiny-weights-v1.json": {
+      "bytes": 6368,
+      "sha256": "c4b0e015ca21dcf331b2f4780e2b5d91e01acfc16b6f93be0896addb06ad9dcd"
+    }
+  },
+  "generator": "tools/generate_operator_fixtures.py",
+  "generator_sha256": "8b45a250e67526bf3d849bc41a69f665ccb44a24ce9038b035ffbbebe9dd9bc3",
+  "generator_version": 1,
+  "model_contract": {
+    "batch": 1,
+    "bias": false,
+    "bos": 256,
+    "eos": 257,
+    "ffn": 128,
+    "head_dim": 16,
+    "heads": 4,
+    "hidden": 64,
+    "layers": 2,
+    "max_seq": 1088,
+    "projection_output_channel_axis": 1,
+    "rms_epsilon": 1e-05,
+    "rope_base": 10000,
+    "rope_layout": "interleaved",
+    "version": 1,
+    "vocab": 258
+  },
+  "performance_fixture": false,
+  "precision": "FP32 inputs/output; stdlib scalar FP64 oracle; little-endian weight payload",
+  "version": 1
+}

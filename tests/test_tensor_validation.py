@@ -87,6 +87,21 @@ class ValidationTest(unittest.TestCase):
         output, = self.results.iterdir()
         self.assertEqual(json.loads((output / "manifest.json").read_text())["status"], "failed")
 
+    def test_stage2_reuses_runner_with_operator_target(self):
+        with patch.object(validate_tensor, "inspect", return_value=self.source), \
+                patch.object(validate_tensor, "run_process", side_effect=self.fake_run), \
+                contextlib.redirect_stdout(io.StringIO()):
+            output = validate_tensor.validate(self.root, self.root / "results/operators/local", 2, False, stage=2)
+        manifest = json.loads((output / "manifest.json").read_text())
+        self.assertEqual(manifest["stage"], 2)
+        self.assertEqual(manifest["status"], "passed")
+        self.assertTrue(any("check_operator_sanitizers" in command["argv"] for command in manifest["commands"]))
+        self.assertTrue(any("build-stage2-validation" in argument for command in manifest["commands"] for argument in command["argv"]))
+
+    def test_unknown_stage_rejected(self):
+        with self.assertRaises(ValueError):
+            validate_tensor.configuration(3)
+
     def test_nonpositive_jobs_rejected(self):
         with patch.object(sys, "argv", ["validate_tensor", "--jobs", "0"]), \
                 contextlib.redirect_stderr(io.StringIO()), self.assertRaises(SystemExit) as error:

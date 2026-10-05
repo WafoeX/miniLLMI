@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.24)
 project(mini_llm_runtime VERSION 0.1.0 LANGUAGES CXX)
 
-# Preserved Stage 0 baselines plus the backend-neutral Stage 1 runtime foundation.
+# Preserved Stage 0 baselines plus Stage 1 tensors and Stage 2 declarative/reference ops.
 option(ENABLE_CUDA "Build CUDA Stage 0 baselines (requires GPU for native architecture)" OFF)
 option(ENABLE_SANITIZERS "Instrument CPU targets with ASan and UBSan" OFF)
 if(ENABLE_SANITIZERS)
@@ -102,6 +102,20 @@ if(BUILD_TESTING)
     target_compile_options(test_transformer_contracts PRIVATE -Wall -Wextra -Wpedantic)
     add_test(NAME transformer_contracts COMMAND test_transformer_contracts)
     set_tests_properties(transformer_contracts PROPERTIES LABELS "cpu;operators")
+    add_executable(test_operator_fixtures tests/test_operator_fixtures.cpp)
+    target_link_libraries(test_operator_fixtures PRIVATE runtime)
+    target_compile_options(test_operator_fixtures PRIVATE -Wall -Wextra -Wpedantic)
+    add_test(NAME operator_fixtures COMMAND "${Python3_EXECUTABLE}" "${CMAKE_SOURCE_DIR}/tests/run_operator_fixtures.py"
+        --binary "$<TARGET_FILE:test_operator_fixtures>" --root "${CMAKE_SOURCE_DIR}/tests/fixtures/operators-v1")
+    set_tests_properties(operator_fixtures PROPERTIES LABELS "cpu;operators")
+    add_test(NAME operator_fixture_tools COMMAND "${Python3_EXECUTABLE}" "${CMAKE_SOURCE_DIR}/tests/test_operator_fixture_tools.py")
+    set_tests_properties(operator_fixture_tools PROPERTIES LABELS "cpu;operators")
+    add_custom_target(check_operators
+        COMMAND "${CMAKE_CTEST_COMMAND}" --output-on-failure --verbose -L operators
+        DEPENDS test_operator test_shape_inference test_reference test_transformer_contracts test_operator_fixtures USES_TERMINAL)
+    if(ENABLE_SANITIZERS)
+        add_custom_target(check_operator_sanitizers DEPENDS check_operators)
+    endif()
     add_executable(test_common tests/test_common.cpp)
     target_link_libraries(test_common PRIVATE stage0_common)
     target_compile_options(test_common PRIVATE -Wall -Wextra -Wpedantic)
