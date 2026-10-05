@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.24)
 project(mini_llm_runtime VERSION 0.1.0 LANGUAGES CXX)
 
-# Preserved Stage 0 baselines plus Stage 1 tensors and Stage 2 declarative/reference ops.
+# Preserved Stage 0 baselines plus unified Tensor, operators and CPU graph runtime.
 option(ENABLE_CUDA "Build CUDA Stage 0 baselines (requires GPU for native architecture)" OFF)
 option(ENABLE_SANITIZERS "Instrument CPU targets with ASan and UBSan" OFF)
 if(ENABLE_SANITIZERS)
@@ -59,7 +59,7 @@ target_compile_options(stage0_common PRIVATE -Wall -Wextra -Wpedantic)
 
 add_library(runtime src/runtime/storage.cpp src/runtime/tensor.cpp src/runtime/copy.cpp
     src/runtime/operator.cpp src/runtime/shape_inference.cpp src/runtime/reference.cpp
-    src/runtime/layout.cpp src/runtime/graph.cpp src/runtime/graph_executor.cpp)
+    src/runtime/layout.cpp src/runtime/graph.cpp src/runtime/graph_executor.cpp src/runtime/graph_trace.cpp)
 target_include_directories(runtime PUBLIC include)
 target_compile_options(runtime PRIVATE -Wall -Wextra -Wpedantic)
 
@@ -133,9 +133,14 @@ if(BUILD_TESTING)
     add_test(NAME graph_fixtures COMMAND "${Python3_EXECUTABLE}" "${CMAKE_SOURCE_DIR}/tests/run_graph_fixtures.py"
         --binary "$<TARGET_FILE:test_graph_fixtures>" --root "${CMAKE_SOURCE_DIR}/tests/fixtures/operators-v1")
     set_tests_properties(graph_fixtures PROPERTIES LABELS "cpu;graph")
+    add_executable(test_graph_trace tests/test_graph_trace.cpp)
+    target_link_libraries(test_graph_trace PRIVATE runtime)
+    target_compile_options(test_graph_trace PRIVATE -Wall -Wextra -Wpedantic)
+    add_test(NAME graph_trace COMMAND test_graph_trace)
+    set_tests_properties(graph_trace PROPERTIES LABELS "cpu;graph")
     add_custom_target(check_graph
         COMMAND "${CMAKE_CTEST_COMMAND}" --output-on-failure --verbose -L graph
-        DEPENDS test_graph test_graph_executor test_graph_fixtures USES_TERMINAL)
+        DEPENDS test_graph test_graph_executor test_graph_fixtures test_graph_trace USES_TERMINAL)
     if(ENABLE_SANITIZERS)
         add_custom_target(check_graph_sanitizers DEPENDS check_graph)
     endif()

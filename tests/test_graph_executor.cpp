@@ -1,6 +1,8 @@
 #include "runtime/graph_executor.hpp"
 #include "runtime/reference.hpp"
 #include <cmath>
+#include <array>
+#include <random>
 #include <iostream>
 #include <limits>
 #include <stdexcept>
@@ -118,6 +120,10 @@ void state_and_empty() {
     require(result.counts.allocations == 1 && result.counts.copies == 1 && result.counts.copy_bytes == 16 &&
             result.outputs.at("state").storage() == state.storage(), "explicit state writes do not allocate or implicitly copy");
     require(state.data<float>()[3] == 4 && result.outputs.at("computed").data<float>()[3] == 8, "write version is used by reads");
+    source.data<float>()[0] = std::numeric_limits<float>::infinity();
+    const auto failed_state = execute_graph(graph);
+    require(failed_state.status.code == StatusCode::NonFinite && failed_state.failed_node == 2 &&
+            failed_state.outputs.empty() && std::isinf(state.data<float>()[0]), "completed state writes are not rolled back on later error");
     Graph empty; empty.add_input(0, "x", Tensor::allocate_cpu({0})); empty.add_tensor(1, {0});
     empty.add_node(0, OpDesc(OpCode::ADD, {0, 0}, {1})); empty.add_output("empty", 1); success(empty.freeze());
     const auto zero = execute_graph(empty); success(zero.status);
@@ -126,10 +132,46 @@ void state_and_empty() {
     const auto pass = execute_graph(passthrough); success(pass.status);
     require(pass.outputs.at("x").storage() == source.storage() && pass.counts.allocations == 0, "input-only graph no hidden copy");
 }
+void random_dags() {
+    std::mt19937 random(0x5303);
+    for (unsigned trial = 0; trial < 60; ++trial) {
+        Graph graph; auto input = Tensor::allocate_cpu({4});
+        std::vector<std::array<float, 4>> expected(1);
+        for (unsigned i = 0; i < 4; ++i) input.data<float>()[i] = expected[0][i] = static_cast<float>(i + 1) / 8;
+        graph.add_input(0, "x", input);
+        std::vector<OpDesc> descriptors;
+        for (TensorId id = 1; id <= 12; ++id) {
+            const auto parent = static_cast<TensorId>(random() % id);
+            const auto code = random() % 3 == 0 ? OpCode::MATERIALIZE : (random() % 2 == 0 ? OpCode::ADD : OpCode::MUL);
+            graph.add_tensor(id, {4});
+            const auto operands = code == OpCode::MATERIALIZE ? std::vector<TensorId>{parent} : std::vector<TensorId>{parent, 0};
+            descriptors.emplace_back(code, operands, std::vector<TensorId>{id});
+            expected.push_back(expected[parent]);
+            for (unsigned i = 0; i < 4; ++i) {
+                if (code == OpCode::ADD) expected[id][i] += expected[0][i];
+                if (code == OpCode::MUL) expected[id][i] *= expected[0][i];
+            }
+        }
+        for (NodeId node = 12; node > 0; --node) graph.add_node(node, descriptors[node - 1]);
+        graph.add_output("last", 12); graph.add_output("middle", 6);
+        success(graph.freeze());
+        const auto before = testing::cpu_allocation_counts();
+        {
+            const auto result = execute_graph(graph); success(result.status);
+            for (const auto& named : std::map<std::string, TensorId>{{"last", 12}, {"middle", 6}})
+                for (unsigned i = 0; i < 4; ++i)
+                    require(result.outputs.at(named.first).data<float>()[i] == expected[named.second][i], "seeded DAG independent scalar agreement");
+            require(result.counts.nodes_completed == 12 && result.counts.allocations == 12 && result.counts.frees == 10 &&
+                    result.counts.live_bytes == 32 && testing::cpu_allocation_counts().frees - before.frees == 10, "random DAG last-use allocation counters");
+        }
+        require(testing::cpu_allocation_counts().live == before.live, "random DAG releases returned buffers");
+    }
+    std::cout << "seeded DAGs: PASS cases=60 seed=0x5303 nodes_per_case=12\n";
+}
 }
 int main() {
     try {
-        composed(); lifetime(); failures(); state_and_empty();
+        composed(); lifetime(); failures(); state_and_empty(); random_dags();
         require(testing::cpu_allocation_counts().live == 0, "executor test leaks backing buffers");
         std::cout << "graph executor: PASS\n"; return 0;
     } catch (const std::exception& error) { std::cerr << error.what() << '\n'; return 1; }

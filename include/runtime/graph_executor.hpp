@@ -1,6 +1,7 @@
 #pragma once
 
 #include "runtime/graph.hpp"
+#include "runtime/graph_trace.hpp"
 
 namespace runtime {
 struct ExecutionCounts {
@@ -19,5 +20,5 @@ struct ExecutionResult {
 // Intentional dynamic baseline: one new CPU buffer per NewTensor node, inside
 // execute, no implicit copies. All nodes execute, even disconnected/dead branches.
 // Shared Storage extends alias lifetimes; only named outputs escape the call.
-ExecutionResult execute_graph(const Graph& graph);
+ExecutionResult execute_graph(const Graph& graph, ExecutionTrace* trace = nullptr);
 } // namespace runtime

@@ -15,9 +15,12 @@ from provenance import inspect
 
 
 def configuration(stage):
-    if stage not in (1, 2):
-        raise ValueError("only CPU Stage 1/2 validation is supported")
-    return ("tensor", "check_tensor_sanitizers") if stage == 1 else ("operators", "check_operator_sanitizers")
+    configurations = {1: ("tensor", "check_tensor_sanitizers"),
+                      2: ("operators", "check_operator_sanitizers"),
+                      3: ("graph", "check_graph_sanitizers")}
+    if stage not in configurations:
+        raise ValueError("only CPU Stage 1/2/3 validation is supported")
+    return configurations[stage]
 
 
 def validate(root, results_root, jobs, allow_dirty, stage=1):

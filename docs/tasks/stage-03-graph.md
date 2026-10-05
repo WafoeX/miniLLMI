@@ -1,5 +1,7 @@
 # Stage 3 — Computation graph and sequential executor
 
+**Status:** S3-C1–C4 implemented. CPU-only acceptance and tested-source evidence are recorded in [Stage 3 report](../stage3_report.md); [Graph/executor/trace contracts](../graph.md). No GPU gate or Stage 4+ implementation.
+
 **Goal:** turn descriptors into a validated DAG, without allocator/scheduler policy. **Prerequisite:** S2-C5. **Gate:** CPU graph tests execute core ops in topological order with clear diagnostics.
 
 ## S3-C1 — Graph ownership model

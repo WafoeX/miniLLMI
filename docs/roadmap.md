@@ -1,6 +1,6 @@
 # Stage 1–19 implementation blueprint
 
-> **Status.** Stage 0 is accepted. Its source identity is `f7aaec4` / digest `cc1414…20dc0c`; reproducible T4 results and profiler evidence are committed through `f0f1de7`. Stage 1 Tensor/storage and Stage 2 operators are implemented; see [the Tensor contract](tensor.md), [Stage 1 evidence](stage1_report.md), [operator contracts](operators.md) and [Stage 2 evidence](stage2_report.md). Stage 3–19 remain **Proposed Design**, not implemented functionality.
+> **Status.** Stage 0 is accepted. Its source identity is `f7aaec4` / digest `cc1414…20dc0c`; reproducible T4 results and profiler evidence are committed through `f0f1de7`. Stage 1 Tensor/storage, Stage 2 operators and Stage 3 validated CPU graphs are implemented; see [the Tensor contract](tensor.md), [Stage 1 evidence](stage1_report.md), [operator contracts](operators.md), [Stage 2 evidence](stage2_report.md), [graph contracts](graph.md) and [Stage 3 evidence](stage3_report.md). Stage 4–19 remain **Proposed Design**, not implemented functionality.
 
 ## 1. Architecture and invariants
 
