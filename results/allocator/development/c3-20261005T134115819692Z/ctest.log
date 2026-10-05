@@ -1,0 +1,46 @@
+Test project /Users/wafoe/projects/me/CXXEg/build-stage4-dev
+      Start  1: tensor
+ 1/17 Test  #1: tensor ...........................   Passed    0.59 sec
+      Start  2: tensor_properties
+ 2/17 Test  #2: tensor_properties ................   Passed    0.38 sec
+      Start  3: tensor_validation
+ 3/17 Test  #3: tensor_validation ................   Passed    0.13 sec
+      Start  4: operator
+ 4/17 Test  #4: operator .........................   Passed    0.40 sec
+      Start  5: shape_inference
+ 5/17 Test  #5: shape_inference ..................   Passed    0.39 sec
+      Start  6: operator_reference
+ 6/17 Test  #6: operator_reference ...............   Passed    0.39 sec
+      Start  7: transformer_contracts
+ 7/17 Test  #7: transformer_contracts ............   Passed    0.38 sec
+      Start  8: operator_fixtures
+ 8/17 Test  #8: operator_fixtures ................   Passed    0.46 sec
+      Start  9: operator_fixture_tools
+ 9/17 Test  #9: operator_fixture_tools ...........   Passed    0.10 sec
+      Start 10: graph
+10/17 Test #10: graph ............................   Passed    0.39 sec
+      Start 11: graph_executor
+11/17 Test #11: graph_executor ...................   Passed    0.39 sec
+      Start 12: graph_fixtures
+12/17 Test #12: graph_fixtures ...................   Passed    0.45 sec
+      Start 13: graph_trace
+13/17 Test #13: graph_trace ......................   Passed    0.38 sec
+      Start 14: arena
+14/17 Test #14: arena ............................   Passed    0.46 sec
+      Start 15: allocation_provider
+15/17 Test #15: allocation_provider ..............   Passed    0.41 sec
+      Start 16: common
+16/17 Test #16: common ...........................   Passed    0.01 sec
+      Start 17: tools
+17/17 Test #17: tools ............................   Passed    2.15 sec
+
+100% tests passed out of 17
+
+Label Time Summary:
+arena        =   0.87 sec*proc (2 tests)
+cpu          =   5.68 sec*proc (15 tests)
+graph        =   2.02 sec*proc (5 tests)
+operators    =   2.11 sec*proc (6 tests)
+tensor       =   1.10 sec*proc (3 tests)
+
+Total Test time (real) =   7.85 sec

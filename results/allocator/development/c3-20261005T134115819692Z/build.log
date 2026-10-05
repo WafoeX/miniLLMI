@@ -1,0 +1,41 @@
+-- Configuring done (0.2s)
+-- Generating done (0.0s)
+-- Build files have been written to: /Users/wafoe/projects/me/CXXEg/build-stage4-dev
+[  6%] Building CXX object CMakeFiles/runtime.dir/src/runtime/graph_trace.cpp.o
+[  6%] Building CXX object CMakeFiles/runtime.dir/src/runtime/graph_executor.cpp.o
+[  6%] Building CXX object CMakeFiles/runtime.dir/src/runtime/allocation_provider.cpp.o
+[  6%] Built target refresh_provenance
+[ 11%] Built target stage0_common
+[ 16%] Built target test_common
+[ 18%] Linking CXX static library libruntime.a
+[ 39%] Built target runtime
+[ 48%] Linking CXX executable test_operator
+[ 48%] Linking CXX executable test_tensor_properties
+[ 48%] Linking CXX executable test_tensor
+[ 48%] Linking CXX executable test_shape_inference
+[ 58%] Built target test_tensor_properties
+[ 58%] Built target test_tensor
+[ 58%] Built target test_operator
+[ 58%] Built target test_shape_inference
+[ 67%] Linking CXX executable test_transformer_contracts
+[ 67%] Linking CXX executable test_reference
+[ 67%] Linking CXX executable test_graph
+[ 67%] Linking CXX executable test_operator_fixtures
+[ 69%] Built target test_operator_fixtures
+[ 72%] Built target test_reference
+[ 74%] Built target test_graph
+[ 76%] Built target test_transformer_contracts
+[ 86%] Building CXX object CMakeFiles/test_graph_fixtures.dir/tests/test_graph_fixtures.cpp.o
+[ 86%] Building CXX object CMakeFiles/test_graph_executor.dir/tests/test_graph_executor.cpp.o
+[ 86%] Building CXX object CMakeFiles/test_graph_trace.dir/tests/test_graph_trace.cpp.o
+[ 86%] Linking CXX executable test_arena
+[ 88%] Built target test_arena
+[ 90%] Building CXX object CMakeFiles/test_allocation_provider.dir/tests/test_allocation_provider.cpp.o
+[ 93%] Linking CXX executable test_graph_trace
+[ 93%] Built target test_graph_trace
+[ 95%] Linking CXX executable test_allocation_provider
+[ 95%] Built target test_allocation_provider
+[ 97%] Linking CXX executable test_graph_fixtures
+[ 97%] Built target test_graph_fixtures
+[100%] Linking CXX executable test_graph_executor
+[100%] Built target test_graph_executor

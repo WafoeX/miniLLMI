@@ -1,0 +1,46 @@
+{
+  "scope": "CPU-only C4 development, no timing",
+  "source": {
+    "commit": "c3bbfc8c2405f39dc88bad53cb0b0c37c69d06da",
+    "source_digest": "ba9a983104fe9bc72f44c6a4e3f1d52acb8663109febcab33ad89d6d3220ee4a",
+    "source_dirty": true
+  },
+  "commands": [
+    {
+      "argv": [
+        "python3",
+        "tools/run_allocator_benchmark.py",
+        "--help"
+      ],
+      "exit_code": 0,
+      "log": "import-cli.log"
+    },
+    {
+      "argv": [
+        "cmake",
+        "--build",
+        "build-stage4-dev",
+        "--parallel",
+        "4"
+      ],
+      "exit_code": 0,
+      "log": "build.log"
+    },
+    {
+      "argv": [
+        "ctest",
+        "--test-dir",
+        "build-stage4-dev",
+        "--output-on-failure",
+        "--verbose"
+      ],
+      "exit_code": 8,
+      "log": "ctest.log"
+    }
+  ],
+  "source_after": {
+    "commit": "c3bbfc8c2405f39dc88bad53cb0b0c37c69d06da",
+    "source_digest": "ba9a983104fe9bc72f44c6a4e3f1d52acb8663109febcab33ad89d6d3220ee4a",
+    "source_dirty": true
+  }
+}

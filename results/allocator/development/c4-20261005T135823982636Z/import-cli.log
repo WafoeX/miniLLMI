@@ -1,0 +1,9 @@
+usage: run_allocator_benchmark.py [-h] [--results-root RESULTS_ROOT]
+                                  [--jobs JOBS]
+
+Explicit CPU-only Stage 4 diagnostic, fresh clean Release, three paired runs.
+
+options:
+  -h, --help            show this help message and exit
+  --results-root RESULTS_ROOT
+  --jobs JOBS

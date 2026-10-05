@@ -1,0 +1,181 @@
+{
+  "scope": "Stage4 CPU-only correctness/benchmark provenance audit",
+  "source": {
+    "commit": "d5d118d8027edacf0a6a3604c825efe212fc2d9c",
+    "source_digest": "793eeb9f8d13e0c20abe2334586911bdb765a4270a0bc27d496f6f9c022fdb21",
+    "source_dirty": false
+  },
+  "commands": [
+    {
+      "argv": [
+        "nm",
+        "-g",
+        "/Users/wafoe/projects/me/CXXEg/build-stage4-clean-source/build-stage4-validation/20261005T141011117404Z-37164/production/libruntime.a"
+      ],
+      "exit_code": 0,
+      "log": "correctness-production-nm.log"
+    },
+    {
+      "argv": [
+        "nm",
+        "-g",
+        "/Users/wafoe/projects/me/CXXEg/build-stage4-clean-source/build-allocator-benchmark/20261005T141047459888Z-39363/production/libruntime.a"
+      ],
+      "exit_code": 0,
+      "log": "benchmark-production-nm.log"
+    },
+    {
+      "argv": [
+        "python3",
+        "tools/generate_operator_fixtures.py",
+        "--check"
+      ],
+      "exit_code": 0,
+      "log": "fixture-regeneration.log"
+    }
+  ],
+  "snapshots": [
+    {
+      "family": "correctness",
+      "mode": "release",
+      "file": "CMakeCache.txt",
+      "byte_equal": true,
+      "sha256": "38a9c42eb0bd37fda71f65de49a0b50f8acf3ac5eb558fd7d56796887e333d3d"
+    },
+    {
+      "family": "correctness",
+      "mode": "release",
+      "file": "compile_commands.json",
+      "byte_equal": true,
+      "sha256": "c24562f937ae3aa0436adf613c540e84170c355c2c32d8a9af0b53b052239d4e"
+    },
+    {
+      "family": "correctness",
+      "mode": "debug",
+      "file": "CMakeCache.txt",
+      "byte_equal": true,
+      "sha256": "e062010927a6ddfec409a5ff3d54bfcb599039f74a39d956ea2cdae4f844fefe"
+    },
+    {
+      "family": "correctness",
+      "mode": "debug",
+      "file": "compile_commands.json",
+      "byte_equal": true,
+      "sha256": "6d44d68449a22b4fc764a3892e338ab518bda46402f58927fa1975dd3de9661d"
+    },
+    {
+      "family": "correctness",
+      "mode": "sanitizer",
+      "file": "CMakeCache.txt",
+      "byte_equal": true,
+      "sha256": "26c8803494c7b9a0ba86b14f54caa46d690a5efccbf20d28f4f721735ab57f25"
+    },
+    {
+      "family": "correctness",
+      "mode": "sanitizer",
+      "file": "compile_commands.json",
+      "byte_equal": true,
+      "sha256": "ee2c6e8fd924f536b3d80597011b37334b1103e095cf6b34027cfdbef9bbeaf2"
+    },
+    {
+      "family": "correctness",
+      "mode": "production",
+      "file": "CMakeCache.txt",
+      "byte_equal": true,
+      "sha256": "e68f70d2fda092d2da5d6546076350965588a0fdef4ae85d3237545dacf1ac5c"
+    },
+    {
+      "family": "correctness",
+      "mode": "production",
+      "file": "compile_commands.json",
+      "byte_equal": true,
+      "sha256": "b298a40f67cc2a82b3f41eb73f5bc3d0a933aef439f17418d1f0fc33ff76f2a8"
+    },
+    {
+      "family": "benchmark",
+      "mode": "tests",
+      "file": "CMakeCache.txt",
+      "byte_equal": true,
+      "sha256": "152f496b26cd42e288ab567600138bcf0ab50e0ac0e16adbd6e9c8a14aeb417d"
+    },
+    {
+      "family": "benchmark",
+      "mode": "tests",
+      "file": "compile_commands.json",
+      "byte_equal": true,
+      "sha256": "daba30961159bee58017e51fef92c061469b7f6d7e79094e9ea92227f3ac3093"
+    },
+    {
+      "family": "benchmark",
+      "mode": "production",
+      "file": "CMakeCache.txt",
+      "byte_equal": true,
+      "sha256": "dde5c40a633b6b7a30bd546d8343d7bed0cff024006849ad82bbb0181f6a962b"
+    },
+    {
+      "family": "benchmark",
+      "mode": "production",
+      "file": "compile_commands.json",
+      "byte_equal": true,
+      "sha256": "700ed615dba767133dafb097fb4d67fdc89930b1bdce8f2d64562ce101ec1d61"
+    }
+  ],
+  "tests": {
+    "correctness-release-ctest.log": [
+      "19"
+    ],
+    "correctness-debug-ctest.log": [
+      "19"
+    ],
+    "correctness-sanitizer-ctest.log": [
+      "19"
+    ],
+    "benchmark-ctest.log": [
+      "19"
+    ]
+  },
+  "warnings": {
+    "correctness-release": [],
+    "correctness-debug": [],
+    "correctness-sanitizer": [],
+    "correctness-production": [],
+    "benchmark-tests": [],
+    "benchmark-production": []
+  },
+  "benchmark_samples": 180,
+  "summary_rows": 18,
+  "analyzer_reproduction_byte_identical": true,
+  "binary_sha_matches": true,
+  "protected_paths": [
+    "backend/cuda",
+    "include/stage0",
+    "src/common.cpp",
+    "bench/bench_gemm.cpp",
+    "bench/gpu_info.cpp",
+    "tests/test_common.cpp",
+    "tests/test_cuda_gemm.cpp",
+    "tests/test_tools.py",
+    "scripts",
+    "tools/analyze_results.py",
+    "tools/provenance.py",
+    "results/gemm",
+    "results/profiling",
+    "results/tensor",
+    "results/operators",
+    "results/graph",
+    "tests/fixtures",
+    "src/runtime/tensor.cpp",
+    "src/runtime/copy.cpp",
+    "src/runtime/operator.cpp",
+    "src/runtime/reference.cpp",
+    "src/runtime/shape_inference.cpp",
+    "src/runtime/layout.cpp",
+    "src/runtime/graph.cpp"
+  ],
+  "protected_diff": [],
+  "source_after": {
+    "commit": "d5d118d8027edacf0a6a3604c825efe212fc2d9c",
+    "source_digest": "793eeb9f8d13e0c20abe2334586911bdb765a4270a0bc27d496f6f9c022fdb21",
+    "source_dirty": false
+  }
+}

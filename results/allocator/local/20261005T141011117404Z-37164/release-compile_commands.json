@@ -1,0 +1,170 @@
+[
+{
+  "directory": "/Users/wafoe/projects/me/CXXEg/build-stage4-clean-source/build-stage4-validation/20261005T141011117404Z-37164/release",
+  "command": "/usr/bin/c++  -I/Users/wafoe/projects/me/CXXEg/build-stage4-clean-source/include -I/Users/wafoe/projects/me/CXXEg/build-stage4-clean-source/build-stage4-validation/20261005T141011117404Z-37164/release/generated -O3 -DNDEBUG -std=c++17 -arch arm64 -Wall -Wextra -Wpedantic -o CMakeFiles/stage0_common.dir/src/common.cpp.o -c /Users/wafoe/projects/me/CXXEg/build-stage4-clean-source/src/common.cpp",
+  "file": "/Users/wafoe/projects/me/CXXEg/build-stage4-clean-source/src/common.cpp",
+  "output": "CMakeFiles/stage0_common.dir/src/common.cpp.o"
+},
+{
+  "directory": "/Users/wafoe/projects/me/CXXEg/build-stage4-clean-source/build-stage4-validation/20261005T141011117404Z-37164/release",
+  "command": "/usr/bin/c++ -DRUNTIME_TESTING=1 -I/Users/wafoe/projects/me/CXXEg/build-stage4-clean-source/include -O3 -DNDEBUG -std=c++17 -arch arm64 -Wall -Wextra -Wpedantic -o CMakeFiles/runtime.dir/src/runtime/storage.cpp.o -c /Users/wafoe/projects/me/CXXEg/build-stage4-clean-source/src/runtime/storage.cpp",
+  "file": "/Users/wafoe/projects/me/CXXEg/build-stage4-clean-source/src/runtime/storage.cpp",
+  "output": "CMakeFiles/runtime.dir/src/runtime/storage.cpp.o"
+},
+{
+  "directory": "/Users/wafoe/projects/me/CXXEg/build-stage4-clean-source/build-stage4-validation/20261005T141011117404Z-37164/release",
+  "command": "/usr/bin/c++ -DRUNTIME_TESTING=1 -I/Users/wafoe/projects/me/CXXEg/build-stage4-clean-source/include -O3 -DNDEBUG -std=c++17 -arch arm64 -Wall -Wextra -Wpedantic -o CMakeFiles/runtime.dir/src/runtime/tensor.cpp.o -c /Users/wafoe/projects/me/CXXEg/build-stage4-clean-source/src/runtime/tensor.cpp",
+  "file": "/Users/wafoe/projects/me/CXXEg/build-stage4-clean-source/src/runtime/tensor.cpp",
+  "output": "CMakeFiles/runtime.dir/src/runtime/tensor.cpp.o"
+},
+{
+  "directory": "/Users/wafoe/projects/me/CXXEg/build-stage4-clean-source/build-stage4-validation/20261005T141011117404Z-37164/release",
+  "command": "/usr/bin/c++ -DRUNTIME_TESTING=1 -I/Users/wafoe/projects/me/CXXEg/build-stage4-clean-source/include -O3 -DNDEBUG -std=c++17 -arch arm64 -Wall -Wextra -Wpedantic -o CMakeFiles/runtime.dir/src/runtime/copy.cpp.o -c /Users/wafoe/projects/me/CXXEg/build-stage4-clean-source/src/runtime/copy.cpp",
+  "file": "/Users/wafoe/projects/me/CXXEg/build-stage4-clean-source/src/runtime/copy.cpp",
+  "output": "CMakeFiles/runtime.dir/src/runtime/copy.cpp.o"
+},
+{
+  "directory": "/Users/wafoe/projects/me/CXXEg/build-stage4-clean-source/build-stage4-validation/20261005T141011117404Z-37164/release",
+  "command": "/usr/bin/c++ -DRUNTIME_TESTING=1 -I/Users/wafoe/projects/me/CXXEg/build-stage4-clean-source/include -O3 -DNDEBUG -std=c++17 -arch arm64 -Wall -Wextra -Wpedantic -o CMakeFiles/runtime.dir/src/runtime/operator.cpp.o -c /Users/wafoe/projects/me/CXXEg/build-stage4-clean-source/src/runtime/operator.cpp",
+  "file": "/Users/wafoe/projects/me/CXXEg/build-stage4-clean-source/src/runtime/operator.cpp",
+  "output": "CMakeFiles/runtime.dir/src/runtime/operator.cpp.o"
+},
+{
+  "directory": "/Users/wafoe/projects/me/CXXEg/build-stage4-clean-source/build-stage4-validation/20261005T141011117404Z-37164/release",
+  "command": "/usr/bin/c++ -DRUNTIME_TESTING=1 -I/Users/wafoe/projects/me/CXXEg/build-stage4-clean-source/include -O3 -DNDEBUG -std=c++17 -arch arm64 -Wall -Wextra -Wpedantic -o CMakeFiles/runtime.dir/src/runtime/shape_inference.cpp.o -c /Users/wafoe/projects/me/CXXEg/build-stage4-clean-source/src/runtime/shape_inference.cpp",
+  "file": "/Users/wafoe/projects/me/CXXEg/build-stage4-clean-source/src/runtime/shape_inference.cpp",
+  "output": "CMakeFiles/runtime.dir/src/runtime/shape_inference.cpp.o"
+},
+{
+  "directory": "/Users/wafoe/projects/me/CXXEg/build-stage4-clean-source/build-stage4-validation/20261005T141011117404Z-37164/release",
+  "command": "/usr/bin/c++ -DRUNTIME_TESTING=1 -I/Users/wafoe/projects/me/CXXEg/build-stage4-clean-source/include -O3 -DNDEBUG -std=c++17 -arch arm64 -Wall -Wextra -Wpedantic -o CMakeFiles/runtime.dir/src/runtime/reference.cpp.o -c /Users/wafoe/projects/me/CXXEg/build-stage4-clean-source/src/runtime/reference.cpp",
+  "file": "/Users/wafoe/projects/me/CXXEg/build-stage4-clean-source/src/runtime/reference.cpp",
+  "output": "CMakeFiles/runtime.dir/src/runtime/reference.cpp.o"
+},
+{
+  "directory": "/Users/wafoe/projects/me/CXXEg/build-stage4-clean-source/build-stage4-validation/20261005T141011117404Z-37164/release",
+  "command": "/usr/bin/c++ -DRUNTIME_TESTING=1 -I/Users/wafoe/projects/me/CXXEg/build-stage4-clean-source/include -O3 -DNDEBUG -std=c++17 -arch arm64 -Wall -Wextra -Wpedantic -o CMakeFiles/runtime.dir/src/runtime/layout.cpp.o -c /Users/wafoe/projects/me/CXXEg/build-stage4-clean-source/src/runtime/layout.cpp",
+  "file": "/Users/wafoe/projects/me/CXXEg/build-stage4-clean-source/src/runtime/layout.cpp",
+  "output": "CMakeFiles/runtime.dir/src/runtime/layout.cpp.o"
+},
+{
+  "directory": "/Users/wafoe/projects/me/CXXEg/build-stage4-clean-source/build-stage4-validation/20261005T141011117404Z-37164/release",
+  "command": "/usr/bin/c++ -DRUNTIME_TESTING=1 -I/Users/wafoe/projects/me/CXXEg/build-stage4-clean-source/include -O3 -DNDEBUG -std=c++17 -arch arm64 -Wall -Wextra -Wpedantic -o CMakeFiles/runtime.dir/src/runtime/graph.cpp.o -c /Users/wafoe/projects/me/CXXEg/build-stage4-clean-source/src/runtime/graph.cpp",
+  "file": "/Users/wafoe/projects/me/CXXEg/build-stage4-clean-source/src/runtime/graph.cpp",
+  "output": "CMakeFiles/runtime.dir/src/runtime/graph.cpp.o"
+},
+{
+  "directory": "/Users/wafoe/projects/me/CXXEg/build-stage4-clean-source/build-stage4-validation/20261005T141011117404Z-37164/release",
+  "command": "/usr/bin/c++ -DRUNTIME_TESTING=1 -I/Users/wafoe/projects/me/CXXEg/build-stage4-clean-source/include -O3 -DNDEBUG -std=c++17 -arch arm64 -Wall -Wextra -Wpedantic -o CMakeFiles/runtime.dir/src/runtime/graph_executor.cpp.o -c /Users/wafoe/projects/me/CXXEg/build-stage4-clean-source/src/runtime/graph_executor.cpp",
+  "file": "/Users/wafoe/projects/me/CXXEg/build-stage4-clean-source/src/runtime/graph_executor.cpp",
+  "output": "CMakeFiles/runtime.dir/src/runtime/graph_executor.cpp.o"
+},
+{
+  "directory": "/Users/wafoe/projects/me/CXXEg/build-stage4-clean-source/build-stage4-validation/20261005T141011117404Z-37164/release",
+  "command": "/usr/bin/c++ -DRUNTIME_TESTING=1 -I/Users/wafoe/projects/me/CXXEg/build-stage4-clean-source/include -O3 -DNDEBUG -std=c++17 -arch arm64 -Wall -Wextra -Wpedantic -o CMakeFiles/runtime.dir/src/runtime/graph_trace.cpp.o -c /Users/wafoe/projects/me/CXXEg/build-stage4-clean-source/src/runtime/graph_trace.cpp",
+  "file": "/Users/wafoe/projects/me/CXXEg/build-stage4-clean-source/src/runtime/graph_trace.cpp",
+  "output": "CMakeFiles/runtime.dir/src/runtime/graph_trace.cpp.o"
+},
+{
+  "directory": "/Users/wafoe/projects/me/CXXEg/build-stage4-clean-source/build-stage4-validation/20261005T141011117404Z-37164/release",
+  "command": "/usr/bin/c++ -DRUNTIME_TESTING=1 -I/Users/wafoe/projects/me/CXXEg/build-stage4-clean-source/include -O3 -DNDEBUG -std=c++17 -arch arm64 -Wall -Wextra -Wpedantic -o CMakeFiles/runtime.dir/src/runtime/arena.cpp.o -c /Users/wafoe/projects/me/CXXEg/build-stage4-clean-source/src/runtime/arena.cpp",
+  "file": "/Users/wafoe/projects/me/CXXEg/build-stage4-clean-source/src/runtime/arena.cpp",
+  "output": "CMakeFiles/runtime.dir/src/runtime/arena.cpp.o"
+},
+{
+  "directory": "/Users/wafoe/projects/me/CXXEg/build-stage4-clean-source/build-stage4-validation/20261005T141011117404Z-37164/release",
+  "command": "/usr/bin/c++ -DRUNTIME_TESTING=1 -I/Users/wafoe/projects/me/CXXEg/build-stage4-clean-source/include -O3 -DNDEBUG -std=c++17 -arch arm64 -Wall -Wextra -Wpedantic -o CMakeFiles/runtime.dir/src/runtime/allocation_provider.cpp.o -c /Users/wafoe/projects/me/CXXEg/build-stage4-clean-source/src/runtime/allocation_provider.cpp",
+  "file": "/Users/wafoe/projects/me/CXXEg/build-stage4-clean-source/src/runtime/allocation_provider.cpp",
+  "output": "CMakeFiles/runtime.dir/src/runtime/allocation_provider.cpp.o"
+},
+{
+  "directory": "/Users/wafoe/projects/me/CXXEg/build-stage4-clean-source/build-stage4-validation/20261005T141011117404Z-37164/release",
+  "command": "/usr/bin/c++ -DRUNTIME_TESTING=1 -I/Users/wafoe/projects/me/CXXEg/build-stage4-clean-source/include -I/Users/wafoe/projects/me/CXXEg/build-stage4-clean-source/build-stage4-validation/20261005T141011117404Z-37164/release/generated -O3 -DNDEBUG -std=c++17 -arch arm64 -Wall -Wextra -Wpedantic -o CMakeFiles/bench_allocator.dir/bench/bench_allocator.cpp.o -c /Users/wafoe/projects/me/CXXEg/build-stage4-clean-source/bench/bench_allocator.cpp",
+  "file": "/Users/wafoe/projects/me/CXXEg/build-stage4-clean-source/bench/bench_allocator.cpp",
+  "output": "CMakeFiles/bench_allocator.dir/bench/bench_allocator.cpp.o"
+},
+{
+  "directory": "/Users/wafoe/projects/me/CXXEg/build-stage4-clean-source/build-stage4-validation/20261005T141011117404Z-37164/release",
+  "command": "/usr/bin/c++ -DRUNTIME_TESTING=1 -I/Users/wafoe/projects/me/CXXEg/build-stage4-clean-source/include -O3 -DNDEBUG -std=c++17 -arch arm64 -Wall -Wextra -Wpedantic -o CMakeFiles/test_tensor.dir/tests/test_tensor.cpp.o -c /Users/wafoe/projects/me/CXXEg/build-stage4-clean-source/tests/test_tensor.cpp",
+  "file": "/Users/wafoe/projects/me/CXXEg/build-stage4-clean-source/tests/test_tensor.cpp",
+  "output": "CMakeFiles/test_tensor.dir/tests/test_tensor.cpp.o"
+},
+{
+  "directory": "/Users/wafoe/projects/me/CXXEg/build-stage4-clean-source/build-stage4-validation/20261005T141011117404Z-37164/release",
+  "command": "/usr/bin/c++ -DRUNTIME_TESTING=1 -I/Users/wafoe/projects/me/CXXEg/build-stage4-clean-source/include -O3 -DNDEBUG -std=c++17 -arch arm64 -Wall -Wextra -Wpedantic -o CMakeFiles/test_tensor_properties.dir/tests/test_tensor_properties.cpp.o -c /Users/wafoe/projects/me/CXXEg/build-stage4-clean-source/tests/test_tensor_properties.cpp",
+  "file": "/Users/wafoe/projects/me/CXXEg/build-stage4-clean-source/tests/test_tensor_properties.cpp",
+  "output": "CMakeFiles/test_tensor_properties.dir/tests/test_tensor_properties.cpp.o"
+},
+{
+  "directory": "/Users/wafoe/projects/me/CXXEg/build-stage4-clean-source/build-stage4-validation/20261005T141011117404Z-37164/release",
+  "command": "/usr/bin/c++ -DRUNTIME_TESTING=1 -I/Users/wafoe/projects/me/CXXEg/build-stage4-clean-source/include -O3 -DNDEBUG -std=c++17 -arch arm64 -Wall -Wextra -Wpedantic -o CMakeFiles/test_operator.dir/tests/test_operator.cpp.o -c /Users/wafoe/projects/me/CXXEg/build-stage4-clean-source/tests/test_operator.cpp",
+  "file": "/Users/wafoe/projects/me/CXXEg/build-stage4-clean-source/tests/test_operator.cpp",
+  "output": "CMakeFiles/test_operator.dir/tests/test_operator.cpp.o"
+},
+{
+  "directory": "/Users/wafoe/projects/me/CXXEg/build-stage4-clean-source/build-stage4-validation/20261005T141011117404Z-37164/release",
+  "command": "/usr/bin/c++ -DRUNTIME_TESTING=1 -I/Users/wafoe/projects/me/CXXEg/build-stage4-clean-source/include -O3 -DNDEBUG -std=c++17 -arch arm64 -Wall -Wextra -Wpedantic -o CMakeFiles/test_shape_inference.dir/tests/test_shape_inference.cpp.o -c /Users/wafoe/projects/me/CXXEg/build-stage4-clean-source/tests/test_shape_inference.cpp",
+  "file": "/Users/wafoe/projects/me/CXXEg/build-stage4-clean-source/tests/test_shape_inference.cpp",
+  "output": "CMakeFiles/test_shape_inference.dir/tests/test_shape_inference.cpp.o"
+},
+{
+  "directory": "/Users/wafoe/projects/me/CXXEg/build-stage4-clean-source/build-stage4-validation/20261005T141011117404Z-37164/release",
+  "command": "/usr/bin/c++ -DRUNTIME_TESTING=1 -I/Users/wafoe/projects/me/CXXEg/build-stage4-clean-source/include -O3 -DNDEBUG -std=c++17 -arch arm64 -Wall -Wextra -Wpedantic -o CMakeFiles/test_reference.dir/tests/test_reference.cpp.o -c /Users/wafoe/projects/me/CXXEg/build-stage4-clean-source/tests/test_reference.cpp",
+  "file": "/Users/wafoe/projects/me/CXXEg/build-stage4-clean-source/tests/test_reference.cpp",
+  "output": "CMakeFiles/test_reference.dir/tests/test_reference.cpp.o"
+},
+{
+  "directory": "/Users/wafoe/projects/me/CXXEg/build-stage4-clean-source/build-stage4-validation/20261005T141011117404Z-37164/release",
+  "command": "/usr/bin/c++ -DRUNTIME_TESTING=1 -I/Users/wafoe/projects/me/CXXEg/build-stage4-clean-source/include -O3 -DNDEBUG -std=c++17 -arch arm64 -Wall -Wextra -Wpedantic -o CMakeFiles/test_transformer_contracts.dir/tests/test_transformer_contracts.cpp.o -c /Users/wafoe/projects/me/CXXEg/build-stage4-clean-source/tests/test_transformer_contracts.cpp",
+  "file": "/Users/wafoe/projects/me/CXXEg/build-stage4-clean-source/tests/test_transformer_contracts.cpp",
+  "output": "CMakeFiles/test_transformer_contracts.dir/tests/test_transformer_contracts.cpp.o"
+},
+{
+  "directory": "/Users/wafoe/projects/me/CXXEg/build-stage4-clean-source/build-stage4-validation/20261005T141011117404Z-37164/release",
+  "command": "/usr/bin/c++ -DRUNTIME_TESTING=1 -I/Users/wafoe/projects/me/CXXEg/build-stage4-clean-source/include -O3 -DNDEBUG -std=c++17 -arch arm64 -Wall -Wextra -Wpedantic -o CMakeFiles/test_operator_fixtures.dir/tests/test_operator_fixtures.cpp.o -c /Users/wafoe/projects/me/CXXEg/build-stage4-clean-source/tests/test_operator_fixtures.cpp",
+  "file": "/Users/wafoe/projects/me/CXXEg/build-stage4-clean-source/tests/test_operator_fixtures.cpp",
+  "output": "CMakeFiles/test_operator_fixtures.dir/tests/test_operator_fixtures.cpp.o"
+},
+{
+  "directory": "/Users/wafoe/projects/me/CXXEg/build-stage4-clean-source/build-stage4-validation/20261005T141011117404Z-37164/release",
+  "command": "/usr/bin/c++ -DRUNTIME_TESTING=1 -I/Users/wafoe/projects/me/CXXEg/build-stage4-clean-source/include -O3 -DNDEBUG -std=c++17 -arch arm64 -Wall -Wextra -Wpedantic -o CMakeFiles/test_graph.dir/tests/test_graph.cpp.o -c /Users/wafoe/projects/me/CXXEg/build-stage4-clean-source/tests/test_graph.cpp",
+  "file": "/Users/wafoe/projects/me/CXXEg/build-stage4-clean-source/tests/test_graph.cpp",
+  "output": "CMakeFiles/test_graph.dir/tests/test_graph.cpp.o"
+},
+{
+  "directory": "/Users/wafoe/projects/me/CXXEg/build-stage4-clean-source/build-stage4-validation/20261005T141011117404Z-37164/release",
+  "command": "/usr/bin/c++ -DRUNTIME_TESTING=1 -I/Users/wafoe/projects/me/CXXEg/build-stage4-clean-source/include -O3 -DNDEBUG -std=c++17 -arch arm64 -Wall -Wextra -Wpedantic -o CMakeFiles/test_graph_executor.dir/tests/test_graph_executor.cpp.o -c /Users/wafoe/projects/me/CXXEg/build-stage4-clean-source/tests/test_graph_executor.cpp",
+  "file": "/Users/wafoe/projects/me/CXXEg/build-stage4-clean-source/tests/test_graph_executor.cpp",
+  "output": "CMakeFiles/test_graph_executor.dir/tests/test_graph_executor.cpp.o"
+},
+{
+  "directory": "/Users/wafoe/projects/me/CXXEg/build-stage4-clean-source/build-stage4-validation/20261005T141011117404Z-37164/release",
+  "command": "/usr/bin/c++ -DRUNTIME_TESTING=1 -I/Users/wafoe/projects/me/CXXEg/build-stage4-clean-source/include -O3 -DNDEBUG -std=c++17 -arch arm64 -Wall -Wextra -Wpedantic -o CMakeFiles/test_graph_fixtures.dir/tests/test_graph_fixtures.cpp.o -c /Users/wafoe/projects/me/CXXEg/build-stage4-clean-source/tests/test_graph_fixtures.cpp",
+  "file": "/Users/wafoe/projects/me/CXXEg/build-stage4-clean-source/tests/test_graph_fixtures.cpp",
+  "output": "CMakeFiles/test_graph_fixtures.dir/tests/test_graph_fixtures.cpp.o"
+},
+{
+  "directory": "/Users/wafoe/projects/me/CXXEg/build-stage4-clean-source/build-stage4-validation/20261005T141011117404Z-37164/release",
+  "command": "/usr/bin/c++ -DRUNTIME_TESTING=1 -I/Users/wafoe/projects/me/CXXEg/build-stage4-clean-source/include -O3 -DNDEBUG -std=c++17 -arch arm64 -Wall -Wextra -Wpedantic -o CMakeFiles/test_graph_trace.dir/tests/test_graph_trace.cpp.o -c /Users/wafoe/projects/me/CXXEg/build-stage4-clean-source/tests/test_graph_trace.cpp",
+  "file": "/Users/wafoe/projects/me/CXXEg/build-stage4-clean-source/tests/test_graph_trace.cpp",
+  "output": "CMakeFiles/test_graph_trace.dir/tests/test_graph_trace.cpp.o"
+},
+{
+  "directory": "/Users/wafoe/projects/me/CXXEg/build-stage4-clean-source/build-stage4-validation/20261005T141011117404Z-37164/release",
+  "command": "/usr/bin/c++ -DRUNTIME_TESTING=1 -I/Users/wafoe/projects/me/CXXEg/build-stage4-clean-source/include -O3 -DNDEBUG -std=c++17 -arch arm64 -Wall -Wextra -Wpedantic -o CMakeFiles/test_arena.dir/tests/test_arena.cpp.o -c /Users/wafoe/projects/me/CXXEg/build-stage4-clean-source/tests/test_arena.cpp",
+  "file": "/Users/wafoe/projects/me/CXXEg/build-stage4-clean-source/tests/test_arena.cpp",
+  "output": "CMakeFiles/test_arena.dir/tests/test_arena.cpp.o"
+},
+{
+  "directory": "/Users/wafoe/projects/me/CXXEg/build-stage4-clean-source/build-stage4-validation/20261005T141011117404Z-37164/release",
+  "command": "/usr/bin/c++ -DRUNTIME_TESTING=1 -I/Users/wafoe/projects/me/CXXEg/build-stage4-clean-source/include -O3 -DNDEBUG -std=c++17 -arch arm64 -Wall -Wextra -Wpedantic -o CMakeFiles/test_allocation_provider.dir/tests/test_allocation_provider.cpp.o -c /Users/wafoe/projects/me/CXXEg/build-stage4-clean-source/tests/test_allocation_provider.cpp",
+  "file": "/Users/wafoe/projects/me/CXXEg/build-stage4-clean-source/tests/test_allocation_provider.cpp",
+  "output": "CMakeFiles/test_allocation_provider.dir/tests/test_allocation_provider.cpp.o"
+},
+{
+  "directory": "/Users/wafoe/projects/me/CXXEg/build-stage4-clean-source/build-stage4-validation/20261005T141011117404Z-37164/release",
+  "command": "/usr/bin/c++  -I/Users/wafoe/projects/me/CXXEg/build-stage4-clean-source/include -I/Users/wafoe/projects/me/CXXEg/build-stage4-clean-source/build-stage4-validation/20261005T141011117404Z-37164/release/generated -O3 -DNDEBUG -std=c++17 -arch arm64 -Wall -Wextra -Wpedantic -o CMakeFiles/test_common.dir/tests/test_common.cpp.o -c /Users/wafoe/projects/me/CXXEg/build-stage4-clean-source/tests/test_common.cpp",
+  "file": "/Users/wafoe/projects/me/CXXEg/build-stage4-clean-source/tests/test_common.cpp",
+  "output": "CMakeFiles/test_common.dir/tests/test_common.cpp.o"
+}
+]

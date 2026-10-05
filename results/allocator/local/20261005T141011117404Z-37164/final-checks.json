@@ -1,0 +1,23 @@
+{
+  "source": {
+    "commit": "d5d118d8027edacf0a6a3604c825efe212fc2d9c",
+    "source_digest": "793eeb9f8d13e0c20abe2334586911bdb765a4270a0bc27d496f6f9c022fdb21",
+    "source_dirty": false
+  },
+  "implementation_diff_after_tested_source": [],
+  "docs_links": {
+    "checked": 76,
+    "missing": []
+  },
+  "active_lsp_probe": {
+    "paths": 27,
+    "clean_outcomes": 26,
+    "unavailable": [
+      "CMakeLists.txt"
+    ],
+    "disposition_hidden": 1,
+    "disposition": "false-positive valid sibling Python import; actual CLI/tests/production runner prove resolution; no inline ignore"
+  },
+  "stage3_push_verified_remote_head": "5d8f0efe097cfef10f9350a16abcde2d9dcf94cf",
+  "stage4_push_performed": false
+}

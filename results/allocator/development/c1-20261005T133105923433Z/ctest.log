@@ -1,0 +1,44 @@
+Test project /Users/wafoe/projects/me/CXXEg/build-stage4-dev
+      Start  1: tensor
+ 1/16 Test  #1: tensor ...........................   Passed    0.64 sec
+      Start  2: tensor_properties
+ 2/16 Test  #2: tensor_properties ................   Passed    0.43 sec
+      Start  3: tensor_validation
+ 3/16 Test  #3: tensor_validation ................   Passed    0.14 sec
+      Start  4: operator
+ 4/16 Test  #4: operator .........................   Passed    0.47 sec
+      Start  5: shape_inference
+ 5/16 Test  #5: shape_inference ..................   Passed    0.41 sec
+      Start  6: operator_reference
+ 6/16 Test  #6: operator_reference ...............   Passed    0.37 sec
+      Start  7: transformer_contracts
+ 7/16 Test  #7: transformer_contracts ............   Passed    0.45 sec
+      Start  8: operator_fixtures
+ 8/16 Test  #8: operator_fixtures ................   Passed    0.46 sec
+      Start  9: operator_fixture_tools
+ 9/16 Test  #9: operator_fixture_tools ...........   Passed    0.10 sec
+      Start 10: graph
+10/16 Test #10: graph ............................   Passed    0.46 sec
+      Start 11: graph_executor
+11/16 Test #11: graph_executor ...................   Passed    0.39 sec
+      Start 12: graph_fixtures
+12/16 Test #12: graph_fixtures ...................   Passed    0.45 sec
+      Start 13: graph_trace
+13/16 Test #13: graph_trace ......................   Passed    0.39 sec
+      Start 14: arena
+14/16 Test #14: arena ............................   Passed    0.38 sec
+      Start 15: common
+15/16 Test #15: common ...........................   Passed    0.43 sec
+      Start 16: tools
+16/16 Test #16: tools ............................   Passed    2.10 sec
+
+100% tests passed out of 16
+
+Label Time Summary:
+arena        =   0.38 sec*proc (1 test)
+cpu          =   5.54 sec*proc (14 tests)
+graph        =   1.69 sec*proc (4 tests)
+operators    =   2.26 sec*proc (6 tests)
+tensor       =   1.22 sec*proc (3 tests)
+
+Total Test time (real) =   8.09 sec

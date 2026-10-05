@@ -1,0 +1,49 @@
+{
+  "scope": "CPU-only C1 development",
+  "source": {
+    "commit": "5d8f0efe097cfef10f9350a16abcde2d9dcf94cf",
+    "source_digest": "1e51420440823938adc3dcdaefe4166ad18251c9c89022b89eb93bd4572aba9c",
+    "source_dirty": true
+  },
+  "commands": [
+    {
+      "argv": [
+        "cmake",
+        "-S",
+        ".",
+        "-B",
+        "build-stage4-dev",
+        "-DCMAKE_BUILD_TYPE=Release",
+        "-DENABLE_CUDA=OFF"
+      ],
+      "exit_code": 0,
+      "log": "configure.log"
+    },
+    {
+      "argv": [
+        "cmake",
+        "--build",
+        "build-stage4-dev",
+        "--parallel",
+        "4"
+      ],
+      "exit_code": 0,
+      "log": "build.log"
+    },
+    {
+      "argv": [
+        "ctest",
+        "--test-dir",
+        "build-stage4-dev",
+        "--output-on-failure"
+      ],
+      "exit_code": 0,
+      "log": "ctest.log"
+    }
+  ],
+  "source_after": {
+    "commit": "5d8f0efe097cfef10f9350a16abcde2d9dcf94cf",
+    "source_digest": "1e51420440823938adc3dcdaefe4166ad18251c9c89022b89eb93bd4572aba9c",
+    "source_dirty": true
+  }
+}

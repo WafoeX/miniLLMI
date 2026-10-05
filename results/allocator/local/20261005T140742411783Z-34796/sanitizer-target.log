@@ -1,0 +1,63 @@
+[ 61%] Built target runtime
+[ 71%] Built target test_allocation_provider
+[ 71%] Built target refresh_provenance
+[ 80%] Built target stage0_common
+[ 90%] Built target bench_allocator
+[100%] Built target test_arena
+UpdateCTestConfiguration  from :/Users/wafoe/projects/me/CXXEg/build-stage4-validation/20261005T140742411783Z-34796/sanitizer/DartConfiguration.tcl
+Parse Config file:/Users/wafoe/projects/me/CXXEg/build-stage4-validation/20261005T140742411783Z-34796/sanitizer/DartConfiguration.tcl
+Test project /Users/wafoe/projects/me/CXXEg/build-stage4-validation/20261005T140742411783Z-34796/sanitizer
+Constructing a list of tests
+Done constructing a list of tests
+Updating test list for fixtures
+Added 0 tests to meet fixture requirements
+Checking test dependency graph...
+Checking test dependency graph end
+test 14
+    Start 14: arena
+
+14: Test command: /Users/wafoe/projects/me/CXXEg/build-stage4-validation/20261005T140742411783Z-34796/sanitizer/test_arena
+14: Working Directory: /Users/wafoe/projects/me/CXXEg/build-stage4-validation/20261005T140742411783Z-34796/sanitizer
+14: Test timeout computed to be: 1500
+14: arena properties: PASS seeds=6 operations=18000
+14: arena accounting/reuse: PASS
+1/4 Test #14: arena ............................   Passed    0.99 sec
+test 15
+    Start 15: allocation_provider
+
+15: Test command: /Users/wafoe/projects/me/CXXEg/build-stage4-validation/20261005T140742411783Z-34796/sanitizer/test_allocation_provider
+15: Working Directory: /Users/wafoe/projects/me/CXXEg/build-stage4-validation/20261005T140742411783Z-34796/sanitizer
+15: Test timeout computed to be: 1500
+15: allocation provider: PASS
+2/4 Test #15: allocation_provider ..............   Passed    0.43 sec
+test 16
+    Start 16: allocator_benchmark_workloads
+
+16: Test command: /Users/wafoe/projects/me/CXXEg/build-stage4-validation/20261005T140742411783Z-34796/sanitizer/bench_allocator "--self-test"
+16: Working Directory: /Users/wafoe/projects/me/CXXEg/build-stage4-validation/20261005T140742411783Z-34796/sanitizer
+16: Test timeout computed to be: 1500
+16: allocator benchmark workload correctness: PASS (untimed)
+3/4 Test #16: allocator_benchmark_workloads ....   Passed    0.49 sec
+test 17
+    Start 17: allocator_tools
+
+17: Test command: /Users/wafoe/miniforge3/bin/python3.14 "/Users/wafoe/projects/me/CXXEg/tests/test_allocator_tools.py"
+17: Working Directory: /Users/wafoe/projects/me/CXXEg/build-stage4-validation/20261005T140742411783Z-34796/sanitizer
+17: Test timeout computed to be: 1500
+17: ..........
+17: ----------------------------------------------------------------------
+17: Ran 10 tests in 0.043s
+17: 
+17: OK
+4/4 Test #17: allocator_tools ..................   Passed    0.10 sec
+
+100% tests passed out of 4
+
+Label Time Summary:
+arena    =   2.02 sec*proc (4 tests)
+cpu      =   2.02 sec*proc (4 tests)
+graph    =   0.43 sec*proc (1 test)
+
+Total Test time (real) =   2.02 sec
+[100%] Built target check_arena
+[100%] Built target check_arena_sanitizers

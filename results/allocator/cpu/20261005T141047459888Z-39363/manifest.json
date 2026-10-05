@@ -1,0 +1,418 @@
+{
+  "schema_version": 1,
+  "scope": "CPU-only allocator diagnostic",
+  "run_id": "20261005T141047459888Z-39363",
+  "timestamp": "2026-10-05T14:10:47.459747+00:00",
+  "source": {
+    "commit": "d5d118d8027edacf0a6a3604c825efe212fc2d9c",
+    "source_digest": "793eeb9f8d13e0c20abe2334586911bdb765a4270a0bc27d496f6f9c022fdb21",
+    "source_dirty": false
+  },
+  "host": "Wafoe-MacBook.local",
+  "platform": "macOS-26.7-arm64-arm-64bit-Mach-O",
+  "machine": "arm64",
+  "python": "3.14.6 | packaged by conda-forge | (main, Aug 11 2026, 10:24:52) [Clang 20.1.8 ]",
+  "configuration": {
+    "runs": 3,
+    "samples": 10,
+    "warmup": 3,
+    "batch": 20,
+    "alignment": 64,
+    "arena_capacity": 1024,
+    "workload_version": 1
+  },
+  "timing_boundary": "steady_clock, execute/allocate+oracle checks+output destruction per call; preparation and CSV I/O excluded",
+  "environment_note": "CPU-only local host; no exclusive CPU or process-isolation guarantee. All valid slow runs retained.",
+  "alignment_note": "Synthetic: both policies aligned 64. Graph: preserved S3 default CPU malloc alignment vs arena 64, disclosed as part of policy (not alignment-isolated speedup).",
+  "commands": [
+    {
+      "argv": [
+        "cmake",
+        "--version"
+      ],
+      "cwd": "/Users/wafoe/projects/me/CXXEg/build-stage4-clean-source",
+      "log": "cmake-version.log",
+      "exit_code": 0
+    },
+    {
+      "argv": [
+        "cmake",
+        "-S",
+        "/Users/wafoe/projects/me/CXXEg/build-stage4-clean-source",
+        "-B",
+        "/Users/wafoe/projects/me/CXXEg/build-stage4-clean-source/build-allocator-benchmark/20261005T141047459888Z-39363/tests",
+        "-DCMAKE_BUILD_TYPE=Release",
+        "-DENABLE_CUDA=OFF",
+        "-DENABLE_SANITIZERS=OFF",
+        "-DBUILD_TESTING=ON"
+      ],
+      "cwd": "/Users/wafoe/projects/me/CXXEg/build-stage4-clean-source",
+      "log": "tests-configure.log",
+      "exit_code": 0
+    },
+    {
+      "argv": [
+        "cmake",
+        "--build",
+        "/Users/wafoe/projects/me/CXXEg/build-stage4-clean-source/build-allocator-benchmark/20261005T141047459888Z-39363/tests",
+        "--parallel",
+        "4",
+        "--verbose"
+      ],
+      "cwd": "/Users/wafoe/projects/me/CXXEg/build-stage4-clean-source",
+      "log": "tests-build.log",
+      "exit_code": 0
+    },
+    {
+      "argv": [
+        "ctest",
+        "--test-dir",
+        "/Users/wafoe/projects/me/CXXEg/build-stage4-clean-source/build-allocator-benchmark/20261005T141047459888Z-39363/tests",
+        "--output-on-failure",
+        "--verbose"
+      ],
+      "cwd": "/Users/wafoe/projects/me/CXXEg/build-stage4-clean-source",
+      "log": "ctest.log",
+      "exit_code": 0
+    },
+    {
+      "argv": [
+        "cmake",
+        "-S",
+        "/Users/wafoe/projects/me/CXXEg/build-stage4-clean-source",
+        "-B",
+        "/Users/wafoe/projects/me/CXXEg/build-stage4-clean-source/build-allocator-benchmark/20261005T141047459888Z-39363/production",
+        "-DCMAKE_BUILD_TYPE=Release",
+        "-DENABLE_CUDA=OFF",
+        "-DENABLE_SANITIZERS=OFF",
+        "-DBUILD_TESTING=OFF"
+      ],
+      "cwd": "/Users/wafoe/projects/me/CXXEg/build-stage4-clean-source",
+      "log": "production-configure.log",
+      "exit_code": 0
+    },
+    {
+      "argv": [
+        "cmake",
+        "--build",
+        "/Users/wafoe/projects/me/CXXEg/build-stage4-clean-source/build-allocator-benchmark/20261005T141047459888Z-39363/production",
+        "--parallel",
+        "4",
+        "--verbose"
+      ],
+      "cwd": "/Users/wafoe/projects/me/CXXEg/build-stage4-clean-source",
+      "log": "production-build.log",
+      "exit_code": 0
+    },
+    {
+      "argv": [
+        "/Users/wafoe/projects/me/CXXEg/build-stage4-clean-source/build-allocator-benchmark/20261005T141047459888Z-39363/production/bench_allocator",
+        "--probe"
+      ],
+      "cwd": "/Users/wafoe/projects/me/CXXEg/build-stage4-clean-source",
+      "log": "binary-probe.log",
+      "exit_code": 0
+    },
+    {
+      "argv": [
+        "/Users/wafoe/projects/me/CXXEg/build-stage4-clean-source/build-allocator-benchmark/20261005T141047459888Z-39363/production/bench_allocator",
+        "--self-test"
+      ],
+      "cwd": "/Users/wafoe/projects/me/CXXEg/build-stage4-clean-source",
+      "log": "production-correctness.log",
+      "exit_code": 0
+    },
+    {
+      "argv": [
+        "/Users/wafoe/projects/me/CXXEg/build-stage4-clean-source/build-allocator-benchmark/20261005T141047459888Z-39363/production/bench_allocator",
+        "--workload",
+        "synthetic",
+        "--policy",
+        "dynamic",
+        "--raw",
+        "/Users/wafoe/projects/me/CXXEg/build-stage4-clean-source/results/allocator/cpu/20261005T141047459888Z-39363/pair-0/synthetic-dynamic.csv"
+      ],
+      "cwd": "/Users/wafoe/projects/me/CXXEg/build-stage4-clean-source",
+      "log": "pair-0-synthetic-dynamic.log",
+      "exit_code": 0
+    },
+    {
+      "argv": [
+        "/Users/wafoe/projects/me/CXXEg/build-stage4-clean-source/build-allocator-benchmark/20261005T141047459888Z-39363/production/bench_allocator",
+        "--workload",
+        "synthetic",
+        "--policy",
+        "arena",
+        "--raw",
+        "/Users/wafoe/projects/me/CXXEg/build-stage4-clean-source/results/allocator/cpu/20261005T141047459888Z-39363/pair-0/synthetic-arena.csv"
+      ],
+      "cwd": "/Users/wafoe/projects/me/CXXEg/build-stage4-clean-source",
+      "log": "pair-0-synthetic-arena.log",
+      "exit_code": 0
+    },
+    {
+      "argv": [
+        "/Users/wafoe/projects/me/CXXEg/build-stage4-clean-source/build-allocator-benchmark/20261005T141047459888Z-39363/production/bench_allocator",
+        "--workload",
+        "chain",
+        "--policy",
+        "dynamic",
+        "--raw",
+        "/Users/wafoe/projects/me/CXXEg/build-stage4-clean-source/results/allocator/cpu/20261005T141047459888Z-39363/pair-0/chain-dynamic.csv"
+      ],
+      "cwd": "/Users/wafoe/projects/me/CXXEg/build-stage4-clean-source",
+      "log": "pair-0-chain-dynamic.log",
+      "exit_code": 0
+    },
+    {
+      "argv": [
+        "/Users/wafoe/projects/me/CXXEg/build-stage4-clean-source/build-allocator-benchmark/20261005T141047459888Z-39363/production/bench_allocator",
+        "--workload",
+        "chain",
+        "--policy",
+        "arena",
+        "--raw",
+        "/Users/wafoe/projects/me/CXXEg/build-stage4-clean-source/results/allocator/cpu/20261005T141047459888Z-39363/pair-0/chain-arena.csv"
+      ],
+      "cwd": "/Users/wafoe/projects/me/CXXEg/build-stage4-clean-source",
+      "log": "pair-0-chain-arena.log",
+      "exit_code": 0
+    },
+    {
+      "argv": [
+        "/Users/wafoe/projects/me/CXXEg/build-stage4-clean-source/build-allocator-benchmark/20261005T141047459888Z-39363/production/bench_allocator",
+        "--workload",
+        "diamond",
+        "--policy",
+        "dynamic",
+        "--raw",
+        "/Users/wafoe/projects/me/CXXEg/build-stage4-clean-source/results/allocator/cpu/20261005T141047459888Z-39363/pair-0/diamond-dynamic.csv"
+      ],
+      "cwd": "/Users/wafoe/projects/me/CXXEg/build-stage4-clean-source",
+      "log": "pair-0-diamond-dynamic.log",
+      "exit_code": 0
+    },
+    {
+      "argv": [
+        "/Users/wafoe/projects/me/CXXEg/build-stage4-clean-source/build-allocator-benchmark/20261005T141047459888Z-39363/production/bench_allocator",
+        "--workload",
+        "diamond",
+        "--policy",
+        "arena",
+        "--raw",
+        "/Users/wafoe/projects/me/CXXEg/build-stage4-clean-source/results/allocator/cpu/20261005T141047459888Z-39363/pair-0/diamond-arena.csv"
+      ],
+      "cwd": "/Users/wafoe/projects/me/CXXEg/build-stage4-clean-source",
+      "log": "pair-0-diamond-arena.log",
+      "exit_code": 0
+    },
+    {
+      "argv": [
+        "/Users/wafoe/projects/me/CXXEg/build-stage4-clean-source/build-allocator-benchmark/20261005T141047459888Z-39363/production/bench_allocator",
+        "--workload",
+        "synthetic",
+        "--policy",
+        "arena",
+        "--raw",
+        "/Users/wafoe/projects/me/CXXEg/build-stage4-clean-source/results/allocator/cpu/20261005T141047459888Z-39363/pair-1/synthetic-arena.csv"
+      ],
+      "cwd": "/Users/wafoe/projects/me/CXXEg/build-stage4-clean-source",
+      "log": "pair-1-synthetic-arena.log",
+      "exit_code": 0
+    },
+    {
+      "argv": [
+        "/Users/wafoe/projects/me/CXXEg/build-stage4-clean-source/build-allocator-benchmark/20261005T141047459888Z-39363/production/bench_allocator",
+        "--workload",
+        "synthetic",
+        "--policy",
+        "dynamic",
+        "--raw",
+        "/Users/wafoe/projects/me/CXXEg/build-stage4-clean-source/results/allocator/cpu/20261005T141047459888Z-39363/pair-1/synthetic-dynamic.csv"
+      ],
+      "cwd": "/Users/wafoe/projects/me/CXXEg/build-stage4-clean-source",
+      "log": "pair-1-synthetic-dynamic.log",
+      "exit_code": 0
+    },
+    {
+      "argv": [
+        "/Users/wafoe/projects/me/CXXEg/build-stage4-clean-source/build-allocator-benchmark/20261005T141047459888Z-39363/production/bench_allocator",
+        "--workload",
+        "chain",
+        "--policy",
+        "arena",
+        "--raw",
+        "/Users/wafoe/projects/me/CXXEg/build-stage4-clean-source/results/allocator/cpu/20261005T141047459888Z-39363/pair-1/chain-arena.csv"
+      ],
+      "cwd": "/Users/wafoe/projects/me/CXXEg/build-stage4-clean-source",
+      "log": "pair-1-chain-arena.log",
+      "exit_code": 0
+    },
+    {
+      "argv": [
+        "/Users/wafoe/projects/me/CXXEg/build-stage4-clean-source/build-allocator-benchmark/20261005T141047459888Z-39363/production/bench_allocator",
+        "--workload",
+        "chain",
+        "--policy",
+        "dynamic",
+        "--raw",
+        "/Users/wafoe/projects/me/CXXEg/build-stage4-clean-source/results/allocator/cpu/20261005T141047459888Z-39363/pair-1/chain-dynamic.csv"
+      ],
+      "cwd": "/Users/wafoe/projects/me/CXXEg/build-stage4-clean-source",
+      "log": "pair-1-chain-dynamic.log",
+      "exit_code": 0
+    },
+    {
+      "argv": [
+        "/Users/wafoe/projects/me/CXXEg/build-stage4-clean-source/build-allocator-benchmark/20261005T141047459888Z-39363/production/bench_allocator",
+        "--workload",
+        "diamond",
+        "--policy",
+        "arena",
+        "--raw",
+        "/Users/wafoe/projects/me/CXXEg/build-stage4-clean-source/results/allocator/cpu/20261005T141047459888Z-39363/pair-1/diamond-arena.csv"
+      ],
+      "cwd": "/Users/wafoe/projects/me/CXXEg/build-stage4-clean-source",
+      "log": "pair-1-diamond-arena.log",
+      "exit_code": 0
+    },
+    {
+      "argv": [
+        "/Users/wafoe/projects/me/CXXEg/build-stage4-clean-source/build-allocator-benchmark/20261005T141047459888Z-39363/production/bench_allocator",
+        "--workload",
+        "diamond",
+        "--policy",
+        "dynamic",
+        "--raw",
+        "/Users/wafoe/projects/me/CXXEg/build-stage4-clean-source/results/allocator/cpu/20261005T141047459888Z-39363/pair-1/diamond-dynamic.csv"
+      ],
+      "cwd": "/Users/wafoe/projects/me/CXXEg/build-stage4-clean-source",
+      "log": "pair-1-diamond-dynamic.log",
+      "exit_code": 0
+    },
+    {
+      "argv": [
+        "/Users/wafoe/projects/me/CXXEg/build-stage4-clean-source/build-allocator-benchmark/20261005T141047459888Z-39363/production/bench_allocator",
+        "--workload",
+        "synthetic",
+        "--policy",
+        "dynamic",
+        "--raw",
+        "/Users/wafoe/projects/me/CXXEg/build-stage4-clean-source/results/allocator/cpu/20261005T141047459888Z-39363/pair-2/synthetic-dynamic.csv"
+      ],
+      "cwd": "/Users/wafoe/projects/me/CXXEg/build-stage4-clean-source",
+      "log": "pair-2-synthetic-dynamic.log",
+      "exit_code": 0
+    },
+    {
+      "argv": [
+        "/Users/wafoe/projects/me/CXXEg/build-stage4-clean-source/build-allocator-benchmark/20261005T141047459888Z-39363/production/bench_allocator",
+        "--workload",
+        "synthetic",
+        "--policy",
+        "arena",
+        "--raw",
+        "/Users/wafoe/projects/me/CXXEg/build-stage4-clean-source/results/allocator/cpu/20261005T141047459888Z-39363/pair-2/synthetic-arena.csv"
+      ],
+      "cwd": "/Users/wafoe/projects/me/CXXEg/build-stage4-clean-source",
+      "log": "pair-2-synthetic-arena.log",
+      "exit_code": 0
+    },
+    {
+      "argv": [
+        "/Users/wafoe/projects/me/CXXEg/build-stage4-clean-source/build-allocator-benchmark/20261005T141047459888Z-39363/production/bench_allocator",
+        "--workload",
+        "chain",
+        "--policy",
+        "dynamic",
+        "--raw",
+        "/Users/wafoe/projects/me/CXXEg/build-stage4-clean-source/results/allocator/cpu/20261005T141047459888Z-39363/pair-2/chain-dynamic.csv"
+      ],
+      "cwd": "/Users/wafoe/projects/me/CXXEg/build-stage4-clean-source",
+      "log": "pair-2-chain-dynamic.log",
+      "exit_code": 0
+    },
+    {
+      "argv": [
+        "/Users/wafoe/projects/me/CXXEg/build-stage4-clean-source/build-allocator-benchmark/20261005T141047459888Z-39363/production/bench_allocator",
+        "--workload",
+        "chain",
+        "--policy",
+        "arena",
+        "--raw",
+        "/Users/wafoe/projects/me/CXXEg/build-stage4-clean-source/results/allocator/cpu/20261005T141047459888Z-39363/pair-2/chain-arena.csv"
+      ],
+      "cwd": "/Users/wafoe/projects/me/CXXEg/build-stage4-clean-source",
+      "log": "pair-2-chain-arena.log",
+      "exit_code": 0
+    },
+    {
+      "argv": [
+        "/Users/wafoe/projects/me/CXXEg/build-stage4-clean-source/build-allocator-benchmark/20261005T141047459888Z-39363/production/bench_allocator",
+        "--workload",
+        "diamond",
+        "--policy",
+        "dynamic",
+        "--raw",
+        "/Users/wafoe/projects/me/CXXEg/build-stage4-clean-source/results/allocator/cpu/20261005T141047459888Z-39363/pair-2/diamond-dynamic.csv"
+      ],
+      "cwd": "/Users/wafoe/projects/me/CXXEg/build-stage4-clean-source",
+      "log": "pair-2-diamond-dynamic.log",
+      "exit_code": 0
+    },
+    {
+      "argv": [
+        "/Users/wafoe/projects/me/CXXEg/build-stage4-clean-source/build-allocator-benchmark/20261005T141047459888Z-39363/production/bench_allocator",
+        "--workload",
+        "diamond",
+        "--policy",
+        "arena",
+        "--raw",
+        "/Users/wafoe/projects/me/CXXEg/build-stage4-clean-source/results/allocator/cpu/20261005T141047459888Z-39363/pair-2/diamond-arena.csv"
+      ],
+      "cwd": "/Users/wafoe/projects/me/CXXEg/build-stage4-clean-source",
+      "log": "pair-2-diamond-arena.log",
+      "exit_code": 0
+    }
+  ],
+  "pairs": [
+    {
+      "pair": 0,
+      "order": [
+        "dynamic",
+        "arena"
+      ]
+    },
+    {
+      "pair": 1,
+      "order": [
+        "arena",
+        "dynamic"
+      ]
+    },
+    {
+      "pair": 2,
+      "order": [
+        "dynamic",
+        "arena"
+      ]
+    }
+  ],
+  "status": "passed",
+  "binary": {
+    "schema_version": 1,
+    "commit": "d5d118d8027edacf0a6a3604c825efe212fc2d9c",
+    "source_digest": "793eeb9f8d13e0c20abe2334586911bdb765a4270a0bc27d496f6f9c022fdb21",
+    "source_dirty": false,
+    "build_type": "Release",
+    "compiler": "AppleClang 21.0.0.21000334",
+    "testing": false,
+    "backend": "cpu"
+  },
+  "binary_sha256": "7973edf6cd3bed7d61683c422ba58963f9431b7e13cdcaf27d28c3a2eadb1afe",
+  "source_after": {
+    "commit": "d5d118d8027edacf0a6a3604c825efe212fc2d9c",
+    "source_digest": "793eeb9f8d13e0c20abe2334586911bdb765a4270a0bc27d496f6f9c022fdb21",
+    "source_dirty": false
+  }
+}

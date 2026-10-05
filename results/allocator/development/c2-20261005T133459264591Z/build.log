@@ -1,0 +1,31 @@
+[  2%] Building CXX object CMakeFiles/runtime.dir/src/runtime/arena.cpp.o
+[  2%] Built target refresh_provenance
+[  7%] Built target stage0_common
+[ 12%] Built target test_common
+[ 15%] Linking CXX static library libruntime.a
+[ 40%] Built target runtime
+[ 50%] Linking CXX executable test_tensor_properties
+[ 50%] Linking CXX executable test_operator
+[ 50%] Linking CXX executable test_shape_inference
+[ 50%] Linking CXX executable test_tensor
+[ 60%] Built target test_tensor
+[ 60%] Built target test_operator
+[ 60%] Built target test_tensor_properties
+[ 60%] Built target test_shape_inference
+[ 70%] Linking CXX executable test_graph
+[ 70%] Linking CXX executable test_operator_fixtures
+[ 70%] Linking CXX executable test_reference
+[ 70%] Linking CXX executable test_transformer_contracts
+[ 72%] Built target test_operator_fixtures
+[ 75%] Built target test_reference
+[ 77%] Built target test_graph
+[ 80%] Built target test_transformer_contracts
+[ 90%] Linking CXX executable test_graph_fixtures
+[ 90%] Building CXX object CMakeFiles/test_arena.dir/tests/test_arena.cpp.o
+[ 90%] Linking CXX executable test_graph_executor
+[ 90%] Linking CXX executable test_graph_trace
+[ 97%] Built target test_graph_executor
+[ 97%] Built target test_graph_fixtures
+[ 97%] Built target test_graph_trace
+[100%] Linking CXX executable test_arena
+[100%] Built target test_arena
