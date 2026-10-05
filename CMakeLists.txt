@@ -58,7 +58,8 @@ target_include_directories(stage0_common PUBLIC include "${CMAKE_BINARY_DIR}/gen
 target_compile_options(stage0_common PRIVATE -Wall -Wextra -Wpedantic)
 
 add_library(runtime src/runtime/storage.cpp src/runtime/tensor.cpp src/runtime/copy.cpp
-    src/runtime/operator.cpp src/runtime/shape_inference.cpp src/runtime/reference.cpp)
+    src/runtime/operator.cpp src/runtime/shape_inference.cpp src/runtime/reference.cpp
+    src/runtime/layout.cpp src/runtime/graph.cpp)
 target_include_directories(runtime PUBLIC include)
 target_compile_options(runtime PRIVATE -Wall -Wextra -Wpedantic)
 
@@ -115,6 +116,17 @@ if(BUILD_TESTING)
         DEPENDS test_operator test_shape_inference test_reference test_transformer_contracts test_operator_fixtures USES_TERMINAL)
     if(ENABLE_SANITIZERS)
         add_custom_target(check_operator_sanitizers DEPENDS check_operators)
+    endif()
+    add_executable(test_graph tests/test_graph.cpp)
+    target_link_libraries(test_graph PRIVATE runtime)
+    target_compile_options(test_graph PRIVATE -Wall -Wextra -Wpedantic)
+    add_test(NAME graph COMMAND test_graph)
+    set_tests_properties(graph PROPERTIES LABELS "cpu;graph")
+    add_custom_target(check_graph
+        COMMAND "${CMAKE_CTEST_COMMAND}" --output-on-failure --verbose -L graph
+        DEPENDS test_graph USES_TERMINAL)
+    if(ENABLE_SANITIZERS)
+        add_custom_target(check_graph_sanitizers DEPENDS check_graph)
     endif()
     add_executable(test_common tests/test_common.cpp)
     target_link_libraries(test_common PRIVATE stage0_common)
