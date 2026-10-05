@@ -10,6 +10,9 @@ class Storage final {
 public:
     using Deleter = std::function<void(void*)>;
     static std::shared_ptr<Storage> allocate_cpu(std::size_t capacity_bytes);
+    // Arena backing, same Storage/hook ownership path. Power-of-two alignment
+    // must be at least alignof(max_align_t); aligned delete matches aligned new.
+    static std::shared_ptr<Storage> allocate_cpu_aligned(std::size_t capacity_bytes, std::size_t alignment);
     // Arguments are validated before ownership transfers. After validation, the
     // pointer is owned even if creating the shared control block throws.
     // Deleter must not throw and must capture everything it needs by ownership.

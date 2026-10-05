@@ -59,4 +59,25 @@ std::shared_ptr<Storage> Storage::allocate_cpu(std::size_t capacity_bytes) {
 #endif
     return wrap(Device{}, capacity_bytes, pointer, std::move(deleter));
 }
+std::shared_ptr<Storage> Storage::allocate_cpu_aligned(std::size_t capacity_bytes, std::size_t alignment) {
+    if (alignment < alignof(std::max_align_t) || (alignment & (alignment - 1)) != 0)
+        throw std::invalid_argument("invalid CPU backing alignment");
+    if (capacity_bytes == 0) return wrap(Device{}, 0, nullptr, [](void*) noexcept {});
+    Deleter deleter = [alignment](void* pointer) noexcept {
+        ::operator delete(pointer, std::align_val_t(alignment));
+#ifdef RUNTIME_TESTING
+        ++frees;
+        --live;
+#endif
+    };
+#ifdef RUNTIME_TESTING
+    if (fail_next.exchange(false)) throw std::bad_alloc();
+#endif
+    void* pointer = ::operator new(capacity_bytes, std::align_val_t(alignment));
+#ifdef RUNTIME_TESTING
+    ++allocations;
+    ++live;
+#endif
+    return wrap(Device{}, capacity_bytes, pointer, std::move(deleter));
+}
 } // namespace runtime

@@ -59,7 +59,8 @@ target_compile_options(stage0_common PRIVATE -Wall -Wextra -Wpedantic)
 
 add_library(runtime src/runtime/storage.cpp src/runtime/tensor.cpp src/runtime/copy.cpp
     src/runtime/operator.cpp src/runtime/shape_inference.cpp src/runtime/reference.cpp
-    src/runtime/layout.cpp src/runtime/graph.cpp src/runtime/graph_executor.cpp src/runtime/graph_trace.cpp)
+    src/runtime/layout.cpp src/runtime/graph.cpp src/runtime/graph_executor.cpp src/runtime/graph_trace.cpp
+    src/runtime/arena.cpp)
 target_include_directories(runtime PUBLIC include)
 target_compile_options(runtime PRIVATE -Wall -Wextra -Wpedantic)
 
@@ -143,6 +144,17 @@ if(BUILD_TESTING)
         DEPENDS test_graph test_graph_executor test_graph_fixtures test_graph_trace USES_TERMINAL)
     if(ENABLE_SANITIZERS)
         add_custom_target(check_graph_sanitizers DEPENDS check_graph)
+    endif()
+    add_executable(test_arena tests/test_arena.cpp)
+    target_link_libraries(test_arena PRIVATE runtime)
+    target_compile_options(test_arena PRIVATE -Wall -Wextra -Wpedantic)
+    add_test(NAME arena COMMAND test_arena)
+    set_tests_properties(arena PROPERTIES LABELS "cpu;arena")
+    add_custom_target(check_arena
+        COMMAND "${CMAKE_CTEST_COMMAND}" --output-on-failure --verbose -L arena
+        DEPENDS test_arena USES_TERMINAL)
+    if(ENABLE_SANITIZERS)
+        add_custom_target(check_arena_sanitizers DEPENDS check_arena)
     endif()
     add_executable(test_common tests/test_common.cpp)
     target_link_libraries(test_common PRIVATE stage0_common)
