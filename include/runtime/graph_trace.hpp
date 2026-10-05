@@ -2,10 +2,9 @@
 
 #include "runtime/graph.hpp"
 #include <limits>
-#include <new>
 
 namespace runtime {
-enum class TraceKind { NodeBegin, Tensor, Allocate, Alias, StateWrite, Copy, NodeEnd, Release, Free, Output, Failure };
+enum class TraceKind { NodeBegin, Tensor, Allocate, Alias, StateWrite, Copy, NodeEnd, Release, Free, Output, Failure, BlockAllocate, BlockFree };
 const char* trace_name(TraceKind kind);
 struct TraceEvent {
     TraceKind kind;
@@ -25,6 +24,7 @@ public:
     std::size_t limit() const noexcept { return limit_; }
     std::size_t dropped() const noexcept { return dropped_; }
     const std::vector<TraceEvent>& events() const noexcept { return events_; }
+    void note_dropped() noexcept { if (dropped_ != std::numeric_limits<std::size_t>::max()) ++dropped_; }
     void record(TraceKind kind, std::optional<NodeId> node = {}, std::optional<TensorId> tensor = {},
                 std::optional<TensorId> base = {}, const Layout* metadata = nullptr,
                 std::size_t bytes = 0, StatusCode status = StatusCode::Ok) noexcept;

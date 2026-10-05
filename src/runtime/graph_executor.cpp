@@ -6,17 +6,36 @@
 #include <set>
 
 namespace runtime {
-ExecutionResult execute_graph(const Graph& graph, ExecutionTrace* trace) {
+ExecutionResult execute_graph(const Graph& graph, ExecutionTrace* trace, AllocationProvider* supplied) {
     ExecutionResult result;
+    DynamicAllocationProvider dynamic;
+    auto& provider = supplied ? *supplied : static_cast<AllocationProvider&>(dynamic);
+    const auto backing = provider.backing_per_request();
+    std::map<TensorId, std::size_t> root_offsets;
+    std::optional<std::pair<TensorId, std::size_t>> pending_offset;
+    struct Session {
+        AllocationProvider& provider;
+        bool begun = false;
+        ~Session() { if (begun) provider.end(); }
+    } session{provider};
     if (trace) trace->reset();
     const auto event = [&](TraceKind kind, std::optional<TensorId> tensor = {}, std::size_t bytes = 0,
                            StatusCode status = StatusCode::Ok) noexcept {
         if (!trace) return; // disabled path does not copy metadata or store events
-        if (tensor) {
-            const auto& record = graph.tensors().at(*tensor);
-            trace->record(kind, result.failed_node, tensor, record.base,
-                          record.layout ? &*record.layout : nullptr, bytes, status);
-        } else trace->record(kind, result.failed_node, {}, {}, nullptr, bytes, status);
+        try {
+            if (tensor) {
+                const auto& record = graph.tensors().at(*tensor);
+                auto metadata = record.layout;
+                if (metadata && record.base) {
+                    const auto offset = root_offsets.find(*record.base);
+                    if (offset != root_offsets.end() || (pending_offset && pending_offset->first == *record.base)) {
+                        metadata->offset_bytes += offset != root_offsets.end() ? offset->second : pending_offset->second;
+                        if (!backing) metadata->capacity_bytes = provider.capacity();
+                    }
+                }
+                trace->record(kind, result.failed_node, tensor, record.base, metadata ? &*metadata : nullptr, bytes, status);
+            } else trace->record(kind, result.failed_node, {}, {}, nullptr, bytes, status);
+        } catch (const std::bad_alloc&) { trace->note_dropped(); }
     };
     if (!graph.frozen()) {
         result.status = Status::failure(StatusCode::InvalidArgument, "executor requires a successfully frozen graph");
@@ -41,9 +60,11 @@ ExecutionResult execute_graph(const Graph& graph, ExecutionTrace* trace) {
         event(TraceKind::Release, id);
         live.erase(found);
         if (--root_handles.at(base) == 0 && owned_bytes.count(base)) {
-            ++result.counts.frees;
+            ++result.counts.releases;
+            if (backing) ++result.counts.frees;
             result.counts.live_bytes -= owned_bytes.at(base);
-            event(TraceKind::Free, base, owned_bytes.at(base));
+            provider.release(base);
+            event(backing ? TraceKind::Free : TraceKind::BlockFree, base, owned_bytes.at(base));
             owned_bytes.erase(base);
         }
     };
@@ -52,8 +73,12 @@ ExecutionResult execute_graph(const Graph& graph, ExecutionTrace* trace) {
         while (!live.empty()) release(live.begin()->first);
         // Buffer allocation may succeed before a metadata insertion fails.
         // Stack unwinding has freed that unregistered buffer before this call.
-        if (pending_allocation) event(TraceKind::Free, *pending_allocation, graph.tensors().at(*pending_allocation).layout->capacity_bytes);
+        if (pending_allocation) {
+            provider.release(*pending_allocation);
+            event(backing ? TraceKind::Free : TraceKind::BlockFree, *pending_allocation, graph.tensors().at(*pending_allocation).layout->capacity_bytes);
+        }
         result.counts.frees = result.counts.allocations;
+        result.counts.releases = result.counts.allocation_requests;
         result.counts.live_bytes = 0;
         owned_bytes.clear();
     };
@@ -64,6 +89,10 @@ ExecutionResult execute_graph(const Graph& graph, ExecutionTrace* trace) {
         catch (...) { --root_handles[base]; throw; }
     };
     try {
+        result.status = provider.begin();
+        if (!result.status.ok()) { event(TraceKind::Failure, {}, 0, result.status.code); return result; }
+        session.begun = true;
+        result.counts.arena_capacity_bytes = provider.capacity();
         for (const auto& output : graph.outputs()) pinned.insert(output.second);
         for (const auto& item : graph.tensors()) remaining[item.first] = item.second.consumers.size();
         for (const auto& item : graph.tensors()) if (item.second.external) insert(item.first, *item.second.external);
@@ -88,18 +117,22 @@ ExecutionResult execute_graph(const Graph& graph, ExecutionTrace* trace) {
                     const auto& contract = *inferred.output;
                     // End all temporary alias handles before last-use releases.
                     Tensor output = contract.kind == OutputKind::NewTensor
-                        ? Tensor::allocate_cpu(contract.shape, contract.dtype) : *contract.alias;
+                        ? provider.allocate(output_id, contract.shape, contract.dtype) : *contract.alias;
                     if (contract.kind == OutputKind::NewTensor && output.nbytes() != 0) {
                         pending_allocation = output_id;
-                        ++result.counts.allocations;
+                        pending_offset = std::make_pair(output_id, output.data_offset());
+                        ++result.counts.allocation_requests;
+                        if (backing) ++result.counts.allocations;
                         result.counts.allocated_bytes += output.nbytes();
                         result.counts.live_bytes += output.nbytes();
                         result.counts.peak_live_bytes = std::max(result.counts.peak_live_bytes, result.counts.live_bytes);
-                        event(TraceKind::Allocate, output_id, output.nbytes());
+                        event(backing ? TraceKind::Allocate : TraceKind::BlockAllocate, output_id, output.nbytes());
+                        if (trace) root_offsets.emplace(output_id, output.data_offset());
                         owned_bytes.emplace(*record.base, output.nbytes());
                     }
                     insert(output_id, std::move(output));
                     pending_allocation.reset();
+                    pending_offset.reset();
                     event(TraceKind::Tensor, output_id);
                     if (contract.kind == OutputKind::Alias) {
                         event(TraceKind::Alias, output_id);
@@ -138,6 +171,11 @@ ExecutionResult execute_graph(const Graph& graph, ExecutionTrace* trace) {
             event(TraceKind::Output, output.second);
         }
         result.status = Status::success();
+        return result;
+    } catch (const ArenaExhausted& error) {
+        result.status = Status::failure(StatusCode::ResourceExhausted, error.what());
+        event(TraceKind::Failure, {}, 0, result.status.code);
+        cleanup();
         return result;
     } catch (const std::bad_alloc&) {
         result.status = Status::failure(StatusCode::ResourceExhausted, "CPU graph allocation failed");
