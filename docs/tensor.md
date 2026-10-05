@@ -13,3 +13,11 @@ Namespace: `runtime`. The single representation is backend-neutral metadata refe
 - Invalid values/ranks use `std::invalid_argument`, invalid axes use `std::out_of_range`, unrepresentable arithmetic uses `std::overflow_error`. Allocation failures use `std::bad_alloc` once storage is implemented. Diagnostics are nonempty; tests check exception categories rather than exact wording.
 
 No allocation/performance claim is made by metadata tests. INT8, negative strides, broadcasting and symbolic dimensions are outside Stage 1.
+
+## Storage (S1-C2)
+
+- `Storage::allocate_cpu(bytes)` owns one buffer from `operator new`, aligned for FP32/INT32. Zero capacity means a null pointer and no backing-buffer allocation. Storage/control-block metadata may still allocate.
+- `Storage::wrap(device, bytes, pointer, deleter)` requires pointer null iff bytes=0, and a nonempty deleter. Invalid arguments do not transfer ownership. After validation, ownership transfers even if metadata/control-block allocation fails. The deleter is retained by value and called once on last release, including zero-byte wrapped storage; it **must not throw**.
+- Device, capacity and pointer are immutable. Storage is noncopyable/nonmovable; `shared_ptr<Storage>` is the ownership handle. Views keep it alive. Wrapped CPU pointers must have adequate alignment and live typed objects for their later dtype; caller-supplied capacity/device identity is trusted.
+- CUDA storage can be described by a wrapped externally owned device pointer, but no CUDA allocation/copy is implemented here. CUDA identity never permits CPU dereference.
+- `RUNTIME_TESTING` exposes cumulative nonzero CPU backing-buffer allocation/free/live counters and one-shot failure injection; these are absent in `BUILD_TESTING=OFF` builds. No timing or throughput claim is made.

@@ -1,5 +1,6 @@
 #include "runtime/device.hpp"
 #include "runtime/shape.hpp"
+#include "runtime/storage.hpp"
 #include <iostream>
 #include <limits>
 #include <stdexcept>
@@ -47,11 +48,59 @@ void test_metadata() {
     throws<std::invalid_argument>([] { Device bad(DeviceType::CUDA, -1); }, "negative device accepted");
     throws<std::invalid_argument>([] { Device bad(static_cast<DeviceType>(99)); }, "unknown device accepted");
 }
+void test_storage() {
+    using namespace runtime;
+    const auto before = testing::cpu_allocation_counts();
+    std::weak_ptr<Storage> weak;
+    {
+        auto source = Storage::allocate_cpu(64);
+        require(source->device() == Device{} && source->capacity_bytes() == 64 && source->data(), "CPU storage metadata");
+        weak = source;
+        auto alias = source;
+        require(alias.use_count() == 2 && alias->data() == source->data(), "shared storage alias");
+        source.reset();
+        require(!weak.expired() && alias.use_count() == 1, "alias must keep storage alive");
+        static_cast<unsigned char*>(alias->data())[63] = 42;
+    }
+    auto after = testing::cpu_allocation_counts();
+    require(weak.expired() && after.allocations == before.allocations + 1 &&
+            after.frees == before.frees + 1 && after.live == before.live, "exactly one CPU release");
+    auto empty = Storage::allocate_cpu(0);
+    require(empty->data() == nullptr && empty->capacity_bytes() == 0, "zero-byte storage policy");
+    require(testing::cpu_allocation_counts().allocations == after.allocations, "empty buffer must not allocate");
+    testing::fail_next_cpu_allocation();
+    throws<std::bad_alloc>([] { (void)Storage::allocate_cpu(16); }, "failure injection ignored");
+    require(testing::cpu_allocation_counts().live == before.live, "failed allocation must not leak");
+    int calls = 0;
+    auto token = std::make_shared<int>(7);
+    std::weak_ptr<int> weak_token = token;
+    {
+        auto* pointer = new std::int32_t[4]{};
+        auto wrapped = Storage::wrap(Device{}, 16, pointer,
+            [token, &calls](void* p) noexcept { ++calls; delete[] static_cast<std::int32_t*>(p); });
+        token.reset();
+        auto alias = wrapped;
+        wrapped.reset();
+        require(!weak_token.expired() && calls == 0, "custom deleter capture/lifetime");
+    }
+    require(calls == 1 && weak_token.expired(), "custom deleter exactly once");
+    {
+        auto zero = Storage::wrap(Device{}, 0, nullptr, [&calls](void*) noexcept { ++calls; });
+    }
+    require(calls == 2, "zero wrapped deleter exactly once");
+    int invalid_calls = 0;
+    throws<std::invalid_argument>([&] {
+        (void)Storage::wrap(Device{}, 4, nullptr, [&invalid_calls](void*) { ++invalid_calls; });
+    }, "nonnull policy accepted");
+    require(invalid_calls == 0, "invalid wrap must not transfer ownership");
+    throws<std::invalid_argument>([] { (void)Storage::wrap(Device{}, 0, nullptr, {}); }, "missing deleter accepted");
+}
 } // namespace
 int main() {
     try {
         test_metadata();
-        std::cout << "Tensor metadata: PASS\n";
+        test_storage();
+        std::cout << "Tensor metadata/storage: PASS\n";
         return 0;
     } catch (const std::exception& error) {
         std::cerr << "test_tensor: " << error.what() << '\n';
