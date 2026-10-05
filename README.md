@@ -1,8 +1,19 @@
-# mini-llm-runtime — Stage 0
+# mini-llm-runtime — Stage 1
 
-基于 C++17/CUDA 的推理引擎项目。目前**仅实现 Stage 0：环境、可信 GEMM Baseline 与实验基础设施**。不包含 Tensor、Graph、Allocator、Transformer、KV Cache 或量化实现。
+基于 C++17/CUDA 的推理引擎项目。**Stage 0 已通过 T4 验收；Stage 1 实现统一 Tensor/shared Storage 基础层**：FP32/INT32、checked shape/stride/offset、CPU storage、零拷贝 reshape/view/slice/transpose 和显式 CPU contiguous copy。尚不包含 Operators、Graph、Arena、Transformer、KV Cache 或量化实现。
 
-**状态：Git 已初始化；本地 CPU-only Release 构建与测试已验证。CUDA 编译、GPU 正确性、T4 性能和远程 Push/Pull 尚待实测，不能视为 Stage 0 全部验收。**
+Stage 0 naive GEMM 与历史结果保持不变。Stage 1 的 gate 是 CPU-only Debug/Release、属性测试与 ASan/UBSan；不要求 CUDA allocation 或服务器性能数据。后续按 [路线图](docs/roadmap.md) 与 [Change 任务书](docs/tasks/README.md) 执行。
+
+## Stage 1 验收
+
+```bash
+# 要求源码已提交；会新建唯一 run 目录，保存原始日志、source identity 与构建快照
+python3 tools/validate_tensor.py
+# 若仍有未跟踪源码（例如本地 AGENTS.md），仅作明确标记的开发验证：
+# python3 tools/validate_tensor.py --allow-dirty
+```
+
+参见 [Tensor API 契约](docs/tensor.md)、[Stage 1 验收记录](docs/stage1_report.md) 与 [全新 Colab / Drive 恢复指南](docs/stage1_colab.md)。这里没有 Stage 1 吞吐或性能提升声明。
 
 ## 本地（不需要 NVIDIA GPU）
 
@@ -83,4 +94,4 @@ git commit -m "bench: record T4 stage 0 baselines"
 git push origin main
 ```
 
-`build*/` 和 Profiler 大型二进制不进 Git。Profiler 二进制请保存到外部制品存储，提交文件校验和、获取位置及导出的文本指标。仅在 Stage 0 所有验收项真实通过后才能进入 Stage 1；当前停在 Stage 0。
+`build*/` 和 Profiler 大型二进制不进 Git。Profiler 二进制保存到外部制品存储，保留校验和、获取位置及导出文本。Stage 0 已验收；历史报告中的待验收文字是当时状态，当前状态以路线图和各阶段验收记录为准。Stage 1 不重跑或改写 Stage 0 性能数据。

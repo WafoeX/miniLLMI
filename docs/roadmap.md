@@ -1,6 +1,6 @@
 # Stage 1–19 implementation blueprint
 
-> **Status.** Stage 0 is accepted. Its source identity is `f7aaec4` / digest `cc1414…20dc0c`; reproducible T4 results and profiler evidence are committed through `f0f1de7`. This document is a **Proposed Design** for later work, not an assertion that any Stage 1+ API exists.
+> **Status.** Stage 0 is accepted. Its source identity is `f7aaec4` / digest `cc1414…20dc0c`; reproducible T4 results and profiler evidence are committed through `f0f1de7`. Stage 1 Tensor/storage is now implemented; see [the API contract](tensor.md) and [Stage 1 evidence](stage1_report.md). Stage 2–19 remain **Proposed Design**, not implemented functionality.
 
 ## 1. Architecture and invariants
 

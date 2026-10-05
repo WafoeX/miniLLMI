@@ -129,6 +129,10 @@ void test_construction() {
     auto empty = Tensor::allocate_cpu(Shape{2, 0, 3});
     require(empty.data<float>() == nullptr && empty.is_contiguous() && empty.nbytes() == 0, "empty tensor policy");
     throws<std::out_of_range>([&] { (void)empty.at<float>({0, 0, 0}); }, "empty indexing accepted");
+    const auto huge = std::numeric_limits<std::int64_t>::max();
+    Tensor huge_empty(empty.storage(), DType::FP32, Shape{0, huge, huge}, Stride{1, 1, 1});
+    require(huge_empty.numel() == 0 && !huge_empty.is_contiguous(), "valid empty metadata with unrepresentable canonical layout");
+    throws<std::overflow_error>([&] { (void)huge_empty.contiguous(); }, "unrepresentable empty materialization accepted");
     auto storage = Storage::allocate_cpu(32);
     Tensor offset(storage, DType::FP32, Shape{2}, Stride{1}, 24);
     require(offset.data_offset() == 24 && offset.is_contiguous(), "offset subrange");
@@ -289,6 +293,7 @@ int main() {
         test_construction();
         test_views();
         test_transpose_copy();
+        require(runtime::testing::cpu_allocation_counts().live == 0, "unit suite leaked CPU backing buffer");
         std::cout << "Tensor metadata/storage/construction/views/copy: PASS\n";
         return 0;
     } catch (const std::exception& error) {

@@ -27,7 +27,7 @@ No allocation/performance claim is made by metadata tests. INT8, negative stride
 - `Tensor(storage, dtype, shape, stride, offset_bytes=0)` validates nonnull storage, dtype alignment, offset divisible by element size, rank agreement, positive strides, overflow and bounding span ≤capacity. Empty offsets may be exactly one-past capacity, but never beyond it; `data<T>()` returns null for every empty tensor.
 - Writable overlapping layouts and zero strides are rejected. Non-overlap is conservatively proven by sorting non-singleton axes by stride: each next stride must be at least the bounding span of faster axes. Exotic disjoint layouts that cannot pass this sufficient proof are intentionally unsupported.
 - `Tensor::allocate_cpu(shape, dtype=FP32)` creates canonical, contiguous storage and value-initializes typed C++17 elements to zero. Scalar construction allocates one element; empty construction allocates no backing buffer. Factories validate sizes before allocation.
-- `shape()`, `stride()`, `dtype()`, `device()`, `storage()`, `data_offset()`, `numel()`, `nbytes()`, `is_contiguous()` are the public metadata vocabulary. Singleton axes do not constrain nonempty contiguity. Empty contiguity requires canonical strides.
+- `shape()`, `stride()`, `dtype()`, `device()`, `storage()`, `data_offset()`, `numel()`, `nbytes()`, `is_contiguous()` are the public metadata vocabulary. Singleton axes do not constrain nonempty contiguity. Empty contiguity requires canonical strides; if canonical strides are unrepresentable, `is_contiguous()` returns false and explicit canonical construction/materialization fails with overflow.
 - `data<float/int32_t>()` points to the first logical element, **not** a promise that the whole logical tensor is flat/contiguous. `at<T>(indices)` handles strides with checked index rank and bounds. Both reject dtype mismatch and CUDA host access (including empty tensors); const access returns const elements. No unchecked operator kernels are implemented.
 - Copying a Tensor copies metadata and shares storage. Moved-from objects are only valid for destruction/reassignment. Callers own synchronization for concurrent mutation; shared reference counting is not a data-race policy.
 
@@ -55,3 +55,19 @@ auto independent = t.contiguous();   // explicit CPU materialization
 ```
 
 Raw pointers and custom wrapped storage remain a trusted low-level interface; checked metadata cannot prevent caller writes through raw pointers or incorrect external lifetime/capacity declarations.
+
+## Contract freeze and verification (S1-C6)
+
+The public names, byte/element units, aliasing, ownership, empty/scalar semantics, conservative overlap rejection and explicit CPU copy boundary above are frozen for S2. Additions must preserve this one representation; no operator or CUDA runtime path has been introduced.
+
+`tests/test_tensor.cpp` covers deterministic metadata/error cases, 1D–4D/scalar/empty access, custom deleters/failure injection, view survival/refcounts/mutations, zero buffer-allocation deltas, 2D/3D transposes, strided destinations, copy overlap/dtype/device errors and full buffer release. `tests/test_tensor_properties.cpp` executes 600 fixed-seed (`0x51a7`) FP32/INT32 cases, ranks 0–8, with independent reference indexing, padded/gapped layouts, relative offsets, permutation, positive slices, materialization and padding-preserving copies. Failure output retains the seed/trial index. `tests/test_tensor_validation.py` tests evidence-runner failure handling using mock subprocesses in temporary directories; mock outputs are never stored as real results.
+
+```bash
+cmake -S . -B build-tensor-sanitizer -DCMAKE_BUILD_TYPE=Debug \
+  -DENABLE_CUDA=OFF -DENABLE_SANITIZERS=ON
+cmake --build build-tensor-sanitizer --target check_tensor_sanitizers --parallel 4
+# Full, fresh Release/Debug/sanitizer tests + BUILD_TESTING=OFF production build:
+python3 tools/validate_tensor.py
+```
+
+Sanitizer instrumentation is CPU-only, GCC/Clang, ASan+UBSan with undefined-behavior recovery disabled. The evidence runner records sanitizer environment options and source before/after; source changes invalidate a run. macOS disables unavailable LeakSanitizer explicitly; ownership counters and ASan/UBSan still run. On Linux LSan is enabled by default. Raw logs/snapshots and failures live in unique `results/tensor/local/<run_id>/` directories; no timing or performance metrics are generated.

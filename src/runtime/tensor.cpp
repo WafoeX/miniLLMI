@@ -2,6 +2,7 @@
 #include "runtime/copy.hpp"
 #include <algorithm>
 #include <cstdint>
+#include <limits>
 #include <memory>
 #include <stdexcept>
 #include <utility>
@@ -60,11 +61,15 @@ Tensor Tensor::allocate_cpu(Shape shape, DType dtype) {
     return Tensor(std::move(storage), dtype, std::move(shape), stride);
 }
 bool Tensor::is_contiguous() const {
-    if (numel() == 0) return stride_ == contiguous_stride(shape_);
+    const bool empty = numel() == 0;
     std::size_t expected = 1;
     for (std::size_t axis = shape_.rank(); axis-- > 0;) {
-        if (shape_[axis] > 1 && as_size(stride_[axis]) != expected) return false;
-        expected = checked_mul(expected, as_size(shape_[axis]));
+        if ((empty || shape_[axis] > 1) && as_size(stride_[axis]) != expected) return false;
+        if (axis != 0) {
+            const auto dimension = std::max<std::size_t>(as_size(shape_[axis]), 1);
+            if (expected > std::numeric_limits<std::size_t>::max() / dimension) return false;
+            expected *= dimension;
+        }
     }
     return true;
 }

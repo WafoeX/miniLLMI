@@ -1,5 +1,7 @@
 # Stage 1 — Tensor and Storage
 
+**Implementation status:** S1-C1–C6 implemented. Frozen public API: [tensor contract](../tensor.md); Change-by-Change acceptance and source identity: [Stage 1 report](../stage1_report.md). The scope/criteria below are retained as the original task contract; no Stage 2 work is included.
+
 **Goal:** freeze one backend-neutral tensor contract before any operator or backend implementation. **Prerequisite:** Stage 0. **Produces:** `include/runtime/{dtype,device,shape,storage,tensor}.hpp`, `src/runtime/{storage,tensor}.cpp`, `tests/test_tensor.cpp` (paths are proposed). **Stage gate:** CPU-only build/tests pass; CUDA declarations compile conditionally but no CUDA allocation is required yet.
 
 ## S1-C1 — Scalar and metadata vocabulary
