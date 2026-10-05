@@ -1,0 +1,35 @@
+-- Configuring done (0.2s)
+-- Generating done (0.0s)
+-- Build files have been written to: /Users/wafoe/projects/me/CXXEg/build-stage3-dev
+[  5%] Building CXX object CMakeFiles/runtime.dir/src/runtime/graph_executor.cpp.o
+[  5%] Building CXX object CMakeFiles/runtime.dir/src/runtime/graph_trace.cpp.o
+[  5%] Built target refresh_provenance
+[ 10%] Built target stage0_common
+[ 16%] Built target test_common
+[ 18%] Linking CXX static library libruntime.a
+[ 40%] Built target runtime
+[ 48%] Linking CXX executable test_tensor
+[ 48%] Linking CXX executable test_operator
+[ 48%] Linking CXX executable test_shape_inference
+[ 51%] Linking CXX executable test_tensor_properties
+[ 62%] Built target test_operator
+[ 62%] Built target test_shape_inference
+[ 62%] Built target test_tensor
+[ 62%] Built target test_tensor_properties
+[ 72%] Linking CXX executable test_graph
+[ 72%] Linking CXX executable test_transformer_contracts
+[ 72%] Linking CXX executable test_reference
+[ 72%] Linking CXX executable test_operator_fixtures
+[ 81%] Built target test_reference
+[ 81%] Built target test_graph
+[ 81%] Built target test_transformer_contracts
+[ 83%] Built target test_operator_fixtures
+[ 86%] Building CXX object CMakeFiles/test_graph_trace.dir/tests/test_graph_trace.cpp.o
+[ 91%] Building CXX object CMakeFiles/test_graph_executor.dir/tests/test_graph_executor.cpp.o
+[ 91%] Building CXX object CMakeFiles/test_graph_fixtures.dir/tests/test_graph_fixtures.cpp.o
+[ 94%] Linking CXX executable test_graph_trace
+[ 94%] Built target test_graph_trace
+[ 97%] Linking CXX executable test_graph_executor
+[ 97%] Built target test_graph_executor
+[100%] Linking CXX executable test_graph_fixtures
+[100%] Built target test_graph_fixtures

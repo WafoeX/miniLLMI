@@ -1,0 +1,9 @@
+Audit preflight (not a build/test failure): production-nm exit=0; fixture-regeneration exit=0.
+The ad-hoc audit incorrectly expected the older CTest summary spelling:
+  100% tests passed, 0 tests failed out of 15
+Actual CMake 4.4.3 summary:
+  100% tests passed out of 15
+The regex assertion failed before audit.json was written. No raw logs were edited.
+Corrected audit accepts both spellings, also requires actual CTest command exit_code=0,
+and reuses the original production-nm/fixture-regeneration logs without overwriting them.
+Source and command provenance: manifest.json/source.json in this run; clean tested commit 533ba1e.

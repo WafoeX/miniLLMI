@@ -1,0 +1,41 @@
+-- Configuring done (0.2s)
+-- Generating done (0.0s)
+-- Build files have been written to: /Users/wafoe/projects/me/CXXEg/build-stage3-dev
+[  8%] Building CXX object CMakeFiles/runtime.dir/src/runtime/operator.cpp.o
+[  8%] Building CXX object CMakeFiles/runtime.dir/src/runtime/shape_inference.cpp.o
+[  8%] Building CXX object CMakeFiles/runtime.dir/src/runtime/reference.cpp.o
+[  8%] Built target refresh_provenance
+[ 11%] Building CXX object CMakeFiles/runtime.dir/src/runtime/graph.cpp.o
+[ 14%] Building CXX object CMakeFiles/runtime.dir/src/runtime/graph_executor.cpp.o
+[ 20%] Built target stage0_common
+[ 26%] Built target test_common
+[ 29%] Linking CXX static library libruntime.a
+[ 41%] Built target runtime
+[ 52%] Building CXX object CMakeFiles/test_operator.dir/tests/test_operator.cpp.o
+[ 52%] Building CXX object CMakeFiles/test_shape_inference.dir/tests/test_shape_inference.cpp.o
+[ 52%] Linking CXX executable test_tensor
+[ 52%] Linking CXX executable test_tensor_properties
+[ 58%] Built target test_tensor
+[ 58%] Built target test_tensor_properties
+[ 64%] Building CXX object CMakeFiles/test_transformer_contracts.dir/tests/test_transformer_contracts.cpp.o
+[ 64%] Building CXX object CMakeFiles/test_reference.dir/tests/test_reference.cpp.o
+[ 67%] Linking CXX executable test_operator
+[ 67%] Built target test_operator
+[ 70%] Building CXX object CMakeFiles/test_operator_fixtures.dir/tests/test_operator_fixtures.cpp.o
+[ 73%] Linking CXX executable test_shape_inference
+[ 73%] Built target test_shape_inference
+[ 76%] Linking CXX executable test_reference
+[ 79%] Linking CXX executable test_transformer_contracts
+[ 82%] Building CXX object CMakeFiles/test_graph.dir/tests/test_graph.cpp.o
+[ 82%] Built target test_reference
+[ 82%] Built target test_transformer_contracts
+[ 88%] Building CXX object CMakeFiles/test_graph_executor.dir/tests/test_graph_executor.cpp.o
+[ 88%] Building CXX object CMakeFiles/test_graph_fixtures.dir/tests/test_graph_fixtures.cpp.o
+[ 91%] Linking CXX executable test_operator_fixtures
+[ 91%] Built target test_operator_fixtures
+[ 94%] Linking CXX executable test_graph_executor
+[ 94%] Built target test_graph_executor
+[ 97%] Linking CXX executable test_graph_fixtures
+[100%] Linking CXX executable test_graph
+[100%] Built target test_graph_fixtures
+[100%] Built target test_graph

@@ -1,0 +1,16 @@
+{
+  "scope": "CPU-only initial C1 development preflight; NOT formal acceptance evidence",
+  "status": "failed",
+  "provenance_capture": "reconstructed after the failure, not measured by the runner at execution time",
+  "source": {
+    "commit": "0670926c760f6b8cbdd97c9ce98738277b4ba11f",
+    "source_dirty": true,
+    "reconstructed_source_digest": "0182ac9f885b719a240745e567ad0868d955ce4b2b2d9073aa2c56a6574f6183"
+  },
+  "reconstruction": "Committed C1 tree e7ac561, replacing the corrected 'Device device = Device{}' default with the initial 'Device device = {}', and including unchanged local untracked AGENTS.md; same provenance hash algorithm. Exact runtime source-before/source-after was not captured; subsequent unique development and clean-source runner evidence has full measured provenance.",
+  "commands": [
+    {"argv": ["cmake", "-S", ".", "-B", "build-stage3-dev", "-DCMAKE_BUILD_TYPE=Release", "-DENABLE_CUDA=OFF"], "log": "configure.log", "exit_code": 0},
+    {"argv": ["cmake", "--build", "build-stage3-dev", "--parallel", "4"], "log": "build.log", "exit_code": 2}
+  ],
+  "failure": "Explicit Device constructor cannot be selected by '= {}' copy-initialization in a default parameter; fixed to '= Device{}'. Original failure logs are preserved unchanged."
+}

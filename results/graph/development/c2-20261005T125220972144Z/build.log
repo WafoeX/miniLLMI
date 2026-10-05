@@ -1,0 +1,24 @@
+[  6%] Building CXX object CMakeFiles/runtime.dir/src/runtime/shape_inference.cpp.o
+[  6%] Building CXX object CMakeFiles/runtime.dir/src/runtime/graph.cpp.o
+[  6%] Built target refresh_provenance
+[ 13%] Built target stage0_common
+[ 20%] Built target test_common
+[ 24%] Linking CXX static library libruntime.a
+[ 44%] Built target runtime
+[ 55%] Linking CXX executable test_tensor_properties
+[ 55%] Linking CXX executable test_operator
+[ 55%] Linking CXX executable test_tensor
+[ 58%] Linking CXX executable test_shape_inference
+[ 72%] Built target test_tensor_properties
+[ 72%] Built target test_operator
+[ 72%] Built target test_shape_inference
+[ 72%] Built target test_tensor
+[ 86%] Building CXX object CMakeFiles/test_graph.dir/tests/test_graph.cpp.o
+[ 86%] Linking CXX executable test_transformer_contracts
+[ 86%] Linking CXX executable test_reference
+[ 86%] Linking CXX executable test_operator_fixtures
+[ 93%] Built target test_transformer_contracts
+[ 93%] Built target test_reference
+[ 96%] Built target test_operator_fixtures
+[100%] Linking CXX executable test_graph
+[100%] Built target test_graph

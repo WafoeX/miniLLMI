@@ -1,0 +1,140 @@
+[
+{
+  "directory": "/Users/wafoe/projects/me/CXXEg/build-stage3-clean-source/build-stage3-validation/20261005T131248311191Z-22617/sanitizer",
+  "command": "/usr/bin/c++  -I/Users/wafoe/projects/me/CXXEg/build-stage3-clean-source/include -I/Users/wafoe/projects/me/CXXEg/build-stage3-clean-source/build-stage3-validation/20261005T131248311191Z-22617/sanitizer/generated -g -std=c++17 -arch arm64 -fsanitize=address,undefined -fno-sanitize-recover=undefined -fno-omit-frame-pointer -Wall -Wextra -Wpedantic -o CMakeFiles/stage0_common.dir/src/common.cpp.o -c /Users/wafoe/projects/me/CXXEg/build-stage3-clean-source/src/common.cpp",
+  "file": "/Users/wafoe/projects/me/CXXEg/build-stage3-clean-source/src/common.cpp",
+  "output": "CMakeFiles/stage0_common.dir/src/common.cpp.o"
+},
+{
+  "directory": "/Users/wafoe/projects/me/CXXEg/build-stage3-clean-source/build-stage3-validation/20261005T131248311191Z-22617/sanitizer",
+  "command": "/usr/bin/c++ -DRUNTIME_TESTING=1 -I/Users/wafoe/projects/me/CXXEg/build-stage3-clean-source/include -g -std=c++17 -arch arm64 -fsanitize=address,undefined -fno-sanitize-recover=undefined -fno-omit-frame-pointer -Wall -Wextra -Wpedantic -o CMakeFiles/runtime.dir/src/runtime/storage.cpp.o -c /Users/wafoe/projects/me/CXXEg/build-stage3-clean-source/src/runtime/storage.cpp",
+  "file": "/Users/wafoe/projects/me/CXXEg/build-stage3-clean-source/src/runtime/storage.cpp",
+  "output": "CMakeFiles/runtime.dir/src/runtime/storage.cpp.o"
+},
+{
+  "directory": "/Users/wafoe/projects/me/CXXEg/build-stage3-clean-source/build-stage3-validation/20261005T131248311191Z-22617/sanitizer",
+  "command": "/usr/bin/c++ -DRUNTIME_TESTING=1 -I/Users/wafoe/projects/me/CXXEg/build-stage3-clean-source/include -g -std=c++17 -arch arm64 -fsanitize=address,undefined -fno-sanitize-recover=undefined -fno-omit-frame-pointer -Wall -Wextra -Wpedantic -o CMakeFiles/runtime.dir/src/runtime/tensor.cpp.o -c /Users/wafoe/projects/me/CXXEg/build-stage3-clean-source/src/runtime/tensor.cpp",
+  "file": "/Users/wafoe/projects/me/CXXEg/build-stage3-clean-source/src/runtime/tensor.cpp",
+  "output": "CMakeFiles/runtime.dir/src/runtime/tensor.cpp.o"
+},
+{
+  "directory": "/Users/wafoe/projects/me/CXXEg/build-stage3-clean-source/build-stage3-validation/20261005T131248311191Z-22617/sanitizer",
+  "command": "/usr/bin/c++ -DRUNTIME_TESTING=1 -I/Users/wafoe/projects/me/CXXEg/build-stage3-clean-source/include -g -std=c++17 -arch arm64 -fsanitize=address,undefined -fno-sanitize-recover=undefined -fno-omit-frame-pointer -Wall -Wextra -Wpedantic -o CMakeFiles/runtime.dir/src/runtime/copy.cpp.o -c /Users/wafoe/projects/me/CXXEg/build-stage3-clean-source/src/runtime/copy.cpp",
+  "file": "/Users/wafoe/projects/me/CXXEg/build-stage3-clean-source/src/runtime/copy.cpp",
+  "output": "CMakeFiles/runtime.dir/src/runtime/copy.cpp.o"
+},
+{
+  "directory": "/Users/wafoe/projects/me/CXXEg/build-stage3-clean-source/build-stage3-validation/20261005T131248311191Z-22617/sanitizer",
+  "command": "/usr/bin/c++ -DRUNTIME_TESTING=1 -I/Users/wafoe/projects/me/CXXEg/build-stage3-clean-source/include -g -std=c++17 -arch arm64 -fsanitize=address,undefined -fno-sanitize-recover=undefined -fno-omit-frame-pointer -Wall -Wextra -Wpedantic -o CMakeFiles/runtime.dir/src/runtime/operator.cpp.o -c /Users/wafoe/projects/me/CXXEg/build-stage3-clean-source/src/runtime/operator.cpp",
+  "file": "/Users/wafoe/projects/me/CXXEg/build-stage3-clean-source/src/runtime/operator.cpp",
+  "output": "CMakeFiles/runtime.dir/src/runtime/operator.cpp.o"
+},
+{
+  "directory": "/Users/wafoe/projects/me/CXXEg/build-stage3-clean-source/build-stage3-validation/20261005T131248311191Z-22617/sanitizer",
+  "command": "/usr/bin/c++ -DRUNTIME_TESTING=1 -I/Users/wafoe/projects/me/CXXEg/build-stage3-clean-source/include -g -std=c++17 -arch arm64 -fsanitize=address,undefined -fno-sanitize-recover=undefined -fno-omit-frame-pointer -Wall -Wextra -Wpedantic -o CMakeFiles/runtime.dir/src/runtime/shape_inference.cpp.o -c /Users/wafoe/projects/me/CXXEg/build-stage3-clean-source/src/runtime/shape_inference.cpp",
+  "file": "/Users/wafoe/projects/me/CXXEg/build-stage3-clean-source/src/runtime/shape_inference.cpp",
+  "output": "CMakeFiles/runtime.dir/src/runtime/shape_inference.cpp.o"
+},
+{
+  "directory": "/Users/wafoe/projects/me/CXXEg/build-stage3-clean-source/build-stage3-validation/20261005T131248311191Z-22617/sanitizer",
+  "command": "/usr/bin/c++ -DRUNTIME_TESTING=1 -I/Users/wafoe/projects/me/CXXEg/build-stage3-clean-source/include -g -std=c++17 -arch arm64 -fsanitize=address,undefined -fno-sanitize-recover=undefined -fno-omit-frame-pointer -Wall -Wextra -Wpedantic -o CMakeFiles/runtime.dir/src/runtime/reference.cpp.o -c /Users/wafoe/projects/me/CXXEg/build-stage3-clean-source/src/runtime/reference.cpp",
+  "file": "/Users/wafoe/projects/me/CXXEg/build-stage3-clean-source/src/runtime/reference.cpp",
+  "output": "CMakeFiles/runtime.dir/src/runtime/reference.cpp.o"
+},
+{
+  "directory": "/Users/wafoe/projects/me/CXXEg/build-stage3-clean-source/build-stage3-validation/20261005T131248311191Z-22617/sanitizer",
+  "command": "/usr/bin/c++ -DRUNTIME_TESTING=1 -I/Users/wafoe/projects/me/CXXEg/build-stage3-clean-source/include -g -std=c++17 -arch arm64 -fsanitize=address,undefined -fno-sanitize-recover=undefined -fno-omit-frame-pointer -Wall -Wextra -Wpedantic -o CMakeFiles/runtime.dir/src/runtime/layout.cpp.o -c /Users/wafoe/projects/me/CXXEg/build-stage3-clean-source/src/runtime/layout.cpp",
+  "file": "/Users/wafoe/projects/me/CXXEg/build-stage3-clean-source/src/runtime/layout.cpp",
+  "output": "CMakeFiles/runtime.dir/src/runtime/layout.cpp.o"
+},
+{
+  "directory": "/Users/wafoe/projects/me/CXXEg/build-stage3-clean-source/build-stage3-validation/20261005T131248311191Z-22617/sanitizer",
+  "command": "/usr/bin/c++ -DRUNTIME_TESTING=1 -I/Users/wafoe/projects/me/CXXEg/build-stage3-clean-source/include -g -std=c++17 -arch arm64 -fsanitize=address,undefined -fno-sanitize-recover=undefined -fno-omit-frame-pointer -Wall -Wextra -Wpedantic -o CMakeFiles/runtime.dir/src/runtime/graph.cpp.o -c /Users/wafoe/projects/me/CXXEg/build-stage3-clean-source/src/runtime/graph.cpp",
+  "file": "/Users/wafoe/projects/me/CXXEg/build-stage3-clean-source/src/runtime/graph.cpp",
+  "output": "CMakeFiles/runtime.dir/src/runtime/graph.cpp.o"
+},
+{
+  "directory": "/Users/wafoe/projects/me/CXXEg/build-stage3-clean-source/build-stage3-validation/20261005T131248311191Z-22617/sanitizer",
+  "command": "/usr/bin/c++ -DRUNTIME_TESTING=1 -I/Users/wafoe/projects/me/CXXEg/build-stage3-clean-source/include -g -std=c++17 -arch arm64 -fsanitize=address,undefined -fno-sanitize-recover=undefined -fno-omit-frame-pointer -Wall -Wextra -Wpedantic -o CMakeFiles/runtime.dir/src/runtime/graph_executor.cpp.o -c /Users/wafoe/projects/me/CXXEg/build-stage3-clean-source/src/runtime/graph_executor.cpp",
+  "file": "/Users/wafoe/projects/me/CXXEg/build-stage3-clean-source/src/runtime/graph_executor.cpp",
+  "output": "CMakeFiles/runtime.dir/src/runtime/graph_executor.cpp.o"
+},
+{
+  "directory": "/Users/wafoe/projects/me/CXXEg/build-stage3-clean-source/build-stage3-validation/20261005T131248311191Z-22617/sanitizer",
+  "command": "/usr/bin/c++ -DRUNTIME_TESTING=1 -I/Users/wafoe/projects/me/CXXEg/build-stage3-clean-source/include -g -std=c++17 -arch arm64 -fsanitize=address,undefined -fno-sanitize-recover=undefined -fno-omit-frame-pointer -Wall -Wextra -Wpedantic -o CMakeFiles/runtime.dir/src/runtime/graph_trace.cpp.o -c /Users/wafoe/projects/me/CXXEg/build-stage3-clean-source/src/runtime/graph_trace.cpp",
+  "file": "/Users/wafoe/projects/me/CXXEg/build-stage3-clean-source/src/runtime/graph_trace.cpp",
+  "output": "CMakeFiles/runtime.dir/src/runtime/graph_trace.cpp.o"
+},
+{
+  "directory": "/Users/wafoe/projects/me/CXXEg/build-stage3-clean-source/build-stage3-validation/20261005T131248311191Z-22617/sanitizer",
+  "command": "/usr/bin/c++ -DRUNTIME_TESTING=1 -I/Users/wafoe/projects/me/CXXEg/build-stage3-clean-source/include -g -std=c++17 -arch arm64 -fsanitize=address,undefined -fno-sanitize-recover=undefined -fno-omit-frame-pointer -Wall -Wextra -Wpedantic -o CMakeFiles/test_tensor.dir/tests/test_tensor.cpp.o -c /Users/wafoe/projects/me/CXXEg/build-stage3-clean-source/tests/test_tensor.cpp",
+  "file": "/Users/wafoe/projects/me/CXXEg/build-stage3-clean-source/tests/test_tensor.cpp",
+  "output": "CMakeFiles/test_tensor.dir/tests/test_tensor.cpp.o"
+},
+{
+  "directory": "/Users/wafoe/projects/me/CXXEg/build-stage3-clean-source/build-stage3-validation/20261005T131248311191Z-22617/sanitizer",
+  "command": "/usr/bin/c++ -DRUNTIME_TESTING=1 -I/Users/wafoe/projects/me/CXXEg/build-stage3-clean-source/include -g -std=c++17 -arch arm64 -fsanitize=address,undefined -fno-sanitize-recover=undefined -fno-omit-frame-pointer -Wall -Wextra -Wpedantic -o CMakeFiles/test_tensor_properties.dir/tests/test_tensor_properties.cpp.o -c /Users/wafoe/projects/me/CXXEg/build-stage3-clean-source/tests/test_tensor_properties.cpp",
+  "file": "/Users/wafoe/projects/me/CXXEg/build-stage3-clean-source/tests/test_tensor_properties.cpp",
+  "output": "CMakeFiles/test_tensor_properties.dir/tests/test_tensor_properties.cpp.o"
+},
+{
+  "directory": "/Users/wafoe/projects/me/CXXEg/build-stage3-clean-source/build-stage3-validation/20261005T131248311191Z-22617/sanitizer",
+  "command": "/usr/bin/c++ -DRUNTIME_TESTING=1 -I/Users/wafoe/projects/me/CXXEg/build-stage3-clean-source/include -g -std=c++17 -arch arm64 -fsanitize=address,undefined -fno-sanitize-recover=undefined -fno-omit-frame-pointer -Wall -Wextra -Wpedantic -o CMakeFiles/test_operator.dir/tests/test_operator.cpp.o -c /Users/wafoe/projects/me/CXXEg/build-stage3-clean-source/tests/test_operator.cpp",
+  "file": "/Users/wafoe/projects/me/CXXEg/build-stage3-clean-source/tests/test_operator.cpp",
+  "output": "CMakeFiles/test_operator.dir/tests/test_operator.cpp.o"
+},
+{
+  "directory": "/Users/wafoe/projects/me/CXXEg/build-stage3-clean-source/build-stage3-validation/20261005T131248311191Z-22617/sanitizer",
+  "command": "/usr/bin/c++ -DRUNTIME_TESTING=1 -I/Users/wafoe/projects/me/CXXEg/build-stage3-clean-source/include -g -std=c++17 -arch arm64 -fsanitize=address,undefined -fno-sanitize-recover=undefined -fno-omit-frame-pointer -Wall -Wextra -Wpedantic -o CMakeFiles/test_shape_inference.dir/tests/test_shape_inference.cpp.o -c /Users/wafoe/projects/me/CXXEg/build-stage3-clean-source/tests/test_shape_inference.cpp",
+  "file": "/Users/wafoe/projects/me/CXXEg/build-stage3-clean-source/tests/test_shape_inference.cpp",
+  "output": "CMakeFiles/test_shape_inference.dir/tests/test_shape_inference.cpp.o"
+},
+{
+  "directory": "/Users/wafoe/projects/me/CXXEg/build-stage3-clean-source/build-stage3-validation/20261005T131248311191Z-22617/sanitizer",
+  "command": "/usr/bin/c++ -DRUNTIME_TESTING=1 -I/Users/wafoe/projects/me/CXXEg/build-stage3-clean-source/include -g -std=c++17 -arch arm64 -fsanitize=address,undefined -fno-sanitize-recover=undefined -fno-omit-frame-pointer -Wall -Wextra -Wpedantic -o CMakeFiles/test_reference.dir/tests/test_reference.cpp.o -c /Users/wafoe/projects/me/CXXEg/build-stage3-clean-source/tests/test_reference.cpp",
+  "file": "/Users/wafoe/projects/me/CXXEg/build-stage3-clean-source/tests/test_reference.cpp",
+  "output": "CMakeFiles/test_reference.dir/tests/test_reference.cpp.o"
+},
+{
+  "directory": "/Users/wafoe/projects/me/CXXEg/build-stage3-clean-source/build-stage3-validation/20261005T131248311191Z-22617/sanitizer",
+  "command": "/usr/bin/c++ -DRUNTIME_TESTING=1 -I/Users/wafoe/projects/me/CXXEg/build-stage3-clean-source/include -g -std=c++17 -arch arm64 -fsanitize=address,undefined -fno-sanitize-recover=undefined -fno-omit-frame-pointer -Wall -Wextra -Wpedantic -o CMakeFiles/test_transformer_contracts.dir/tests/test_transformer_contracts.cpp.o -c /Users/wafoe/projects/me/CXXEg/build-stage3-clean-source/tests/test_transformer_contracts.cpp",
+  "file": "/Users/wafoe/projects/me/CXXEg/build-stage3-clean-source/tests/test_transformer_contracts.cpp",
+  "output": "CMakeFiles/test_transformer_contracts.dir/tests/test_transformer_contracts.cpp.o"
+},
+{
+  "directory": "/Users/wafoe/projects/me/CXXEg/build-stage3-clean-source/build-stage3-validation/20261005T131248311191Z-22617/sanitizer",
+  "command": "/usr/bin/c++ -DRUNTIME_TESTING=1 -I/Users/wafoe/projects/me/CXXEg/build-stage3-clean-source/include -g -std=c++17 -arch arm64 -fsanitize=address,undefined -fno-sanitize-recover=undefined -fno-omit-frame-pointer -Wall -Wextra -Wpedantic -o CMakeFiles/test_operator_fixtures.dir/tests/test_operator_fixtures.cpp.o -c /Users/wafoe/projects/me/CXXEg/build-stage3-clean-source/tests/test_operator_fixtures.cpp",
+  "file": "/Users/wafoe/projects/me/CXXEg/build-stage3-clean-source/tests/test_operator_fixtures.cpp",
+  "output": "CMakeFiles/test_operator_fixtures.dir/tests/test_operator_fixtures.cpp.o"
+},
+{
+  "directory": "/Users/wafoe/projects/me/CXXEg/build-stage3-clean-source/build-stage3-validation/20261005T131248311191Z-22617/sanitizer",
+  "command": "/usr/bin/c++ -DRUNTIME_TESTING=1 -I/Users/wafoe/projects/me/CXXEg/build-stage3-clean-source/include -g -std=c++17 -arch arm64 -fsanitize=address,undefined -fno-sanitize-recover=undefined -fno-omit-frame-pointer -Wall -Wextra -Wpedantic -o CMakeFiles/test_graph.dir/tests/test_graph.cpp.o -c /Users/wafoe/projects/me/CXXEg/build-stage3-clean-source/tests/test_graph.cpp",
+  "file": "/Users/wafoe/projects/me/CXXEg/build-stage3-clean-source/tests/test_graph.cpp",
+  "output": "CMakeFiles/test_graph.dir/tests/test_graph.cpp.o"
+},
+{
+  "directory": "/Users/wafoe/projects/me/CXXEg/build-stage3-clean-source/build-stage3-validation/20261005T131248311191Z-22617/sanitizer",
+  "command": "/usr/bin/c++ -DRUNTIME_TESTING=1 -I/Users/wafoe/projects/me/CXXEg/build-stage3-clean-source/include -g -std=c++17 -arch arm64 -fsanitize=address,undefined -fno-sanitize-recover=undefined -fno-omit-frame-pointer -Wall -Wextra -Wpedantic -o CMakeFiles/test_graph_executor.dir/tests/test_graph_executor.cpp.o -c /Users/wafoe/projects/me/CXXEg/build-stage3-clean-source/tests/test_graph_executor.cpp",
+  "file": "/Users/wafoe/projects/me/CXXEg/build-stage3-clean-source/tests/test_graph_executor.cpp",
+  "output": "CMakeFiles/test_graph_executor.dir/tests/test_graph_executor.cpp.o"
+},
+{
+  "directory": "/Users/wafoe/projects/me/CXXEg/build-stage3-clean-source/build-stage3-validation/20261005T131248311191Z-22617/sanitizer",
+  "command": "/usr/bin/c++ -DRUNTIME_TESTING=1 -I/Users/wafoe/projects/me/CXXEg/build-stage3-clean-source/include -g -std=c++17 -arch arm64 -fsanitize=address,undefined -fno-sanitize-recover=undefined -fno-omit-frame-pointer -Wall -Wextra -Wpedantic -o CMakeFiles/test_graph_fixtures.dir/tests/test_graph_fixtures.cpp.o -c /Users/wafoe/projects/me/CXXEg/build-stage3-clean-source/tests/test_graph_fixtures.cpp",
+  "file": "/Users/wafoe/projects/me/CXXEg/build-stage3-clean-source/tests/test_graph_fixtures.cpp",
+  "output": "CMakeFiles/test_graph_fixtures.dir/tests/test_graph_fixtures.cpp.o"
+},
+{
+  "directory": "/Users/wafoe/projects/me/CXXEg/build-stage3-clean-source/build-stage3-validation/20261005T131248311191Z-22617/sanitizer",
+  "command": "/usr/bin/c++ -DRUNTIME_TESTING=1 -I/Users/wafoe/projects/me/CXXEg/build-stage3-clean-source/include -g -std=c++17 -arch arm64 -fsanitize=address,undefined -fno-sanitize-recover=undefined -fno-omit-frame-pointer -Wall -Wextra -Wpedantic -o CMakeFiles/test_graph_trace.dir/tests/test_graph_trace.cpp.o -c /Users/wafoe/projects/me/CXXEg/build-stage3-clean-source/tests/test_graph_trace.cpp",
+  "file": "/Users/wafoe/projects/me/CXXEg/build-stage3-clean-source/tests/test_graph_trace.cpp",
+  "output": "CMakeFiles/test_graph_trace.dir/tests/test_graph_trace.cpp.o"
+},
+{
+  "directory": "/Users/wafoe/projects/me/CXXEg/build-stage3-clean-source/build-stage3-validation/20261005T131248311191Z-22617/sanitizer",
+  "command": "/usr/bin/c++  -I/Users/wafoe/projects/me/CXXEg/build-stage3-clean-source/include -I/Users/wafoe/projects/me/CXXEg/build-stage3-clean-source/build-stage3-validation/20261005T131248311191Z-22617/sanitizer/generated -g -std=c++17 -arch arm64 -fsanitize=address,undefined -fno-sanitize-recover=undefined -fno-omit-frame-pointer -Wall -Wextra -Wpedantic -o CMakeFiles/test_common.dir/tests/test_common.cpp.o -c /Users/wafoe/projects/me/CXXEg/build-stage3-clean-source/tests/test_common.cpp",
+  "file": "/Users/wafoe/projects/me/CXXEg/build-stage3-clean-source/tests/test_common.cpp",
+  "output": "CMakeFiles/test_common.dir/tests/test_common.cpp.o"
+}
+]

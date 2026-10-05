@@ -1,0 +1,30 @@
+[ 10%] Building CXX object CMakeFiles/runtime.dir/src/runtime/tensor.cpp.o
+[ 10%] Building CXX object CMakeFiles/runtime.dir/src/runtime/copy.cpp.o
+[ 10%] Building CXX object CMakeFiles/runtime.dir/src/runtime/storage.cpp.o
+[ 10%] Built target refresh_provenance
+[ 13%] Building CXX object CMakeFiles/runtime.dir/src/runtime/operator.cpp.o
+[ 17%] Building CXX object CMakeFiles/stage0_common.dir/src/common.cpp.o
+[ 20%] Building CXX object CMakeFiles/runtime.dir/src/runtime/shape_inference.cpp.o
+[ 24%] Building CXX object CMakeFiles/runtime.dir/src/runtime/reference.cpp.o
+[ 27%] Building CXX object CMakeFiles/runtime.dir/src/runtime/layout.cpp.o
+[ 31%] Building CXX object CMakeFiles/runtime.dir/src/runtime/graph.cpp.o
+[ 34%] Linking CXX static library libstage0_common.a
+[ 34%] Built target stage0_common
+[ 37%] Building CXX object CMakeFiles/test_common.dir/tests/test_common.cpp.o
+In file included from /Users/wafoe/projects/me/CXXEg/src/runtime/graph.cpp:1:
+/Users/wafoe/projects/me/CXXEg/include/runtime/graph.hpp:30:81: error: chosen constructor is explicit in copy-initialization
+   30 |     void add_tensor(TensorId id, Shape shape, DType dtype = DType::FP32, Device device = {});
+      |                                                                                 ^        ~~
+/Users/wafoe/projects/me/CXXEg/include/runtime/device.hpp:10:14: note: explicit constructor declared here
+   10 |     explicit Device(DeviceType type = DeviceType::CPU, int index = 0)
+      |              ^
+/Users/wafoe/projects/me/CXXEg/include/runtime/graph.hpp:30:81: note: passing argument to parameter 'device' here
+   30 |     void add_tensor(TensorId id, Shape shape, DType dtype = DType::FP32, Device device = {});
+      |                                                                                 ^
+1 error generated.
+make[2]: *** [CMakeFiles/runtime.dir/src/runtime/graph.cpp.o] Error 1
+make[1]: *** [CMakeFiles/runtime.dir/all] Error 2
+make[1]: *** Waiting for unfinished jobs....
+[ 41%] Linking CXX executable test_common
+[ 41%] Built target test_common
+make: *** [all] Error 2

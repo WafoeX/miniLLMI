@@ -1,0 +1,37 @@
+{
+  "scope": "CPU-only development C3",
+  "source": {
+    "commit": "5098c45f6f14fe2d8cd55e1b17bd34b260d83b1f",
+    "source_digest": "3faf2f3611d6f4e130d59eab14e37f0dac23c0569c42ac0c005104cc193518d3",
+    "source_dirty": true
+  },
+  "commands": [
+    {
+      "argv": [
+        "cmake",
+        "--build",
+        "build-stage3-dev",
+        "--parallel",
+        "4"
+      ],
+      "exit_code": 0,
+      "log": "build.log"
+    },
+    {
+      "argv": [
+        "ctest",
+        "--test-dir",
+        "build-stage3-dev",
+        "--output-on-failure",
+        "--verbose"
+      ],
+      "exit_code": 0,
+      "log": "ctest.log"
+    }
+  ],
+  "source_after": {
+    "commit": "5098c45f6f14fe2d8cd55e1b17bd34b260d83b1f",
+    "source_digest": "3faf2f3611d6f4e130d59eab14e37f0dac23c0569c42ac0c005104cc193518d3",
+    "source_dirty": true
+  }
+}

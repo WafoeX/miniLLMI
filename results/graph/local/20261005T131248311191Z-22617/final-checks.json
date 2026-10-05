@@ -1,0 +1,31 @@
+{
+  "tested_source": {
+    "commit": "533ba1e12133d7c29a2b28544f01b108d5c26f01",
+    "source_digest": "4cde07bc83c83f46abc05cb4b3069d245bf80013b036e59b6269b62efcf5d559",
+    "source_dirty": false
+  },
+  "implementation_diff_after_tested_source": [],
+  "local_documentation_links": {
+    "checked": 63,
+    "missing": []
+  },
+  "lsp_tool_observation": {
+    "source": "active LSP probe",
+    "paths_checked": 28,
+    "clean": 26,
+    "unavailable": [
+      "CMakeLists.txt"
+    ],
+    "findings": [
+      {
+        "file": "docs/stage3_report.md",
+        "severity": "information",
+        "rule": "typos",
+        "message": "`ba` should be `by`, `be`",
+        "disposition": "false-positive",
+        "reason": "valid Git hash fragment, marked with lens_diagnostic_mark"
+      }
+    ]
+  },
+  "scope": "Evidence/documentation audit; no GPU/benchmark/profiling claim"
+}

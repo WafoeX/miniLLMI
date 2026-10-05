@@ -1,0 +1,130 @@
+{
+  "scope": "CPU-only correctness and evidence consistency; no performance claim",
+  "source": {
+    "commit": "533ba1e12133d7c29a2b28544f01b108d5c26f01",
+    "source_digest": "4cde07bc83c83f46abc05cb4b3069d245bf80013b036e59b6269b62efcf5d559",
+    "source_dirty": false
+  },
+  "source_matches_runner": true,
+  "commands": [
+    {
+      "argv": [
+        "nm",
+        "-g",
+        "/Users/wafoe/projects/me/CXXEg/build-stage3-clean-source/build-stage3-validation/20261005T131248311191Z-22617/production/libruntime.a"
+      ],
+      "cwd": "/Users/wafoe/projects/me/CXXEg/build-stage3-clean-source",
+      "exit_code": 0,
+      "log": "production-nm.log"
+    },
+    {
+      "argv": [
+        "python3",
+        "tools/generate_operator_fixtures.py",
+        "--check"
+      ],
+      "cwd": "/Users/wafoe/projects/me/CXXEg/build-stage3-clean-source",
+      "exit_code": 0,
+      "log": "fixture-regeneration.log"
+    }
+  ],
+  "snapshots": [
+    {
+      "mode": "release",
+      "file": "CMakeCache.txt",
+      "sha256": "591f27da59179f0c914336d4b1eb0198f0f5274d50f621e4887747e073a1f3f5",
+      "byte_equal": true
+    },
+    {
+      "mode": "release",
+      "file": "compile_commands.json",
+      "sha256": "bf6aaefa7f8e8d6ecea3739dec947171a9b6eeab5bcd6ad7b1a8fd562bd38108",
+      "byte_equal": true
+    },
+    {
+      "mode": "debug",
+      "file": "CMakeCache.txt",
+      "sha256": "b79517571932027bd829538918947caaa148ce9454c33771e0698c44c80a32cb",
+      "byte_equal": true
+    },
+    {
+      "mode": "debug",
+      "file": "compile_commands.json",
+      "sha256": "d6fb305a7e05cd7cb17a713efac5e24958c99afa48f444be5a8aefcd0a602a67",
+      "byte_equal": true
+    },
+    {
+      "mode": "sanitizer",
+      "file": "CMakeCache.txt",
+      "sha256": "f04329fbfd5b662cee06078cf33364dfdbe20a890e97cc90d3c39c240ba4830d",
+      "byte_equal": true
+    },
+    {
+      "mode": "sanitizer",
+      "file": "compile_commands.json",
+      "sha256": "82e69c84a695dc1b93a1674cc0b483a7f6e4bf30417156f470aa80dbc8177ef0",
+      "byte_equal": true
+    },
+    {
+      "mode": "production",
+      "file": "CMakeCache.txt",
+      "sha256": "fd2591ab481c20014862f683a9c3ef36fd4c23a62c83946de2bef7694eef6dd5",
+      "byte_equal": true
+    },
+    {
+      "mode": "production",
+      "file": "compile_commands.json",
+      "sha256": "3195490d6aa7f1b74670d9c279e73ede64a06193fecc83a296e48c45d771a2c0",
+      "byte_equal": true
+    }
+  ],
+  "ctest": {
+    "release": [
+      "15"
+    ],
+    "debug": [
+      "15"
+    ],
+    "sanitizer": [
+      "15"
+    ]
+  },
+  "build_warning_error_lines": {
+    "release": [],
+    "debug": [],
+    "sanitizer": [],
+    "production": []
+  },
+  "production_test_hooks_absent": true,
+  "production_testing_define_absent": true,
+  "protected_paths": [
+    "backend/cuda",
+    "include/stage0",
+    "src/common.cpp",
+    "bench",
+    "tests/test_common.cpp",
+    "tests/test_cuda_gemm.cpp",
+    "tests/test_tools.py",
+    "scripts",
+    "tools/analyze_results.py",
+    "tools/provenance.py",
+    "results/gemm",
+    "results/profiling",
+    "results/tensor",
+    "results/operators",
+    "src/runtime/storage.cpp",
+    "src/runtime/copy.cpp",
+    "include/runtime/tensor.hpp",
+    "include/runtime/storage.hpp",
+    "include/runtime/shape.hpp",
+    "include/runtime/dtype.hpp",
+    "include/runtime/device.hpp",
+    "tests/fixtures"
+  ],
+  "protected_diff": [],
+  "source_after": {
+    "commit": "533ba1e12133d7c29a2b28544f01b108d5c26f01",
+    "source_digest": "4cde07bc83c83f46abc05cb4b3069d245bf80013b036e59b6269b62efcf5d559",
+    "source_dirty": false
+  }
+}
