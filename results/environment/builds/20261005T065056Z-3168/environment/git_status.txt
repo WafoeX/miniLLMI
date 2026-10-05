@@ -1,0 +1,11 @@
+COMMAND: git status --porcelain=v1 --untracked-files=all
+?? results/environment/builds/20261005T065056Z-3168/CMakeCache.txt
+?? results/environment/builds/20261005T065056Z-3168/build.log
+?? results/environment/builds/20261005T065056Z-3168/build_info.json
+?? results/environment/builds/20261005T065056Z-3168/commands.txt
+?? results/environment/builds/20261005T065056Z-3168/compile_commands.json
+?? results/environment/builds/20261005T065056Z-3168/configure.log
+?? results/environment/builds/20261005T065056Z-3168/environment/git_commit.txt
+?? results/environment/builds/20261005T065056Z-3168/environment/git_status.txt
+?? results/environment/builds/20261005T065056Z-3168/environment/system_info.txt
+?? results/environment/builds/20261005T065056Z-3168/source.json

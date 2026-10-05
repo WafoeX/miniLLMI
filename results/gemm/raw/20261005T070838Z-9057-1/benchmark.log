@@ -1,0 +1,12 @@
+CPU reference 512x512x512 (full single-thread ijk; not timed)
+sgemm_v0_naive: median=0.86691200733184814 ms, 309.646 GFLOPS, max_error=8.10623e-06
+cublas: median=0.11247999966144562 ms, 2386.52 GFLOPS, max_error=8.10623e-06
+CPU reference 1024x1024x1024 (full single-thread ijk; not timed)
+sgemm_v0_naive: median=4.3124480247497559 ms, 497.973 GFLOPS, max_error=2.14577e-05
+cublas: median=0.42281599342823029 ms, 5079 GFLOPS, max_error=5.24521e-06
+CPU reference 2048x2048x2048 (full single-thread ijk; not timed)
+sgemm_v0_naive: median=40.148832321166992 ms, 427.905 GFLOPS, max_error=4.00543e-05
+cublas: median=4.2315199375152588 ms, 4059.98 GFLOPS, max_error=2.67029e-05
+CPU reference 4096x4096x4096 (full single-thread ijk; not timed)
+sgemm_v0_naive: median=329.47917175292969 ms, 417.14 GFLOPS, max_error=9.34601e-05
+cublas: median=34.567953109741211 ms, 3975.91 GFLOPS, max_error=9.34601e-05

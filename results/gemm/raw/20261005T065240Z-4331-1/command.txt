@@ -1,0 +1,1 @@
+/content/miniLLMI/build/bench_gemm --kernel all --warmup 10 --iterations 50 --m 31 --n 33 --k 17 

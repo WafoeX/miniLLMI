@@ -1,0 +1,103 @@
+Change Dir: '/content/miniLLMI/build'
+
+Run Build Command(s): /usr/local/lib/python3.13/dist-packages/cmake/data/bin/cmake -E env VERBOSE=1 /usr/bin/gmake -f Makefile -j2
+/usr/local/lib/python3.13/dist-packages/cmake/data/bin/cmake -S/content/miniLLMI -B/content/miniLLMI/build --check-build-system CMakeFiles/Makefile.cmake 0
+/usr/local/lib/python3.13/dist-packages/cmake/data/bin/cmake -E cmake_progress_start /content/miniLLMI/build/CMakeFiles /content/miniLLMI/build//CMakeFiles/progress.marks
+/usr/bin/gmake  -f CMakeFiles/Makefile2 all
+gmake[1]: Entering directory '/content/miniLLMI/build'
+/usr/bin/gmake  -f CMakeFiles/refresh_provenance.dir/build.make CMakeFiles/refresh_provenance.dir/depend
+gmake[2]: Entering directory '/content/miniLLMI/build'
+cd /content/miniLLMI/build && /usr/local/lib/python3.13/dist-packages/cmake/data/bin/cmake -E cmake_depends "Unix Makefiles" /content/miniLLMI /content/miniLLMI /content/miniLLMI/build /content/miniLLMI/build /content/miniLLMI/build/CMakeFiles/refresh_provenance.dir/DependInfo.cmake "--color=" refresh_provenance
+gmake[2]: Leaving directory '/content/miniLLMI/build'
+/usr/bin/gmake  -f CMakeFiles/refresh_provenance.dir/build.make CMakeFiles/refresh_provenance.dir/build
+gmake[2]: Entering directory '/content/miniLLMI/build'
+/usr/local/bin/python /content/miniLLMI/tools/provenance.py --root /content/miniLLMI --header /content/miniLLMI/build/generated/stage0/provenance.hpp
+gmake[2]: Leaving directory '/content/miniLLMI/build'
+[  0%] Built target refresh_provenance
+/usr/bin/gmake  -f CMakeFiles/stage0_common.dir/build.make CMakeFiles/stage0_common.dir/depend
+gmake[2]: Entering directory '/content/miniLLMI/build'
+cd /content/miniLLMI/build && /usr/local/lib/python3.13/dist-packages/cmake/data/bin/cmake -E cmake_depends "Unix Makefiles" /content/miniLLMI /content/miniLLMI /content/miniLLMI/build /content/miniLLMI/build /content/miniLLMI/build/CMakeFiles/stage0_common.dir/DependInfo.cmake "--color=" stage0_common
+gmake[2]: Leaving directory '/content/miniLLMI/build'
+/usr/bin/gmake  -f CMakeFiles/stage0_common.dir/build.make CMakeFiles/stage0_common.dir/build
+gmake[2]: Entering directory '/content/miniLLMI/build'
+[  7%] Building CXX object CMakeFiles/stage0_common.dir/src/common.cpp.o
+/usr/bin/c++  -I/content/miniLLMI/include -I/content/miniLLMI/build/generated -O3 -DNDEBUG -std=c++17 -Wall -Wextra -Wpedantic -MD -MT CMakeFiles/stage0_common.dir/src/common.cpp.o -MF CMakeFiles/stage0_common.dir/src/common.cpp.o.d -o CMakeFiles/stage0_common.dir/src/common.cpp.o -c /content/miniLLMI/src/common.cpp
+[ 15%] Linking CXX static library libstage0_common.a
+/usr/local/lib/python3.13/dist-packages/cmake/data/bin/cmake -P CMakeFiles/stage0_common.dir/cmake_clean_target.cmake
+/usr/local/lib/python3.13/dist-packages/cmake/data/bin/cmake -E cmake_link_script CMakeFiles/stage0_common.dir/link.txt --verbose=1
+/usr/bin/ar qc libstage0_common.a CMakeFiles/stage0_common.dir/src/common.cpp.o
+/usr/bin/ranlib libstage0_common.a
+gmake[2]: Leaving directory '/content/miniLLMI/build'
+[ 15%] Built target stage0_common
+/usr/bin/gmake  -f CMakeFiles/test_common.dir/build.make CMakeFiles/test_common.dir/depend
+/usr/bin/gmake  -f CMakeFiles/stage0_cuda.dir/build.make CMakeFiles/stage0_cuda.dir/depend
+gmake[2]: Entering directory '/content/miniLLMI/build'
+cd /content/miniLLMI/build && /usr/local/lib/python3.13/dist-packages/cmake/data/bin/cmake -E cmake_depends "Unix Makefiles" /content/miniLLMI /content/miniLLMI /content/miniLLMI/build /content/miniLLMI/build /content/miniLLMI/build/CMakeFiles/test_common.dir/DependInfo.cmake "--color=" test_common
+gmake[2]: Entering directory '/content/miniLLMI/build'
+cd /content/miniLLMI/build && /usr/local/lib/python3.13/dist-packages/cmake/data/bin/cmake -E cmake_depends "Unix Makefiles" /content/miniLLMI /content/miniLLMI /content/miniLLMI/build /content/miniLLMI/build /content/miniLLMI/build/CMakeFiles/stage0_cuda.dir/DependInfo.cmake "--color=" stage0_cuda
+gmake[2]: Leaving directory '/content/miniLLMI/build'
+/usr/bin/gmake  -f CMakeFiles/test_common.dir/build.make CMakeFiles/test_common.dir/build
+gmake[2]: Leaving directory '/content/miniLLMI/build'
+gmake[2]: Entering directory '/content/miniLLMI/build'
+/usr/bin/gmake  -f CMakeFiles/stage0_cuda.dir/build.make CMakeFiles/stage0_cuda.dir/build
+gmake[2]: Entering directory '/content/miniLLMI/build'
+[ 23%] Building CXX object CMakeFiles/test_common.dir/tests/test_common.cpp.o
+/usr/bin/c++  -I/content/miniLLMI/include -I/content/miniLLMI/build/generated -O3 -DNDEBUG -std=c++17 -Wall -Wextra -Wpedantic -MD -MT CMakeFiles/test_common.dir/tests/test_common.cpp.o -MF CMakeFiles/test_common.dir/tests/test_common.cpp.o.d -o CMakeFiles/test_common.dir/tests/test_common.cpp.o -c /content/miniLLMI/tests/test_common.cpp
+[ 30%] Building CUDA object CMakeFiles/stage0_cuda.dir/backend/cuda/sgemm_v0_naive.cu.o
+/usr/local/cuda/bin/nvcc -forward-unknown-to-host-compiler  --options-file CMakeFiles/stage0_cuda.dir/includes_CUDA.rsp -O3 -DNDEBUG -std=c++17 -arch=native -lineinfo -MD -MT CMakeFiles/stage0_cuda.dir/backend/cuda/sgemm_v0_naive.cu.o -MF CMakeFiles/stage0_cuda.dir/backend/cuda/sgemm_v0_naive.cu.o.d -x cu -c /content/miniLLMI/backend/cuda/sgemm_v0_naive.cu -o CMakeFiles/stage0_cuda.dir/backend/cuda/sgemm_v0_naive.cu.o
+[ 38%] Linking CXX executable test_common
+/usr/local/lib/python3.13/dist-packages/cmake/data/bin/cmake -E cmake_link_script CMakeFiles/test_common.dir/link.txt --verbose=1
+/usr/bin/c++ -O3 -DNDEBUG -Wl,--dependency-file=CMakeFiles/test_common.dir/link.d CMakeFiles/test_common.dir/tests/test_common.cpp.o -o test_common  libstage0_common.a
+gmake[2]: Leaving directory '/content/miniLLMI/build'
+[ 38%] Built target test_common
+[ 46%] Building CUDA object CMakeFiles/stage0_cuda.dir/backend/cuda/cublas_gemm.cu.o
+/usr/local/cuda/bin/nvcc -forward-unknown-to-host-compiler  --options-file CMakeFiles/stage0_cuda.dir/includes_CUDA.rsp -O3 -DNDEBUG -std=c++17 -arch=native -lineinfo -MD -MT CMakeFiles/stage0_cuda.dir/backend/cuda/cublas_gemm.cu.o -MF CMakeFiles/stage0_cuda.dir/backend/cuda/cublas_gemm.cu.o.d -x cu -c /content/miniLLMI/backend/cuda/cublas_gemm.cu -o CMakeFiles/stage0_cuda.dir/backend/cuda/cublas_gemm.cu.o
+[ 53%] Linking CXX static library libstage0_cuda.a
+/usr/local/lib/python3.13/dist-packages/cmake/data/bin/cmake -P CMakeFiles/stage0_cuda.dir/cmake_clean_target.cmake
+/usr/local/lib/python3.13/dist-packages/cmake/data/bin/cmake -E cmake_link_script CMakeFiles/stage0_cuda.dir/link.txt --verbose=1
+/usr/bin/ar qc libstage0_cuda.a CMakeFiles/stage0_cuda.dir/backend/cuda/sgemm_v0_naive.cu.o CMakeFiles/stage0_cuda.dir/backend/cuda/cublas_gemm.cu.o
+/usr/bin/ranlib libstage0_cuda.a
+gmake[2]: Leaving directory '/content/miniLLMI/build'
+[ 53%] Built target stage0_cuda
+/usr/bin/gmake  -f CMakeFiles/gpu_info.dir/build.make CMakeFiles/gpu_info.dir/depend
+/usr/bin/gmake  -f CMakeFiles/bench_gemm.dir/build.make CMakeFiles/bench_gemm.dir/depend
+gmake[2]: Entering directory '/content/miniLLMI/build'
+cd /content/miniLLMI/build && /usr/local/lib/python3.13/dist-packages/cmake/data/bin/cmake -E cmake_depends "Unix Makefiles" /content/miniLLMI /content/miniLLMI /content/miniLLMI/build /content/miniLLMI/build /content/miniLLMI/build/CMakeFiles/gpu_info.dir/DependInfo.cmake "--color=" gpu_info
+gmake[2]: Entering directory '/content/miniLLMI/build'
+cd /content/miniLLMI/build && /usr/local/lib/python3.13/dist-packages/cmake/data/bin/cmake -E cmake_depends "Unix Makefiles" /content/miniLLMI /content/miniLLMI /content/miniLLMI/build /content/miniLLMI/build /content/miniLLMI/build/CMakeFiles/bench_gemm.dir/DependInfo.cmake "--color=" bench_gemm
+gmake[2]: Leaving directory '/content/miniLLMI/build'
+gmake[2]: Leaving directory '/content/miniLLMI/build'
+/usr/bin/gmake  -f CMakeFiles/bench_gemm.dir/build.make CMakeFiles/bench_gemm.dir/build
+/usr/bin/gmake  -f CMakeFiles/gpu_info.dir/build.make CMakeFiles/gpu_info.dir/build
+gmake[2]: Entering directory '/content/miniLLMI/build'
+gmake[2]: Entering directory '/content/miniLLMI/build'
+[ 69%] Building CXX object CMakeFiles/gpu_info.dir/bench/gpu_info.cpp.o
+[ 69%] Building CXX object CMakeFiles/bench_gemm.dir/bench/bench_gemm.cpp.o
+/usr/bin/c++  -I/content/miniLLMI/include -I/content/miniLLMI/build/generated -isystem /usr/local/cuda/targets/x86_64-linux/include -isystem /usr/local/cuda/targets/x86_64-linux/include/cccl -O3 -DNDEBUG -std=c++17 -Wall -Wextra -Wpedantic -MD -MT CMakeFiles/bench_gemm.dir/bench/bench_gemm.cpp.o -MF CMakeFiles/bench_gemm.dir/bench/bench_gemm.cpp.o.d -o CMakeFiles/bench_gemm.dir/bench/bench_gemm.cpp.o -c /content/miniLLMI/bench/bench_gemm.cpp
+/usr/bin/c++  -I/content/miniLLMI/include -I/content/miniLLMI/build/generated -isystem /usr/local/cuda/targets/x86_64-linux/include -isystem /usr/local/cuda/targets/x86_64-linux/include/cccl -O3 -DNDEBUG -std=c++17 -Wall -Wextra -Wpedantic -MD -MT CMakeFiles/gpu_info.dir/bench/gpu_info.cpp.o -MF CMakeFiles/gpu_info.dir/bench/gpu_info.cpp.o.d -o CMakeFiles/gpu_info.dir/bench/gpu_info.cpp.o -c /content/miniLLMI/bench/gpu_info.cpp
+[ 76%] Linking CXX executable gpu_info
+/usr/local/lib/python3.13/dist-packages/cmake/data/bin/cmake -E cmake_link_script CMakeFiles/gpu_info.dir/link.txt --verbose=1
+/usr/bin/c++ -O3 -DNDEBUG -Wl,--dependency-file=CMakeFiles/gpu_info.dir/link.d CMakeFiles/gpu_info.dir/bench/gpu_info.cpp.o -o gpu_info   -L/usr/local/cuda/targets/x86_64-linux/lib  -Wl,-rpath,/usr/local/cuda-13.0/targets/x86_64-linux/lib libstage0_cuda.a libstage0_common.a /usr/local/cuda-13.0/targets/x86_64-linux/lib/libcudart.so -ldl /usr/lib/x86_64-linux-gnu/librt.a /usr/local/cuda-13.0/targets/x86_64-linux/lib/libcublas.so /usr/local/cuda-13.0/targets/x86_64-linux/lib/libcublasLt.so /usr/local/cuda-13.0/targets/x86_64-linux/lib/libculibos.a -lcudadevrt -lcudart
+gmake[2]: Leaving directory '/content/miniLLMI/build'
+[ 76%] Built target gpu_info
+/usr/bin/gmake  -f CMakeFiles/test_cuda_gemm.dir/build.make CMakeFiles/test_cuda_gemm.dir/depend
+gmake[2]: Entering directory '/content/miniLLMI/build'
+cd /content/miniLLMI/build && /usr/local/lib/python3.13/dist-packages/cmake/data/bin/cmake -E cmake_depends "Unix Makefiles" /content/miniLLMI /content/miniLLMI /content/miniLLMI/build /content/miniLLMI/build /content/miniLLMI/build/CMakeFiles/test_cuda_gemm.dir/DependInfo.cmake "--color=" test_cuda_gemm
+gmake[2]: Leaving directory '/content/miniLLMI/build'
+/usr/bin/gmake  -f CMakeFiles/test_cuda_gemm.dir/build.make CMakeFiles/test_cuda_gemm.dir/build
+gmake[2]: Entering directory '/content/miniLLMI/build'
+[ 84%] Building CXX object CMakeFiles/test_cuda_gemm.dir/tests/test_cuda_gemm.cpp.o
+/usr/bin/c++  -I/content/miniLLMI/include -I/content/miniLLMI/build/generated -isystem /usr/local/cuda/targets/x86_64-linux/include -isystem /usr/local/cuda/targets/x86_64-linux/include/cccl -O3 -DNDEBUG -std=c++17 -MD -MT CMakeFiles/test_cuda_gemm.dir/tests/test_cuda_gemm.cpp.o -MF CMakeFiles/test_cuda_gemm.dir/tests/test_cuda_gemm.cpp.o.d -o CMakeFiles/test_cuda_gemm.dir/tests/test_cuda_gemm.cpp.o -c /content/miniLLMI/tests/test_cuda_gemm.cpp
+[ 92%] Linking CXX executable test_cuda_gemm
+/usr/local/lib/python3.13/dist-packages/cmake/data/bin/cmake -E cmake_link_script CMakeFiles/test_cuda_gemm.dir/link.txt --verbose=1
+/usr/bin/c++ -O3 -DNDEBUG -Wl,--dependency-file=CMakeFiles/test_cuda_gemm.dir/link.d CMakeFiles/test_cuda_gemm.dir/tests/test_cuda_gemm.cpp.o -o test_cuda_gemm   -L/usr/local/cuda/targets/x86_64-linux/lib  -Wl,-rpath,/usr/local/cuda-13.0/targets/x86_64-linux/lib libstage0_cuda.a libstage0_common.a /usr/local/cuda-13.0/targets/x86_64-linux/lib/libcudart.so -ldl /usr/lib/x86_64-linux-gnu/librt.a /usr/local/cuda-13.0/targets/x86_64-linux/lib/libcublas.so /usr/local/cuda-13.0/targets/x86_64-linux/lib/libcublasLt.so /usr/local/cuda-13.0/targets/x86_64-linux/lib/libculibos.a -lcudadevrt -lcudart
+gmake[2]: Leaving directory '/content/miniLLMI/build'
+[ 92%] Built target test_cuda_gemm
+[100%] Linking CXX executable bench_gemm
+/usr/local/lib/python3.13/dist-packages/cmake/data/bin/cmake -E cmake_link_script CMakeFiles/bench_gemm.dir/link.txt --verbose=1
+/usr/bin/c++ -O3 -DNDEBUG -Wl,--dependency-file=CMakeFiles/bench_gemm.dir/link.d CMakeFiles/bench_gemm.dir/bench/bench_gemm.cpp.o -o bench_gemm   -L/usr/local/cuda/targets/x86_64-linux/lib  -Wl,-rpath,/usr/local/cuda-13.0/targets/x86_64-linux/lib libstage0_cuda.a libstage0_common.a /usr/local/cuda-13.0/targets/x86_64-linux/lib/libcudart.so -ldl /usr/lib/x86_64-linux-gnu/librt.a /usr/local/cuda-13.0/targets/x86_64-linux/lib/libcublas.so /usr/local/cuda-13.0/targets/x86_64-linux/lib/libcublasLt.so /usr/local/cuda-13.0/targets/x86_64-linux/lib/libculibos.a -lcudadevrt -lcudart
+gmake[2]: Leaving directory '/content/miniLLMI/build'
+[100%] Built target bench_gemm
+gmake[1]: Leaving directory '/content/miniLLMI/build'
+/usr/local/lib/python3.13/dist-packages/cmake/data/bin/cmake -E cmake_progress_start /content/miniLLMI/build/CMakeFiles 0
+
