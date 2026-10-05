@@ -1,6 +1,7 @@
 #pragma once
 
 #include "runtime/device.hpp"
+#include "runtime/model_contract.hpp"
 #include "runtime/shape.hpp"
 #include <cstdint>
 #include <optional>
@@ -29,7 +30,8 @@ const char* status_name(StatusCode code);
 
 enum class OpCode {
     ADD, MUL, MATMUL, COPY, MATERIALIZE, RESHAPE, VIEW,
-    NARROW, SLICE, TRANSPOSE, PERMUTE
+    NARROW, SLICE, TRANSPOSE, PERMUTE,
+    RMSNORM, SOFTMAX, ROPE, EMBEDDING, SWIGLU, ATTENTION
 };
 const char* op_name(OpCode code);
 
@@ -45,8 +47,29 @@ struct SliceAttrs {
 };
 struct TransposeAttrs { std::size_t first = 0; std::size_t second = 1; };
 struct PermuteAttrs { std::vector<std::size_t> axes; };
+struct NormAttrs { double epsilon = tiny_model::RMS_EPSILON; };
+struct SoftmaxAttrs {
+    bool causal = false;
+    std::int64_t query_position = 0;
+    std::int64_t key_position = 0;
+    std::int64_t max_positions = tiny_model::MAX_SEQ;
+};
+struct RopeAttrs {
+    std::int64_t position = 0;
+    double base = tiny_model::ROPE_BASE;
+    std::int64_t max_positions = tiny_model::MAX_SEQ;
+};
+struct AttentionAttrs {
+    std::int64_t heads = tiny_model::HEADS;
+    std::int64_t head_dim = tiny_model::HEAD_DIM;
+    bool causal = true;
+    std::int64_t query_position = 0;
+    std::int64_t key_position = 0;
+    std::int64_t max_positions = tiny_model::MAX_SEQ;
+};
 using OpAttrs = std::variant<std::monostate, CopyAttrs, ReshapeAttrs, ViewAttrs,
-                             SliceAttrs, TransposeAttrs, PermuteAttrs>;
+                             SliceAttrs, TransposeAttrs, PermuteAttrs, NormAttrs,
+                             SoftmaxAttrs, RopeAttrs, AttentionAttrs>;
 
 // Schema validation does not resolve graph IDs or access tensor values.
 Status validate_schema(OpCode code, const std::vector<TensorId>& inputs,

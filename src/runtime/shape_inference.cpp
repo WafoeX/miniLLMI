@@ -18,6 +18,9 @@ InferenceResult alias(Tensor tensor, OutputKind kind = OutputKind::Alias) {
     OutputContract result{tensor.shape(), tensor.stride(), tensor.dtype(), tensor.device(), kind, std::move(tensor)};
     return {Status::success(), std::move(result)};
 }
+bool position_window(std::int64_t start, std::int64_t length, std::int64_t maximum) {
+    return checked_add(as_size(start), as_size(length)) <= as_size(maximum);
+}
 Status math_inputs(const TensorInputs& inputs) {
     for (const auto& input : inputs) {
         if (input.get().dtype() != DType::FP32)
@@ -46,6 +49,71 @@ InferenceResult infer_operator(const OpDesc& descriptor, const TensorInputs& inp
             }
             if (first.shape() != second.shape()) return fail(StatusCode::ShapeMismatch, "elementwise shapes must match exactly; broadcasting unsupported");
             return canonical(first, first.shape());
+        }
+        case OpCode::RMSNORM: {
+            const auto valid = math_inputs(inputs);
+            if (!valid.ok()) return {valid, std::nullopt};
+            const auto& scale = inputs[1].get();
+            if (first.shape().rank() == 0 || scale.shape().rank() != 1 ||
+                first.shape()[first.shape().rank() - 1] <= 0 || scale.shape()[0] != first.shape()[first.shape().rank() - 1])
+                return fail(StatusCode::ShapeMismatch, "RMSNORM requires nonempty last channel dimension and scale[channel]");
+            return canonical(first, first.shape());
+        }
+        case OpCode::SOFTMAX: {
+            const auto valid = math_inputs(inputs);
+            if (!valid.ok()) return {valid, std::nullopt};
+            if (first.shape().rank() != 2) return fail(StatusCode::ShapeMismatch, "SOFTMAX requires scores[queries,keys]");
+            const auto& a = std::get<SoftmaxAttrs>(descriptor.attrs());
+            if (!position_window(a.query_position, first.shape()[0], a.max_positions) ||
+                !position_window(a.key_position, first.shape()[1], a.max_positions))
+                return fail(StatusCode::OutOfRange, "SOFTMAX absolute position range exceeds declared maximum");
+            return canonical(first, first.shape());
+        }
+        case OpCode::ROPE: {
+            const auto valid = math_inputs(inputs);
+            if (!valid.ok()) return {valid, std::nullopt};
+            const auto rank = first.shape().rank();
+            if (rank != 2 && rank != 3) return fail(StatusCode::ShapeMismatch, "ROPE requires [tokens,dim] or [tokens,heads,dim]");
+            const auto dim = first.shape()[rank - 1];
+            if (dim <= 0 || dim % 2 != 0 || (rank == 3 && first.shape()[1] <= 0))
+                return fail(StatusCode::ShapeMismatch, "ROPE requires positive even head dimension and positive heads");
+            const auto& a = std::get<RopeAttrs>(descriptor.attrs());
+            if (!position_window(a.position, first.shape()[0], a.max_positions))
+                return fail(StatusCode::OutOfRange, "ROPE absolute positions exceed declared maximum");
+            return canonical(first, first.shape());
+        }
+        case OpCode::EMBEDDING: {
+            const auto& table = inputs[1].get();
+            if (first.dtype() != DType::INT32 || table.dtype() != DType::FP32)
+                return fail(StatusCode::DTypeMismatch, "EMBEDDING requires INT32 IDs and FP32 table");
+            if (!first.is_contiguous() || !table.is_contiguous())
+                return fail(StatusCode::LayoutMismatch, "EMBEDDING requires explicit contiguous inputs");
+            if (first.device() != table.device()) return fail(StatusCode::DeviceMismatch, "EMBEDDING inputs require same device");
+            if (first.shape().rank() != 1 || table.shape().rank() != 2 || table.shape()[0] <= 0 || table.shape()[1] <= 0)
+                return fail(StatusCode::ShapeMismatch, "EMBEDDING requires IDs[tokens], table[vocab,hidden] with positive vocab/hidden");
+            // ID values are runtime kernel checks, never host reads during pure inference.
+            return canonical(table, Shape{first.shape()[0], table.shape()[1]});
+        }
+        case OpCode::SWIGLU: {
+            const auto valid = math_inputs(inputs);
+            if (!valid.ok()) return {valid, std::nullopt};
+            if (first.shape() != inputs[1].get().shape()) return fail(StatusCode::ShapeMismatch, "SWIGLU gate/up shapes must match exactly");
+            return canonical(first, first.shape());
+        }
+        case OpCode::ATTENTION: {
+            const auto valid = math_inputs(inputs);
+            if (!valid.ok()) return {valid, std::nullopt};
+            const auto& key = inputs[1].get();
+            const auto& value = inputs[2].get();
+            const auto& a = std::get<AttentionAttrs>(descriptor.attrs());
+            if (first.shape().rank() != 3 || key.shape().rank() != 3 || value.shape() != key.shape() ||
+                first.shape()[1] != a.heads || key.shape()[1] != a.heads ||
+                first.shape()[2] != a.head_dim || key.shape()[2] != a.head_dim)
+                return fail(StatusCode::ShapeMismatch, "ATTENTION requires Q[queries,H,D], K/V[keys,H,D] matching declared H/D");
+            if (!position_window(a.query_position, first.shape()[0], a.max_positions) ||
+                !position_window(a.key_position, key.shape()[0], a.max_positions))
+                return fail(StatusCode::OutOfRange, "ATTENTION absolute query/key ranges exceed declared maximum");
+            return canonical(first, first.shape()); // composite only; future graph lowers to ordinary core ops
         }
         case OpCode::COPY: {
             const auto& destination = inputs[1].get();

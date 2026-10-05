@@ -1,5 +1,8 @@
 #include "runtime/operator.hpp"
 #include <algorithm>
+#include <cmath>
+#include <iomanip>
+#include <limits>
 #include <locale>
 #include <sstream>
 #include <stdexcept>
@@ -32,6 +35,8 @@ const char* op_name(OpCode code) {
     RUNTIME_OP_NAME(COPY); RUNTIME_OP_NAME(MATERIALIZE); RUNTIME_OP_NAME(RESHAPE);
     RUNTIME_OP_NAME(VIEW); RUNTIME_OP_NAME(NARROW); RUNTIME_OP_NAME(SLICE);
     RUNTIME_OP_NAME(TRANSPOSE); RUNTIME_OP_NAME(PERMUTE);
+    RUNTIME_OP_NAME(RMSNORM); RUNTIME_OP_NAME(SOFTMAX); RUNTIME_OP_NAME(ROPE);
+    RUNTIME_OP_NAME(EMBEDDING); RUNTIME_OP_NAME(SWIGLU); RUNTIME_OP_NAME(ATTENTION);
 #undef RUNTIME_OP_NAME
     }
     throw std::invalid_argument("unknown operator code");
@@ -41,9 +46,17 @@ template<class T> const T* attribute(const OpAttrs& attrs) { return std::get_if<
 Status bad_attribute() { return Status::failure(StatusCode::AttributeMismatch, "attribute type/range does not match operator"); }
 std::size_t input_arity(OpCode code) {
     switch (code) {
-    case OpCode::ADD: case OpCode::MUL: case OpCode::MATMUL: case OpCode::COPY: return 2;
+    case OpCode::ADD: case OpCode::MUL: case OpCode::MATMUL: case OpCode::COPY:
+    case OpCode::RMSNORM: case OpCode::EMBEDDING: case OpCode::SWIGLU: return 2;
+    case OpCode::ATTENTION: return 3;
     default: (void)op_name(code); return 1;
     }
+}
+bool positions_valid(std::int64_t query, std::int64_t key, std::int64_t maximum) {
+    return maximum > 0 && query >= 0 && key >= 0 && query <= maximum && key <= maximum;
+}
+bool positive_fp32(double value) {
+    return std::isfinite(value) && value > 0 && std::isfinite(static_cast<float>(value)) && static_cast<float>(value) > 0;
 }
 template<class Container> void array(std::ostream& out, const Container& values) {
     out << '[';
@@ -63,8 +76,32 @@ Status validate_schema(OpCode code, const std::vector<TensorId>& inputs,
             return Status::failure(StatusCode::InvalidArgument, "output must have a distinct logical tensor/state ID");
         switch (code) {
         case OpCode::ADD: case OpCode::MUL: case OpCode::MATMUL: case OpCode::MATERIALIZE:
+        case OpCode::EMBEDDING: case OpCode::SWIGLU:
             if (!attribute<std::monostate>(attrs)) return bad_attribute();
             break;
+        case OpCode::RMSNORM: {
+            const auto* a = attribute<NormAttrs>(attrs);
+            if (!a || !positive_fp32(a->epsilon)) return bad_attribute();
+            break;
+        }
+        case OpCode::SOFTMAX: {
+            const auto* a = attribute<SoftmaxAttrs>(attrs);
+            if (!a || !positions_valid(a->query_position, a->key_position, a->max_positions)) return bad_attribute();
+            break;
+        }
+        case OpCode::ROPE: {
+            const auto* a = attribute<RopeAttrs>(attrs);
+            if (!a || !positions_valid(a->position, 0, a->max_positions) || !positive_fp32(a->base) || static_cast<float>(a->base) <= 1)
+                return bad_attribute();
+            break;
+        }
+        case OpCode::ATTENTION: {
+            const auto* a = attribute<AttentionAttrs>(attrs);
+            if (!a || a->heads <= 0 || a->head_dim <= 0 || a->head_dim % 2 != 0 ||
+                !positions_valid(a->query_position, a->key_position, a->max_positions)) return bad_attribute();
+            (void)as_dimension(checked_mul(as_size(a->heads), as_size(a->head_dim)));
+            break;
+        }
         case OpCode::COPY: {
             const auto* a = attribute<CopyAttrs>(attrs);
             if (!a || a->overlap != CopyOverlap::RejectExceptExactSelf) return bad_attribute();
@@ -118,6 +155,7 @@ OpDesc::OpDesc(OpCode code, std::vector<TensorId> inputs, std::vector<TensorId> 
 std::string OpDesc::serialize() const {
     std::ostringstream out;
     out.imbue(std::locale::classic());
+    out << std::setprecision(std::numeric_limits<double>::max_digits10);
     out << "{\"version\":" << OP_SEMANTICS_VERSION << ",\"op\":\"" << op_name(code_) << "\",\"inputs\":";
     array(out, inputs_); out << ",\"outputs\":"; array(out, outputs_); out << ",\"attributes\":";
     std::visit([&](const auto& a) {
@@ -135,6 +173,17 @@ std::string OpDesc::serialize() const {
             out << "{\"first\":" << a.first << ",\"second\":" << a.second << '}';
         } else if constexpr (std::is_same_v<A, PermuteAttrs>) {
             out << "{\"axes\":"; array(out, a.axes); out << '}';
+        } else if constexpr (std::is_same_v<A, NormAttrs>) {
+            out << "{\"epsilon\":" << a.epsilon << '}';
+        } else if constexpr (std::is_same_v<A, SoftmaxAttrs>) {
+            out << "{\"causal\":" << (a.causal ? "true" : "false") << ",\"query_position\":" << a.query_position
+                << ",\"key_position\":" << a.key_position << ",\"max_positions\":" << a.max_positions << '}';
+        } else if constexpr (std::is_same_v<A, RopeAttrs>) {
+            out << "{\"position\":" << a.position << ",\"base\":" << a.base << ",\"max_positions\":" << a.max_positions << '}';
+        } else if constexpr (std::is_same_v<A, AttentionAttrs>) {
+            out << "{\"heads\":" << a.heads << ",\"head_dim\":" << a.head_dim << ",\"causal\":" << (a.causal ? "true" : "false")
+                << ",\"query_position\":" << a.query_position << ",\"key_position\":" << a.key_position
+                << ",\"max_positions\":" << a.max_positions << '}';
         }
     }, attrs_);
     out << ",\"backend_hint\":";

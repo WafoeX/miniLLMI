@@ -50,3 +50,30 @@ Reference arithmetic rejects all overlapping input/output address spans; repeate
 All arithmetic input values are checked for NaN/Inf **before writes**. COPY/MATERIALIZE preserve arbitrary FP32 bit patterns, including nonfinite data. Nonfinite arithmetic results (e.g. finite-input overflow) return `NonFinite`; earlier result elements may already have been written. No failure output is valid, and executors must stop on first failure; no rollback/scratch-buffer allocation is promised. Metadata/device/layout/alias errors and nonfinite inputs leave output unchanged.
 
 Tests include hand ADD/MUL vectors, exact rectangular MATMUL, zero-inner/scalar/empty semantics, INT32 strided COPY with padding, explicit output ownership/allocation assertions, error-before-write checks, overflow partial-write semantics and 100 seeded rectangular/zero matrix cases compared against independent long-double indexing.
+
+## S2-C4: Transformer descriptors (no execution kernels)
+
+All floating tensors are FP32, contiguous and same-device unless an explicit alias/copy/materialization node says otherwise. Inference is metadata-only; it cannot certify input values or initialized cache contents. The following value checks are mandatory for S12 execution, not claims of existing S2 kernels.
+
+| Op | Inputs → output | Typed attributes / contract |
+|---|---|---|
+| RMSNORM | x[...,C], scale[C] → same shape as x, rank≥1, C>0 | `NormAttrs{epsilon}`; finite positive FP32-representable epsilon; last-axis `x / sqrt(mean(x²)+epsilon) * scale` |
+| SOFTMAX | scores[Q,K] → [Q,K] | `SoftmaxAttrs{causal,query_position,key_position,max_positions}`; row-wise max-subtracted softmax, no batched/broadcast axes |
+| ROPE | x[T,D] or x[T,H,D] → same shape | `RopeAttrs{position,base,max_positions}`; positive even D, H>0, finite FP32 base>1 |
+| EMBEDDING | IDs[T] INT32, table[V,C] FP32 → [T,C] FP32 | monostate; V,C>0; runtime checks every ID in [0,V) before writes, never implicit cast or host access in inference |
+| SWIGLU | gate and up, exact equal shapes → same shape | monostate; `SiLU(gate)*up`, stable sigmoid, no hidden broadcast |
+| ATTENTION | Q[Q,H,D], K/V[K,H,D] → [Q,H,D] | `AttentionAttrs{heads,head_dim,causal,query_position,key_position,max_positions}`; H/D match, positive even D; **graph composition**, not mandatory opaque backend kernel |
+
+Absolute position intervals are bounded by the explicit maximum; empty intervals may start at one-past maximum. Causal validity is `key_position+k <= query_position+q`, including decode Q=1 at absolute position p seeing keys 0..p. All-masked softmax rows are zero output; K=0 has no elements. Nonfinite **unmasked** scores are errors, masked scores are ignored. Softmax may not accidentally normalize masked entries or produce NaNs from an all-masked row.
+
+RoPE uses **interleaved** adjacent pairs, not split-half rotation: for i=0..D/2-1, `theta=(position+t)/base^(2*i/D)`, `(x[2i],x[2i+1]) -> (x[2i]*cos(theta)-x[2i+1]*sin(theta), x[2i]*sin(theta)+x[2i+1]*cos(theta))`. Position is explicit during decode, never inferred from query length. Loader boundaries must translate any other weight/rotary convention rather than change this contract.
+
+### Frozen tiny-decoder contract
+
+`runtime::tiny_model` constants are version 1: batch=1, bias-free FP32 MHA, 2 layers, hidden=64, heads=4, head_dim=16, SwiGLU intermediate=128, vocab=258, max_seq=1088, RMSNorm epsilon=1e-5, RoPE base=10000/interleaved. Byte IDs 0..255, BOS=256, EOS=257. Every projection weight is row-major **W[in,out]**, including Q/K/V/O (64×64), gate/up (64×128), down (128×64), LM head (64×258); quantization output-channel axis is **1**. Embedding table is [258,64], norm scales are [64]. No bias, model execution, tokenizer, loader or language-quality claim is introduced.
+
+### Required ordinary-2D lowering and checked state writes
+
+Projection outputs reshape from [T,64] to token-major [T,4,16]. Each head uses an explicit NARROW/SLICE on axis 1, giving [T,1,16]. When not contiguous, MATERIALIZE to caller/planner storage **before** RESHAPE to [T,16]. K's [K,16] transpose is [16,K], again explicitly materialized for the contiguous MATMUL contract. Per-head QKᵀ yields [Q,K]; scaling by 1/sqrt(D) uses MUL with a **declared same-shaped scale tensor**, not undocumented scalar broadcasting. SOFTMAX uses the absolute offsets above, then ordinary MATMUL P[Q,K]×V[K,16] produces head output. Assemble heads with checked COPY writes into explicit output head ranges; no required batched matmul, hidden allocator, model-level memcpy or fused attention kernel.
+
+Persistent K/V capacity is [1088,4,16]; active initialized prefix is an explicit narrow on axis 0. Append only into checked `[position,position+new_tokens)` destination views, never read an uninitialized suffix. COPY takes projected source and destination range as two inputs and yields a **new logical state/version ID** referring to destination Storage. S3/S14 must chain reads/writes through these IDs and reject unordered intersecting spans (including conservative head-span overlap); an old state ID may not be used to bypass a write dependency. Inference checks range/layout/type bounds but does not supply a cache policy or prove initialization. The tests validate this lowering using manual caller-provided Stage 1 tensors and existing core copies, not an implemented graph/model.
