@@ -58,7 +58,7 @@ target_include_directories(stage0_common PUBLIC include "${CMAKE_BINARY_DIR}/gen
 target_compile_options(stage0_common PRIVATE -Wall -Wextra -Wpedantic)
 
 add_library(runtime src/runtime/storage.cpp src/runtime/tensor.cpp src/runtime/copy.cpp
-    src/runtime/operator.cpp src/runtime/shape_inference.cpp)
+    src/runtime/operator.cpp src/runtime/shape_inference.cpp src/runtime/reference.cpp)
 target_include_directories(runtime PUBLIC include)
 target_compile_options(runtime PRIVATE -Wall -Wextra -Wpedantic)
 
@@ -92,6 +92,11 @@ if(BUILD_TESTING)
     target_compile_options(test_shape_inference PRIVATE -Wall -Wextra -Wpedantic)
     add_test(NAME shape_inference COMMAND test_shape_inference)
     set_tests_properties(shape_inference PROPERTIES LABELS "cpu;operators")
+    add_executable(test_reference tests/test_reference.cpp)
+    target_link_libraries(test_reference PRIVATE runtime)
+    target_compile_options(test_reference PRIVATE -Wall -Wextra -Wpedantic)
+    add_test(NAME operator_reference COMMAND test_reference)
+    set_tests_properties(operator_reference PROPERTIES LABELS "cpu;operators")
     add_executable(test_common tests/test_common.cpp)
     target_link_libraries(test_common PRIVATE stage0_common)
     target_compile_options(test_common PRIVATE -Wall -Wextra -Wpedantic)
