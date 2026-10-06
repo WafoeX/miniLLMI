@@ -1,0 +1,33 @@
+[ 11%] Building CXX object CMakeFiles/runtime.dir/src/runtime/tensor.cpp.o
+[ 11%] Building CXX object CMakeFiles/runtime.dir/src/runtime/copy.cpp.o
+[ 11%] Building CXX object CMakeFiles/runtime.dir/src/runtime/storage.cpp.o
+[ 11%] Built target refresh_provenance
+[ 14%] Building CXX object CMakeFiles/runtime.dir/src/runtime/operator.cpp.o
+[ 18%] Building CXX object CMakeFiles/runtime.dir/src/runtime/shape_inference.cpp.o
+[ 22%] Building CXX object CMakeFiles/runtime.dir/src/runtime/reference.cpp.o
+[ 25%] Building CXX object CMakeFiles/runtime.dir/src/runtime/layout.cpp.o
+[ 29%] Building CXX object CMakeFiles/runtime.dir/src/runtime/graph.cpp.o
+[ 33%] Building CXX object CMakeFiles/runtime.dir/src/runtime/graph_executor.cpp.o
+[ 37%] Building CXX object CMakeFiles/runtime.dir/src/runtime/graph_trace.cpp.o
+[ 40%] Building CXX object CMakeFiles/stage0_common.dir/src/common.cpp.o
+[ 44%] Building CXX object CMakeFiles/runtime.dir/src/runtime/arena.cpp.o
+[ 48%] Building CXX object CMakeFiles/runtime.dir/src/runtime/allocation_provider.cpp.o
+[ 51%] Linking CXX static library libstage0_common.a
+[ 51%] Built target stage0_common
+[ 55%] Building CXX object CMakeFiles/runtime.dir/src/runtime/memory_planner.cpp.o
+[ 59%] Building CXX object CMakeFiles/runtime.dir/src/runtime/planned_executor.cpp.o
+[ 62%] Building CXX object CMakeFiles/runtime.dir/src/runtime/cpu_backend.cpp.o
+[ 66%] Building CXX object CMakeFiles/runtime.dir/src/runtime/cpu_scalar.cpp.o
+[ 70%] Building CXX object CMakeFiles/runtime.dir/src/runtime/cpu_optimized.cpp.o
+[ 74%] Building CXX object CMakeFiles/runtime.dir/src/runtime/thread_pool.cpp.o
+[ 77%] Linking CXX static library libruntime.a
+[ 77%] Built target runtime
+[ 88%] Building CXX object CMakeFiles/bench_allocator.dir/bench/bench_allocator.cpp.o
+[ 88%] Building CXX object CMakeFiles/bench_cpu.dir/bench/bench_cpu.cpp.o
+[ 88%] Building CXX object CMakeFiles/bench_planner.dir/bench/bench_planner.cpp.o
+[ 92%] Linking CXX executable bench_allocator
+[ 96%] Linking CXX executable bench_cpu
+[ 96%] Built target bench_allocator
+[100%] Linking CXX executable bench_planner
+[100%] Built target bench_cpu
+[100%] Built target bench_planner

@@ -1,0 +1,1 @@
+{"schema_version":1,"commit":"86d83c5ecdeeaa3fa9debd9266022c5fa81896b6","source_digest":"f4c9c1c378a1e3ebac359197ae4245b557383e62ec0517ed1083813b332e5811","source_dirty":false,"build_type":"Release","compiler":"AppleClang 21.0.0.21000334","testing":false,"backend":"cpu","benchmark":"cpu-v1","algorithm":"cpu-ijk-fp32-v0","threads":1}
