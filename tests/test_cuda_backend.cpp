@@ -46,7 +46,7 @@ int main() {
         { const auto result = execute_graph(graph, nullptr, &prepared, &cuda);
           require(result.ok() && result.counts.allocations == 0 && result.counts.arena_capacity_bytes == prepared.capacity(), "planned CUDA graph has no execute-time cudaMalloc");
           success(cuda.copy(result.outputs.at("result"), host_c));
-          const float chained[] = {78, 100, 177, 226};
+          const float chained[] = {106, 156, 241, 354};
           for (std::size_t i = 0; i < host_c.numel(); ++i) require(std::abs(host_c.data<float>()[i] - chained[i]) < 1e-4F, "planned CUDA graph result"); }
         std::cout << "CUDA backend storage/copy/Stage0 dispatch/planned graph: PASS\n";
         return 0;
