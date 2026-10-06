@@ -61,7 +61,8 @@ add_library(runtime src/runtime/storage.cpp src/runtime/tensor.cpp src/runtime/c
     src/runtime/operator.cpp src/runtime/shape_inference.cpp src/runtime/reference.cpp
     src/runtime/layout.cpp src/runtime/graph.cpp src/runtime/graph_executor.cpp src/runtime/graph_trace.cpp
     src/runtime/arena.cpp src/runtime/allocation_provider.cpp src/runtime/memory_planner.cpp
-    src/runtime/planned_executor.cpp src/runtime/cpu_backend.cpp src/runtime/cpu_scalar.cpp src/runtime/cpu_optimized.cpp)
+    src/runtime/planned_executor.cpp src/runtime/cpu_backend.cpp src/runtime/cpu_scalar.cpp src/runtime/cpu_optimized.cpp
+    src/runtime/thread_pool.cpp)
 target_include_directories(runtime PUBLIC include)
 target_compile_options(runtime PRIVATE -Wall -Wextra -Wpedantic)
 
@@ -85,7 +86,7 @@ if(BUILD_TESTING)
     set_tests_properties(cpu_tools PROPERTIES LABELS "cpu;backend")
     add_custom_target(check_cpu_backend
         COMMAND "${CMAKE_CTEST_COMMAND}" --output-on-failure --verbose -L backend
-        DEPENDS test_cpu_backend test_cpu_scalar test_cpu_backend_fixtures test_cpu_transformer_contract bench_cpu USES_TERMINAL)
+        DEPENDS test_cpu_backend test_cpu_scalar test_thread_pool test_cpu_backend_fixtures test_cpu_transformer_contract bench_cpu USES_TERMINAL)
     if(ENABLE_SANITIZERS)
         add_custom_target(check_cpu_backend_sanitizers DEPENDS check_cpu_backend)
     endif()
@@ -99,6 +100,11 @@ if(BUILD_TESTING)
     target_compile_options(test_cpu_scalar PRIVATE -Wall -Wextra -Wpedantic)
     add_test(NAME cpu_scalar COMMAND test_cpu_scalar)
     set_tests_properties(cpu_scalar PROPERTIES LABELS "cpu;backend")
+    add_executable(test_thread_pool tests/test_thread_pool.cpp)
+    target_link_libraries(test_thread_pool PRIVATE runtime)
+    target_compile_options(test_thread_pool PRIVATE -Wall -Wextra -Wpedantic)
+    add_test(NAME thread_pool COMMAND test_thread_pool)
+    set_tests_properties(thread_pool PROPERTIES LABELS "cpu;backend")
     add_executable(test_cpu_backend_fixtures tests/test_operator_fixtures.cpp)
     target_compile_definitions(test_cpu_backend_fixtures PRIVATE CPU_BACKEND_FIXTURES=1)
     target_link_libraries(test_cpu_backend_fixtures PRIVATE runtime)

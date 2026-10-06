@@ -25,7 +25,7 @@ Status elementwise(OpCode code, const Tensor& first, const Tensor& second, Tenso
     }
     return Status::success();
 }
-Status matmul(const Tensor& first, const Tensor& second, Tensor& output) {
+Status matmul(const Tensor& first, const Tensor& second, Tensor& output, ThreadPool*) {
     const auto m = as_size(first.shape()[0]), k = as_size(first.shape()[1]), n = as_size(second.shape()[1]);
     const auto* a = first.data<float>();
     const auto* b = second.data<float>();
@@ -68,7 +68,7 @@ Status validate_cpu_core(const OpDesc& descriptor, const TensorInputs& inputs, c
                 return Status::failure(StatusCode::Aliasing, "CPU arithmetic rejects overlapping input/output spans");
     return Status::success();
 }
-Status execute_cpu_core(const OpDesc& descriptor, const TensorInputs& inputs, Tensor& output, MatmulKernel matmul) {
+Status execute_cpu_core(const OpDesc& descriptor, const TensorInputs& inputs, Tensor& output, MatmulKernel matmul, ThreadPool* pool) {
     OutputKind kind{};
     const auto binding = validate_cpu_core(descriptor, inputs, output, kind);
     if (!binding.ok()) return binding;
@@ -83,7 +83,7 @@ Status execute_cpu_core(const OpDesc& descriptor, const TensorInputs& inputs, Te
         case OpCode::ADD: case OpCode::MUL: case OpCode::MATMUL: {
             const auto finite = reference::finite_inputs(inputs);
             if (!finite.ok()) return finite;
-            if (descriptor.code() == OpCode::MATMUL) return matmul(inputs[0].get(), inputs[1].get(), output);
+            if (descriptor.code() == OpCode::MATMUL) return matmul(inputs[0].get(), inputs[1].get(), output, pool);
             return reference::elementwise(descriptor.code(), inputs[0].get(), inputs[1].get(), output);
         }
         default:

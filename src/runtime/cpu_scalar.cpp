@@ -2,7 +2,7 @@
 #include <cmath>
 
 namespace runtime::detail {
-Status matmul_ijk_fp32_v0(const Tensor& first, const Tensor& second, Tensor& output) {
+Status matmul_ijk_fp32_v0(const Tensor& first, const Tensor& second, Tensor& output, ThreadPool*) {
     const auto m = as_size(first.shape()[0]), k = as_size(first.shape()[1]), n = as_size(second.shape()[1]);
     const auto* a = first.data<float>();
     const auto* b = second.data<float>();
