@@ -2,7 +2,7 @@
 #include "runtime/backend.hpp"
 
 namespace runtime {
-enum class CpuMatmul { ReferenceFP64, ScalarFP32V0 };
+enum class CpuMatmul { ReferenceFP64, ScalarFP32V0, LoopIKJFP32C1 };
 class CpuBackend final : public Backend {
 public:
     explicit CpuBackend(CpuMatmul matmul = CpuMatmul::ReferenceFP64);

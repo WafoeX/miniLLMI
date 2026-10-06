@@ -1,6 +1,7 @@
 #include "runtime/cpu_backend.hpp"
 #include "runtime/planned_executor.hpp"
 #include "runtime/reference.hpp"
+#include "runtime/storage.hpp"
 #include <cmath>
 #include <iostream>
 #include <limits>
@@ -13,6 +14,7 @@ void require(bool c, const char* m) { if (!c) throw std::runtime_error(m); }
 void success(const Status& s) { if (!s.ok()) throw std::runtime_error(s.message); }
 void expect(const Status& s, StatusCode c) { require(s.code == c && !s.message.empty(), "scalar status classification"); }
 const CpuBackend scalar(CpuMatmul::ScalarFP32V0);
+const CpuBackend ikj(CpuMatmul::LoopIKJFP32C1);
 const OpDesc mm(OpCode::MATMUL, {0, 1}, {2});
 void shapes() {
     std::mt19937 random(0x6002);
@@ -40,6 +42,34 @@ void shapes() {
     for (std::size_t i = 0; i < 3; ++i) b.data<float>()[i] = 1;
     success(scalar.execute(mm, {a, b}, c)); require(c.data<float>()[0] == 0, "v0 accumulates FP32, not S2 oracle");
     success(default_cpu_backend().execute(mm, {a, b}, c)); require(c.data<float>()[0] == 1, "stable default retains FP64 accumulation");
+}
+void loop_reordered_candidate() {
+    std::mt19937 random(0x7001);
+    for (unsigned trial = 0; trial < 240; ++trial) {
+        const std::int64_t m = random() % 10, n = random() % 11, k = random() % 35;
+        auto a = Tensor::allocate_cpu({m, k}), b = Tensor::allocate_cpu({k, n}), c = Tensor::allocate_cpu({m, n});
+        for (std::size_t i = 0; i < a.numel(); ++i) a.data<float>()[i] = static_cast<float>(static_cast<int>(random() % 2001) - 1000) / 1000;
+        for (std::size_t i = 0; i < b.numel(); ++i) b.data<float>()[i] = static_cast<float>(static_cast<int>(random() % 2001) - 1000) / 1000;
+        const auto storage = c.storage(); const auto before = testing::cpu_allocation_counts();
+        success(ikj.execute(mm, {a, b}, c));
+        require(c.storage() == storage && testing::cpu_allocation_counts().allocations == before.allocations, "ikj writes caller output only");
+        for (std::int64_t i = 0; i < m; ++i) for (std::int64_t j = 0; j < n; ++j) {
+            long double sum = 0;
+            for (std::int64_t q = 0; q < k; ++q) sum += static_cast<long double>(a.at<float>({i, q})) * b.at<float>({q, j});
+            require(std::abs(static_cast<long double>(c.at<float>({i, j})) - sum) <= 1e-5L + 1e-5L * std::abs(sum), "ikj independent long-double oracle");
+        }
+    }
+    auto a = Tensor::allocate_cpu({2, 2}), b = Tensor::allocate_cpu({2, 2}), c = Tensor::allocate_cpu({2, 2});
+    for (std::size_t i = 0; i < 4; ++i) { a.data<float>()[i] = 1; b.data<float>()[i] = 1; c.data<float>()[i] = 99; }
+    a.data<float>()[3] = std::numeric_limits<float>::quiet_NaN();
+    expect(ikj.execute(mm, {a, b}, c), StatusCode::NonFinite);
+    for (std::size_t i = 0; i < 4; ++i) require(c.data<float>()[i] == 99, "ikj rejects nonfinite input before writes");
+    a.data<float>()[3] = 1;
+    Graph g;
+    g.add_input(0, "a", a); g.add_input(1, "b", b); g.add_tensor(2, {2, 2});
+    g.add_node(0, OpDesc(OpCode::MATMUL, {0, 1}, {2})); g.add_output("result", 2); success(g.freeze());
+    const auto result = execute_graph(g, nullptr, nullptr, &ikj);
+    require(result.ok() && result.outputs.at("result").data<float>()[0] == 2, "ikj graph integration");
 }
 void failures_and_copies() {
     auto a = Tensor::allocate_cpu({2, 2}), b = Tensor::allocate_cpu({2, 2}), c = Tensor::allocate_cpu({2, 2});
@@ -101,8 +131,8 @@ void graph() {
 } // namespace
 int main() {
     try {
-        shapes(); failures_and_copies(); graph();
+        shapes(); loop_reordered_candidate(); failures_and_copies(); graph();
         require(testing::cpu_allocation_counts().live == 0, "scalar tests leaked backing");
-        std::cout << "CPU FP32 ijk v0: PASS seed=24578 random=240 zero/rectangular/guards/errors/copy/planner\n"; return 0;
+        std::cout << "CPU FP32 ijk v0 + ikj C1: PASS seed=24578/28673 random=240 zero/rectangular/guards/errors/copy/planner\n"; return 0;
     } catch (const std::exception& e) { std::cerr << "test_cpu_scalar: " << e.what() << '\n'; return 1; }
 }

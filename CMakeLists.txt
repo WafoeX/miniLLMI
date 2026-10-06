@@ -61,7 +61,7 @@ add_library(runtime src/runtime/storage.cpp src/runtime/tensor.cpp src/runtime/c
     src/runtime/operator.cpp src/runtime/shape_inference.cpp src/runtime/reference.cpp
     src/runtime/layout.cpp src/runtime/graph.cpp src/runtime/graph_executor.cpp src/runtime/graph_trace.cpp
     src/runtime/arena.cpp src/runtime/allocation_provider.cpp src/runtime/memory_planner.cpp
-    src/runtime/planned_executor.cpp src/runtime/cpu_backend.cpp src/runtime/cpu_scalar.cpp)
+    src/runtime/planned_executor.cpp src/runtime/cpu_backend.cpp src/runtime/cpu_scalar.cpp src/runtime/cpu_optimized.cpp)
 target_include_directories(runtime PUBLIC include)
 target_compile_options(runtime PRIVATE -Wall -Wextra -Wpedantic)
 

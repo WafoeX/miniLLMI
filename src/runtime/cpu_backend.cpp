@@ -2,16 +2,22 @@
 #include "runtime/reference.hpp"
 #include "cpu_dispatch.hpp"
 #include "cpu_scalar.hpp"
+#include "cpu_optimized.hpp"
 #include <new>
 #include <stdexcept>
 
 namespace runtime {
 CpuBackend::CpuBackend(CpuMatmul matmul) : matmul_(matmul) {
-    if (matmul != CpuMatmul::ReferenceFP64 && matmul != CpuMatmul::ScalarFP32V0)
+    if (matmul != CpuMatmul::ReferenceFP64 && matmul != CpuMatmul::ScalarFP32V0 && matmul != CpuMatmul::LoopIKJFP32C1)
         throw std::invalid_argument("unknown CPU MATMUL algorithm; no silent fallback");
 }
 const char* CpuBackend::name() const noexcept {
-    return matmul_ == CpuMatmul::ReferenceFP64 ? "cpu-reference-fp64" : "cpu-ijk-fp32-v0";
+    switch (matmul_) {
+    case CpuMatmul::ReferenceFP64: return "cpu-reference-fp64";
+    case CpuMatmul::ScalarFP32V0: return "cpu-ijk-fp32-v0";
+    case CpuMatmul::LoopIKJFP32C1: return "cpu-ikj-fp32-c1";
+    }
+    return "cpu-invalid";
 }
 Status CpuBackend::capability(OpCode code, Device requested, DType dtype) const {
     if (requested != device())
@@ -61,8 +67,9 @@ Status CpuBackend::execute(const OpDesc& desc, const TensorInputs& inputs, Tenso
         return Status::failure(StatusCode::InvalidArgument, "CPU backend requires empty workspace");
     const auto inferred = infer_operator(desc, inputs);
     if (inferred.output->kind == OutputKind::Alias) return Status::success();
-    return matmul_ == CpuMatmul::ReferenceFP64 ? reference::execute(desc, inputs, output)
-        : detail::execute_cpu_core(desc, inputs, output, detail::matmul_ijk_fp32_v0);
+    if (matmul_ == CpuMatmul::ReferenceFP64) return reference::execute(desc, inputs, output);
+    return detail::execute_cpu_core(desc, inputs, output,
+        matmul_ == CpuMatmul::ScalarFP32V0 ? detail::matmul_ijk_fp32_v0 : detail::matmul_ikj_fp32_c1);
 }
 const Backend& default_cpu_backend() { static const CpuBackend backend; return backend; }
 } // namespace runtime
