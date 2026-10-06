@@ -116,14 +116,21 @@ def analyze(root):
     benchmark_binary = commands[6]["argv"][0]
     if commands[7]["argv"] != [benchmark_binary, "--self-test"]:
         raise ValueError("production correctness binary mismatch")
+    # Archive replay can happen in another checkout/host. Verify the original
+    # absolute command paths against their recorded output root, but read raw
+    # bytes relative to the currently supplied archive. Never edit old argv.
+    first_argv = commands[8]["argv"]
+    if len(first_argv) != 9 or not Path(first_argv[6]).is_absolute():
+        raise ValueError("invalid recorded measurement path")
+    recorded_root = Path(first_argv[6]).parent.parent
     for command in commands[8:]:
         argv = command["argv"]
         if argv[0] != benchmark_binary:
             raise ValueError("measurement binary mismatch")
         label = command["log"].removesuffix(".log") if sys.version_info >= (3, 9) else command["log"][:-4]
         pair, workload, policy = label.split("-")[1:]
-        expected_tail = ["--workload", workload, "--policy", policy, "--raw", str(root / f"pair-{pair}/{workload}-{policy}.csv"),
-                         "--prepare-raw", str(root / f"pair-{pair}/{workload}-{policy}-prepare.csv")]
+        expected_tail = ["--workload", workload, "--policy", policy, "--raw", str(recorded_root / f"pair-{pair}/{workload}-{policy}.csv"),
+                         "--prepare-raw", str(recorded_root / f"pair-{pair}/{workload}-{policy}-prepare.csv")]
         if argv[1:] != expected_tail:
             raise ValueError("measurement argv/order mismatch")
     expected_raw = {f"pair-{pair}/{workload}-{policy}{suffix}.csv" for pair in range(3) for workload in WORKLOADS for policy in POLICIES for suffix in ("", "-prepare")}

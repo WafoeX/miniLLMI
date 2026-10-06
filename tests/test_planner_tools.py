@@ -6,6 +6,7 @@ import hashlib
 import importlib.util
 import io
 import json
+import shutil
 import subprocess
 import sys
 import tempfile
@@ -102,6 +103,16 @@ class PlannerTools(unittest.TestCase):
         before = (self.root / "planner.csv").read_bytes()
         analysis.save(self.root)
         self.assertEqual(before, (self.root / "planner.csv").read_bytes())
+
+    def test_relocated_archive_recomputes_identically(self):
+        analysis.save(self.root)
+        with tempfile.TemporaryDirectory() as destination:
+            relocated = Path(destination) / "copied-archive"
+            shutil.copytree(self.root, relocated)
+            result = analysis.save(relocated)
+            self.assertEqual(result["memory_gate"], "passed")
+            for name in ("planner.csv", "analysis.json", "summary.md"):
+                self.assertEqual((self.root / name).read_bytes(), (relocated / name).read_bytes())
 
     def test_invalid_counters(self):
         for key in ("backing_allocs", "intermediate_backing_allocs", "inplace", "arena_capacity", "peak_resident_bytes"):
