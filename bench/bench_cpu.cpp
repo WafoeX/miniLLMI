@@ -13,7 +13,7 @@
 namespace {
 using namespace runtime;
 using Clock = std::chrono::steady_clock;
-const CpuBackend backend(CpuMatmul::ScalarFP32V0);
+const CpuBackend baseline_backend(CpuMatmul::ScalarFP32V0);
 constexpr int warmups = 3, samples = 10;
 constexpr double kAtol = 1e-3, kRtol = 1e-3;
 volatile float observable = 0;
@@ -47,8 +47,8 @@ struct Work {
     }
 };
 const OpDesc mm(OpCode::MATMUL, {0, 1}, {2});
-void gemm(Work& w, const TensorInputs& inputs) { success(backend.execute(mm, inputs, w.out)); }
-float graph_once(const Work& w, AllocationProvider* provider) {
+void gemm(Work& w, const TensorInputs& inputs, const Backend& backend) { success(backend.execute(mm, inputs, w.out)); }
+float graph_once(const Work& w, AllocationProvider* provider, const Backend& backend) {
     const auto result = execute_graph(w.graph, nullptr, provider, &backend);
     success(result.status);
     require(result.counts.nodes_completed == 3 && result.counts.allocations == (provider ? 0u : 3u), "graph backend/provider counter mismatch");
@@ -64,9 +64,9 @@ std::vector<float> values(const Tensor& t) {
     if (t.numel()) std::copy_n(t.data<float>(), t.numel(), result.data());
     return result;
 }
-stage0::ErrorMetrics check(Work& w, const std::string& workload, AllocationProvider* provider, const TensorInputs& inputs) {
+stage0::ErrorMetrics check(Work& w, const std::string& workload, AllocationProvider* provider, const TensorInputs& inputs, const Backend& backend) {
     if (workload == "gemm") {
-        gemm(w, inputs);
+        gemm(w, inputs, backend);
         if (!w.out.numel()) { require(w.oracle.empty(), "empty oracle size mismatch"); return {}; }
         return stage0::compare(values(w.out), w.oracle, kAtol, kRtol);
     }
@@ -97,16 +97,16 @@ void self_test() {
 #ifdef RUNTIME_TESTING
         const auto before = testing::cpu_allocation_counts();
 #endif
-        require(check(w, "gemm", nullptr, inputs).passed(), "CPU scalar boundary oracle mismatch");
+        require(check(w, "gemm", nullptr, inputs, baseline_backend).passed(), "CPU scalar boundary oracle mismatch");
 #ifdef RUNTIME_TESTING
         require(testing::cpu_allocation_counts().allocations == before.allocations, "GEMM dispatch allocated backing");
 #endif
     }
     Work w({16,16,16}); w.make_graph(); const TensorInputs inputs{w.a, w.b};
-    require(check(w, "graph", nullptr, inputs).passed(), "dynamic graph oracle mismatch");
+    require(check(w, "graph", nullptr, inputs, baseline_backend).passed(), "dynamic graph oracle mismatch");
     PlannedAllocationProvider prepared(w.graph);
-    require(check(w, "graph", &prepared, inputs).passed(), "prepared graph oracle mismatch");
-    (void)graph_once(w, &prepared);
+    require(check(w, "graph", &prepared, inputs, baseline_backend).passed(), "prepared graph oracle mismatch");
+    (void)graph_once(w, &prepared, baseline_backend);
     std::cout << "CPU benchmark correctness: PASS eight zero/small/non-square/boundary shapes and graph policies (untimed)\n";
 }
 } // namespace
@@ -118,34 +118,41 @@ int main(int argc, char** argv) {
 #ifdef RUNTIME_TESTING
         throw std::runtime_error("timing requires BUILD_TESTING=OFF");
 #endif
-        std::string workload, policy, size; std::filesystem::path raw, correctness;
+        std::string workload, policy, size, algorithm = "v0", thread_count = "1"; std::filesystem::path raw, correctness;
         for (int i = 1; i < argc; i += 2) {
             if (i + 1 >= argc) throw std::invalid_argument("missing value");
             const std::string key = argv[i];
             if (key == "--workload") workload = argv[i+1]; else if (key == "--policy") policy = argv[i+1];
             else if (key == "--size") size = argv[i+1]; else if (key == "--raw") raw = argv[i+1];
-            else if (key == "--correctness") correctness = argv[i+1]; else throw std::invalid_argument("unknown argument");
+            else if (key == "--correctness") correctness = argv[i+1]; else if (key == "--algorithm") algorithm = argv[i+1];
+            else if (key == "--threads") thread_count = argv[i+1]; else throw std::invalid_argument("unknown argument");
         }
         require(!raw.empty() && !correctness.empty() && raw != correctness && !std::filesystem::exists(raw) && !std::filesystem::exists(correctness), "must specify distinct new raw/correctness files");
         const bool is_gemm = workload == "gemm";
         require(is_gemm ? (policy == "caller" && (size == "128" || size == "256" || size == "512" || size == "1024")) :
             (workload == "graph" && size == "16" && (policy == "dynamic" || policy == "reuse")), "invalid frozen workload/policy/size");
         const int n = std::stoi(size), batch = is_gemm ? 1 : 20;
+        const auto threads = static_cast<std::size_t>(std::stoull(thread_count));
+        require(threads > 0, "thread count must be positive");
+        const CpuMatmul mode = algorithm == "v0" ? CpuMatmul::ScalarFP32V0 : algorithm == "ikj" ? CpuMatmul::LoopIKJFP32C1
+            : algorithm == "fifo" ? CpuMatmul::LoopIKJFifoPoolFP32C3 : throw std::invalid_argument("unknown algorithm");
+        require(mode == CpuMatmul::LoopIKJFifoPoolFP32C3 || threads == 1, "only FIFO accepts a thread count other than one");
+        const CpuBackend backend(mode, threads);
         Work w({n,n,n}); if (!is_gemm) w.make_graph();
         std::unique_ptr<PlannedAllocationProvider> provider;
         if (policy == "reuse") provider = std::make_unique<PlannedAllocationProvider>(w.graph);
         const TensorInputs inputs{w.a, w.b};
         for (std::size_t i = 0; i < w.out.numel(); ++i) w.out.data<float>()[i] = std::numeric_limits<float>::quiet_NaN();
-        const auto initial = check(w, workload, provider.get(), inputs);
+        const auto initial = check(w, workload, provider.get(), inputs, backend);
         const std::string prefix = "{\"schema_version\":1,\"workload\":" + stage0::json_quote(workload) + ",\"policy\":" + stage0::json_quote(policy) +
-            ",\"algorithm\":\"cpu-ijk-fp32-v0\",\"m\":" + size + ",\"n\":" + size + ",\"k\":" + size + ",\"seed\":42,\"input_hash\":" + stage0::json_quote(w.hash) +
+            ",\"algorithm\":" + stage0::json_quote(backend.name()) + ",\"m\":" + size + ",\"n\":" + size + ",\"k\":" + size + ",\"seed\":42,\"input_hash\":" + stage0::json_quote(w.hash) +
             ",\"atol\":0.001,\"rtol\":0.001,\"warmup\":3,\"samples\":10,\"batch\":" + std::to_string(batch) +
-            ",\"threads\":1,\"oracle\":\"unchanged-stage0-fp64-untimed\",\"initial\":" + metrics(initial);
+            ",\"threads\":" + std::to_string(backend.workers()) + ",\"oracle\":\"unchanged-stage0-fp64-untimed\",\"initial\":" + metrics(initial);
         stage0::write_text(correctness, prefix + ",\"status\":\"initial_checked\"}\n");
         require(initial.passed(), "initial correctness failed; no timing");
         const auto once = [&] {
-            if (is_gemm) { gemm(w, inputs); observable = w.out.data<float>()[0]; }
-            else observable = graph_once(w, provider.get());
+            if (is_gemm) { gemm(w, inputs, backend); observable = w.out.data<float>()[0]; }
+            else observable = graph_once(w, provider.get(), backend);
         };
         for (int i = 0; i < warmups; ++i) for (int r = 0; r < batch; ++r) once();
         const std::vector<std::string> columns{"sample","ms","batch","threads","m","n","k","seed","input_hash","algorithm","workload","policy","checksum"};
@@ -155,14 +162,14 @@ int main(int argc, char** argv) {
             const auto stop = Clock::now();
             const auto ms = std::chrono::duration<double, std::milli>(stop-start).count() / batch;
             require(ms > 0 && std::isfinite(ms), "invalid wall time");
-            stage0::append_csv(raw, columns, {{"sample",std::to_string(i)},{"ms",stage0::number(ms)},{"batch",std::to_string(batch)},{"threads","1"},
+            stage0::append_csv(raw, columns, {{"sample",std::to_string(i)},{"ms",stage0::number(ms)},{"batch",std::to_string(batch)},{"threads",std::to_string(backend.workers())},
                 {"m",size},{"n",size},{"k",size},{"seed","42"},{"input_hash",w.hash},{"algorithm",backend.name()},{"workload",workload},{"policy",policy},{"checksum",stage0::number(observable)}});
         }
         // Revalidate the actual last timed output for GEMM, not a fresh kernel.
-        const auto final = is_gemm ? stage0::compare(values(w.out), w.oracle, kAtol, kRtol) : check(w, workload, provider.get(), inputs);
+        const auto final = is_gemm ? stage0::compare(values(w.out), w.oracle, kAtol, kRtol) : check(w, workload, provider.get(), inputs, backend);
         stage0::write_text(correctness, prefix + ",\"final\":" + metrics(final) + ",\"status\":" + stage0::json_quote(final.passed() ? "passed" : "failed_final") + "}\n");
         require(final.passed(), "final correctness failed; raw samples retained");
-        std::cout << workload << '/' << policy << '/' << size << ": PASS warmup=3 samples=10 batch=" << batch << " threads=1\n";
+        std::cout << workload << '/' << policy << '/' << size << ": PASS warmup=3 samples=10 batch=" << batch << " threads=" << backend.workers() << '\n';
         return 0;
     } catch (const std::exception& e) { std::cerr << "bench_cpu: " << e.what() << '\n'; return 1; }
 }
