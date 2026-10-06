@@ -3,6 +3,7 @@
 #include <cmath>
 #include <iostream>
 #include <stdexcept>
+#include <string>
 
 namespace {
 using namespace runtime;
@@ -27,6 +28,11 @@ int main() {
         success(cuda.copy(*c.tensor, host_c));
         const float expected[] = {22, 28, 49, 64};
         for (std::size_t i = 0; i < host_c.numel(); ++i) require(std::abs(host_c.data<float>()[i] - expected[i]) < 1e-4F, "CUDA v0 adapter result");
+        CudaBackend tiled(0, CudaMatmul::Stage9Tiled);
+        require(std::string(tiled.name()) == "cuda-stage9-tiled", "tiled runtime selection name");
+        success(tiled.execute(matmul, {*a.tensor, *b.tensor}, *c.tensor));
+        success(tiled.copy(*c.tensor, host_c));
+        for (std::size_t i = 0; i < host_c.numel(); ++i) require(std::abs(host_c.data<float>()[i] - expected[i]) < 1e-4F, "CUDA tiled runtime result");
         auto alias = c.tensor->narrow(0, 0, 2);
         const auto aliased = cuda.copy(*c.tensor, alias);
         require(aliased.code == StatusCode::Aliasing, "CUDA D2D alias rejection");
@@ -48,7 +54,7 @@ int main() {
           success(cuda.copy(result.outputs.at("result"), host_c));
           const float chained[] = {106, 156, 241, 354};
           for (std::size_t i = 0; i < host_c.numel(); ++i) require(std::abs(host_c.data<float>()[i] - chained[i]) < 1e-4F, "planned CUDA graph result"); }
-        std::cout << "CUDA backend storage/copy/Stage0 dispatch/planned graph: PASS\n";
+        std::cout << "CUDA backend storage/copy/v0-v1 dispatch/planned graph: PASS\n";
         return 0;
     } catch (const std::exception& error) { std::cerr << "test_cuda_backend: " << error.what() << '\n'; return 1; }
 }

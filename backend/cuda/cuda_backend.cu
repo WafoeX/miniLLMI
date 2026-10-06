@@ -1,4 +1,6 @@
-#if __has_include(<cuda_runtime.h>) && __has_include(<cublas_v2.h>)
+// This translation unit is compiled only by nvcc when ENABLE_CUDA=ON.  Keeping
+// host-only editors out of the body preserves the CPU-only local build path.
+#if defined(__CUDACC__) && __has_include(<cuda_runtime.h>) && __has_include(<cublas_v2.h>)
 #include "runtime/cuda_backend.hpp"
 #include "stage0/gemm_cuda.hpp"
 #include <cuda_runtime.h>
@@ -58,13 +60,20 @@ struct CudaBackend::State {
 CudaBackend::CudaBackend(int index, CudaMatmul matmul)
     : state_(std::make_unique<State>(Device(DeviceType::CUDA, index), matmul)) {}
 CudaBackend::~CudaBackend() = default;
-const char* CudaBackend::name() const noexcept { return state_->matmul == CudaMatmul::Stage0Naive ? "cuda-stage0-naive" : "cuda-cublas"; }
+const char* CudaBackend::name() const noexcept {
+    switch (state_->matmul) {
+    case CudaMatmul::Stage0Naive: return "cuda-stage0-naive";
+    case CudaMatmul::Stage9Tiled: return "cuda-stage9-tiled";
+    case CudaMatmul::CuBlas: return "cuda-cublas";
+    }
+    return "cuda-invalid";
+}
 Device CudaBackend::device() const noexcept { return state_->device; }
 Status CudaBackend::capability(OpCode code, Device requested, DType dtype) const {
     if (requested != device()) return Status::failure(StatusCode::DeviceMismatch, "CUDA backend requires its configured CUDA device");
     if (dtype != DType::FP32) return Status::failure(StatusCode::DTypeMismatch, "CUDA backend currently supports FP32 only");
     if (code == OpCode::COPY || code == OpCode::MATMUL) return Status::success();
-    return Status::failure(StatusCode::Unsupported, "CUDA operator is not implemented in Stage 8");
+    return Status::failure(StatusCode::Unsupported, "CUDA operator is not implemented");
 }
 BackendBuffer CudaBackend::allocate(Shape shape, DType dtype, Device requested) const {
     const auto supported = capability(OpCode::COPY, requested, dtype);
@@ -112,10 +121,13 @@ Status CudaBackend::execute(const OpDesc& desc, const TensorInputs& inputs, Tens
         if (desc.code() == OpCode::COPY) return copy(inputs[0].get(), output);
         const auto& left = inputs[0].get(); const auto& right = inputs[1].get();
         const auto m = as_size(left.shape()[0]), k = as_size(left.shape()[1]), n = as_size(right.shape()[1]);
-        if (m > static_cast<std::size_t>(INT_MAX) || n > static_cast<std::size_t>(INT_MAX) || k > static_cast<std::size_t>(INT_MAX)) return Status::failure(StatusCode::Overflow, "CUDA Stage 0 adapter shape exceeds int range");
+        if (m > static_cast<std::size_t>(INT_MAX) || n > static_cast<std::size_t>(INT_MAX) || k > static_cast<std::size_t>(INT_MAX)) return Status::failure(StatusCode::Overflow, "CUDA MATMUL shape exceeds int range");
         const stage0::Shape shape{static_cast<int>(m), static_cast<int>(n), static_cast<int>(k)};
         auto* a = static_cast<const float*>(pointer(left)); auto* b = static_cast<const float*>(pointer(right)); auto* c = static_cast<float*>(pointer(output));
-        if (state_->matmul == CudaMatmul::Stage0Naive) stage0::launch_naive(a, b, c, shape, state_->stream); else stage0::launch_cublas(state_->blas, a, b, c, shape);
+        const auto kernel = state_->matmul == CudaMatmul::Stage0Naive ? stage0::GemmKernel::V0Naive
+                          : state_->matmul == CudaMatmul::Stage9Tiled ? stage0::GemmKernel::V1Tiled
+                                                                       : stage0::GemmKernel::CuBlas;
+        stage0::launch_gemm(kernel, state_->blas, a, b, c, shape, state_->stream);
         CUDA_CHECK(cudaGetLastError()); CUDA_CHECK(cudaStreamSynchronize(state_->stream)); return Status::success();
     } catch (const std::exception& error) { return failure(error); }
 }

@@ -10,7 +10,7 @@ namespace runtime {
 // CUDA is an explicit backend.  It owns one nonblocking stream; public calls
 // synchronize that stream before returning, so pageable host bindings and
 // Storage lifetimes are safe without promising overlap.
-enum class CudaMatmul { Stage0Naive, CuBlas };
+enum class CudaMatmul { Stage0Naive, Stage9Tiled, CuBlas };
 class CudaBackend final : public Backend {
 public:
     explicit CudaBackend(int device_index = 0, CudaMatmul matmul = CudaMatmul::Stage0Naive);

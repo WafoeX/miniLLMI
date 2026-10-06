@@ -1,3 +1,7 @@
+// bench_gemm is a CUDA-only target.  This guard keeps host-only editor analysis
+// independent of an unavailable local CUDA toolkit; CMake defines it for the
+// actual CUDA target.
+#if defined(STAGE0_CUDA_BUILD)
 #include "stage0/build_info.hpp"
 #include "stage0/gemm_cuda.hpp"
 #include <algorithm>
@@ -17,7 +21,7 @@ using namespace stage0;
 namespace fs = std::filesystem;
 struct Options {
     std::vector<Shape> shapes{{512,512,512},{1024,1024,1024},{2048,2048,2048},{4096,4096,4096}};
-    std::string kernel = "all", experiment = "baseline", run_id;
+    std::string kernel = "all", order, experiment = "baseline", run_id;
     fs::path csv = "results/gemm/baseline.csv", raw_dir;
     int device = 0, warmup = 10, iterations = 50;
     std::uint32_t seed = 42;
@@ -45,6 +49,7 @@ Options parse(int argc, char** argv) {
         if (i + 1 == argc) throw std::invalid_argument("missing value for " + key);
         const std::string v = argv[++i];
         if (key == "--kernel") o.kernel = v;
+        else if (key == "--order") o.order = v;
         else if (key == "--device") o.device = static_cast<int>(integer(v, 0, INT_MAX));
         else if (key == "--warmup") o.warmup = static_cast<int>(integer(v, 10, INT_MAX));
         else if (key == "--iterations") o.iterations = static_cast<int>(integer(v, 30, INT_MAX));
@@ -74,9 +79,13 @@ Options parse(int argc, char** argv) {
         o.shapes = {{m,n,k}};
     }
     if (o.shapes.empty()) throw std::invalid_argument("empty shapes");
-    if (o.kernel != "all" && o.kernel != "naive" && o.kernel != "cublas")
-        throw std::invalid_argument("kernel must be all, naive or cublas");
-    if (o.experiment != "baseline" && o.experiment != "profiling") throw std::invalid_argument("invalid experiment");
+    if (!gemm_kernel_from_name(o.kernel) && o.kernel != "all")
+        throw std::invalid_argument("kernel must be all, naive, tiled or cublas");
+    if (o.experiment != "baseline" && o.experiment != "profiling" && o.experiment != "stage9")
+        throw std::invalid_argument("invalid experiment");
+    if (o.experiment != "stage9" && (o.kernel == "tiled" || o.kernel == "v1" || o.kernel == "sgemm_v1_tiled"))
+        throw std::invalid_argument("tiled is available only in experiment stage9");
+    if (o.experiment == "stage9" && o.csv == fs::path("results/gemm/baseline.csv")) o.csv = "results/gemm/stage9.csv";
     if (o.run_id.empty()) o.run_id = automatic_id();
     if (o.run_id.size() > 120 || !std::all_of(o.run_id.begin(), o.run_id.end(), [](unsigned char c) {
             return std::isalnum(c) || c == '_' || c == '-'; })) throw std::invalid_argument("invalid run ID");
@@ -94,13 +103,49 @@ void errors(Record& r, const ErrorMetrics& e) {
     r["relative_error"] = number(e.max_relative);
     r["violations"] = std::to_string(e.violations); r["nonfinite"] = std::to_string(e.nonfinite);
 }
+const std::vector<std::string>& stage9_columns() {
+    static const std::vector<std::string> columns = [] {
+        auto result = summary_columns();
+        result.insert(result.begin(), "schema_version");
+        result.insert(result.end(), {"threads", "vector", "shared_bytes", "kernel_order"});
+        return result;
+    }();
+    return columns;
+}
+std::vector<GemmKernel> selected_kernels(const Options& o) {
+    if (o.experiment == "stage9" && o.kernel != "all")
+        throw std::invalid_argument("stage9 requires --kernel all for paired v0/v1/cuBLAS evidence");
+    if (o.order.empty()) {
+        if (o.kernel == "all") return o.experiment == "stage9"
+            ? std::vector<GemmKernel>{GemmKernel::V0Naive, GemmKernel::V1Tiled, GemmKernel::CuBlas}
+            : std::vector<GemmKernel>{GemmKernel::V0Naive, GemmKernel::CuBlas};
+        return {*gemm_kernel_from_name(o.kernel)};
+    }
+    std::vector<GemmKernel> result;
+    std::istringstream input(o.order); std::string part;
+    while (std::getline(input, part, ',')) {
+        const auto kernel = gemm_kernel_from_name(part);
+        if (!kernel || std::find(result.begin(), result.end(), *kernel) != result.end())
+            throw std::invalid_argument("invalid or duplicate kernel order");
+        result.push_back(*kernel);
+    }
+    const std::vector<GemmKernel> required{GemmKernel::V0Naive, GemmKernel::V1Tiled, GemmKernel::CuBlas};
+    if (o.experiment != "stage9" || result.size() != required.size() ||
+        !std::all_of(required.begin(), required.end(), [&](GemmKernel kernel) {
+            return std::find(result.begin(), result.end(), kernel) != result.end(); }))
+        throw std::invalid_argument("--order is supported only for a complete stage9 v0,v1,cublas sequence");
+    return result;
+}
 struct KernelResult {
+    GemmKernel kernel;
     std::string name;
     Record row;
     ErrorMetrics error;
     std::vector<double> samples;
 };
 void run_shape(const Options& o, Shape s, const cudaDeviceProp& prop, Record metadata) {
+    const auto& columns = o.experiment == "stage9" ? stage9_columns() : summary_columns();
+    const auto kernels = selected_kernels(o);
     const fs::path dir = o.raw_dir / (std::to_string(s.m) + "x" + std::to_string(s.n) + "x" + std::to_string(s.k));
     if (!fs::create_directories(dir)) throw std::runtime_error("refusing to overwrite existing shape run: " + dir.string());
     const auto ac = elements(s.m,s.k), bc = elements(s.k,s.n), cc = elements(s.m,s.n);
@@ -121,30 +166,39 @@ void run_shape(const Options& o, Shape s, const cudaDeviceProp& prop, Record met
     metadata["m"] = std::to_string(s.m); metadata["n"] = std::to_string(s.n); metadata["k"] = std::to_string(s.k);
     metadata["input_hash"] = input_hash(a,b);
     std::vector<KernelResult> results;
-    auto add = [&](const std::string& name) {
-        KernelResult r; r.name = name; r.row = metadata; r.row["kernel"] = name;
-        if (name == "sgemm_v0_naive") {
-            r.row["block_x"] = std::to_string(kBlockX); r.row["block_y"] = std::to_string(kBlockY);
-            r.row["tm"] = "1"; r.row["tn"] = "1";
+    for (const auto kernel : kernels) {
+        const auto& config = gemm_kernel_config(kernel);
+        if (config.threads && (config.threads > static_cast<unsigned>(prop.maxThreadsPerBlock) ||
+                               config.shared_bytes > static_cast<std::size_t>(prop.sharedMemPerBlock)))
+            throw std::runtime_error(std::string(config.name) + " exceeds queried device launch resources");
+        KernelResult result{kernel, config.name, metadata, {}, {}};
+        result.row["kernel"] = config.name;
+        result.row["block_x"] = std::to_string(config.block_x); result.row["block_y"] = std::to_string(config.block_y);
+        result.row["bm"] = std::to_string(config.bm); result.row["bn"] = std::to_string(config.bn);
+        result.row["bk"] = std::to_string(config.bk); result.row["tm"] = std::to_string(config.tm);
+        result.row["tn"] = std::to_string(config.tn);
+        if (o.experiment == "stage9") {
+            result.row["schema_version"] = "stage9-gemm-v1";
+            result.row["threads"] = std::to_string(config.threads);
+            result.row["vector"] = std::to_string(config.vector_width);
+            result.row["shared_bytes"] = std::to_string(config.shared_bytes);
+            result.row["kernel_order"] = o.order.empty() ? "v0,v1,cublas" : o.order;
         }
-        results.push_back(std::move(r));
-    };
-    if (o.kernel == "all" || o.kernel == "naive") add("sgemm_v0_naive");
-    if (o.kernel == "all" || o.kernel == "cublas") add("cublas");
+        results.push_back(std::move(result));
+    }
     auto launch = [&](const KernelResult& r) {
-        if (r.name == "sgemm_v0_naive") launch_naive(da.get(), db.get(), dc.get(), s, stream.get());
-        else launch_cublas(blas.get(), da.get(), db.get(), dc.get(), s);
+        launch_gemm(r.kernel, blas.get(), da.get(), db.get(), dc.get(), s, stream.get());
     };
     auto validate = [&](KernelResult& r, const std::string& phase) {
         CUDA_CHECK(cudaMemcpyAsync(actual.data(), dc.get(), cc*sizeof(float), cudaMemcpyDeviceToHost, stream.get()));
         CUDA_CHECK(cudaStreamSynchronize(stream.get()));
         r.error = compare(actual, reference, o.atol, o.rtol); errors(r.row, r.error);
         auto record = r.row; record["status"] = r.error.passed() ? "passed_" + phase : "failed_correctness";
-        append_csv(dir / "correctness.csv", summary_columns(), record);
+        append_csv(dir / "correctness.csv", columns, record);
         if (!r.error.passed()) {
             r.row["status"] = "failed_correctness";
             // No successful time/GFLOPS are published for incorrect results.
-            append_csv(o.csv, summary_columns(), r.row);
+            append_csv(o.csv, columns, r.row);
             throw std::runtime_error(r.name + " correctness failed; inspect " + dir.string());
         }
     };
@@ -154,7 +208,7 @@ void run_shape(const Options& o, Shape s, const cudaDeviceProp& prop, Record met
         launch(r); validate(r, "initial");
     }
     EventTimer timer;
-    auto raw_cols = summary_columns(); raw_cols.push_back("sample_index"); raw_cols.push_back("elapsed_ms");
+    auto raw_cols = columns; raw_cols.push_back("sample_index"); raw_cols.push_back("elapsed_ms");
     for (auto& r : results) {
         for (int i = 0; i < o.warmup; ++i) launch(r);
         CUDA_CHECK(cudaStreamSynchronize(stream.get()));
@@ -174,16 +228,16 @@ void run_shape(const Options& o, Shape s, const cudaDeviceProp& prop, Record met
         r.row["min_ms"] = number(st.min); r.row["max_ms"] = number(st.max);
         r.row["median_ms"] = number(st.median); r.row["mean_ms"] = number(st.mean);
         r.row["std_ms"] = number(st.stddev); r.row["gflops"] = number(gflops(s,st.median));
-        if (r.name == "sgemm_v0_naive") naive = gflops(s,st.median);
-        else cublas = gflops(s,st.median);
+        if (r.kernel == GemmKernel::V0Naive) naive = gflops(s,st.median);
+        if (r.kernel == GemmKernel::CuBlas) cublas = gflops(s,st.median);
     }
     for (auto& r : results) {
         const double perf = std::stod(r.row.at("gflops"));
         if (naive > 0) r.row["speedup_vs_naive"] = number(perf / naive);
         if (cublas > 0) r.row["cublas_ratio"] = number(100 * perf / cublas);
         r.row["status"] = "ok";
-        append_csv(dir / "summary.csv", summary_columns(), r.row);
-        append_csv(o.csv, summary_columns(), r.row);
+        append_csv(dir / "summary.csv", columns, r.row);
+        append_csv(o.csv, columns, r.row);
         std::cout << r.name << ": median=" << r.row["median_ms"] << " ms, " << perf
                   << " GFLOPS, max_error=" << r.error.max_abs << '\n';
     }
@@ -196,10 +250,11 @@ int main(int argc, char** argv) {
     try {
         if (argc == 2 && std::string(argv[1]) == "--build-info") { std::cout << build_info(); return 0; }
         if (argc == 2 && std::string(argv[1]) == "--help") {
-            std::cout << "bench_gemm [--kernel all|naive|cublas] [--sizes 512,1024,2048,4096]\n"
+            std::cout << "bench_gemm [--kernel all|naive|tiled|cublas] [--sizes 512,1024,2048,4096]\n"
                          "  [--m M --n N --k K] [--device 0] [--warmup 10] [--iterations 50]\n"
                          "  [--seed 42] [--atol 0.001] [--rtol 0.001] [--csv PATH]\n"
-                         "  [--run-id ID] [--raw-dir PATH] [--experiment baseline|profiling]\n";
+                         "  [--run-id ID] [--raw-dir PATH] [--experiment baseline|profiling|stage9]\n"
+                         "  [--order v0,v1,cublas] (stage9 paired runs only)\n";
             return 0;
         }
         const auto o = parse(argc,argv);
@@ -241,3 +296,4 @@ int main(int argc, char** argv) {
         return 1;
     }
 }
+#endif // STAGE0_CUDA_BUILD
