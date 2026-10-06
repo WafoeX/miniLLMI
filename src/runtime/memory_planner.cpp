@@ -90,9 +90,11 @@ MemoryPlan plan_memory(const Graph& graph, PlanPolicy policy, std::size_t alignm
     MemoryPlan plan;
     plan.alignment = alignment; plan.policy = policy; plan.graph_signature = signature(graph);
     std::vector<RootLifetime> roots;
+    std::optional<Device> device;
     for (const auto& item : lifetimes.roots) {
         const auto& root = item.second;
-        if (root.device.type() != DeviceType::CPU) throw std::invalid_argument("CPU-only planner: CUDA planning not implemented");
+        if (device && root.device != *device) throw std::invalid_argument("planner requires one homogeneous device");
+        device = root.device;
         if (!root.external) roots.push_back(root);
     }
     std::sort(roots.begin(), roots.end(), [](const auto& a, const auto& b) {
@@ -127,8 +129,10 @@ Status validate_memory_plan(const Graph& graph, const MemoryPlan& plan) {
         if (plan.capacity_bytes % plan.alignment) throw std::invalid_argument("unaligned plan capacity");
         const auto life = analyze_lifetimes(graph);
         std::size_t expected = 0;
+        std::optional<Device> device;
         for (const auto& item : life.roots) {
-            if (item.second.device.type() != DeviceType::CPU) throw std::invalid_argument("CPU-only plan requires CPU roots");
+            if (device && item.second.device != *device) throw std::invalid_argument("planner requires one homogeneous device");
+            device = item.second.device;
             if (item.second.external) continue;
             ++expected;
             const auto found = plan.slots.find(item.first);
@@ -136,7 +140,7 @@ Status validate_memory_plan(const Graph& graph, const MemoryPlan& plan) {
             const auto& a = found->second;
             const auto& r = item.second;
             if (a.root != item.first || a.bytes != r.bytes || a.birth != r.birth || a.last_use != r.last_use ||
-                a.device != r.device || a.device.type() != DeviceType::CPU || a.offset % plan.alignment ||
+                a.device != r.device || a.offset % plan.alignment ||
                 a.offset > plan.capacity_bytes || a.bytes > plan.capacity_bytes - a.offset)
                 throw std::invalid_argument("invalid planned span/interval/device");
         }

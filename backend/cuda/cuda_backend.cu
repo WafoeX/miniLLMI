@@ -1,3 +1,4 @@
+#if __has_include(<cuda_runtime.h>) && __has_include(<cublas_v2.h>)
 #include "runtime/cuda_backend.hpp"
 #include "stage0/gemm_cuda.hpp"
 #include <cuda_runtime.h>
@@ -141,3 +142,4 @@ Tensor CudaPlannedAllocationProvider::allocate(TensorId root, Shape shape, DType
 }
 void CudaPlannedAllocationProvider::release(TensorId root) noexcept { const auto found = bindings_.find(root); if (found != bindings_.end()) found->second.active = false; }
 } // namespace runtime
+#endif // CUDA headers available

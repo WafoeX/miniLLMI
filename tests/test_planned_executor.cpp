@@ -142,7 +142,9 @@ void typed_reuse_and_devices() {
     auto storage = Storage::wrap(Device(DeviceType::CUDA, 0), 0, nullptr, [](void*) {});
     cuda.add_input(0, "cuda-metadata", Tensor(storage, DType::FP32, Shape{0}, Stride{1}));
     cuda.add_output("external", 0); success(cuda.freeze());
-    try { plan_memory(cuda); throw std::runtime_error("CUDA planner accepted"); } catch (const std::invalid_argument&) {}
+    const auto cuda_plan = plan_memory(cuda);
+    require(cuda_plan.slots.empty(), "generic planner preserves CUDA external metadata");
+    try { PlannedAllocationProvider cpu_provider(cuda, cuda_plan); throw std::runtime_error("CPU provider accepted CUDA plan"); } catch (const std::invalid_argument&) {}
 }
 }
 int main() {

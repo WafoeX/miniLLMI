@@ -7,6 +7,9 @@ namespace {
 MemoryPlan checked_plan(const Graph& graph, MemoryPlan plan) {
     const auto status = validate_memory_plan(graph, plan);
     if (!status.ok()) throw std::invalid_argument(status.message);
+    for (const auto& item : graph.tensors())
+        if (item.second.device.type() != DeviceType::CPU)
+            throw std::invalid_argument("CPU planned provider requires CPU graph tensors; use CudaPlannedAllocationProvider");
     return plan;
 }
 }
