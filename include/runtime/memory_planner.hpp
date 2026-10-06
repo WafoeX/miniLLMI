@@ -26,4 +26,20 @@ struct LifetimeAnalysis {
 };
 // Frozen graph required; metadata-only, no Storage or Tensor allocations.
 LifetimeAnalysis analyze_lifetimes(const Graph& graph);
+
+enum class PlanPolicy { Reuse, NoReuse };
+struct PlannedSlot {
+    TensorId root;
+    std::size_t offset, bytes;
+    std::int64_t birth, last_use;
+    Device device;
+};
+struct MemoryPlan {
+    std::map<TensorId, PlannedSlot> slots; // NewTensor roots only, including outputs
+    std::size_t alignment = 64, capacity_bytes = 0, peak_live_bytes = 0, reuse_count = 0;
+    PlanPolicy policy = PlanPolicy::Reuse;
+    std::string graph_signature; // full structural identity, not a hash/pointer
+};
+MemoryPlan plan_memory(const Graph& graph, PlanPolicy policy = PlanPolicy::Reuse, std::size_t alignment = 64);
+Status validate_memory_plan(const Graph& graph, const MemoryPlan& plan);
 } // namespace runtime
