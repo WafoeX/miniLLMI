@@ -1,4 +1,5 @@
 #include "runtime/cuda_backend.hpp"
+#include "runtime/graph_executor.hpp"
 #include <cmath>
 #include <iostream>
 #include <stdexcept>
@@ -31,7 +32,23 @@ int main() {
         require(aliased.code == StatusCode::Aliasing, "CUDA D2D alias rejection");
         auto transposed = host_a.transpose(0, 1);
         require(cuda.copy(transposed, *a.tensor).code == StatusCode::InvalidArgument, "explicit materialization required");
-        std::cout << "CUDA backend storage/copy/Stage0 dispatch: PASS\n";
+
+        auto host_d = Tensor::allocate_cpu({2, 2});
+        for (std::size_t i = 0; i < host_d.numel(); ++i) host_d.data<float>()[i] = static_cast<float>(i + 1);
+        auto d = cuda.allocate({2, 2}, DType::FP32, cuda.device());
+        require(d.ok(), "CUDA second input allocation"); success(cuda.copy(host_d, *d.tensor));
+        Graph graph;
+        graph.add_input(0, "a", *a.tensor); graph.add_input(1, "b", *b.tensor); graph.add_input(2, "d", *d.tensor);
+        graph.add_tensor(3, {2, 2}, DType::FP32, cuda.device()); graph.add_tensor(4, {2, 2}, DType::FP32, cuda.device());
+        graph.add_node(0, OpDesc(OpCode::MATMUL, {0, 1}, {3})); graph.add_node(1, OpDesc(OpCode::MATMUL, {3, 2}, {4}));
+        graph.add_output("result", 4); success(graph.freeze());
+        CudaPlannedAllocationProvider prepared(graph, cuda);
+        { const auto result = execute_graph(graph, nullptr, &prepared, &cuda);
+          require(result.ok() && result.counts.allocations == 0 && result.counts.arena_capacity_bytes == prepared.capacity(), "planned CUDA graph has no execute-time cudaMalloc");
+          success(cuda.copy(result.outputs.at("result"), host_c));
+          const float chained[] = {78, 100, 177, 226};
+          for (std::size_t i = 0; i < host_c.numel(); ++i) require(std::abs(host_c.data<float>()[i] - chained[i]) < 1e-4F, "planned CUDA graph result"); }
+        std::cout << "CUDA backend storage/copy/Stage0 dispatch/planned graph: PASS\n";
         return 0;
     } catch (const std::exception& error) { std::cerr << "test_cuda_backend: " << error.what() << '\n'; return 1; }
 }

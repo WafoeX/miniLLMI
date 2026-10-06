@@ -43,8 +43,8 @@ ExecutionResult execute_graph(const Graph& graph, ExecutionTrace* trace, Allocat
         return result;
     }
     for (const auto& item : graph.tensors()) {
-        if (item.second.device.type() != DeviceType::CPU) {
-            result.status = Status::failure(StatusCode::DeviceMismatch, "sequential CPU executor requires explicit CPU tensors; no hidden transfers");
+        if (item.second.device != backend.device()) {
+            result.status = Status::failure(StatusCode::DeviceMismatch, "graph tensors must use the selected backend device; no hidden transfers");
             event(TraceKind::Failure, item.first, 0, result.status.code);
             return result;
         }
