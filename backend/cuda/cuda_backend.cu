@@ -2,7 +2,9 @@
 #include "stage0/gemm_cuda.hpp"
 #include <cuda_runtime.h>
 #include <cublas_v2.h>
+#include <climits>
 #include <cstring>
+#include <optional>
 #include <stdexcept>
 #include <string>
 
@@ -119,7 +121,10 @@ Status CudaBackend::execute(const OpDesc& desc, const TensorInputs& inputs, Tens
     try {
         if (desc.code() == OpCode::COPY) return copy(inputs[0].get(), output);
         const auto& left = inputs[0].get(); const auto& right = inputs[1].get();
-        const stage0::Shape shape{left.shape()[0], left.shape()[1], right.shape()[1]};
+        const auto m = as_size(left.shape()[0]), k = as_size(left.shape()[1]), n = as_size(right.shape()[1]);
+        if (m > static_cast<std::size_t>(INT_MAX) || n > static_cast<std::size_t>(INT_MAX) || k > static_cast<std::size_t>(INT_MAX))
+            return Status::failure(StatusCode::Overflow, "CUDA Stage 0 adapter shape exceeds int range");
+        const stage0::Shape shape{static_cast<int>(m), static_cast<int>(n), static_cast<int>(k)};
         auto* a = static_cast<const float*>(pointer(left)); auto* b = static_cast<const float*>(pointer(right)); auto* c = static_cast<float*>(pointer(output));
         if (state_->matmul == CudaMatmul::Stage0Naive) stage0::launch_naive(a, b, c, shape, state_->stream);
         else stage0::launch_cublas(state_->blas, a, b, c, shape);
