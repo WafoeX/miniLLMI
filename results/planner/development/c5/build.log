@@ -1,0 +1,28 @@
+-- Configuring done (0.2s)
+-- Generating done (0.1s)
+-- Build files have been written to: /Users/wafoe/projects/me/CXXEg/build-stage5-dev
+[ 28%] Built target runtime
+[ 28%] Built target refresh_provenance
+[ 43%] Built target test_tensor_properties
+[ 43%] Built target test_operator
+[ 43%] Built target test_shape_inference
+[ 43%] Built target test_tensor
+[ 58%] Built target test_reference
+[ 58%] Built target test_graph
+[ 58%] Built target test_transformer_contracts
+[ 58%] Built target test_operator_fixtures
+[ 73%] Built target test_graph_executor
+[ 73%] Built target test_graph_trace
+[ 73%] Built target test_arena
+[ 73%] Built target test_graph_fixtures
+[ 84%] Built target test_allocation_provider
+[ 84%] Built target test_planned_executor
+[ 84%] Built target test_memory_planner
+[ 88%] Built target stage0_common
+[ 90%] Building CXX object CMakeFiles/bench_planner.dir/bench/bench_planner.cpp.o
+[ 96%] Building CXX object CMakeFiles/bench_allocator.dir/bench/bench_allocator.cpp.o
+[ 96%] Built target test_common
+[ 98%] Linking CXX executable bench_allocator
+[100%] Linking CXX executable bench_planner
+[100%] Built target bench_allocator
+[100%] Built target bench_planner

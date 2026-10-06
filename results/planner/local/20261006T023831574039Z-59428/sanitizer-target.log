@@ -1,0 +1,61 @@
+[ 65%] Built target runtime
+[ 73%] Built target test_planned_executor
+[ 73%] Built target refresh_provenance
+[ 82%] Built target stage0_common
+[ 91%] Built target bench_planner
+[100%] Built target test_memory_planner
+UpdateCTestConfiguration  from :/Users/wafoe/projects/me/CXXEg-stage5-verify/build-stage5-validation/20261006T023831574039Z-59428/sanitizer/DartConfiguration.tcl
+Parse Config file:/Users/wafoe/projects/me/CXXEg-stage5-verify/build-stage5-validation/20261006T023831574039Z-59428/sanitizer/DartConfiguration.tcl
+Test project /Users/wafoe/projects/me/CXXEg-stage5-verify/build-stage5-validation/20261006T023831574039Z-59428/sanitizer
+Constructing a list of tests
+Done constructing a list of tests
+Updating test list for fixtures
+Added 0 tests to meet fixture requirements
+Checking test dependency graph...
+Checking test dependency graph end
+test 18
+    Start 18: memory_planner
+
+18: Test command: /Users/wafoe/projects/me/CXXEg-stage5-verify/build-stage5-validation/20261006T023831574039Z-59428/sanitizer/test_memory_planner
+18: Working Directory: /Users/wafoe/projects/me/CXXEg-stage5-verify/build-stage5-validation/20261006T023831574039Z-59428/sanitizer
+18: Test timeout computed to be: 1500
+18: memory planner: PASS
+1/4 Test #18: memory_planner ...................   Passed    0.52 sec
+test 19
+    Start 19: planned_executor
+
+19: Test command: /Users/wafoe/projects/me/CXXEg-stage5-verify/build-stage5-validation/20261006T023831574039Z-59428/sanitizer/test_planned_executor
+19: Working Directory: /Users/wafoe/projects/me/CXXEg-stage5-verify/build-stage5-validation/20261006T023831574039Z-59428/sanitizer
+19: Test timeout computed to be: 1500
+19: planned executor: PASS
+2/4 Test #19: planned_executor .................   Passed    2.81 sec
+test 20
+    Start 20: planner_benchmark_workloads
+
+20: Test command: /Users/wafoe/projects/me/CXXEg-stage5-verify/build-stage5-validation/20261006T023831574039Z-59428/sanitizer/bench_planner "--self-test"
+20: Working Directory: /Users/wafoe/projects/me/CXXEg-stage5-verify/build-stage5-validation/20261006T023831574039Z-59428/sanitizer
+20: Test timeout computed to be: 1500
+20: planner benchmark workload correctness: PASS (untimed)
+3/4 Test #20: planner_benchmark_workloads ......   Passed    0.45 sec
+test 21
+    Start 21: planner_tools
+
+21: Test command: /Users/wafoe/miniforge3/bin/python3.14 "/Users/wafoe/projects/me/CXXEg-stage5-verify/tests/test_planner_tools.py"
+21: Working Directory: /Users/wafoe/projects/me/CXXEg-stage5-verify/build-stage5-validation/20261006T023831574039Z-59428/sanitizer
+21: Test timeout computed to be: 1500
+21: ................
+21: ----------------------------------------------------------------------
+21: Ran 16 tests in 0.162s
+21: 
+21: OK
+4/4 Test #21: planner_tools ....................   Passed    0.23 sec
+
+100% tests passed out of 4
+
+Label Time Summary:
+cpu        =   4.01 sec*proc (4 tests)
+planner    =   4.01 sec*proc (4 tests)
+
+Total Test time (real) =   4.01 sec
+[100%] Built target check_planner
+[100%] Built target check_planner_sanitizers

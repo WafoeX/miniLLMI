@@ -1,0 +1,42 @@
+[  1%] Building CXX object CMakeFiles/runtime.dir/src/runtime/memory_planner.cpp.o
+[  1%] Built target refresh_provenance
+[  5%] Built target stage0_common
+[  9%] Built target test_common
+[ 11%] Linking CXX static library libruntime.a
+[ 35%] Built target runtime
+[ 39%] Linking CXX executable test_tensor_properties
+[ 39%] Linking CXX executable test_tensor
+[ 41%] Building CXX object CMakeFiles/bench_planner.dir/bench/bench_planner.cpp.o
+[ 43%] Building CXX object CMakeFiles/bench_allocator.dir/bench/bench_allocator.cpp.o
+[ 47%] Built target test_tensor_properties
+[ 47%] Built target test_tensor
+[ 50%] Linking CXX executable test_shape_inference
+[ 50%] Linking CXX executable test_operator
+[ 54%] Built target test_operator
+[ 54%] Built target test_shape_inference
+[ 58%] Linking CXX executable test_transformer_contracts
+[ 58%] Linking CXX executable test_reference
+[ 62%] Built target test_reference
+[ 62%] Built target test_transformer_contracts
+[ 66%] Linking CXX executable test_graph
+[ 66%] Linking CXX executable test_operator_fixtures
+[ 69%] Built target test_operator_fixtures
+[ 69%] Built target test_graph
+[ 73%] Linking CXX executable test_graph_fixtures
+[ 73%] Linking CXX executable test_graph_executor
+[ 77%] Built target test_graph_executor
+[ 77%] Built target test_graph_fixtures
+[ 81%] Linking CXX executable test_graph_trace
+[ 81%] Linking CXX executable test_arena
+[ 84%] Built target test_arena
+[ 84%] Built target test_graph_trace
+[ 88%] Linking CXX executable test_allocation_provider
+[ 88%] Linking CXX executable test_memory_planner
+[ 92%] Built target test_allocation_provider
+[ 92%] Built target test_memory_planner
+[ 94%] Linking CXX executable bench_allocator
+[ 96%] Linking CXX executable test_planned_executor
+[ 96%] Built target bench_allocator
+[ 98%] Linking CXX executable bench_planner
+[100%] Built target test_planned_executor
+[100%] Built target bench_planner

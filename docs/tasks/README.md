@@ -1,6 +1,6 @@
 # Change task books
 
-Stages 1–4 are implemented (see [Stage 1 evidence](../stage1_report.md), [Stage 2 evidence](../stage2_report.md), [Stage 3 evidence](../stage3_report.md) and [Stage 4 evidence](../stage4_report.md)); Stage 5–19 task books remain **Proposed Design**, not implemented functionality. Execute one Change at a time after its listed prerequisites pass. Follow the corrected DAG and sufficient-benefit gates in [the roadmap](../roadmap.md). An optional Change may be recorded as `skipped_optional` with a reason; downstream gates include required Changes only. Completing a stage does not require exploring every variant.
+Stages 1–5 are implemented (see [Stage 1 evidence](../stage1_report.md), [Stage 2 evidence](../stage2_report.md), [Stage 3 evidence](../stage3_report.md), [Stage 4 evidence](../stage4_report.md) and [Stage 5 evidence](../stage5_report.md)); Stage 6–19 task books remain **Proposed Design**, not implemented functionality. S5's required CPU-only memory gate passes; optional inplace is `skipped_optional`, with measured latency regressions retained and dynamic still default. Execute one Change at a time after its listed prerequisites pass. Follow the corrected DAG and sufficient-benefit gates in [the roadmap](../roadmap.md). An optional Change may be recorded as `skipped_optional` with a reason; downstream gates include required Changes only. Completing a stage does not require exploring every variant.
 
 ## Required Change record
 

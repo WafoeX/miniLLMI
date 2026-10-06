@@ -1,0 +1,55 @@
+Test project /Users/wafoe/projects/me/CXXEg/build-stage5-dev
+      Start  1: tensor
+ 1/21 Test  #1: tensor ...........................   Passed    0.00 sec
+      Start  2: tensor_properties
+ 2/21 Test  #2: tensor_properties ................   Passed    0.00 sec
+      Start  3: tensor_validation
+ 3/21 Test  #3: tensor_validation ................   Passed    0.10 sec
+      Start  4: operator
+ 4/21 Test  #4: operator .........................   Passed    0.00 sec
+      Start  5: shape_inference
+ 5/21 Test  #5: shape_inference ..................   Passed    0.00 sec
+      Start  6: operator_reference
+ 6/21 Test  #6: operator_reference ...............   Passed    0.00 sec
+      Start  7: transformer_contracts
+ 7/21 Test  #7: transformer_contracts ............   Passed    0.00 sec
+      Start  8: operator_fixtures
+ 8/21 Test  #8: operator_fixtures ................   Passed    0.03 sec
+      Start  9: operator_fixture_tools
+ 9/21 Test  #9: operator_fixture_tools ...........   Passed    0.07 sec
+      Start 10: graph
+10/21 Test #10: graph ............................   Passed    0.00 sec
+      Start 11: graph_executor
+11/21 Test #11: graph_executor ...................   Passed    0.00 sec
+      Start 12: graph_fixtures
+12/21 Test #12: graph_fixtures ...................   Passed    0.03 sec
+      Start 13: graph_trace
+13/21 Test #13: graph_trace ......................   Passed    0.00 sec
+      Start 14: arena
+14/21 Test #14: arena ............................   Passed    0.05 sec
+      Start 15: allocation_provider
+15/21 Test #15: allocation_provider ..............   Passed    0.00 sec
+      Start 16: allocator_benchmark_workloads
+16/21 Test #16: allocator_benchmark_workloads ....   Passed    0.60 sec
+      Start 17: allocator_tools
+17/21 Test #17: allocator_tools ..................   Passed    0.13 sec
+      Start 18: memory_planner
+18/21 Test #18: memory_planner ...................   Passed    0.00 sec
+      Start 19: planned_executor
+19/21 Test #19: planned_executor .................   Passed    0.57 sec
+      Start 20: common
+20/21 Test #20: common ...........................   Passed    0.00 sec
+      Start 21: tools
+21/21 Test #21: tools ............................   Passed    1.77 sec
+
+100% tests passed out of 21
+
+Label Time Summary:
+arena        =   0.77 sec*proc (4 tests)
+cpu          =   1.60 sec*proc (19 tests)
+graph        =   0.04 sec*proc (5 tests)
+operators    =   0.11 sec*proc (6 tests)
+planner      =   0.58 sec*proc (2 tests)
+tensor       =   0.10 sec*proc (3 tests)
+
+Total Test time (real) =   3.38 sec

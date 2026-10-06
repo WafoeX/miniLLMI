@@ -1,8 +1,19 @@
-# mini-llm-runtime — Stage 4
+# mini-llm-runtime — Stage 5
 
-基于 C++17/CUDA 的推理引擎项目。**Stage 0 已通过 T4 验收；Stage 1 统一 Tensor/shared Storage；Stage 2 实现 backend-neutral 算子与 core reference；Stage 3 实现冻结 DAG、确定性拓扑、顺序 CPU executor、最后使用释放/alias 保活及有界执行 trace。** Tensor 支持 FP32/INT32、checked shape/stride/offset、CPU storage、零拷贝变换和显式 CPU copy。Transformer 仍只有契约/validators 和离线 expected fixtures，Stage 4 增加对齐 CPU arena、first-fit 复用和显式 allocation provider；尚无 Transformer kernels、planner、scheduler、模型执行、KV Cache 或量化实现。
+基于 C++17/CUDA 的推理引擎项目。**Stage 0 已通过 T4 验收；Stage 1 统一 Tensor/shared Storage；Stage 2 实现 backend-neutral 算子与 core reference；Stage 3 实现冻结 DAG、确定性拓扑、顺序 CPU executor、最后使用释放/alias 保活及有界执行 trace。** Tensor 支持 FP32/INT32、checked shape/stride/offset、CPU storage、零拷贝变换和显式 CPU copy。Transformer 仍只有契约/validators 和离线 expected fixtures，Stage 4 增加对齐 CPU arena、first-fit 复用和显式 allocation provider；Stage 5 完成生命周期分析、静态复用 slots 和显式 prepared execution。尚无 Transformer kernels、scheduler、模型执行、KV Cache 或量化实现。
 
 Stage 0 naive GEMM 与历史结果保持不变。Stage 1 的 gate 是 CPU-only Debug/Release、属性测试与 ASan/UBSan；不要求 CUDA allocation 或服务器性能数据。后续按 [路线图](docs/roadmap.md) 与 [Change 任务书](docs/tasks/README.md) 执行。
+
+## Stage 5 验收（明确 CPU-only，无需 GPU）
+
+```bash
+python3 tools/validate_planner.py
+python3 tools/run_planner_benchmark.py
+# dirty 源码仅允许正确性开发验证：
+# python3 tools/validate_planner.py --allow-dirty
+```
+
+[Planner 契约与冻结基准](docs/planner.md)、[Stage 5 验收记录](docs/stage5_report.md)。Release/Debug/ASan+UBSan 各 23/23 通过；预声明 chain 的执行期中间 backing 分配 11→0，prepared capacity 3072→512 bytes（降低 83.33%）。与最后使用释放的 dynamic 对比，计划执行在本机小图上**更慢**，原始数据全部保留；无延迟收益 gate。默认仍为 dynamic，inplace 为 `skipped_optional`；零 backing 分配不等于零 C++ heap 分配，不宣称模型或 CUDA 性能收益。
 
 ## Stage 4 验收（明确 CPU-only，无需 GPU）
 

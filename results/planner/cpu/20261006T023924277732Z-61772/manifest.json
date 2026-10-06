@@ -1,0 +1,497 @@
+{
+  "schema_version": 1,
+  "scope": "CPU-only Stage 5 planner memory gate",
+  "run_id": "20261006T023924277732Z-61772",
+  "timestamp": "2026-10-06T02:39:24.277578+00:00",
+  "source": {
+    "commit": "91b8da2f14839179025228c41e40de7c6848dfe2",
+    "source_digest": "ea7c7bdcd37c41eab75788ca9b650d47ba1a47f35ecaf048171286ceca6bf2de",
+    "source_dirty": false
+  },
+  "host": "Wafoe-MacBook.local",
+  "platform": "macOS-26.7-arm64-arm-64bit-Mach-O",
+  "machine": "arm64",
+  "python": "3.14.6 | packaged by conda-forge | (main, Aug 11 2026, 10:24:52) [Clang 20.1.8 ]",
+  "configuration": {
+    "runs": 3,
+    "samples": 10,
+    "warmup": 3,
+    "batch": 20,
+    "prepare_batch": 1,
+    "alignment": 64,
+    "workload_version": 1,
+    "gate_workload": "chain"
+  },
+  "timing_boundary": "steady_clock execute incl validation/begin/reference/oracle/output destruction; prepare and CSV excluded. Prepare constructor timed separately, destruction excluded.",
+  "environment_note": "Named local CPU host; no exclusive-core/process isolation guarantee. Retain slow runs. No CUDA/model claim.",
+  "alignment_note": "Prepared policies both 64; dynamic retains S3 malloc alignment. Not an alignment-isolated latency experiment.",
+  "commands": [
+    {
+      "argv": [
+        "cmake",
+        "--version"
+      ],
+      "cwd": "/Users/wafoe/projects/me/CXXEg-stage5-verify",
+      "log": "cmake-version.log",
+      "exit_code": 0
+    },
+    {
+      "argv": [
+        "cmake",
+        "-S",
+        "/Users/wafoe/projects/me/CXXEg-stage5-verify",
+        "-B",
+        "/Users/wafoe/projects/me/CXXEg-stage5-verify/build-planner-benchmark/20261006T023924277732Z-61772/tests",
+        "-DCMAKE_BUILD_TYPE=Release",
+        "-DENABLE_CUDA=OFF",
+        "-DENABLE_SANITIZERS=OFF",
+        "-DBUILD_TESTING=ON"
+      ],
+      "cwd": "/Users/wafoe/projects/me/CXXEg-stage5-verify",
+      "log": "tests-configure.log",
+      "exit_code": 0
+    },
+    {
+      "argv": [
+        "cmake",
+        "--build",
+        "/Users/wafoe/projects/me/CXXEg-stage5-verify/build-planner-benchmark/20261006T023924277732Z-61772/tests",
+        "--parallel",
+        "4",
+        "--verbose"
+      ],
+      "cwd": "/Users/wafoe/projects/me/CXXEg-stage5-verify",
+      "log": "tests-build.log",
+      "exit_code": 0
+    },
+    {
+      "argv": [
+        "ctest",
+        "--test-dir",
+        "/Users/wafoe/projects/me/CXXEg-stage5-verify/build-planner-benchmark/20261006T023924277732Z-61772/tests",
+        "--output-on-failure",
+        "--verbose"
+      ],
+      "cwd": "/Users/wafoe/projects/me/CXXEg-stage5-verify",
+      "log": "ctest.log",
+      "exit_code": 0
+    },
+    {
+      "argv": [
+        "cmake",
+        "-S",
+        "/Users/wafoe/projects/me/CXXEg-stage5-verify",
+        "-B",
+        "/Users/wafoe/projects/me/CXXEg-stage5-verify/build-planner-benchmark/20261006T023924277732Z-61772/production",
+        "-DCMAKE_BUILD_TYPE=Release",
+        "-DENABLE_CUDA=OFF",
+        "-DENABLE_SANITIZERS=OFF",
+        "-DBUILD_TESTING=OFF"
+      ],
+      "cwd": "/Users/wafoe/projects/me/CXXEg-stage5-verify",
+      "log": "production-configure.log",
+      "exit_code": 0
+    },
+    {
+      "argv": [
+        "cmake",
+        "--build",
+        "/Users/wafoe/projects/me/CXXEg-stage5-verify/build-planner-benchmark/20261006T023924277732Z-61772/production",
+        "--parallel",
+        "4",
+        "--verbose"
+      ],
+      "cwd": "/Users/wafoe/projects/me/CXXEg-stage5-verify",
+      "log": "production-build.log",
+      "exit_code": 0
+    },
+    {
+      "argv": [
+        "/Users/wafoe/projects/me/CXXEg-stage5-verify/build-planner-benchmark/20261006T023924277732Z-61772/production/bench_planner",
+        "--probe"
+      ],
+      "cwd": "/Users/wafoe/projects/me/CXXEg-stage5-verify",
+      "log": "binary-probe.log",
+      "exit_code": 0
+    },
+    {
+      "argv": [
+        "/Users/wafoe/projects/me/CXXEg-stage5-verify/build-planner-benchmark/20261006T023924277732Z-61772/production/bench_planner",
+        "--self-test"
+      ],
+      "cwd": "/Users/wafoe/projects/me/CXXEg-stage5-verify",
+      "log": "production-correctness.log",
+      "exit_code": 0
+    },
+    {
+      "argv": [
+        "/Users/wafoe/projects/me/CXXEg-stage5-verify/build-planner-benchmark/20261006T023924277732Z-61772/production/bench_planner",
+        "--workload",
+        "chain",
+        "--policy",
+        "dynamic",
+        "--raw",
+        "/Users/wafoe/projects/me/CXXEg-stage5-verify/results/planner/cpu/20261006T023924277732Z-61772/pair-0/chain-dynamic.csv",
+        "--prepare-raw",
+        "/Users/wafoe/projects/me/CXXEg-stage5-verify/results/planner/cpu/20261006T023924277732Z-61772/pair-0/chain-dynamic-prepare.csv"
+      ],
+      "cwd": "/Users/wafoe/projects/me/CXXEg-stage5-verify",
+      "log": "pair-0-chain-dynamic.log",
+      "exit_code": 0
+    },
+    {
+      "argv": [
+        "/Users/wafoe/projects/me/CXXEg-stage5-verify/build-planner-benchmark/20261006T023924277732Z-61772/production/bench_planner",
+        "--workload",
+        "chain",
+        "--policy",
+        "no_reuse",
+        "--raw",
+        "/Users/wafoe/projects/me/CXXEg-stage5-verify/results/planner/cpu/20261006T023924277732Z-61772/pair-0/chain-no_reuse.csv",
+        "--prepare-raw",
+        "/Users/wafoe/projects/me/CXXEg-stage5-verify/results/planner/cpu/20261006T023924277732Z-61772/pair-0/chain-no_reuse-prepare.csv"
+      ],
+      "cwd": "/Users/wafoe/projects/me/CXXEg-stage5-verify",
+      "log": "pair-0-chain-no_reuse.log",
+      "exit_code": 0
+    },
+    {
+      "argv": [
+        "/Users/wafoe/projects/me/CXXEg-stage5-verify/build-planner-benchmark/20261006T023924277732Z-61772/production/bench_planner",
+        "--workload",
+        "chain",
+        "--policy",
+        "reuse",
+        "--raw",
+        "/Users/wafoe/projects/me/CXXEg-stage5-verify/results/planner/cpu/20261006T023924277732Z-61772/pair-0/chain-reuse.csv",
+        "--prepare-raw",
+        "/Users/wafoe/projects/me/CXXEg-stage5-verify/results/planner/cpu/20261006T023924277732Z-61772/pair-0/chain-reuse-prepare.csv"
+      ],
+      "cwd": "/Users/wafoe/projects/me/CXXEg-stage5-verify",
+      "log": "pair-0-chain-reuse.log",
+      "exit_code": 0
+    },
+    {
+      "argv": [
+        "/Users/wafoe/projects/me/CXXEg-stage5-verify/build-planner-benchmark/20261006T023924277732Z-61772/production/bench_planner",
+        "--workload",
+        "diamond",
+        "--policy",
+        "dynamic",
+        "--raw",
+        "/Users/wafoe/projects/me/CXXEg-stage5-verify/results/planner/cpu/20261006T023924277732Z-61772/pair-0/diamond-dynamic.csv",
+        "--prepare-raw",
+        "/Users/wafoe/projects/me/CXXEg-stage5-verify/results/planner/cpu/20261006T023924277732Z-61772/pair-0/diamond-dynamic-prepare.csv"
+      ],
+      "cwd": "/Users/wafoe/projects/me/CXXEg-stage5-verify",
+      "log": "pair-0-diamond-dynamic.log",
+      "exit_code": 0
+    },
+    {
+      "argv": [
+        "/Users/wafoe/projects/me/CXXEg-stage5-verify/build-planner-benchmark/20261006T023924277732Z-61772/production/bench_planner",
+        "--workload",
+        "diamond",
+        "--policy",
+        "no_reuse",
+        "--raw",
+        "/Users/wafoe/projects/me/CXXEg-stage5-verify/results/planner/cpu/20261006T023924277732Z-61772/pair-0/diamond-no_reuse.csv",
+        "--prepare-raw",
+        "/Users/wafoe/projects/me/CXXEg-stage5-verify/results/planner/cpu/20261006T023924277732Z-61772/pair-0/diamond-no_reuse-prepare.csv"
+      ],
+      "cwd": "/Users/wafoe/projects/me/CXXEg-stage5-verify",
+      "log": "pair-0-diamond-no_reuse.log",
+      "exit_code": 0
+    },
+    {
+      "argv": [
+        "/Users/wafoe/projects/me/CXXEg-stage5-verify/build-planner-benchmark/20261006T023924277732Z-61772/production/bench_planner",
+        "--workload",
+        "diamond",
+        "--policy",
+        "reuse",
+        "--raw",
+        "/Users/wafoe/projects/me/CXXEg-stage5-verify/results/planner/cpu/20261006T023924277732Z-61772/pair-0/diamond-reuse.csv",
+        "--prepare-raw",
+        "/Users/wafoe/projects/me/CXXEg-stage5-verify/results/planner/cpu/20261006T023924277732Z-61772/pair-0/diamond-reuse-prepare.csv"
+      ],
+      "cwd": "/Users/wafoe/projects/me/CXXEg-stage5-verify",
+      "log": "pair-0-diamond-reuse.log",
+      "exit_code": 0
+    },
+    {
+      "argv": [
+        "/Users/wafoe/projects/me/CXXEg-stage5-verify/build-planner-benchmark/20261006T023924277732Z-61772/production/bench_planner",
+        "--workload",
+        "chain",
+        "--policy",
+        "reuse",
+        "--raw",
+        "/Users/wafoe/projects/me/CXXEg-stage5-verify/results/planner/cpu/20261006T023924277732Z-61772/pair-1/chain-reuse.csv",
+        "--prepare-raw",
+        "/Users/wafoe/projects/me/CXXEg-stage5-verify/results/planner/cpu/20261006T023924277732Z-61772/pair-1/chain-reuse-prepare.csv"
+      ],
+      "cwd": "/Users/wafoe/projects/me/CXXEg-stage5-verify",
+      "log": "pair-1-chain-reuse.log",
+      "exit_code": 0
+    },
+    {
+      "argv": [
+        "/Users/wafoe/projects/me/CXXEg-stage5-verify/build-planner-benchmark/20261006T023924277732Z-61772/production/bench_planner",
+        "--workload",
+        "chain",
+        "--policy",
+        "no_reuse",
+        "--raw",
+        "/Users/wafoe/projects/me/CXXEg-stage5-verify/results/planner/cpu/20261006T023924277732Z-61772/pair-1/chain-no_reuse.csv",
+        "--prepare-raw",
+        "/Users/wafoe/projects/me/CXXEg-stage5-verify/results/planner/cpu/20261006T023924277732Z-61772/pair-1/chain-no_reuse-prepare.csv"
+      ],
+      "cwd": "/Users/wafoe/projects/me/CXXEg-stage5-verify",
+      "log": "pair-1-chain-no_reuse.log",
+      "exit_code": 0
+    },
+    {
+      "argv": [
+        "/Users/wafoe/projects/me/CXXEg-stage5-verify/build-planner-benchmark/20261006T023924277732Z-61772/production/bench_planner",
+        "--workload",
+        "chain",
+        "--policy",
+        "dynamic",
+        "--raw",
+        "/Users/wafoe/projects/me/CXXEg-stage5-verify/results/planner/cpu/20261006T023924277732Z-61772/pair-1/chain-dynamic.csv",
+        "--prepare-raw",
+        "/Users/wafoe/projects/me/CXXEg-stage5-verify/results/planner/cpu/20261006T023924277732Z-61772/pair-1/chain-dynamic-prepare.csv"
+      ],
+      "cwd": "/Users/wafoe/projects/me/CXXEg-stage5-verify",
+      "log": "pair-1-chain-dynamic.log",
+      "exit_code": 0
+    },
+    {
+      "argv": [
+        "/Users/wafoe/projects/me/CXXEg-stage5-verify/build-planner-benchmark/20261006T023924277732Z-61772/production/bench_planner",
+        "--workload",
+        "diamond",
+        "--policy",
+        "reuse",
+        "--raw",
+        "/Users/wafoe/projects/me/CXXEg-stage5-verify/results/planner/cpu/20261006T023924277732Z-61772/pair-1/diamond-reuse.csv",
+        "--prepare-raw",
+        "/Users/wafoe/projects/me/CXXEg-stage5-verify/results/planner/cpu/20261006T023924277732Z-61772/pair-1/diamond-reuse-prepare.csv"
+      ],
+      "cwd": "/Users/wafoe/projects/me/CXXEg-stage5-verify",
+      "log": "pair-1-diamond-reuse.log",
+      "exit_code": 0
+    },
+    {
+      "argv": [
+        "/Users/wafoe/projects/me/CXXEg-stage5-verify/build-planner-benchmark/20261006T023924277732Z-61772/production/bench_planner",
+        "--workload",
+        "diamond",
+        "--policy",
+        "no_reuse",
+        "--raw",
+        "/Users/wafoe/projects/me/CXXEg-stage5-verify/results/planner/cpu/20261006T023924277732Z-61772/pair-1/diamond-no_reuse.csv",
+        "--prepare-raw",
+        "/Users/wafoe/projects/me/CXXEg-stage5-verify/results/planner/cpu/20261006T023924277732Z-61772/pair-1/diamond-no_reuse-prepare.csv"
+      ],
+      "cwd": "/Users/wafoe/projects/me/CXXEg-stage5-verify",
+      "log": "pair-1-diamond-no_reuse.log",
+      "exit_code": 0
+    },
+    {
+      "argv": [
+        "/Users/wafoe/projects/me/CXXEg-stage5-verify/build-planner-benchmark/20261006T023924277732Z-61772/production/bench_planner",
+        "--workload",
+        "diamond",
+        "--policy",
+        "dynamic",
+        "--raw",
+        "/Users/wafoe/projects/me/CXXEg-stage5-verify/results/planner/cpu/20261006T023924277732Z-61772/pair-1/diamond-dynamic.csv",
+        "--prepare-raw",
+        "/Users/wafoe/projects/me/CXXEg-stage5-verify/results/planner/cpu/20261006T023924277732Z-61772/pair-1/diamond-dynamic-prepare.csv"
+      ],
+      "cwd": "/Users/wafoe/projects/me/CXXEg-stage5-verify",
+      "log": "pair-1-diamond-dynamic.log",
+      "exit_code": 0
+    },
+    {
+      "argv": [
+        "/Users/wafoe/projects/me/CXXEg-stage5-verify/build-planner-benchmark/20261006T023924277732Z-61772/production/bench_planner",
+        "--workload",
+        "chain",
+        "--policy",
+        "dynamic",
+        "--raw",
+        "/Users/wafoe/projects/me/CXXEg-stage5-verify/results/planner/cpu/20261006T023924277732Z-61772/pair-2/chain-dynamic.csv",
+        "--prepare-raw",
+        "/Users/wafoe/projects/me/CXXEg-stage5-verify/results/planner/cpu/20261006T023924277732Z-61772/pair-2/chain-dynamic-prepare.csv"
+      ],
+      "cwd": "/Users/wafoe/projects/me/CXXEg-stage5-verify",
+      "log": "pair-2-chain-dynamic.log",
+      "exit_code": 0
+    },
+    {
+      "argv": [
+        "/Users/wafoe/projects/me/CXXEg-stage5-verify/build-planner-benchmark/20261006T023924277732Z-61772/production/bench_planner",
+        "--workload",
+        "chain",
+        "--policy",
+        "no_reuse",
+        "--raw",
+        "/Users/wafoe/projects/me/CXXEg-stage5-verify/results/planner/cpu/20261006T023924277732Z-61772/pair-2/chain-no_reuse.csv",
+        "--prepare-raw",
+        "/Users/wafoe/projects/me/CXXEg-stage5-verify/results/planner/cpu/20261006T023924277732Z-61772/pair-2/chain-no_reuse-prepare.csv"
+      ],
+      "cwd": "/Users/wafoe/projects/me/CXXEg-stage5-verify",
+      "log": "pair-2-chain-no_reuse.log",
+      "exit_code": 0
+    },
+    {
+      "argv": [
+        "/Users/wafoe/projects/me/CXXEg-stage5-verify/build-planner-benchmark/20261006T023924277732Z-61772/production/bench_planner",
+        "--workload",
+        "chain",
+        "--policy",
+        "reuse",
+        "--raw",
+        "/Users/wafoe/projects/me/CXXEg-stage5-verify/results/planner/cpu/20261006T023924277732Z-61772/pair-2/chain-reuse.csv",
+        "--prepare-raw",
+        "/Users/wafoe/projects/me/CXXEg-stage5-verify/results/planner/cpu/20261006T023924277732Z-61772/pair-2/chain-reuse-prepare.csv"
+      ],
+      "cwd": "/Users/wafoe/projects/me/CXXEg-stage5-verify",
+      "log": "pair-2-chain-reuse.log",
+      "exit_code": 0
+    },
+    {
+      "argv": [
+        "/Users/wafoe/projects/me/CXXEg-stage5-verify/build-planner-benchmark/20261006T023924277732Z-61772/production/bench_planner",
+        "--workload",
+        "diamond",
+        "--policy",
+        "dynamic",
+        "--raw",
+        "/Users/wafoe/projects/me/CXXEg-stage5-verify/results/planner/cpu/20261006T023924277732Z-61772/pair-2/diamond-dynamic.csv",
+        "--prepare-raw",
+        "/Users/wafoe/projects/me/CXXEg-stage5-verify/results/planner/cpu/20261006T023924277732Z-61772/pair-2/diamond-dynamic-prepare.csv"
+      ],
+      "cwd": "/Users/wafoe/projects/me/CXXEg-stage5-verify",
+      "log": "pair-2-diamond-dynamic.log",
+      "exit_code": 0
+    },
+    {
+      "argv": [
+        "/Users/wafoe/projects/me/CXXEg-stage5-verify/build-planner-benchmark/20261006T023924277732Z-61772/production/bench_planner",
+        "--workload",
+        "diamond",
+        "--policy",
+        "no_reuse",
+        "--raw",
+        "/Users/wafoe/projects/me/CXXEg-stage5-verify/results/planner/cpu/20261006T023924277732Z-61772/pair-2/diamond-no_reuse.csv",
+        "--prepare-raw",
+        "/Users/wafoe/projects/me/CXXEg-stage5-verify/results/planner/cpu/20261006T023924277732Z-61772/pair-2/diamond-no_reuse-prepare.csv"
+      ],
+      "cwd": "/Users/wafoe/projects/me/CXXEg-stage5-verify",
+      "log": "pair-2-diamond-no_reuse.log",
+      "exit_code": 0
+    },
+    {
+      "argv": [
+        "/Users/wafoe/projects/me/CXXEg-stage5-verify/build-planner-benchmark/20261006T023924277732Z-61772/production/bench_planner",
+        "--workload",
+        "diamond",
+        "--policy",
+        "reuse",
+        "--raw",
+        "/Users/wafoe/projects/me/CXXEg-stage5-verify/results/planner/cpu/20261006T023924277732Z-61772/pair-2/diamond-reuse.csv",
+        "--prepare-raw",
+        "/Users/wafoe/projects/me/CXXEg-stage5-verify/results/planner/cpu/20261006T023924277732Z-61772/pair-2/diamond-reuse-prepare.csv"
+      ],
+      "cwd": "/Users/wafoe/projects/me/CXXEg-stage5-verify",
+      "log": "pair-2-diamond-reuse.log",
+      "exit_code": 0
+    }
+  ],
+  "pairs": [
+    {
+      "pair": 0,
+      "order": [
+        "dynamic",
+        "no_reuse",
+        "reuse"
+      ]
+    },
+    {
+      "pair": 1,
+      "order": [
+        "reuse",
+        "no_reuse",
+        "dynamic"
+      ]
+    },
+    {
+      "pair": 2,
+      "order": [
+        "dynamic",
+        "no_reuse",
+        "reuse"
+      ]
+    }
+  ],
+  "raw_sha256": {
+    "pair-0/chain-dynamic.csv": "dbe771f266ed957f778286ac6273f8cdc578e01169b85ab73853ed7ad2d354f3",
+    "pair-0/chain-dynamic-prepare.csv": "30f3cfaec757a6f76cd1d8b4c7e04884c513fe145ad51cacb1921a9d36e7a908",
+    "pair-0/chain-no_reuse.csv": "34cf73287e1ff9f771698bba240f4a70dc4a59980cbbc30e04dcf742662b716f",
+    "pair-0/chain-no_reuse-prepare.csv": "544ad345b736eeb883f6230418faf9b8f009d3e8971197ca9750433f99b99883",
+    "pair-0/chain-reuse.csv": "c912072f64afb5c372d2567bf50a0fe58d3df4a11902b3f2e860cacfa581e031",
+    "pair-0/chain-reuse-prepare.csv": "2ea93913811d56de57b0414d72239360f561568b2be2fd800f9493453ba6a5f5",
+    "pair-0/diamond-dynamic.csv": "ace7b84693dc0f048b96af0dacc6b9c3184ba1f0f94f555c087cd1e434dc2106",
+    "pair-0/diamond-dynamic-prepare.csv": "30f3cfaec757a6f76cd1d8b4c7e04884c513fe145ad51cacb1921a9d36e7a908",
+    "pair-0/diamond-no_reuse.csv": "c84658faa9331b6efee6b19d94761ab75adc7f39fd48367deea58aeec82ee4a7",
+    "pair-0/diamond-no_reuse-prepare.csv": "91cddf34ac8b4f323d145159c8ce576d9f45ffa31c597b526d481c99db12e772",
+    "pair-0/diamond-reuse.csv": "2d5fe28695a543170cfd01c1864b36accdbe796ccf98ca83be0dcb96dcead0e2",
+    "pair-0/diamond-reuse-prepare.csv": "f23f91887f58437f465395397ffab0f670df44d7f6d7f23cff5c1d239420a22f",
+    "pair-1/chain-reuse.csv": "b3e2850da7e2654001f6a31750cb11a5e7400b46614caa30777367ea7f98d372",
+    "pair-1/chain-reuse-prepare.csv": "44180bd0da4171e3dec2ab9343f3033d217732b4a42674749388f31e328b9846",
+    "pair-1/chain-no_reuse.csv": "8e493038880cba85fe40c7f3f9bd754d86828ca77bcdc7cb5ff180eab745685e",
+    "pair-1/chain-no_reuse-prepare.csv": "4836a741b6bba1c09d05836d024229fdecb150931f7584623e9e8c05a2abf645",
+    "pair-1/chain-dynamic.csv": "c32e5a8899dd023b4af46aaa63e7300eb5c1e3838029e5e39192b3cbf404f325",
+    "pair-1/chain-dynamic-prepare.csv": "30f3cfaec757a6f76cd1d8b4c7e04884c513fe145ad51cacb1921a9d36e7a908",
+    "pair-1/diamond-reuse.csv": "4688d3bb19e426aca3e2166f109b8b65bb8906c44438ee18340465d34442926b",
+    "pair-1/diamond-reuse-prepare.csv": "1bc8bbc251adc95c03da6b09852c335318476e322d776de09e6d6b4cf09f688e",
+    "pair-1/diamond-no_reuse.csv": "416d85bef207bec9d256542cd2f9d24312bbc046ef95a869c36c430af23fe2a4",
+    "pair-1/diamond-no_reuse-prepare.csv": "508b3662f9bb6cae25538568638913c6af1ad4107d4b7d9102b53efacbef8af5",
+    "pair-1/diamond-dynamic.csv": "2b5ee6b4281f92007361ee068da276d65c0431437755a1b980e668c18126f506",
+    "pair-1/diamond-dynamic-prepare.csv": "30f3cfaec757a6f76cd1d8b4c7e04884c513fe145ad51cacb1921a9d36e7a908",
+    "pair-2/chain-dynamic.csv": "02ff55e7cc95860a600e6bfbf9e54efc532f1e88cf093e3009bc0d28a7b11e6d",
+    "pair-2/chain-dynamic-prepare.csv": "30f3cfaec757a6f76cd1d8b4c7e04884c513fe145ad51cacb1921a9d36e7a908",
+    "pair-2/chain-no_reuse.csv": "f04ac64c89700250163d7b7be1403d06a9159ccaec5bae34814718eb5cfcb7b7",
+    "pair-2/chain-no_reuse-prepare.csv": "c0240597db222da92f47f21df19f25c29874c14c3025204a68b8cb89effe1b63",
+    "pair-2/chain-reuse.csv": "b4cd4d61b3c7f7ef4a5a2449ca322c3d04b3f44643bf6546f2a6b9a9ed8fcb41",
+    "pair-2/chain-reuse-prepare.csv": "e6e8ca7540c98276f482da25047f48881217f18f2b543d5ffd47a3d2de7f09fd",
+    "pair-2/diamond-dynamic.csv": "3a7e8333bedf875d951c50b35a13d44cc70ea158d7d89e263a3ecb68c0242f1b",
+    "pair-2/diamond-dynamic-prepare.csv": "30f3cfaec757a6f76cd1d8b4c7e04884c513fe145ad51cacb1921a9d36e7a908",
+    "pair-2/diamond-no_reuse.csv": "6ab2d8790b86406ed7f1783e93287ec56623570d92e25cf2e6de2cc4964d5ed2",
+    "pair-2/diamond-no_reuse-prepare.csv": "f1e31424a2466bf03b08a312c5d5a2e08b84fbc0488de79c319c74154b577fb2",
+    "pair-2/diamond-reuse.csv": "3251380215b449eadcd3d4e3582602b2adda277bd320e09f29daa9e676e337c9",
+    "pair-2/diamond-reuse-prepare.csv": "007f7321a2e1e53dd3bfa3f097b0fd82d8e7e337e9c4c1957ca5c7c32ae5fe84"
+  },
+  "status": "passed",
+  "binary": {
+    "schema_version": 1,
+    "commit": "91b8da2f14839179025228c41e40de7c6848dfe2",
+    "source_digest": "ea7c7bdcd37c41eab75788ca9b650d47ba1a47f35ecaf048171286ceca6bf2de",
+    "source_dirty": false,
+    "build_type": "Release",
+    "compiler": "AppleClang 21.0.0.21000334",
+    "testing": false,
+    "backend": "cpu",
+    "benchmark": "planner-v1"
+  },
+  "binary_sha256": "b4e74190a77b6bf821bbaedd746abf51cc4ad8544c4c42cf83699f4b2399360e",
+  "source_after": {
+    "commit": "91b8da2f14839179025228c41e40de7c6848dfe2",
+    "source_digest": "ea7c7bdcd37c41eab75788ca9b650d47ba1a47f35ecaf048171286ceca6bf2de",
+    "source_dirty": false
+  }
+}

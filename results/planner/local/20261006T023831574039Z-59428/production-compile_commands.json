@@ -1,0 +1,104 @@
+[
+{
+  "directory": "/Users/wafoe/projects/me/CXXEg-stage5-verify/build-stage5-validation/20261006T023831574039Z-59428/production",
+  "command": "/usr/bin/c++  -I/Users/wafoe/projects/me/CXXEg-stage5-verify/include -I/Users/wafoe/projects/me/CXXEg-stage5-verify/build-stage5-validation/20261006T023831574039Z-59428/production/generated -O3 -DNDEBUG -std=c++17 -arch arm64 -Wall -Wextra -Wpedantic -o CMakeFiles/stage0_common.dir/src/common.cpp.o -c /Users/wafoe/projects/me/CXXEg-stage5-verify/src/common.cpp",
+  "file": "/Users/wafoe/projects/me/CXXEg-stage5-verify/src/common.cpp",
+  "output": "CMakeFiles/stage0_common.dir/src/common.cpp.o"
+},
+{
+  "directory": "/Users/wafoe/projects/me/CXXEg-stage5-verify/build-stage5-validation/20261006T023831574039Z-59428/production",
+  "command": "/usr/bin/c++  -I/Users/wafoe/projects/me/CXXEg-stage5-verify/include -O3 -DNDEBUG -std=c++17 -arch arm64 -Wall -Wextra -Wpedantic -o CMakeFiles/runtime.dir/src/runtime/storage.cpp.o -c /Users/wafoe/projects/me/CXXEg-stage5-verify/src/runtime/storage.cpp",
+  "file": "/Users/wafoe/projects/me/CXXEg-stage5-verify/src/runtime/storage.cpp",
+  "output": "CMakeFiles/runtime.dir/src/runtime/storage.cpp.o"
+},
+{
+  "directory": "/Users/wafoe/projects/me/CXXEg-stage5-verify/build-stage5-validation/20261006T023831574039Z-59428/production",
+  "command": "/usr/bin/c++  -I/Users/wafoe/projects/me/CXXEg-stage5-verify/include -O3 -DNDEBUG -std=c++17 -arch arm64 -Wall -Wextra -Wpedantic -o CMakeFiles/runtime.dir/src/runtime/tensor.cpp.o -c /Users/wafoe/projects/me/CXXEg-stage5-verify/src/runtime/tensor.cpp",
+  "file": "/Users/wafoe/projects/me/CXXEg-stage5-verify/src/runtime/tensor.cpp",
+  "output": "CMakeFiles/runtime.dir/src/runtime/tensor.cpp.o"
+},
+{
+  "directory": "/Users/wafoe/projects/me/CXXEg-stage5-verify/build-stage5-validation/20261006T023831574039Z-59428/production",
+  "command": "/usr/bin/c++  -I/Users/wafoe/projects/me/CXXEg-stage5-verify/include -O3 -DNDEBUG -std=c++17 -arch arm64 -Wall -Wextra -Wpedantic -o CMakeFiles/runtime.dir/src/runtime/copy.cpp.o -c /Users/wafoe/projects/me/CXXEg-stage5-verify/src/runtime/copy.cpp",
+  "file": "/Users/wafoe/projects/me/CXXEg-stage5-verify/src/runtime/copy.cpp",
+  "output": "CMakeFiles/runtime.dir/src/runtime/copy.cpp.o"
+},
+{
+  "directory": "/Users/wafoe/projects/me/CXXEg-stage5-verify/build-stage5-validation/20261006T023831574039Z-59428/production",
+  "command": "/usr/bin/c++  -I/Users/wafoe/projects/me/CXXEg-stage5-verify/include -O3 -DNDEBUG -std=c++17 -arch arm64 -Wall -Wextra -Wpedantic -o CMakeFiles/runtime.dir/src/runtime/operator.cpp.o -c /Users/wafoe/projects/me/CXXEg-stage5-verify/src/runtime/operator.cpp",
+  "file": "/Users/wafoe/projects/me/CXXEg-stage5-verify/src/runtime/operator.cpp",
+  "output": "CMakeFiles/runtime.dir/src/runtime/operator.cpp.o"
+},
+{
+  "directory": "/Users/wafoe/projects/me/CXXEg-stage5-verify/build-stage5-validation/20261006T023831574039Z-59428/production",
+  "command": "/usr/bin/c++  -I/Users/wafoe/projects/me/CXXEg-stage5-verify/include -O3 -DNDEBUG -std=c++17 -arch arm64 -Wall -Wextra -Wpedantic -o CMakeFiles/runtime.dir/src/runtime/shape_inference.cpp.o -c /Users/wafoe/projects/me/CXXEg-stage5-verify/src/runtime/shape_inference.cpp",
+  "file": "/Users/wafoe/projects/me/CXXEg-stage5-verify/src/runtime/shape_inference.cpp",
+  "output": "CMakeFiles/runtime.dir/src/runtime/shape_inference.cpp.o"
+},
+{
+  "directory": "/Users/wafoe/projects/me/CXXEg-stage5-verify/build-stage5-validation/20261006T023831574039Z-59428/production",
+  "command": "/usr/bin/c++  -I/Users/wafoe/projects/me/CXXEg-stage5-verify/include -O3 -DNDEBUG -std=c++17 -arch arm64 -Wall -Wextra -Wpedantic -o CMakeFiles/runtime.dir/src/runtime/reference.cpp.o -c /Users/wafoe/projects/me/CXXEg-stage5-verify/src/runtime/reference.cpp",
+  "file": "/Users/wafoe/projects/me/CXXEg-stage5-verify/src/runtime/reference.cpp",
+  "output": "CMakeFiles/runtime.dir/src/runtime/reference.cpp.o"
+},
+{
+  "directory": "/Users/wafoe/projects/me/CXXEg-stage5-verify/build-stage5-validation/20261006T023831574039Z-59428/production",
+  "command": "/usr/bin/c++  -I/Users/wafoe/projects/me/CXXEg-stage5-verify/include -O3 -DNDEBUG -std=c++17 -arch arm64 -Wall -Wextra -Wpedantic -o CMakeFiles/runtime.dir/src/runtime/layout.cpp.o -c /Users/wafoe/projects/me/CXXEg-stage5-verify/src/runtime/layout.cpp",
+  "file": "/Users/wafoe/projects/me/CXXEg-stage5-verify/src/runtime/layout.cpp",
+  "output": "CMakeFiles/runtime.dir/src/runtime/layout.cpp.o"
+},
+{
+  "directory": "/Users/wafoe/projects/me/CXXEg-stage5-verify/build-stage5-validation/20261006T023831574039Z-59428/production",
+  "command": "/usr/bin/c++  -I/Users/wafoe/projects/me/CXXEg-stage5-verify/include -O3 -DNDEBUG -std=c++17 -arch arm64 -Wall -Wextra -Wpedantic -o CMakeFiles/runtime.dir/src/runtime/graph.cpp.o -c /Users/wafoe/projects/me/CXXEg-stage5-verify/src/runtime/graph.cpp",
+  "file": "/Users/wafoe/projects/me/CXXEg-stage5-verify/src/runtime/graph.cpp",
+  "output": "CMakeFiles/runtime.dir/src/runtime/graph.cpp.o"
+},
+{
+  "directory": "/Users/wafoe/projects/me/CXXEg-stage5-verify/build-stage5-validation/20261006T023831574039Z-59428/production",
+  "command": "/usr/bin/c++  -I/Users/wafoe/projects/me/CXXEg-stage5-verify/include -O3 -DNDEBUG -std=c++17 -arch arm64 -Wall -Wextra -Wpedantic -o CMakeFiles/runtime.dir/src/runtime/graph_executor.cpp.o -c /Users/wafoe/projects/me/CXXEg-stage5-verify/src/runtime/graph_executor.cpp",
+  "file": "/Users/wafoe/projects/me/CXXEg-stage5-verify/src/runtime/graph_executor.cpp",
+  "output": "CMakeFiles/runtime.dir/src/runtime/graph_executor.cpp.o"
+},
+{
+  "directory": "/Users/wafoe/projects/me/CXXEg-stage5-verify/build-stage5-validation/20261006T023831574039Z-59428/production",
+  "command": "/usr/bin/c++  -I/Users/wafoe/projects/me/CXXEg-stage5-verify/include -O3 -DNDEBUG -std=c++17 -arch arm64 -Wall -Wextra -Wpedantic -o CMakeFiles/runtime.dir/src/runtime/graph_trace.cpp.o -c /Users/wafoe/projects/me/CXXEg-stage5-verify/src/runtime/graph_trace.cpp",
+  "file": "/Users/wafoe/projects/me/CXXEg-stage5-verify/src/runtime/graph_trace.cpp",
+  "output": "CMakeFiles/runtime.dir/src/runtime/graph_trace.cpp.o"
+},
+{
+  "directory": "/Users/wafoe/projects/me/CXXEg-stage5-verify/build-stage5-validation/20261006T023831574039Z-59428/production",
+  "command": "/usr/bin/c++  -I/Users/wafoe/projects/me/CXXEg-stage5-verify/include -O3 -DNDEBUG -std=c++17 -arch arm64 -Wall -Wextra -Wpedantic -o CMakeFiles/runtime.dir/src/runtime/arena.cpp.o -c /Users/wafoe/projects/me/CXXEg-stage5-verify/src/runtime/arena.cpp",
+  "file": "/Users/wafoe/projects/me/CXXEg-stage5-verify/src/runtime/arena.cpp",
+  "output": "CMakeFiles/runtime.dir/src/runtime/arena.cpp.o"
+},
+{
+  "directory": "/Users/wafoe/projects/me/CXXEg-stage5-verify/build-stage5-validation/20261006T023831574039Z-59428/production",
+  "command": "/usr/bin/c++  -I/Users/wafoe/projects/me/CXXEg-stage5-verify/include -O3 -DNDEBUG -std=c++17 -arch arm64 -Wall -Wextra -Wpedantic -o CMakeFiles/runtime.dir/src/runtime/allocation_provider.cpp.o -c /Users/wafoe/projects/me/CXXEg-stage5-verify/src/runtime/allocation_provider.cpp",
+  "file": "/Users/wafoe/projects/me/CXXEg-stage5-verify/src/runtime/allocation_provider.cpp",
+  "output": "CMakeFiles/runtime.dir/src/runtime/allocation_provider.cpp.o"
+},
+{
+  "directory": "/Users/wafoe/projects/me/CXXEg-stage5-verify/build-stage5-validation/20261006T023831574039Z-59428/production",
+  "command": "/usr/bin/c++  -I/Users/wafoe/projects/me/CXXEg-stage5-verify/include -O3 -DNDEBUG -std=c++17 -arch arm64 -Wall -Wextra -Wpedantic -o CMakeFiles/runtime.dir/src/runtime/memory_planner.cpp.o -c /Users/wafoe/projects/me/CXXEg-stage5-verify/src/runtime/memory_planner.cpp",
+  "file": "/Users/wafoe/projects/me/CXXEg-stage5-verify/src/runtime/memory_planner.cpp",
+  "output": "CMakeFiles/runtime.dir/src/runtime/memory_planner.cpp.o"
+},
+{
+  "directory": "/Users/wafoe/projects/me/CXXEg-stage5-verify/build-stage5-validation/20261006T023831574039Z-59428/production",
+  "command": "/usr/bin/c++  -I/Users/wafoe/projects/me/CXXEg-stage5-verify/include -O3 -DNDEBUG -std=c++17 -arch arm64 -Wall -Wextra -Wpedantic -o CMakeFiles/runtime.dir/src/runtime/planned_executor.cpp.o -c /Users/wafoe/projects/me/CXXEg-stage5-verify/src/runtime/planned_executor.cpp",
+  "file": "/Users/wafoe/projects/me/CXXEg-stage5-verify/src/runtime/planned_executor.cpp",
+  "output": "CMakeFiles/runtime.dir/src/runtime/planned_executor.cpp.o"
+},
+{
+  "directory": "/Users/wafoe/projects/me/CXXEg-stage5-verify/build-stage5-validation/20261006T023831574039Z-59428/production",
+  "command": "/usr/bin/c++  -I/Users/wafoe/projects/me/CXXEg-stage5-verify/include -I/Users/wafoe/projects/me/CXXEg-stage5-verify/build-stage5-validation/20261006T023831574039Z-59428/production/generated -O3 -DNDEBUG -std=c++17 -arch arm64 -Wall -Wextra -Wpedantic -o CMakeFiles/bench_allocator.dir/bench/bench_allocator.cpp.o -c /Users/wafoe/projects/me/CXXEg-stage5-verify/bench/bench_allocator.cpp",
+  "file": "/Users/wafoe/projects/me/CXXEg-stage5-verify/bench/bench_allocator.cpp",
+  "output": "CMakeFiles/bench_allocator.dir/bench/bench_allocator.cpp.o"
+},
+{
+  "directory": "/Users/wafoe/projects/me/CXXEg-stage5-verify/build-stage5-validation/20261006T023831574039Z-59428/production",
+  "command": "/usr/bin/c++  -I/Users/wafoe/projects/me/CXXEg-stage5-verify/include -I/Users/wafoe/projects/me/CXXEg-stage5-verify/build-stage5-validation/20261006T023831574039Z-59428/production/generated -O3 -DNDEBUG -std=c++17 -arch arm64 -Wall -Wextra -Wpedantic -o CMakeFiles/bench_planner.dir/bench/bench_planner.cpp.o -c /Users/wafoe/projects/me/CXXEg-stage5-verify/bench/bench_planner.cpp",
+  "file": "/Users/wafoe/projects/me/CXXEg-stage5-verify/bench/bench_planner.cpp",
+  "output": "CMakeFiles/bench_planner.dir/bench/bench_planner.cpp.o"
+}
+]

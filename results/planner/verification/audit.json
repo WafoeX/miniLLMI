@@ -1,0 +1,76 @@
+{
+  "scope": "Supplementary final CPU-only artifact audit",
+  "tested_source": {
+    "commit": "4473e3002b93374222974043c73190d904a833dc",
+    "source_digest": "b82137fce9b1f29ea23aedbc8f552c878df7689d0c395c9d787c0b7a0acc7802",
+    "source_dirty": false
+  },
+  "source_agreement": true,
+  "cache_snapshots": {
+    "20261006T024055095509Z-63246/release-CMakeCache.txt": true,
+    "20261006T024055095509Z-63246/release-compile_commands.json": true,
+    "20261006T024055095509Z-63246/debug-CMakeCache.txt": true,
+    "20261006T024055095509Z-63246/debug-compile_commands.json": true,
+    "20261006T024055095509Z-63246/sanitizer-CMakeCache.txt": true,
+    "20261006T024055095509Z-63246/sanitizer-compile_commands.json": true,
+    "20261006T024055095509Z-63246/production-CMakeCache.txt": true,
+    "20261006T024055095509Z-63246/production-compile_commands.json": true,
+    "20261006T024144778921Z-65641/tests-CMakeCache.txt": true,
+    "20261006T024144778921Z-65641/tests-compile_commands.json": true,
+    "20261006T024144778921Z-65641/production-CMakeCache.txt": true,
+    "20261006T024144778921Z-65641/production-compile_commands.json": true
+  },
+  "build_warnings_errors": {
+    "20261006T024055095509Z-63246/release-configure.log": [],
+    "20261006T024055095509Z-63246/release-build.log": [],
+    "20261006T024055095509Z-63246/debug-configure.log": [],
+    "20261006T024055095509Z-63246/debug-build.log": [],
+    "20261006T024055095509Z-63246/sanitizer-configure.log": [],
+    "20261006T024055095509Z-63246/sanitizer-build.log": [],
+    "20261006T024055095509Z-63246/production-configure.log": [],
+    "20261006T024055095509Z-63246/production-build.log": [],
+    "20261006T024144778921Z-65641/tests-configure.log": [],
+    "20261006T024144778921Z-65641/tests-build.log": [],
+    "20261006T024144778921Z-65641/production-configure.log": [],
+    "20261006T024144778921Z-65641/production-build.log": []
+  },
+  "production_hooks": {
+    "20261006T024055095509Z-63246": {
+      "exit_code": 0,
+      "hook_symbols": []
+    },
+    "20261006T024144778921Z-65641": {
+      "exit_code": 0,
+      "hook_symbols": []
+    }
+  },
+  "production_self_tests": {
+    "20261006T024055095509Z-63246": {
+      "argv": [
+        "/Users/wafoe/projects/me/CXXEg-stage5-verify/build-stage5-validation/20261006T024055095509Z-63246/production/bench_planner",
+        "--self-test"
+      ],
+      "exit_code": 0
+    },
+    "20261006T024144778921Z-65641": {
+      "argv": [
+        "/Users/wafoe/projects/me/CXXEg-stage5-verify/build-planner-benchmark/20261006T024144778921Z-65641/production/bench_planner",
+        "--self-test"
+      ],
+      "exit_code": 0
+    }
+  },
+  "derived_replay": {
+    "20261006T023924277732Z-61772": {
+      "exit_code": 0,
+      "byte_identical": true
+    },
+    "20261006T024144778921Z-65641": {
+      "exit_code": 0,
+      "byte_identical": true
+    }
+  },
+  "binary_sha_verified": true,
+  "protected_changes": [],
+  "protected_git_exit": 0
+}

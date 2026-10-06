@@ -114,4 +114,5 @@ python3 tools/analyze_planner.py results/planner/cpu/<actual-run-id>
 
 Source/build/binary identity and raw samples are archived in unique run paths.
 Generated artifacts are recomputable and cannot overwrite different existing
-bytes. Actual acceptance results belong in stage5_report.md after measurement.
+bytes. Actual accepted CPU-only results and limits are in the
+[Stage 5 report](stage5_report.md).

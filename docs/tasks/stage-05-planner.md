@@ -4,6 +4,8 @@
 
 **Execution scope:** explicitly CPU-only host planner/reference integration and CPU-only memory/latency diagnostic; local named-host Release measurements are permitted. CUDA planning/server performance is not claimed. Frozen workloads, policies and timing boundaries are in [planner contracts](../planner.md). S5-C4 is `skipped_optional` (default disabled; not necessary for the required gate).
 
+**Acceptance status:** required C1/C2/C3/C5 pass on tested source `4473e30`; C4 remains `skipped_optional`. [Stage 5 report](../stage5_report.md) maps each Change to source/tests/raw evidence. Chain intermediate backing allocations 11→0 and prepared capacity 3072→512 bytes satisfy the required gate. Tiny-graph latency regresses; no speedup is claimed.
+
 ## S5-C1 — Lifetime analysis
 - **Goal/type:** Compute birth, first/last use, consumer counts; mark graph inputs, outputs, aliases/views. *Functional + Correctness.*
 - **Depends/files:** S3/S4; `memory_planner.hpp/.cpp`, tests.

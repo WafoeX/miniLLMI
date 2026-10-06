@@ -1,0 +1,209 @@
+{
+  "schema_version": 1,
+  "stage": 5,
+  "run_id": "20261006T023831574039Z-59428",
+  "scope": "CPU-only correctness, no performance claim",
+  "source": {
+    "commit": "91b8da2f14839179025228c41e40de7c6848dfe2",
+    "source_digest": "ea7c7bdcd37c41eab75788ca9b650d47ba1a47f35ecaf048171286ceca6bf2de",
+    "source_dirty": false
+  },
+  "host": "Wafoe-MacBook.local",
+  "platform": "macOS-26.7-arm64-arm-64bit-Mach-O",
+  "machine": "arm64",
+  "python": "3.14.6 | packaged by conda-forge | (main, Aug 11 2026, 10:24:52) [Clang 20.1.8 ]",
+  "sanitizer_environment": {
+    "ASAN_OPTIONS": "halt_on_error=1:detect_leaks=0",
+    "UBSAN_OPTIONS": "halt_on_error=1:print_stacktrace=1"
+  },
+  "commands": [
+    {
+      "argv": [
+        "cmake",
+        "--version"
+      ],
+      "cwd": "/Users/wafoe/projects/me/CXXEg-stage5-verify",
+      "log": "cmake-version.log",
+      "exit_code": 0
+    },
+    {
+      "argv": [
+        "git",
+        "--version"
+      ],
+      "cwd": "/Users/wafoe/projects/me/CXXEg-stage5-verify",
+      "log": "git-version.log",
+      "exit_code": 0
+    },
+    {
+      "argv": [
+        "cmake",
+        "-S",
+        "/Users/wafoe/projects/me/CXXEg-stage5-verify",
+        "-B",
+        "/Users/wafoe/projects/me/CXXEg-stage5-verify/build-stage5-validation/20261006T023831574039Z-59428/release",
+        "-DCMAKE_BUILD_TYPE=Release",
+        "-DENABLE_CUDA=OFF",
+        "-DENABLE_SANITIZERS=OFF",
+        "-DBUILD_TESTING=ON"
+      ],
+      "cwd": "/Users/wafoe/projects/me/CXXEg-stage5-verify",
+      "log": "release-configure.log",
+      "exit_code": 0
+    },
+    {
+      "argv": [
+        "cmake",
+        "--build",
+        "/Users/wafoe/projects/me/CXXEg-stage5-verify/build-stage5-validation/20261006T023831574039Z-59428/release",
+        "--parallel",
+        "4",
+        "--verbose"
+      ],
+      "cwd": "/Users/wafoe/projects/me/CXXEg-stage5-verify",
+      "log": "release-build.log",
+      "exit_code": 0
+    },
+    {
+      "argv": [
+        "ctest",
+        "--test-dir",
+        "/Users/wafoe/projects/me/CXXEg-stage5-verify/build-stage5-validation/20261006T023831574039Z-59428/release",
+        "--output-on-failure",
+        "--verbose"
+      ],
+      "cwd": "/Users/wafoe/projects/me/CXXEg-stage5-verify",
+      "log": "release-ctest.log",
+      "exit_code": 0
+    },
+    {
+      "argv": [
+        "cmake",
+        "-S",
+        "/Users/wafoe/projects/me/CXXEg-stage5-verify",
+        "-B",
+        "/Users/wafoe/projects/me/CXXEg-stage5-verify/build-stage5-validation/20261006T023831574039Z-59428/debug",
+        "-DCMAKE_BUILD_TYPE=Debug",
+        "-DENABLE_CUDA=OFF",
+        "-DENABLE_SANITIZERS=OFF",
+        "-DBUILD_TESTING=ON"
+      ],
+      "cwd": "/Users/wafoe/projects/me/CXXEg-stage5-verify",
+      "log": "debug-configure.log",
+      "exit_code": 0
+    },
+    {
+      "argv": [
+        "cmake",
+        "--build",
+        "/Users/wafoe/projects/me/CXXEg-stage5-verify/build-stage5-validation/20261006T023831574039Z-59428/debug",
+        "--parallel",
+        "4",
+        "--verbose"
+      ],
+      "cwd": "/Users/wafoe/projects/me/CXXEg-stage5-verify",
+      "log": "debug-build.log",
+      "exit_code": 0
+    },
+    {
+      "argv": [
+        "ctest",
+        "--test-dir",
+        "/Users/wafoe/projects/me/CXXEg-stage5-verify/build-stage5-validation/20261006T023831574039Z-59428/debug",
+        "--output-on-failure",
+        "--verbose"
+      ],
+      "cwd": "/Users/wafoe/projects/me/CXXEg-stage5-verify",
+      "log": "debug-ctest.log",
+      "exit_code": 0
+    },
+    {
+      "argv": [
+        "cmake",
+        "-S",
+        "/Users/wafoe/projects/me/CXXEg-stage5-verify",
+        "-B",
+        "/Users/wafoe/projects/me/CXXEg-stage5-verify/build-stage5-validation/20261006T023831574039Z-59428/sanitizer",
+        "-DCMAKE_BUILD_TYPE=Debug",
+        "-DENABLE_CUDA=OFF",
+        "-DENABLE_SANITIZERS=ON",
+        "-DBUILD_TESTING=ON"
+      ],
+      "cwd": "/Users/wafoe/projects/me/CXXEg-stage5-verify",
+      "log": "sanitizer-configure.log",
+      "exit_code": 0
+    },
+    {
+      "argv": [
+        "cmake",
+        "--build",
+        "/Users/wafoe/projects/me/CXXEg-stage5-verify/build-stage5-validation/20261006T023831574039Z-59428/sanitizer",
+        "--parallel",
+        "4",
+        "--verbose"
+      ],
+      "cwd": "/Users/wafoe/projects/me/CXXEg-stage5-verify",
+      "log": "sanitizer-build.log",
+      "exit_code": 0
+    },
+    {
+      "argv": [
+        "cmake",
+        "--build",
+        "/Users/wafoe/projects/me/CXXEg-stage5-verify/build-stage5-validation/20261006T023831574039Z-59428/sanitizer",
+        "--target",
+        "check_planner_sanitizers"
+      ],
+      "cwd": "/Users/wafoe/projects/me/CXXEg-stage5-verify",
+      "log": "sanitizer-target.log",
+      "exit_code": 0
+    },
+    {
+      "argv": [
+        "ctest",
+        "--test-dir",
+        "/Users/wafoe/projects/me/CXXEg-stage5-verify/build-stage5-validation/20261006T023831574039Z-59428/sanitizer",
+        "--output-on-failure",
+        "--verbose"
+      ],
+      "cwd": "/Users/wafoe/projects/me/CXXEg-stage5-verify",
+      "log": "sanitizer-ctest.log",
+      "exit_code": 0
+    },
+    {
+      "argv": [
+        "cmake",
+        "-S",
+        "/Users/wafoe/projects/me/CXXEg-stage5-verify",
+        "-B",
+        "/Users/wafoe/projects/me/CXXEg-stage5-verify/build-stage5-validation/20261006T023831574039Z-59428/production",
+        "-DCMAKE_BUILD_TYPE=Release",
+        "-DENABLE_CUDA=OFF",
+        "-DENABLE_SANITIZERS=OFF",
+        "-DBUILD_TESTING=OFF"
+      ],
+      "cwd": "/Users/wafoe/projects/me/CXXEg-stage5-verify",
+      "log": "production-configure.log",
+      "exit_code": 0
+    },
+    {
+      "argv": [
+        "cmake",
+        "--build",
+        "/Users/wafoe/projects/me/CXXEg-stage5-verify/build-stage5-validation/20261006T023831574039Z-59428/production",
+        "--parallel",
+        "4",
+        "--verbose"
+      ],
+      "cwd": "/Users/wafoe/projects/me/CXXEg-stage5-verify",
+      "log": "production-build.log",
+      "exit_code": 0
+    }
+  ],
+  "status": "passed",
+  "source_after": {
+    "commit": "91b8da2f14839179025228c41e40de7c6848dfe2",
+    "source_digest": "ea7c7bdcd37c41eab75788ca9b650d47ba1a47f35ecaf048171286ceca6bf2de",
+    "source_dirty": false
+  }
+}
