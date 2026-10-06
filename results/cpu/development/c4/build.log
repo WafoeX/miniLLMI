@@ -1,0 +1,35 @@
+-- Configuring done (0.2s)
+-- Generating done (0.1s)
+-- Build files have been written to: /Users/wafoe/projects/me/CXXEg/build-stage6-dev
+[  0%] Built target refresh_provenance
+[ 26%] Built target runtime
+[ 29%] Built target stage0_common
+[ 36%] Built target test_cpu_scalar
+[ 38%] Built target test_cpu_transformer_contract
+[ 38%] Built target test_cpu_backend_fixtures
+[ 41%] Built target test_cpu_backend
+[ 50%] Built target test_tensor
+[ 50%] Built target test_tensor_properties
+[ 50%] Built target test_operator
+[ 53%] Built target test_shape_inference
+[ 66%] Built target test_graph
+[ 66%] Built target test_transformer_contracts
+[ 66%] Built target test_operator_fixtures
+[ 66%] Built target test_reference
+[ 78%] Built target test_graph_trace
+[ 78%] Built target test_graph_fixtures
+[ 78%] Built target test_arena
+[ 78%] Built target test_graph_executor
+[ 90%] Built target test_memory_planner
+[ 90%] Built target test_allocation_provider
+[ 90%] Built target test_planned_executor
+[ 90%] Built target test_common
+[ 92%] Building CXX object CMakeFiles/bench_cpu.dir/bench/bench_cpu.cpp.o
+[ 95%] Building CXX object CMakeFiles/bench_allocator.dir/bench/bench_allocator.cpp.o
+[ 95%] Building CXX object CMakeFiles/bench_planner.dir/bench/bench_planner.cpp.o
+[ 96%] Linking CXX executable bench_cpu
+[ 98%] Linking CXX executable bench_allocator
+[100%] Linking CXX executable bench_planner
+[100%] Built target bench_allocator
+[100%] Built target bench_cpu
+[100%] Built target bench_planner

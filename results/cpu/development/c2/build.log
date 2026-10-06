@@ -1,0 +1,57 @@
+-- Configuring done (0.2s)
+-- Generating done (0.0s)
+-- Build files have been written to: /Users/wafoe/projects/me/CXXEg/build-stage6-dev
+[  4%] Building CXX object CMakeFiles/runtime.dir/src/runtime/cpu_scalar.cpp.o
+[  4%] Building CXX object CMakeFiles/runtime.dir/src/runtime/cpu_backend.cpp.o
+[  4%] Building CXX object CMakeFiles/runtime.dir/src/runtime/reference.cpp.o
+[  4%] Built target refresh_provenance
+[  8%] Built target stage0_common
+[ 11%] Built target test_common
+[ 13%] Linking CXX static library libruntime.a
+[ 34%] Built target runtime
+[ 37%] Building CXX object CMakeFiles/test_cpu_scalar.dir/tests/test_cpu_scalar.cpp.o
+[ 37%] Building CXX object CMakeFiles/test_cpu_backend_fixtures.dir/tests/test_operator_fixtures.cpp.o
+[ 40%] Building CXX object CMakeFiles/bench_allocator.dir/bench/bench_allocator.cpp.o
+[ 40%] Building CXX object CMakeFiles/bench_planner.dir/bench/bench_planner.cpp.o
+[ 42%] Linking CXX executable bench_allocator
+[ 44%] Linking CXX executable test_cpu_scalar
+[ 45%] Linking CXX executable test_cpu_backend_fixtures
+[ 45%] Built target bench_allocator
+[ 47%] Linking CXX executable bench_planner
+[ 47%] Built target test_cpu_backend_fixtures
+[ 47%] Built target test_cpu_scalar
+[ 49%] Building CXX object CMakeFiles/test_cpu_backend.dir/tests/test_cpu_backend.cpp.o
+[ 49%] Built target bench_planner
+[ 52%] Linking CXX executable test_tensor
+[ 52%] Linking CXX executable test_tensor_properties
+[ 54%] Linking CXX executable test_operator
+[ 59%] Built target test_operator
+[ 59%] Built target test_tensor
+[ 59%] Built target test_tensor_properties
+[ 63%] Linking CXX executable test_reference
+[ 63%] Linking CXX executable test_shape_inference
+[ 63%] Linking CXX executable test_transformer_contracts
+[ 65%] Built target test_transformer_contracts
+[ 67%] Built target test_reference
+[ 68%] Built target test_shape_inference
+[ 73%] Linking CXX executable test_graph
+[ 73%] Building CXX object CMakeFiles/test_operator_fixtures.dir/tests/test_operator_fixtures.cpp.o
+[ 73%] Linking CXX executable test_graph_executor
+[ 77%] Built target test_graph_executor
+[ 77%] Built target test_graph
+[ 80%] Linking CXX executable test_graph_fixtures
+[ 80%] Linking CXX executable test_graph_trace
+[ 83%] Built target test_graph_fixtures
+[ 83%] Built target test_graph_trace
+[ 86%] Linking CXX executable test_allocation_provider
+[ 86%] Linking CXX executable test_arena
+[ 90%] Built target test_allocation_provider
+[ 90%] Built target test_arena
+[ 91%] Linking CXX executable test_cpu_backend
+[ 95%] Linking CXX executable test_memory_planner
+[ 95%] Linking CXX executable test_planned_executor
+[ 95%] Built target test_cpu_backend
+[ 98%] Built target test_planned_executor
+[ 98%] Built target test_memory_planner
+[100%] Linking CXX executable test_operator_fixtures
+[100%] Built target test_operator_fixtures

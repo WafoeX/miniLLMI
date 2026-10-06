@@ -1,0 +1,117 @@
+{
+  "scope": "Stage 6 artifact verification, no new performance measurement",
+  "timestamp": "2026-10-06T04:12:04.485831+00:00",
+  "tested_source": {
+    "commit": "75dc03871a35c5ac32e860513280486d76bdd529",
+    "source_digest": "108fe30a3caf9c4b01688c2850ba5860c45e2ff0c2d4eefb09f263fb791c0c78",
+    "source_dirty": false
+  },
+  "archive_replay": {
+    "argv": [
+      "/Users/wafoe/miniforge3/bin/python3",
+      "tools/analyze_cpu.py",
+      "/Users/wafoe/projects/me/CXXEg/results/cpu/baseline/20261006T040644002962Z-80817"
+    ],
+    "exit_code": 0,
+    "derived_sha256": {
+      "analysis.json": "2321e375f15fb4efad8f3c87066dd83c970f7c24030ef3a99f8b4a40c07e0792",
+      "cpu_gemm.csv": "12e00bd0a9ce4dcd52ff8e69788cf12aba174747e1fce3ab51a6a4cd08b537f3",
+      "summary.md": "98b256e7f820b938a9b329841740d6c788ea5163d5d47dd74d3efa4d0523fd91"
+    },
+    "byte_identical": true
+  },
+  "formal_identities_match": true,
+  "artifact_hash_count": 68,
+  "snapshots": [
+    {
+      "archive": "results/cpu/local/20261006T040533995553Z-78182/release-CMakeCache.txt",
+      "build_file": "/Users/wafoe/projects/me/CXXEg-stage6-verify/build-stage6-validation/20261006T040533995553Z-78182/release/CMakeCache.txt",
+      "sha256": "9b7f0e1fa55971d470b3e83e8316d2976d5e1f9aabb1c3ae8a99222e81498560"
+    },
+    {
+      "archive": "results/cpu/local/20261006T040533995553Z-78182/release-compile_commands.json",
+      "build_file": "/Users/wafoe/projects/me/CXXEg-stage6-verify/build-stage6-validation/20261006T040533995553Z-78182/release/compile_commands.json",
+      "sha256": "2c59305af2306245d07755d82dcd1c7c13cda39f9b3696c8ee5d56394e9c7456"
+    },
+    {
+      "archive": "results/cpu/local/20261006T040533995553Z-78182/debug-CMakeCache.txt",
+      "build_file": "/Users/wafoe/projects/me/CXXEg-stage6-verify/build-stage6-validation/20261006T040533995553Z-78182/debug/CMakeCache.txt",
+      "sha256": "8627d0cb7572098b9e4e940b17f608fe4469442faa088df8b0c74dd775a88857"
+    },
+    {
+      "archive": "results/cpu/local/20261006T040533995553Z-78182/debug-compile_commands.json",
+      "build_file": "/Users/wafoe/projects/me/CXXEg-stage6-verify/build-stage6-validation/20261006T040533995553Z-78182/debug/compile_commands.json",
+      "sha256": "3b281d028b70c07d4d69e26dda6b0b8c21d2eab49bb92f3723ba3dc802d2804e"
+    },
+    {
+      "archive": "results/cpu/local/20261006T040533995553Z-78182/sanitizer-CMakeCache.txt",
+      "build_file": "/Users/wafoe/projects/me/CXXEg-stage6-verify/build-stage6-validation/20261006T040533995553Z-78182/sanitizer/CMakeCache.txt",
+      "sha256": "c082dde9bdf678e9759bea01f4526bb58592b908b6a085fc20b412fe57e52f70"
+    },
+    {
+      "archive": "results/cpu/local/20261006T040533995553Z-78182/sanitizer-compile_commands.json",
+      "build_file": "/Users/wafoe/projects/me/CXXEg-stage6-verify/build-stage6-validation/20261006T040533995553Z-78182/sanitizer/compile_commands.json",
+      "sha256": "6fe567c3467d9cb2d3047321eb80cf7f4faf27187546fe268c7de2cb5fb91ca5"
+    },
+    {
+      "archive": "results/cpu/local/20261006T040533995553Z-78182/production-CMakeCache.txt",
+      "build_file": "/Users/wafoe/projects/me/CXXEg-stage6-verify/build-stage6-validation/20261006T040533995553Z-78182/production/CMakeCache.txt",
+      "sha256": "88b5dc6f359c03ab5b22a00f08e6ffe4beb8c8a3baced6333d003ef9c07e4a79"
+    },
+    {
+      "archive": "results/cpu/local/20261006T040533995553Z-78182/production-compile_commands.json",
+      "build_file": "/Users/wafoe/projects/me/CXXEg-stage6-verify/build-stage6-validation/20261006T040533995553Z-78182/production/compile_commands.json",
+      "sha256": "d2fa89cc8274eac4e22f33f57a532cb5d54048ce3129ed8b1f5852863525e729"
+    },
+    {
+      "archive": "results/cpu/baseline/20261006T040644002962Z-80817/tests-CMakeCache.txt",
+      "build_file": "/Users/wafoe/projects/me/CXXEg-stage6-verify/build-cpu-benchmark/20261006T040644002962Z-80817/tests/CMakeCache.txt",
+      "sha256": "1aece3ccbe401b90a24297eac299d9b97f357c7e03ba5f8bc9c681a5c141843e"
+    },
+    {
+      "archive": "results/cpu/baseline/20261006T040644002962Z-80817/tests-compile_commands.json",
+      "build_file": "/Users/wafoe/projects/me/CXXEg-stage6-verify/build-cpu-benchmark/20261006T040644002962Z-80817/tests/compile_commands.json",
+      "sha256": "164791458e5c47818aeac23e7de0cf294e8c131b33767622ba4b66a2485eb92a"
+    },
+    {
+      "archive": "results/cpu/baseline/20261006T040644002962Z-80817/production-CMakeCache.txt",
+      "build_file": "/Users/wafoe/projects/me/CXXEg-stage6-verify/build-cpu-benchmark/20261006T040644002962Z-80817/production/CMakeCache.txt",
+      "sha256": "97b146fa9833c39af3f3447c6d3120678e7dd5f125d8fb0cb402b85d3b4c2c7e"
+    },
+    {
+      "archive": "results/cpu/baseline/20261006T040644002962Z-80817/production-compile_commands.json",
+      "build_file": "/Users/wafoe/projects/me/CXXEg-stage6-verify/build-cpu-benchmark/20261006T040644002962Z-80817/production/compile_commands.json",
+      "sha256": "f4af3bc6bbbb62db9ab7efcbf82238f55550540d1eefdb1f5935c54da4b8001f"
+    }
+  ],
+  "compiler_diagnostics": {
+    "results/cpu/local/20261006T040533995553Z-78182/sanitizer-build.log": 0,
+    "results/cpu/local/20261006T040533995553Z-78182/debug-build.log": 0,
+    "results/cpu/local/20261006T040533995553Z-78182/production-build.log": 0,
+    "results/cpu/local/20261006T040533995553Z-78182/release-build.log": 0,
+    "results/cpu/baseline/20261006T040644002962Z-80817/tests-build.log": 0,
+    "results/cpu/baseline/20261006T040644002962Z-80817/production-build.log": 0
+  },
+  "ctest_totals": {
+    "release": [
+      "29"
+    ],
+    "debug": [
+      "29"
+    ],
+    "sanitizer": [
+      "29"
+    ]
+  },
+  "targeted_sanitizer_ctest_total": [
+    "6"
+  ],
+  "raw_csv_count": 18,
+  "raw_sample_count": 180,
+  "production_no_storage_test_hooks": true,
+  "implementation_delta_after_tested_source": [],
+  "protected_implementation_delta_from_stage5": [],
+  "historical_results_delta": [],
+  "frozen_v0_sha256": "f185261bf89faed05ae6ab49f7525e95a9bfa1a99a6becb0c7c237678b162ebd",
+  "status": "passed"
+}

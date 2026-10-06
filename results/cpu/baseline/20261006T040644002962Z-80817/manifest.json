@@ -1,0 +1,752 @@
+{
+  "schema_version": 1,
+  "scope": "CPU-only Stage 6 scalar baseline; local host allowed; no GPU or speedup gate",
+  "run_id": "20261006T040644002962Z-80817",
+  "timestamp": "2026-10-06T04:06:44.002962+00:00",
+  "source": {
+    "commit": "75dc03871a35c5ac32e860513280486d76bdd529",
+    "source_digest": "108fe30a3caf9c4b01688c2850ba5860c45e2ff0c2d4eefb09f263fb791c0c78",
+    "source_dirty": false
+  },
+  "host": "Wafoe-MacBook.local",
+  "platform": "macOS-26.7-arm64-arm-64bit-Mach-O",
+  "machine": "arm64",
+  "python": "3.14.6 | packaged by conda-forge | (main, Aug 11 2026, 10:24:52) [Clang 20.1.8 ]",
+  "configuration": {
+    "runs": 3,
+    "sizes": [
+      128,
+      256,
+      512,
+      1024
+    ],
+    "graph_size": 16,
+    "warmup": 3,
+    "samples": 10,
+    "gemm_batch": 1,
+    "graph_batch": 20,
+    "threads": 1,
+    "seed": 42,
+    "atol": 0.001,
+    "rtol": 0.001,
+    "algorithm": "cpu-ijk-fp32-v0",
+    "workload_version": 1
+  },
+  "measurements": [
+    {
+      "repeat": 0,
+      "workload": "gemm",
+      "policy": "caller",
+      "size": 128,
+      "label": "repeat-0-gemm-caller-128",
+      "raw": "repeat-0-gemm-caller-128.csv",
+      "correctness": "repeat-0-gemm-caller-128.json"
+    },
+    {
+      "repeat": 0,
+      "workload": "gemm",
+      "policy": "caller",
+      "size": 256,
+      "label": "repeat-0-gemm-caller-256",
+      "raw": "repeat-0-gemm-caller-256.csv",
+      "correctness": "repeat-0-gemm-caller-256.json"
+    },
+    {
+      "repeat": 0,
+      "workload": "gemm",
+      "policy": "caller",
+      "size": 512,
+      "label": "repeat-0-gemm-caller-512",
+      "raw": "repeat-0-gemm-caller-512.csv",
+      "correctness": "repeat-0-gemm-caller-512.json"
+    },
+    {
+      "repeat": 0,
+      "workload": "gemm",
+      "policy": "caller",
+      "size": 1024,
+      "label": "repeat-0-gemm-caller-1024",
+      "raw": "repeat-0-gemm-caller-1024.csv",
+      "correctness": "repeat-0-gemm-caller-1024.json"
+    },
+    {
+      "repeat": 0,
+      "workload": "graph",
+      "policy": "dynamic",
+      "size": 16,
+      "label": "repeat-0-graph-dynamic-16",
+      "raw": "repeat-0-graph-dynamic-16.csv",
+      "correctness": "repeat-0-graph-dynamic-16.json"
+    },
+    {
+      "repeat": 0,
+      "workload": "graph",
+      "policy": "reuse",
+      "size": 16,
+      "label": "repeat-0-graph-reuse-16",
+      "raw": "repeat-0-graph-reuse-16.csv",
+      "correctness": "repeat-0-graph-reuse-16.json"
+    },
+    {
+      "repeat": 1,
+      "workload": "gemm",
+      "policy": "caller",
+      "size": 1024,
+      "label": "repeat-1-gemm-caller-1024",
+      "raw": "repeat-1-gemm-caller-1024.csv",
+      "correctness": "repeat-1-gemm-caller-1024.json"
+    },
+    {
+      "repeat": 1,
+      "workload": "gemm",
+      "policy": "caller",
+      "size": 512,
+      "label": "repeat-1-gemm-caller-512",
+      "raw": "repeat-1-gemm-caller-512.csv",
+      "correctness": "repeat-1-gemm-caller-512.json"
+    },
+    {
+      "repeat": 1,
+      "workload": "gemm",
+      "policy": "caller",
+      "size": 256,
+      "label": "repeat-1-gemm-caller-256",
+      "raw": "repeat-1-gemm-caller-256.csv",
+      "correctness": "repeat-1-gemm-caller-256.json"
+    },
+    {
+      "repeat": 1,
+      "workload": "gemm",
+      "policy": "caller",
+      "size": 128,
+      "label": "repeat-1-gemm-caller-128",
+      "raw": "repeat-1-gemm-caller-128.csv",
+      "correctness": "repeat-1-gemm-caller-128.json"
+    },
+    {
+      "repeat": 1,
+      "workload": "graph",
+      "policy": "reuse",
+      "size": 16,
+      "label": "repeat-1-graph-reuse-16",
+      "raw": "repeat-1-graph-reuse-16.csv",
+      "correctness": "repeat-1-graph-reuse-16.json"
+    },
+    {
+      "repeat": 1,
+      "workload": "graph",
+      "policy": "dynamic",
+      "size": 16,
+      "label": "repeat-1-graph-dynamic-16",
+      "raw": "repeat-1-graph-dynamic-16.csv",
+      "correctness": "repeat-1-graph-dynamic-16.json"
+    },
+    {
+      "repeat": 2,
+      "workload": "gemm",
+      "policy": "caller",
+      "size": 128,
+      "label": "repeat-2-gemm-caller-128",
+      "raw": "repeat-2-gemm-caller-128.csv",
+      "correctness": "repeat-2-gemm-caller-128.json"
+    },
+    {
+      "repeat": 2,
+      "workload": "gemm",
+      "policy": "caller",
+      "size": 256,
+      "label": "repeat-2-gemm-caller-256",
+      "raw": "repeat-2-gemm-caller-256.csv",
+      "correctness": "repeat-2-gemm-caller-256.json"
+    },
+    {
+      "repeat": 2,
+      "workload": "gemm",
+      "policy": "caller",
+      "size": 512,
+      "label": "repeat-2-gemm-caller-512",
+      "raw": "repeat-2-gemm-caller-512.csv",
+      "correctness": "repeat-2-gemm-caller-512.json"
+    },
+    {
+      "repeat": 2,
+      "workload": "gemm",
+      "policy": "caller",
+      "size": 1024,
+      "label": "repeat-2-gemm-caller-1024",
+      "raw": "repeat-2-gemm-caller-1024.csv",
+      "correctness": "repeat-2-gemm-caller-1024.json"
+    },
+    {
+      "repeat": 2,
+      "workload": "graph",
+      "policy": "dynamic",
+      "size": 16,
+      "label": "repeat-2-graph-dynamic-16",
+      "raw": "repeat-2-graph-dynamic-16.csv",
+      "correctness": "repeat-2-graph-dynamic-16.json"
+    },
+    {
+      "repeat": 2,
+      "workload": "graph",
+      "policy": "reuse",
+      "size": 16,
+      "label": "repeat-2-graph-reuse-16",
+      "raw": "repeat-2-graph-reuse-16.csv",
+      "correctness": "repeat-2-graph-reuse-16.json"
+    }
+  ],
+  "recorded_output_root": "/Users/wafoe/projects/me/CXXEg-stage6-verify/results/cpu/baseline/20261006T040644002962Z-80817",
+  "timing_boundary": {
+    "gemm": "steady_clock complete Backend::execute incl metadata and finite checks, volatile output[0] read; allocation/input generation/FP64 oracle/copy/CSV excluded",
+    "graph": "steady_clock execute_graph incl provider validation/begin, backend checks, full oracle scan, volatile output[0] read, output destruction; prepare/input/oracle generation/CSV excluded"
+  },
+  "environment_note": "Local CPU-only host permitted by predeclared S6 task. No affinity/exclusive-core guarantee. Ordinary Release compiler optimization including auto-vectorization, no suppression/fast-math. No GPU/oracle comparison or S7 speedup claim.",
+  "commands": [
+    {
+      "argv": [
+        "cmake",
+        "--version"
+      ],
+      "cwd": "/Users/wafoe/projects/me/CXXEg-stage6-verify",
+      "log": "cmake-version.log",
+      "exit_code": 0
+    },
+    {
+      "argv": [
+        "cmake",
+        "-S",
+        "/Users/wafoe/projects/me/CXXEg-stage6-verify",
+        "-B",
+        "/Users/wafoe/projects/me/CXXEg-stage6-verify/build-cpu-benchmark/20261006T040644002962Z-80817/tests",
+        "-DCMAKE_BUILD_TYPE=Release",
+        "-DENABLE_CUDA=OFF",
+        "-DENABLE_SANITIZERS=OFF",
+        "-DBUILD_TESTING=ON"
+      ],
+      "cwd": "/Users/wafoe/projects/me/CXXEg-stage6-verify",
+      "log": "tests-configure.log",
+      "exit_code": 0
+    },
+    {
+      "argv": [
+        "cmake",
+        "--build",
+        "/Users/wafoe/projects/me/CXXEg-stage6-verify/build-cpu-benchmark/20261006T040644002962Z-80817/tests",
+        "--parallel",
+        "4",
+        "--verbose"
+      ],
+      "cwd": "/Users/wafoe/projects/me/CXXEg-stage6-verify",
+      "log": "tests-build.log",
+      "exit_code": 0
+    },
+    {
+      "argv": [
+        "ctest",
+        "--test-dir",
+        "/Users/wafoe/projects/me/CXXEg-stage6-verify/build-cpu-benchmark/20261006T040644002962Z-80817/tests",
+        "--output-on-failure",
+        "--verbose"
+      ],
+      "cwd": "/Users/wafoe/projects/me/CXXEg-stage6-verify",
+      "log": "ctest.log",
+      "exit_code": 0
+    },
+    {
+      "argv": [
+        "cmake",
+        "-S",
+        "/Users/wafoe/projects/me/CXXEg-stage6-verify",
+        "-B",
+        "/Users/wafoe/projects/me/CXXEg-stage6-verify/build-cpu-benchmark/20261006T040644002962Z-80817/production",
+        "-DCMAKE_BUILD_TYPE=Release",
+        "-DENABLE_CUDA=OFF",
+        "-DENABLE_SANITIZERS=OFF",
+        "-DBUILD_TESTING=OFF"
+      ],
+      "cwd": "/Users/wafoe/projects/me/CXXEg-stage6-verify",
+      "log": "production-configure.log",
+      "exit_code": 0
+    },
+    {
+      "argv": [
+        "cmake",
+        "--build",
+        "/Users/wafoe/projects/me/CXXEg-stage6-verify/build-cpu-benchmark/20261006T040644002962Z-80817/production",
+        "--parallel",
+        "4",
+        "--verbose"
+      ],
+      "cwd": "/Users/wafoe/projects/me/CXXEg-stage6-verify",
+      "log": "production-build.log",
+      "exit_code": 0
+    },
+    {
+      "argv": [
+        "/Users/wafoe/projects/me/CXXEg-stage6-verify/build-cpu-benchmark/20261006T040644002962Z-80817/production/bench_cpu",
+        "--probe"
+      ],
+      "cwd": "/Users/wafoe/projects/me/CXXEg-stage6-verify",
+      "log": "binary-probe.log",
+      "exit_code": 0
+    },
+    {
+      "argv": [
+        "/Users/wafoe/projects/me/CXXEg-stage6-verify/build-cpu-benchmark/20261006T040644002962Z-80817/production/bench_cpu",
+        "--self-test"
+      ],
+      "cwd": "/Users/wafoe/projects/me/CXXEg-stage6-verify",
+      "log": "production-correctness.log",
+      "exit_code": 0
+    },
+    {
+      "argv": [
+        "nm",
+        "-g",
+        "/Users/wafoe/projects/me/CXXEg-stage6-verify/build-cpu-benchmark/20261006T040644002962Z-80817/production/bench_cpu"
+      ],
+      "cwd": "/Users/wafoe/projects/me/CXXEg-stage6-verify",
+      "log": "production-symbols.log",
+      "exit_code": 0
+    },
+    {
+      "argv": [
+        "/usr/bin/c++",
+        "-I/Users/wafoe/projects/me/CXXEg-stage6-verify/include",
+        "-O3",
+        "-DNDEBUG",
+        "-std=c++17",
+        "-arch",
+        "arm64",
+        "-Wall",
+        "-Wextra",
+        "-Wpedantic",
+        "-o",
+        "/Users/wafoe/projects/me/CXXEg-stage6-verify/build-cpu-benchmark/20261006T040644002962Z-80817/production/cpu-scalar-vectorization.o",
+        "-c",
+        "/Users/wafoe/projects/me/CXXEg-stage6-verify/src/runtime/cpu_scalar.cpp",
+        "-Rpass=loop-vectorize",
+        "-Rpass-missed=loop-vectorize",
+        "-Rpass-analysis=loop-vectorize"
+      ],
+      "cwd": "/Users/wafoe/projects/me/CXXEg-stage6-verify/build-cpu-benchmark/20261006T040644002962Z-80817/production",
+      "log": "vectorization.log",
+      "exit_code": 0
+    },
+    {
+      "argv": [
+        "/Users/wafoe/projects/me/CXXEg-stage6-verify/build-cpu-benchmark/20261006T040644002962Z-80817/production/bench_cpu",
+        "--workload",
+        "gemm",
+        "--policy",
+        "caller",
+        "--size",
+        "128",
+        "--raw",
+        "/Users/wafoe/projects/me/CXXEg-stage6-verify/results/cpu/baseline/20261006T040644002962Z-80817/repeat-0-gemm-caller-128.csv",
+        "--correctness",
+        "/Users/wafoe/projects/me/CXXEg-stage6-verify/results/cpu/baseline/20261006T040644002962Z-80817/repeat-0-gemm-caller-128.json"
+      ],
+      "cwd": "/Users/wafoe/projects/me/CXXEg-stage6-verify",
+      "log": "repeat-0-gemm-caller-128.log",
+      "exit_code": 0
+    },
+    {
+      "argv": [
+        "/Users/wafoe/projects/me/CXXEg-stage6-verify/build-cpu-benchmark/20261006T040644002962Z-80817/production/bench_cpu",
+        "--workload",
+        "gemm",
+        "--policy",
+        "caller",
+        "--size",
+        "256",
+        "--raw",
+        "/Users/wafoe/projects/me/CXXEg-stage6-verify/results/cpu/baseline/20261006T040644002962Z-80817/repeat-0-gemm-caller-256.csv",
+        "--correctness",
+        "/Users/wafoe/projects/me/CXXEg-stage6-verify/results/cpu/baseline/20261006T040644002962Z-80817/repeat-0-gemm-caller-256.json"
+      ],
+      "cwd": "/Users/wafoe/projects/me/CXXEg-stage6-verify",
+      "log": "repeat-0-gemm-caller-256.log",
+      "exit_code": 0
+    },
+    {
+      "argv": [
+        "/Users/wafoe/projects/me/CXXEg-stage6-verify/build-cpu-benchmark/20261006T040644002962Z-80817/production/bench_cpu",
+        "--workload",
+        "gemm",
+        "--policy",
+        "caller",
+        "--size",
+        "512",
+        "--raw",
+        "/Users/wafoe/projects/me/CXXEg-stage6-verify/results/cpu/baseline/20261006T040644002962Z-80817/repeat-0-gemm-caller-512.csv",
+        "--correctness",
+        "/Users/wafoe/projects/me/CXXEg-stage6-verify/results/cpu/baseline/20261006T040644002962Z-80817/repeat-0-gemm-caller-512.json"
+      ],
+      "cwd": "/Users/wafoe/projects/me/CXXEg-stage6-verify",
+      "log": "repeat-0-gemm-caller-512.log",
+      "exit_code": 0
+    },
+    {
+      "argv": [
+        "/Users/wafoe/projects/me/CXXEg-stage6-verify/build-cpu-benchmark/20261006T040644002962Z-80817/production/bench_cpu",
+        "--workload",
+        "gemm",
+        "--policy",
+        "caller",
+        "--size",
+        "1024",
+        "--raw",
+        "/Users/wafoe/projects/me/CXXEg-stage6-verify/results/cpu/baseline/20261006T040644002962Z-80817/repeat-0-gemm-caller-1024.csv",
+        "--correctness",
+        "/Users/wafoe/projects/me/CXXEg-stage6-verify/results/cpu/baseline/20261006T040644002962Z-80817/repeat-0-gemm-caller-1024.json"
+      ],
+      "cwd": "/Users/wafoe/projects/me/CXXEg-stage6-verify",
+      "log": "repeat-0-gemm-caller-1024.log",
+      "exit_code": 0
+    },
+    {
+      "argv": [
+        "/Users/wafoe/projects/me/CXXEg-stage6-verify/build-cpu-benchmark/20261006T040644002962Z-80817/production/bench_cpu",
+        "--workload",
+        "graph",
+        "--policy",
+        "dynamic",
+        "--size",
+        "16",
+        "--raw",
+        "/Users/wafoe/projects/me/CXXEg-stage6-verify/results/cpu/baseline/20261006T040644002962Z-80817/repeat-0-graph-dynamic-16.csv",
+        "--correctness",
+        "/Users/wafoe/projects/me/CXXEg-stage6-verify/results/cpu/baseline/20261006T040644002962Z-80817/repeat-0-graph-dynamic-16.json"
+      ],
+      "cwd": "/Users/wafoe/projects/me/CXXEg-stage6-verify",
+      "log": "repeat-0-graph-dynamic-16.log",
+      "exit_code": 0
+    },
+    {
+      "argv": [
+        "/Users/wafoe/projects/me/CXXEg-stage6-verify/build-cpu-benchmark/20261006T040644002962Z-80817/production/bench_cpu",
+        "--workload",
+        "graph",
+        "--policy",
+        "reuse",
+        "--size",
+        "16",
+        "--raw",
+        "/Users/wafoe/projects/me/CXXEg-stage6-verify/results/cpu/baseline/20261006T040644002962Z-80817/repeat-0-graph-reuse-16.csv",
+        "--correctness",
+        "/Users/wafoe/projects/me/CXXEg-stage6-verify/results/cpu/baseline/20261006T040644002962Z-80817/repeat-0-graph-reuse-16.json"
+      ],
+      "cwd": "/Users/wafoe/projects/me/CXXEg-stage6-verify",
+      "log": "repeat-0-graph-reuse-16.log",
+      "exit_code": 0
+    },
+    {
+      "argv": [
+        "/Users/wafoe/projects/me/CXXEg-stage6-verify/build-cpu-benchmark/20261006T040644002962Z-80817/production/bench_cpu",
+        "--workload",
+        "gemm",
+        "--policy",
+        "caller",
+        "--size",
+        "1024",
+        "--raw",
+        "/Users/wafoe/projects/me/CXXEg-stage6-verify/results/cpu/baseline/20261006T040644002962Z-80817/repeat-1-gemm-caller-1024.csv",
+        "--correctness",
+        "/Users/wafoe/projects/me/CXXEg-stage6-verify/results/cpu/baseline/20261006T040644002962Z-80817/repeat-1-gemm-caller-1024.json"
+      ],
+      "cwd": "/Users/wafoe/projects/me/CXXEg-stage6-verify",
+      "log": "repeat-1-gemm-caller-1024.log",
+      "exit_code": 0
+    },
+    {
+      "argv": [
+        "/Users/wafoe/projects/me/CXXEg-stage6-verify/build-cpu-benchmark/20261006T040644002962Z-80817/production/bench_cpu",
+        "--workload",
+        "gemm",
+        "--policy",
+        "caller",
+        "--size",
+        "512",
+        "--raw",
+        "/Users/wafoe/projects/me/CXXEg-stage6-verify/results/cpu/baseline/20261006T040644002962Z-80817/repeat-1-gemm-caller-512.csv",
+        "--correctness",
+        "/Users/wafoe/projects/me/CXXEg-stage6-verify/results/cpu/baseline/20261006T040644002962Z-80817/repeat-1-gemm-caller-512.json"
+      ],
+      "cwd": "/Users/wafoe/projects/me/CXXEg-stage6-verify",
+      "log": "repeat-1-gemm-caller-512.log",
+      "exit_code": 0
+    },
+    {
+      "argv": [
+        "/Users/wafoe/projects/me/CXXEg-stage6-verify/build-cpu-benchmark/20261006T040644002962Z-80817/production/bench_cpu",
+        "--workload",
+        "gemm",
+        "--policy",
+        "caller",
+        "--size",
+        "256",
+        "--raw",
+        "/Users/wafoe/projects/me/CXXEg-stage6-verify/results/cpu/baseline/20261006T040644002962Z-80817/repeat-1-gemm-caller-256.csv",
+        "--correctness",
+        "/Users/wafoe/projects/me/CXXEg-stage6-verify/results/cpu/baseline/20261006T040644002962Z-80817/repeat-1-gemm-caller-256.json"
+      ],
+      "cwd": "/Users/wafoe/projects/me/CXXEg-stage6-verify",
+      "log": "repeat-1-gemm-caller-256.log",
+      "exit_code": 0
+    },
+    {
+      "argv": [
+        "/Users/wafoe/projects/me/CXXEg-stage6-verify/build-cpu-benchmark/20261006T040644002962Z-80817/production/bench_cpu",
+        "--workload",
+        "gemm",
+        "--policy",
+        "caller",
+        "--size",
+        "128",
+        "--raw",
+        "/Users/wafoe/projects/me/CXXEg-stage6-verify/results/cpu/baseline/20261006T040644002962Z-80817/repeat-1-gemm-caller-128.csv",
+        "--correctness",
+        "/Users/wafoe/projects/me/CXXEg-stage6-verify/results/cpu/baseline/20261006T040644002962Z-80817/repeat-1-gemm-caller-128.json"
+      ],
+      "cwd": "/Users/wafoe/projects/me/CXXEg-stage6-verify",
+      "log": "repeat-1-gemm-caller-128.log",
+      "exit_code": 0
+    },
+    {
+      "argv": [
+        "/Users/wafoe/projects/me/CXXEg-stage6-verify/build-cpu-benchmark/20261006T040644002962Z-80817/production/bench_cpu",
+        "--workload",
+        "graph",
+        "--policy",
+        "reuse",
+        "--size",
+        "16",
+        "--raw",
+        "/Users/wafoe/projects/me/CXXEg-stage6-verify/results/cpu/baseline/20261006T040644002962Z-80817/repeat-1-graph-reuse-16.csv",
+        "--correctness",
+        "/Users/wafoe/projects/me/CXXEg-stage6-verify/results/cpu/baseline/20261006T040644002962Z-80817/repeat-1-graph-reuse-16.json"
+      ],
+      "cwd": "/Users/wafoe/projects/me/CXXEg-stage6-verify",
+      "log": "repeat-1-graph-reuse-16.log",
+      "exit_code": 0
+    },
+    {
+      "argv": [
+        "/Users/wafoe/projects/me/CXXEg-stage6-verify/build-cpu-benchmark/20261006T040644002962Z-80817/production/bench_cpu",
+        "--workload",
+        "graph",
+        "--policy",
+        "dynamic",
+        "--size",
+        "16",
+        "--raw",
+        "/Users/wafoe/projects/me/CXXEg-stage6-verify/results/cpu/baseline/20261006T040644002962Z-80817/repeat-1-graph-dynamic-16.csv",
+        "--correctness",
+        "/Users/wafoe/projects/me/CXXEg-stage6-verify/results/cpu/baseline/20261006T040644002962Z-80817/repeat-1-graph-dynamic-16.json"
+      ],
+      "cwd": "/Users/wafoe/projects/me/CXXEg-stage6-verify",
+      "log": "repeat-1-graph-dynamic-16.log",
+      "exit_code": 0
+    },
+    {
+      "argv": [
+        "/Users/wafoe/projects/me/CXXEg-stage6-verify/build-cpu-benchmark/20261006T040644002962Z-80817/production/bench_cpu",
+        "--workload",
+        "gemm",
+        "--policy",
+        "caller",
+        "--size",
+        "128",
+        "--raw",
+        "/Users/wafoe/projects/me/CXXEg-stage6-verify/results/cpu/baseline/20261006T040644002962Z-80817/repeat-2-gemm-caller-128.csv",
+        "--correctness",
+        "/Users/wafoe/projects/me/CXXEg-stage6-verify/results/cpu/baseline/20261006T040644002962Z-80817/repeat-2-gemm-caller-128.json"
+      ],
+      "cwd": "/Users/wafoe/projects/me/CXXEg-stage6-verify",
+      "log": "repeat-2-gemm-caller-128.log",
+      "exit_code": 0
+    },
+    {
+      "argv": [
+        "/Users/wafoe/projects/me/CXXEg-stage6-verify/build-cpu-benchmark/20261006T040644002962Z-80817/production/bench_cpu",
+        "--workload",
+        "gemm",
+        "--policy",
+        "caller",
+        "--size",
+        "256",
+        "--raw",
+        "/Users/wafoe/projects/me/CXXEg-stage6-verify/results/cpu/baseline/20261006T040644002962Z-80817/repeat-2-gemm-caller-256.csv",
+        "--correctness",
+        "/Users/wafoe/projects/me/CXXEg-stage6-verify/results/cpu/baseline/20261006T040644002962Z-80817/repeat-2-gemm-caller-256.json"
+      ],
+      "cwd": "/Users/wafoe/projects/me/CXXEg-stage6-verify",
+      "log": "repeat-2-gemm-caller-256.log",
+      "exit_code": 0
+    },
+    {
+      "argv": [
+        "/Users/wafoe/projects/me/CXXEg-stage6-verify/build-cpu-benchmark/20261006T040644002962Z-80817/production/bench_cpu",
+        "--workload",
+        "gemm",
+        "--policy",
+        "caller",
+        "--size",
+        "512",
+        "--raw",
+        "/Users/wafoe/projects/me/CXXEg-stage6-verify/results/cpu/baseline/20261006T040644002962Z-80817/repeat-2-gemm-caller-512.csv",
+        "--correctness",
+        "/Users/wafoe/projects/me/CXXEg-stage6-verify/results/cpu/baseline/20261006T040644002962Z-80817/repeat-2-gemm-caller-512.json"
+      ],
+      "cwd": "/Users/wafoe/projects/me/CXXEg-stage6-verify",
+      "log": "repeat-2-gemm-caller-512.log",
+      "exit_code": 0
+    },
+    {
+      "argv": [
+        "/Users/wafoe/projects/me/CXXEg-stage6-verify/build-cpu-benchmark/20261006T040644002962Z-80817/production/bench_cpu",
+        "--workload",
+        "gemm",
+        "--policy",
+        "caller",
+        "--size",
+        "1024",
+        "--raw",
+        "/Users/wafoe/projects/me/CXXEg-stage6-verify/results/cpu/baseline/20261006T040644002962Z-80817/repeat-2-gemm-caller-1024.csv",
+        "--correctness",
+        "/Users/wafoe/projects/me/CXXEg-stage6-verify/results/cpu/baseline/20261006T040644002962Z-80817/repeat-2-gemm-caller-1024.json"
+      ],
+      "cwd": "/Users/wafoe/projects/me/CXXEg-stage6-verify",
+      "log": "repeat-2-gemm-caller-1024.log",
+      "exit_code": 0
+    },
+    {
+      "argv": [
+        "/Users/wafoe/projects/me/CXXEg-stage6-verify/build-cpu-benchmark/20261006T040644002962Z-80817/production/bench_cpu",
+        "--workload",
+        "graph",
+        "--policy",
+        "dynamic",
+        "--size",
+        "16",
+        "--raw",
+        "/Users/wafoe/projects/me/CXXEg-stage6-verify/results/cpu/baseline/20261006T040644002962Z-80817/repeat-2-graph-dynamic-16.csv",
+        "--correctness",
+        "/Users/wafoe/projects/me/CXXEg-stage6-verify/results/cpu/baseline/20261006T040644002962Z-80817/repeat-2-graph-dynamic-16.json"
+      ],
+      "cwd": "/Users/wafoe/projects/me/CXXEg-stage6-verify",
+      "log": "repeat-2-graph-dynamic-16.log",
+      "exit_code": 0
+    },
+    {
+      "argv": [
+        "/Users/wafoe/projects/me/CXXEg-stage6-verify/build-cpu-benchmark/20261006T040644002962Z-80817/production/bench_cpu",
+        "--workload",
+        "graph",
+        "--policy",
+        "reuse",
+        "--size",
+        "16",
+        "--raw",
+        "/Users/wafoe/projects/me/CXXEg-stage6-verify/results/cpu/baseline/20261006T040644002962Z-80817/repeat-2-graph-reuse-16.csv",
+        "--correctness",
+        "/Users/wafoe/projects/me/CXXEg-stage6-verify/results/cpu/baseline/20261006T040644002962Z-80817/repeat-2-graph-reuse-16.json"
+      ],
+      "cwd": "/Users/wafoe/projects/me/CXXEg-stage6-verify",
+      "log": "repeat-2-graph-reuse-16.log",
+      "exit_code": 0
+    }
+  ],
+  "artifact_sha256": {
+    "binary-probe.log": "6a1b89fcffbf6740922faf64e340f5c51856407bdbd26f5c68c17721c236bf94",
+    "cmake-version.log": "f46066af33a13476fb604a1a1a24bb8d4dbddb6eb5855e0c24f9f7132784c9f0",
+    "ctest.log": "3d5b8f53ea7418e5e2630f3fe0659866fa3b8c095ff768dd9fb52c554e8e9b4c",
+    "production-CMakeCache.txt": "97b146fa9833c39af3f3447c6d3120678e7dd5f125d8fb0cb402b85d3b4c2c7e",
+    "production-build.log": "c17690eae5f0bd0dbb9b5f87e8ce1526d9e3fcf3e3d467d1e6fca8faeada0964",
+    "production-compile_commands.json": "f4af3bc6bbbb62db9ab7efcbf82238f55550540d1eefdb1f5935c54da4b8001f",
+    "production-configure.log": "dc5e8025632a25274f9d825d69b96961a52cd2660eadbc337304ce75e86d1767",
+    "production-correctness.log": "6a99a71982fc7c2114dc986420f26f661e44adc5c0b251cd44b01a1f37a91ceb",
+    "production-symbols.log": "4bc4445c828aa3d553e8cdde49283b9b123957ee1883be335471983d53518cb4",
+    "repeat-0-gemm-caller-1024.csv": "a25c672fc7a74cc548712da2bdee955b66e2fe068da1bb8b9fe5d8f6e06c99d7",
+    "repeat-0-gemm-caller-1024.json": "4183fd10791e4d020603d04bee4d78b19b8d9dc6209e84854b91cd5211319940",
+    "repeat-0-gemm-caller-1024.log": "add42a2553b2e5042ddc5eefd63230f5c81a61ca2d2122f88506d7fbe3b1778f",
+    "repeat-0-gemm-caller-128.csv": "3a8dd567da0c00132766656141a7dbd534ae243b9a379b0a8a540bccf3aff2fb",
+    "repeat-0-gemm-caller-128.json": "518a05e57432d686946dcc99552929033583c8510da4d00321560d2fae850608",
+    "repeat-0-gemm-caller-128.log": "d46171a604cf18ad7a90e86662c46bf46ab628d1b6db8f4207de31b5edfc6926",
+    "repeat-0-gemm-caller-256.csv": "c937bd1f574dffa3d275268e08b8b8729f37838071b7cd31524239052f86fff1",
+    "repeat-0-gemm-caller-256.json": "f175f5c07b5be5ef19f0c161d2f1f2216104a92f887d4e2e756e0adcc17ee19e",
+    "repeat-0-gemm-caller-256.log": "73783b4bf92020d69c1d009ce59fc288d4509bcf74221e548cb5e7ec1b66299f",
+    "repeat-0-gemm-caller-512.csv": "3428071e98a129aad305fade0b5a3c8c7c7396a605d8853ae24775b0f27d5e7d",
+    "repeat-0-gemm-caller-512.json": "46624469baa42d639723ae54805a5f9b7ffe5b65def7c3c4b9811fa275289e18",
+    "repeat-0-gemm-caller-512.log": "7c8058771bb4b7e1cdf19e50c5794433114f2f0117a463d0cf786efefcac3333",
+    "repeat-0-graph-dynamic-16.csv": "bfd038d8b2040766f0006d2d64e49394586da80b2ecf72fa40a56dd51be04276",
+    "repeat-0-graph-dynamic-16.json": "a55a4ae770b67dac1fa22f105279ed351f12af6b941a0483696edba3361066f3",
+    "repeat-0-graph-dynamic-16.log": "21f533e5ae40c276e0d75c55d17e855f3250ae4c0267b43b0fe2894bd2fadb80",
+    "repeat-0-graph-reuse-16.csv": "c826da569f2da6a9c62092dee28ecd05d43360d73e83ff66059d00c1b4b68b83",
+    "repeat-0-graph-reuse-16.json": "65607130e3eed84857d91e62cbfa1f6ff20e3ce13f58b7b075ff149b41e3911e",
+    "repeat-0-graph-reuse-16.log": "5195ea83ef2b7de29ac28c0a16c9f6e74ccf62c1289b24a60a5589be88bcc81b",
+    "repeat-1-gemm-caller-1024.csv": "b098e7a1b4c3010ac419915989798ad1bd0b2d77d9cb9c3fbee77deb9d90b86e",
+    "repeat-1-gemm-caller-1024.json": "4183fd10791e4d020603d04bee4d78b19b8d9dc6209e84854b91cd5211319940",
+    "repeat-1-gemm-caller-1024.log": "add42a2553b2e5042ddc5eefd63230f5c81a61ca2d2122f88506d7fbe3b1778f",
+    "repeat-1-gemm-caller-128.csv": "b3fde92aec208bc9c7e878ede3fd163744d9801f5b3112e64f9dee5e93c97dde",
+    "repeat-1-gemm-caller-128.json": "518a05e57432d686946dcc99552929033583c8510da4d00321560d2fae850608",
+    "repeat-1-gemm-caller-128.log": "d46171a604cf18ad7a90e86662c46bf46ab628d1b6db8f4207de31b5edfc6926",
+    "repeat-1-gemm-caller-256.csv": "57ce0005501139f5fe2df48ff0179427921c003f7beefa0fc9d303201c88339f",
+    "repeat-1-gemm-caller-256.json": "f175f5c07b5be5ef19f0c161d2f1f2216104a92f887d4e2e756e0adcc17ee19e",
+    "repeat-1-gemm-caller-256.log": "73783b4bf92020d69c1d009ce59fc288d4509bcf74221e548cb5e7ec1b66299f",
+    "repeat-1-gemm-caller-512.csv": "4436159ff85212975b411d49943c211ea6cde0ccf1a487a642dfe6c40c5684a5",
+    "repeat-1-gemm-caller-512.json": "46624469baa42d639723ae54805a5f9b7ffe5b65def7c3c4b9811fa275289e18",
+    "repeat-1-gemm-caller-512.log": "7c8058771bb4b7e1cdf19e50c5794433114f2f0117a463d0cf786efefcac3333",
+    "repeat-1-graph-dynamic-16.csv": "2d52b36f75dac1977ae0b25c7ce403bf3cdfd6d87a82b82be9545ee08e3811f5",
+    "repeat-1-graph-dynamic-16.json": "a55a4ae770b67dac1fa22f105279ed351f12af6b941a0483696edba3361066f3",
+    "repeat-1-graph-dynamic-16.log": "21f533e5ae40c276e0d75c55d17e855f3250ae4c0267b43b0fe2894bd2fadb80",
+    "repeat-1-graph-reuse-16.csv": "b044c860616a84de48499c02df3030f663a357e63fa0758ab6c10460a655f7ca",
+    "repeat-1-graph-reuse-16.json": "65607130e3eed84857d91e62cbfa1f6ff20e3ce13f58b7b075ff149b41e3911e",
+    "repeat-1-graph-reuse-16.log": "5195ea83ef2b7de29ac28c0a16c9f6e74ccf62c1289b24a60a5589be88bcc81b",
+    "repeat-2-gemm-caller-1024.csv": "a9b40a870336d8a6507754313aad6a2ede60edd145792d8ef9b82d18c747f8ae",
+    "repeat-2-gemm-caller-1024.json": "4183fd10791e4d020603d04bee4d78b19b8d9dc6209e84854b91cd5211319940",
+    "repeat-2-gemm-caller-1024.log": "add42a2553b2e5042ddc5eefd63230f5c81a61ca2d2122f88506d7fbe3b1778f",
+    "repeat-2-gemm-caller-128.csv": "59cdf85683d03640dda5c777e7ed5adbb8904a3aa649ece4f3489913ed342c52",
+    "repeat-2-gemm-caller-128.json": "518a05e57432d686946dcc99552929033583c8510da4d00321560d2fae850608",
+    "repeat-2-gemm-caller-128.log": "d46171a604cf18ad7a90e86662c46bf46ab628d1b6db8f4207de31b5edfc6926",
+    "repeat-2-gemm-caller-256.csv": "8b56ca553888b8fb53f55858a1ee680fc68bc4f0cdc6a05e704d36ed5ac7f84d",
+    "repeat-2-gemm-caller-256.json": "f175f5c07b5be5ef19f0c161d2f1f2216104a92f887d4e2e756e0adcc17ee19e",
+    "repeat-2-gemm-caller-256.log": "73783b4bf92020d69c1d009ce59fc288d4509bcf74221e548cb5e7ec1b66299f",
+    "repeat-2-gemm-caller-512.csv": "fa01d5d1dbdb2e1679211db92fbb733cf326a1705a3256afbc65a5739184916c",
+    "repeat-2-gemm-caller-512.json": "46624469baa42d639723ae54805a5f9b7ffe5b65def7c3c4b9811fa275289e18",
+    "repeat-2-gemm-caller-512.log": "7c8058771bb4b7e1cdf19e50c5794433114f2f0117a463d0cf786efefcac3333",
+    "repeat-2-graph-dynamic-16.csv": "e345d8e7dc15e1ffa283fd59124944701ee9e076d7c47ab8a800f77e5e775bbb",
+    "repeat-2-graph-dynamic-16.json": "a55a4ae770b67dac1fa22f105279ed351f12af6b941a0483696edba3361066f3",
+    "repeat-2-graph-dynamic-16.log": "21f533e5ae40c276e0d75c55d17e855f3250ae4c0267b43b0fe2894bd2fadb80",
+    "repeat-2-graph-reuse-16.csv": "e31488e244fc936c08e011f4786e9ee0a27b3317f890fe8192b8cf1875a4d222",
+    "repeat-2-graph-reuse-16.json": "65607130e3eed84857d91e62cbfa1f6ff20e3ce13f58b7b075ff149b41e3911e",
+    "repeat-2-graph-reuse-16.log": "5195ea83ef2b7de29ac28c0a16c9f6e74ccf62c1289b24a60a5589be88bcc81b",
+    "tests-CMakeCache.txt": "1aece3ccbe401b90a24297eac299d9b97f357c7e03ba5f8bc9c681a5c141843e",
+    "tests-build.log": "16a48d7ceeb4cd2ff2c9f063d424c90c263dab80a70af8ff65365533844cddb1",
+    "tests-compile_commands.json": "164791458e5c47818aeac23e7de0cf294e8c131b33767622ba4b66a2485eb92a",
+    "tests-configure.log": "f35267ecdb58897da124661dd632f71a362f0a8cd1e784a11fd72ddb91fe95c7",
+    "vectorization.log": "020331b0fe753b9f982a9f82a06b78fb30f579b6c6be8ad03eec5a224d686a98"
+  },
+  "status": "passed",
+  "binary": {
+    "schema_version": 1,
+    "commit": "75dc03871a35c5ac32e860513280486d76bdd529",
+    "source_digest": "108fe30a3caf9c4b01688c2850ba5860c45e2ff0c2d4eefb09f263fb791c0c78",
+    "source_dirty": false,
+    "build_type": "Release",
+    "compiler": "AppleClang 21.0.0.21000334",
+    "testing": false,
+    "backend": "cpu",
+    "benchmark": "cpu-v1",
+    "algorithm": "cpu-ijk-fp32-v0",
+    "threads": 1
+  },
+  "binary_sha256": "35e08beb044f6f9a7c89584181730aa44d61cb2abc753c5dd3b2e009c81b2a1a",
+  "source_after": {
+    "commit": "75dc03871a35c5ac32e860513280486d76bdd529",
+    "source_digest": "108fe30a3caf9c4b01688c2850ba5860c45e2ff0c2d4eefb09f263fb791c0c78",
+    "source_dirty": false
+  }
+}

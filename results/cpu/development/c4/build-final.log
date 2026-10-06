@@ -1,0 +1,32 @@
+[ 26%] Built target runtime
+[ 33%] Built target test_cpu_backend_fixtures
+[ 35%] Built target test_cpu_scalar
+[ 35%] Built target test_cpu_transformer_contract
+[ 35%] Built target refresh_provenance
+[ 44%] Built target test_cpu_backend
+[ 44%] Built target test_tensor_properties
+[ 44%] Built target test_tensor
+[ 47%] Built target test_operator
+[ 55%] Built target test_reference
+[ 56%] Built target test_transformer_contracts
+[ 56%] Built target test_shape_inference
+[ 60%] Built target test_operator_fixtures
+[ 69%] Built target test_graph_executor
+[ 69%] Built target test_graph_fixtures
+[ 69%] Built target test_graph
+[ 72%] Built target test_graph_trace
+[ 81%] Built target test_allocation_provider
+[ 81%] Built target test_memory_planner
+[ 81%] Built target test_arena
+[ 84%] Built target test_planned_executor
+[ 87%] Built target stage0_common
+[ 90%] Built target test_common
+[ 95%] Building CXX object CMakeFiles/bench_planner.dir/bench/bench_planner.cpp.o
+[ 95%] Building CXX object CMakeFiles/bench_allocator.dir/bench/bench_allocator.cpp.o
+[ 95%] Building CXX object CMakeFiles/bench_cpu.dir/bench/bench_cpu.cpp.o
+[ 98%] Linking CXX executable bench_cpu
+[ 98%] Linking CXX executable bench_allocator
+[100%] Linking CXX executable bench_planner
+[100%] Built target bench_allocator
+[100%] Built target bench_cpu
+[100%] Built target bench_planner

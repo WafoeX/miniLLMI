@@ -1,0 +1,30 @@
+CPU v0 evidence: /Users/wafoe/projects/me/CXXEg-stage6-verify/results/cpu/baseline/20261006T040644002962Z-80817
+cmake-version: exit=0
+tests-configure: exit=0
+tests-build: exit=0
+ctest: exit=0
+production-configure: exit=0
+production-build: exit=0
+binary-probe: exit=0
+production-correctness: exit=0
+production-symbols: exit=0
+vectorization: exit=0
+repeat-0-gemm-caller-128: exit=0
+repeat-0-gemm-caller-256: exit=0
+repeat-0-gemm-caller-512: exit=0
+repeat-0-gemm-caller-1024: exit=0
+repeat-0-graph-dynamic-16: exit=0
+repeat-0-graph-reuse-16: exit=0
+repeat-1-gemm-caller-1024: exit=0
+repeat-1-gemm-caller-512: exit=0
+repeat-1-gemm-caller-256: exit=0
+repeat-1-gemm-caller-128: exit=0
+repeat-1-graph-reuse-16: exit=0
+repeat-1-graph-dynamic-16: exit=0
+repeat-2-gemm-caller-128: exit=0
+repeat-2-gemm-caller-256: exit=0
+repeat-2-gemm-caller-512: exit=0
+repeat-2-gemm-caller-1024: exit=0
+repeat-2-graph-dynamic-16: exit=0
+repeat-2-graph-reuse-16: exit=0
+CPU baseline: PASS (baseline only, S7 improvement gate deferred)

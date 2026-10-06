@@ -2,7 +2,7 @@
 
 **Goal:** move reference operator execution behind the common backend contract. **Prerequisite:** S3; planner integration follows S5. **Gate:** CPU backend runs core graph correctly without model-specific kernels.
 
-**Acceptance scope (declared before measurements): CPU-only, local named-host Release allowed; GPU/server not required.** See [CPU backend and frozen benchmark contract](../cpu_backend.md). S6 creates a baseline, not an optimization speedup claim: three independent 128/256/512/1024 baseline runs; graph dynamic/reuse pairs alternate order. FP64 oracle is untimed. Default S2 FP64 math and dynamic allocation remain stable. Formal gate status is recorded in [Stage 6 evidence](../stage6_report.md).
+**Acceptance scope (declared before measurements): CPU-only, local named-host Release allowed; GPU/server not required.** See [CPU backend and frozen benchmark contract](../cpu_backend.md). S6 creates a baseline, not an optimization speedup claim: three independent 128/256/512/1024 baseline runs; graph dynamic/reuse pairs alternate order. FP64 oracle is untimed. Default S2 FP64 math and dynamic allocation remain stable. **Status: complete — S6-C1/C2/C3/C4 pass.** Formal tested-source identity, 29/29 Release/Debug/ASan+UBSan results, mandatory baselines and preserved slower graph data are recorded in [Stage 6 evidence](../stage6_report.md). S7's improvement gate remains deferred.
 
 ## S6-C1 — Backend interface and capability contract
 - **Goal/type:** Define backend buffer/copy/prepare/execute interface and capability query. *Functional.*

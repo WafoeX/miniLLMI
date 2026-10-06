@@ -1,0 +1,66 @@
+Test project /Users/wafoe/projects/me/CXXEg/build-stage6-dev
+      Start  1: cpu_scalar
+ 1/26 Test  #1: cpu_scalar .......................   Passed    0.60 sec
+      Start  2: cpu_backend_fixtures
+ 2/26 Test  #2: cpu_backend_fixtures .............   Passed    0.44 sec
+      Start  3: cpu_backend
+ 3/26 Test  #3: cpu_backend ......................   Passed    0.39 sec
+      Start  4: tensor
+ 4/26 Test  #4: tensor ...........................   Passed    0.14 sec
+      Start  5: tensor_properties
+ 5/26 Test  #5: tensor_properties ................   Passed    0.13 sec
+      Start  6: tensor_validation
+ 6/26 Test  #6: tensor_validation ................   Passed    0.14 sec
+      Start  7: operator
+ 7/26 Test  #7: operator .........................   Passed    0.16 sec
+      Start  8: shape_inference
+ 8/26 Test  #8: shape_inference ..................   Passed    0.13 sec
+      Start  9: operator_reference
+ 9/26 Test  #9: operator_reference ...............   Passed    0.37 sec
+      Start 10: transformer_contracts
+10/26 Test #10: transformer_contracts ............   Passed    0.45 sec
+      Start 11: operator_fixtures
+11/26 Test #11: operator_fixtures ................   Passed    0.46 sec
+      Start 12: operator_fixture_tools
+12/26 Test #12: operator_fixture_tools ...........   Passed    0.10 sec
+      Start 13: graph
+13/26 Test #13: graph ............................   Passed    0.18 sec
+      Start 14: graph_executor
+14/26 Test #14: graph_executor ...................   Passed    0.39 sec
+      Start 15: graph_fixtures
+15/26 Test #15: graph_fixtures ...................   Passed    0.52 sec
+      Start 16: graph_trace
+16/26 Test #16: graph_trace ......................   Passed    0.38 sec
+      Start 17: arena
+17/26 Test #17: arena ............................   Passed    0.21 sec
+      Start 18: allocation_provider
+18/26 Test #18: allocation_provider ..............   Passed    0.43 sec
+      Start 19: allocator_benchmark_workloads
+19/26 Test #19: allocator_benchmark_workloads ....   Passed    0.38 sec
+      Start 20: allocator_tools
+20/26 Test #20: allocator_tools ..................   Passed    0.13 sec
+      Start 21: memory_planner
+21/26 Test #21: memory_planner ...................   Passed    0.17 sec
+      Start 22: planned_executor
+22/26 Test #22: planned_executor .................   Passed    0.52 sec
+      Start 23: planner_benchmark_workloads
+23/26 Test #23: planner_benchmark_workloads ......   Passed    0.39 sec
+      Start 24: planner_tools
+24/26 Test #24: planner_tools ....................   Passed    0.27 sec
+      Start 25: common
+25/26 Test #25: common ...........................   Passed    0.00 sec
+      Start 26: tools
+26/26 Test #26: tools ............................   Passed    1.27 sec
+
+100% tests passed out of 26
+
+Label Time Summary:
+arena        =   1.15 sec*proc (4 tests)
+backend      =   1.42 sec*proc (3 tests)
+cpu          =   7.48 sec*proc (24 tests)
+graph        =   1.89 sec*proc (5 tests)
+operators    =   1.68 sec*proc (6 tests)
+planner      =   1.34 sec*proc (4 tests)
+tensor       =   0.42 sec*proc (3 tests)
+
+Total Test time (real) =   8.77 sec

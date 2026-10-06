@@ -1,0 +1,16 @@
+/Users/wafoe/projects/me/CXXEg-stage6-verify/src/runtime/cpu_scalar.cpp:13:13: remark: vectorized loop (vectorization width: 4, interleaved count: 4) [-Rpass=loop-vectorize]
+   13 |             for (std::size_t inner = 0; inner < k; ++inner)
+      |             ^
+In file included from /Users/wafoe/projects/me/CXXEg-stage6-verify/src/runtime/cpu_scalar.cpp:1:
+In file included from /Users/wafoe/projects/me/CXXEg-stage6-verify/src/runtime/cpu_scalar.hpp:2:
+In file included from /Users/wafoe/projects/me/CXXEg-stage6-verify/include/runtime/shape_inference.hpp:3:
+In file included from /Users/wafoe/projects/me/CXXEg-stage6-verify/include/runtime/operator.hpp:5:
+/Users/wafoe/projects/me/CXXEg-stage6-verify/include/runtime/shape.hpp:62:5: remark: loop not vectorized: Cannot vectorize potentially faulting early exit loop [-Rpass-analysis=loop-vectorize]
+   62 |     for (auto dim : shape.values()) if (dim == 0) return 0;
+      |     ^
+/Users/wafoe/projects/me/CXXEg-stage6-verify/include/runtime/shape.hpp:62:5: remark: loop not vectorized [-Rpass-missed=loop-vectorize]
+/Users/wafoe/projects/me/CXXEg-stage6-verify/include/runtime/shape.hpp:64:5: remark: loop not vectorized: value that could not be identified as reduction is used outside the loop [-Rpass-analysis=loop-vectorize]
+   64 |     for (auto dim : shape.values()) result = checked_mul(result, as_size(dim));
+      |     ^
+/Users/wafoe/projects/me/CXXEg-stage6-verify/include/runtime/shape.hpp:64:5: remark: loop not vectorized: Cannot vectorize early exit loop with more than one early exit [-Rpass-analysis=loop-vectorize]
+/Users/wafoe/projects/me/CXXEg-stage6-verify/include/runtime/shape.hpp:64:5: remark: loop not vectorized [-Rpass-missed=loop-vectorize]

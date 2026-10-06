@@ -1,0 +1,392 @@
+UpdateCTestConfiguration  from :/Users/wafoe/projects/me/CXXEg-stage6-verify/build-stage6-validation/20261006T040533995553Z-78182/release/DartConfiguration.tcl
+Parse Config file:/Users/wafoe/projects/me/CXXEg-stage6-verify/build-stage6-validation/20261006T040533995553Z-78182/release/DartConfiguration.tcl
+Test project /Users/wafoe/projects/me/CXXEg-stage6-verify/build-stage6-validation/20261006T040533995553Z-78182/release
+Constructing a list of tests
+Done constructing a list of tests
+Updating test list for fixtures
+Added 0 tests to meet fixture requirements
+Checking test dependency graph...
+Checking test dependency graph end
+test 1
+      Start  1: cpu_benchmark_workloads
+
+1: Test command: /Users/wafoe/projects/me/CXXEg-stage6-verify/build-stage6-validation/20261006T040533995553Z-78182/release/bench_cpu "--self-test"
+1: Working Directory: /Users/wafoe/projects/me/CXXEg-stage6-verify/build-stage6-validation/20261006T040533995553Z-78182/release
+1: Test timeout computed to be: 1500
+1: CPU benchmark correctness: PASS eight zero/small/non-square/boundary shapes and graph policies (untimed)
+ 1/29 Test  #1: cpu_benchmark_workloads ..........   Passed    0.39 sec
+test 2
+      Start  2: cpu_tools
+
+2: Test command: /Users/wafoe/miniforge3/bin/python3.14 "/Users/wafoe/projects/me/CXXEg-stage6-verify/tests/test_cpu_tools.py"
+2: Working Directory: /Users/wafoe/projects/me/CXXEg-stage6-verify/build-stage6-validation/20261006T040533995553Z-78182/release
+2: Test timeout computed to be: 1500
+2: ......................
+2: ----------------------------------------------------------------------
+2: Ran 22 tests in 0.441s
+2: 
+2: OK
+ 2/29 Test  #2: cpu_tools ........................   Passed    0.54 sec
+test 3
+      Start  3: cpu_transformer_contract
+
+3: Test command: /Users/wafoe/projects/me/CXXEg-stage6-verify/build-stage6-validation/20261006T040533995553Z-78182/release/test_cpu_transformer_contract "/Users/wafoe/projects/me/CXXEg-stage6-verify/tests/fixtures/operators-v1/operators-v1.txt"
+3: Working Directory: /Users/wafoe/projects/me/CXXEg-stage6-verify/build-stage6-validation/20261006T040533995553Z-78182/release
+3: Test timeout computed to be: 1500
+3: CPU primitive reservations: PASS all six Unsupported, no numerical implementation
+ 3/29 Test  #3: cpu_transformer_contract .........   Passed    0.47 sec
+test 4
+      Start  4: cpu_scalar
+
+4: Test command: /Users/wafoe/projects/me/CXXEg-stage6-verify/build-stage6-validation/20261006T040533995553Z-78182/release/test_cpu_scalar
+4: Working Directory: /Users/wafoe/projects/me/CXXEg-stage6-verify/build-stage6-validation/20261006T040533995553Z-78182/release
+4: Test timeout computed to be: 1500
+4: CPU FP32 ijk v0: PASS seed=24578 random=240 zero/rectangular/guards/errors/copy/planner
+ 4/29 Test  #4: cpu_scalar .......................   Passed    0.40 sec
+test 5
+      Start  5: cpu_backend_fixtures
+
+5: Test command: /Users/wafoe/miniforge3/bin/python3.14 "/Users/wafoe/projects/me/CXXEg-stage6-verify/tests/run_operator_fixtures.py" "--binary" "/Users/wafoe/projects/me/CXXEg-stage6-verify/build-stage6-validation/20261006T040533995553Z-78182/release/test_cpu_backend_fixtures" "--root" "/Users/wafoe/projects/me/CXXEg-stage6-verify/tests/fixtures/operators-v1"
+5: Working Directory: /Users/wafoe/projects/me/CXXEg-stage6-verify/build-stage6-validation/20261006T040533995553Z-78182/release
+5: Test timeout computed to be: 1500
+5: Fixture checksum/provenance: PASS; tiny weights=21 tensors, 461056 bytes (not model execution)
+5: fixture add_hand core=PASS max_abs=0 atol=1e-06 rtol=1e-05
+5: descriptor {"version":1,"op":"ADD","inputs":[0,1],"outputs":[2],"attributes":{},"backend_hint":null}
+5: fixture mul_scalar core=PASS max_abs=0 atol=1e-06 rtol=1e-05
+5: descriptor {"version":1,"op":"MUL","inputs":[0,1],"outputs":[2],"attributes":{},"backend_hint":null}
+5: fixture matmul_rectangular core=PASS max_abs=0 atol=1e-06 rtol=1e-05
+5: descriptor {"version":1,"op":"MATMUL","inputs":[0,1],"outputs":[2],"attributes":{},"backend_hint":null}
+5: fixture matmul_zero_inner core=PASS max_abs=0 atol=1e-06 rtol=1e-05
+5: descriptor {"version":1,"op":"MATMUL","inputs":[0,1],"outputs":[2],"attributes":{},"backend_hint":null}
+5: fixture copy_ids_transpose core=PASS max_abs=0 atol=1e-06 rtol=1e-05
+5: descriptor {"version":1,"op":"COPY","inputs":[0,1],"outputs":[2],"attributes":{"overlap":"reject_except_exact_self"},"backend_hint":null}
+5: fixture copy_fp32 core=PASS max_abs=0 atol=1e-06 rtol=1e-05
+5: descriptor {"version":1,"op":"COPY","inputs":[0,1],"outputs":[2],"attributes":{"overlap":"reject_except_exact_self"},"backend_hint":null}
+5: fixture materialize_transpose core=PASS max_abs=0 atol=1e-06 rtol=1e-05
+5: descriptor {"version":1,"op":"MATERIALIZE","inputs":[0],"outputs":[1],"attributes":{},"backend_hint":null}
+5: fixture add_empty core=PASS max_abs=0 atol=1e-06 rtol=1e-05
+5: descriptor {"version":1,"op":"ADD","inputs":[0,1],"outputs":[2],"attributes":{},"backend_hint":null}
+5: fixture rmsnorm_hand_zero_row metadata=PASS numeric=pending-S12
+5: descriptor {"version":1,"op":"RMSNORM","inputs":[0,1],"outputs":[2],"attributes":{"epsilon":1.0000000000000001e-05},"backend_hint":null}
+5: fixture softmax_stable metadata=PASS numeric=pending-S12
+5: descriptor {"version":1,"op":"SOFTMAX","inputs":[0],"outputs":[1],"attributes":{"causal":false,"query_position":0,"key_position":0,"max_positions":1088},"backend_hint":null}
+5: fixture softmax_decode_offset metadata=PASS numeric=pending-S12
+5: descriptor {"version":1,"op":"SOFTMAX","inputs":[0],"outputs":[1],"attributes":{"causal":true,"query_position":2,"key_position":0,"max_positions":1088},"backend_hint":null}
+5: fixture softmax_all_masked metadata=PASS numeric=pending-S12
+5: descriptor {"version":1,"op":"SOFTMAX","inputs":[0],"outputs":[1],"attributes":{"causal":true,"query_position":0,"key_position":2,"max_positions":1088},"backend_hint":null}
+5: fixture rope_interleaved_hand metadata=PASS numeric=pending-S12
+5: descriptor {"version":1,"op":"ROPE","inputs":[0],"outputs":[1],"attributes":{"position":1,"base":10000,"max_positions":1088},"backend_hint":null}
+5: fixture rope_tiny_heads metadata=PASS numeric=pending-S12
+5: descriptor {"version":1,"op":"ROPE","inputs":[0],"outputs":[1],"attributes":{"position":17,"base":10000,"max_positions":1088},"backend_hint":null}
+5: fixture embedding_hand metadata=PASS numeric=pending-S12
+5: descriptor {"version":1,"op":"EMBEDDING","inputs":[0,1],"outputs":[2],"attributes":{},"backend_hint":null}
+5: fixture swiglu_hand metadata=PASS numeric=pending-S12
+5: descriptor {"version":1,"op":"SWIGLU","inputs":[0,1],"outputs":[2],"attributes":{},"backend_hint":null}
+5: fixture attention_decode_tiny_geometry metadata=PASS numeric=pending-S12
+5: descriptor {"version":1,"op":"ATTENTION","inputs":[0,1,2],"outputs":[3],"attributes":{"heads":4,"head_dim":16,"causal":true,"query_position":2,"key_position":0,"max_positions":1088},"backend_hint":null}
+5: Operator fixtures: PASS numeric_core=8 transformer_metadata=9 malformed_reader=10
+ 5/29 Test  #5: cpu_backend_fixtures .............   Passed    0.43 sec
+test 6
+      Start  6: cpu_backend
+
+6: Test command: /Users/wafoe/projects/me/CXXEg-stage6-verify/build-stage6-validation/20261006T040533995553Z-78182/release/test_cpu_backend
+6: Working Directory: /Users/wafoe/projects/me/CXXEg-stage6-verify/build-stage6-validation/20261006T040533995553Z-78182/release
+6: Test timeout computed to be: 1500
+6: CPU backend interface/capability/graph/provider: PASS
+ 6/29 Test  #6: cpu_backend ......................   Passed    0.49 sec
+test 7
+      Start  7: tensor
+
+7: Test command: /Users/wafoe/projects/me/CXXEg-stage6-verify/build-stage6-validation/20261006T040533995553Z-78182/release/test_tensor
+7: Working Directory: /Users/wafoe/projects/me/CXXEg-stage6-verify/build-stage6-validation/20261006T040533995553Z-78182/release
+7: Test timeout computed to be: 1500
+7: Allocation checks: views/transpose=0 buffers; nonempty materialize=1; copy=24 logical bytes, 0 buffers
+7: Tensor metadata/storage/construction/views/copy: PASS
+ 7/29 Test  #7: tensor ...........................   Passed    0.41 sec
+test 8
+      Start  8: tensor_properties
+
+8: Test command: /Users/wafoe/projects/me/CXXEg-stage6-verify/build-stage6-validation/20261006T040533995553Z-78182/release/test_tensor_properties
+8: Working Directory: /Users/wafoe/projects/me/CXXEg-stage6-verify/build-stage6-validation/20261006T040533995553Z-78182/release
+8: Test timeout computed to be: 1500
+8: Tensor properties: PASS seed=20903 trials=600 ranks=0..8 FP32/INT32; padding/offset/permutation/slice/materialization/copy/alias
+ 8/29 Test  #8: tensor_properties ................   Passed    0.40 sec
+test 9
+      Start  9: tensor_validation
+
+9: Test command: /Users/wafoe/miniforge3/bin/python3.14 "/Users/wafoe/projects/me/CXXEg-stage6-verify/tests/test_tensor_validation.py"
+9: Working Directory: /Users/wafoe/projects/me/CXXEg-stage6-verify/build-stage6-validation/20261006T040533995553Z-78182/release
+9: Test timeout computed to be: 1500
+9: ............
+9: ----------------------------------------------------------------------
+9: Ran 12 tests in 0.063s
+9: 
+9: OK
+ 9/29 Test  #9: tensor_validation ................   Passed    0.14 sec
+test 10
+      Start 10: operator
+
+10: Test command: /Users/wafoe/projects/me/CXXEg-stage6-verify/build-stage6-validation/20261006T040533995553Z-78182/release/test_operator
+10: Working Directory: /Users/wafoe/projects/me/CXXEg-stage6-verify/build-stage6-validation/20261006T040533995553Z-78182/release
+10: Test timeout computed to be: 1500
+10: Operator schema/arity/typed attributes/ID/status/serialization: PASS
+10/29 Test #10: operator .........................   Passed    0.38 sec
+test 11
+      Start 11: shape_inference
+
+11: Test command: /Users/wafoe/projects/me/CXXEg-stage6-verify/build-stage6-validation/20261006T040533995553Z-78182/release/test_shape_inference
+11: Working Directory: /Users/wafoe/projects/me/CXXEg-stage6-verify/build-stage6-validation/20261006T040533995553Z-78182/release
+11: Test timeout computed to be: 1500
+11: Pure core shape/dtype/contiguity/overflow/alias/COPY inference: PASS
+11/29 Test #11: shape_inference ..................   Passed    0.38 sec
+test 12
+      Start 12: operator_reference
+
+12: Test command: /Users/wafoe/projects/me/CXXEg-stage6-verify/build-stage6-validation/20261006T040533995553Z-78182/release/test_reference
+12: Working Directory: /Users/wafoe/projects/me/CXXEg-stage6-verify/build-stage6-validation/20261006T040533995553Z-78182/release
+12: Test timeout computed to be: 1500
+12: Reference random MATMUL: PASS seed=20995 trials=100 (zero/rectangular), no performance claim
+12: CPU reference ADD/MUL/MATMUL/COPY/MATERIALIZE: PASS
+12/29 Test #12: operator_reference ...............   Passed    0.38 sec
+test 13
+      Start 13: transformer_contracts
+
+13: Test command: /Users/wafoe/projects/me/CXXEg-stage6-verify/build-stage6-validation/20261006T040533995553Z-78182/release/test_transformer_contracts
+13: Working Directory: /Users/wafoe/projects/me/CXXEg-stage6-verify/build-stage6-validation/20261006T040533995553Z-78182/release
+13: Test timeout computed to be: 1500
+13: Transformer schema/inference/positions/head-lowering/cache-write contract: PASS (no transformer kernels)
+13/29 Test #13: transformer_contracts ............   Passed    0.37 sec
+test 14
+      Start 14: operator_fixtures
+
+14: Test command: /Users/wafoe/miniforge3/bin/python3.14 "/Users/wafoe/projects/me/CXXEg-stage6-verify/tests/run_operator_fixtures.py" "--binary" "/Users/wafoe/projects/me/CXXEg-stage6-verify/build-stage6-validation/20261006T040533995553Z-78182/release/test_operator_fixtures" "--root" "/Users/wafoe/projects/me/CXXEg-stage6-verify/tests/fixtures/operators-v1"
+14: Working Directory: /Users/wafoe/projects/me/CXXEg-stage6-verify/build-stage6-validation/20261006T040533995553Z-78182/release
+14: Test timeout computed to be: 1500
+14: Fixture checksum/provenance: PASS; tiny weights=21 tensors, 461056 bytes (not model execution)
+14: fixture add_hand core=PASS max_abs=0 atol=1e-06 rtol=1e-05
+14: descriptor {"version":1,"op":"ADD","inputs":[0,1],"outputs":[2],"attributes":{},"backend_hint":null}
+14: fixture mul_scalar core=PASS max_abs=0 atol=1e-06 rtol=1e-05
+14: descriptor {"version":1,"op":"MUL","inputs":[0,1],"outputs":[2],"attributes":{},"backend_hint":null}
+14: fixture matmul_rectangular core=PASS max_abs=0 atol=1e-06 rtol=1e-05
+14: descriptor {"version":1,"op":"MATMUL","inputs":[0,1],"outputs":[2],"attributes":{},"backend_hint":null}
+14: fixture matmul_zero_inner core=PASS max_abs=0 atol=1e-06 rtol=1e-05
+14: descriptor {"version":1,"op":"MATMUL","inputs":[0,1],"outputs":[2],"attributes":{},"backend_hint":null}
+14: fixture copy_ids_transpose core=PASS max_abs=0 atol=1e-06 rtol=1e-05
+14: descriptor {"version":1,"op":"COPY","inputs":[0,1],"outputs":[2],"attributes":{"overlap":"reject_except_exact_self"},"backend_hint":null}
+14: fixture copy_fp32 core=PASS max_abs=0 atol=1e-06 rtol=1e-05
+14: descriptor {"version":1,"op":"COPY","inputs":[0,1],"outputs":[2],"attributes":{"overlap":"reject_except_exact_self"},"backend_hint":null}
+14: fixture materialize_transpose core=PASS max_abs=0 atol=1e-06 rtol=1e-05
+14: descriptor {"version":1,"op":"MATERIALIZE","inputs":[0],"outputs":[1],"attributes":{},"backend_hint":null}
+14: fixture add_empty core=PASS max_abs=0 atol=1e-06 rtol=1e-05
+14: descriptor {"version":1,"op":"ADD","inputs":[0,1],"outputs":[2],"attributes":{},"backend_hint":null}
+14: fixture rmsnorm_hand_zero_row metadata=PASS numeric=pending-S12
+14: descriptor {"version":1,"op":"RMSNORM","inputs":[0,1],"outputs":[2],"attributes":{"epsilon":1.0000000000000001e-05},"backend_hint":null}
+14: fixture softmax_stable metadata=PASS numeric=pending-S12
+14: descriptor {"version":1,"op":"SOFTMAX","inputs":[0],"outputs":[1],"attributes":{"causal":false,"query_position":0,"key_position":0,"max_positions":1088},"backend_hint":null}
+14: fixture softmax_decode_offset metadata=PASS numeric=pending-S12
+14: descriptor {"version":1,"op":"SOFTMAX","inputs":[0],"outputs":[1],"attributes":{"causal":true,"query_position":2,"key_position":0,"max_positions":1088},"backend_hint":null}
+14: fixture softmax_all_masked metadata=PASS numeric=pending-S12
+14: descriptor {"version":1,"op":"SOFTMAX","inputs":[0],"outputs":[1],"attributes":{"causal":true,"query_position":0,"key_position":2,"max_positions":1088},"backend_hint":null}
+14: fixture rope_interleaved_hand metadata=PASS numeric=pending-S12
+14: descriptor {"version":1,"op":"ROPE","inputs":[0],"outputs":[1],"attributes":{"position":1,"base":10000,"max_positions":1088},"backend_hint":null}
+14: fixture rope_tiny_heads metadata=PASS numeric=pending-S12
+14: descriptor {"version":1,"op":"ROPE","inputs":[0],"outputs":[1],"attributes":{"position":17,"base":10000,"max_positions":1088},"backend_hint":null}
+14: fixture embedding_hand metadata=PASS numeric=pending-S12
+14: descriptor {"version":1,"op":"EMBEDDING","inputs":[0,1],"outputs":[2],"attributes":{},"backend_hint":null}
+14: fixture swiglu_hand metadata=PASS numeric=pending-S12
+14: descriptor {"version":1,"op":"SWIGLU","inputs":[0,1],"outputs":[2],"attributes":{},"backend_hint":null}
+14: fixture attention_decode_tiny_geometry metadata=PASS numeric=pending-S12
+14: descriptor {"version":1,"op":"ATTENTION","inputs":[0,1,2],"outputs":[3],"attributes":{"heads":4,"head_dim":16,"causal":true,"query_position":2,"key_position":0,"max_positions":1088},"backend_hint":null}
+14: Operator fixtures: PASS numeric_core=8 transformer_metadata=9 malformed_reader=10
+14/29 Test #14: operator_fixtures ................   Passed    0.46 sec
+test 15
+      Start 15: operator_fixture_tools
+
+15: Test command: /Users/wafoe/miniforge3/bin/python3.14 "/Users/wafoe/projects/me/CXXEg-stage6-verify/tests/test_operator_fixture_tools.py"
+15: Working Directory: /Users/wafoe/projects/me/CXXEg-stage6-verify/build-stage6-validation/20261006T040533995553Z-78182/release
+15: Test timeout computed to be: 1500
+15: .........
+15: ----------------------------------------------------------------------
+15: Ran 9 tests in 0.044s
+15: 
+15: OK
+15/29 Test #15: operator_fixture_tools ...........   Passed    0.10 sec
+test 16
+      Start 16: graph
+
+16: Test command: /Users/wafoe/projects/me/CXXEg-stage6-verify/build-stage6-validation/20261006T040533995553Z-78182/release/test_graph
+16: Working Directory: /Users/wafoe/projects/me/CXXEg-stage6-verify/build-stage6-validation/20261006T040533995553Z-78182/release
+16: Test timeout computed to be: 1500
+16: graph ownership/topology/state: PASS
+16/29 Test #16: graph ............................   Passed    0.39 sec
+test 17
+      Start 17: graph_executor
+
+17: Test command: /Users/wafoe/projects/me/CXXEg-stage6-verify/build-stage6-validation/20261006T040533995553Z-78182/release/test_graph_executor
+17: Working Directory: /Users/wafoe/projects/me/CXXEg-stage6-verify/build-stage6-validation/20261006T040533995553Z-78182/release
+17: Test timeout computed to be: 1500
+17: ADD->MATMUL counts: allocations=2 frees=1 peak_live_bytes=56 copies=0
+17: seeded DAGs: PASS cases=60 seed=0x5303 nodes_per_case=12
+17: graph executor: PASS
+17/29 Test #17: graph_executor ...................   Passed    0.39 sec
+test 18
+      Start 18: graph_fixtures
+
+18: Test command: /Users/wafoe/miniforge3/bin/python3.14 "/Users/wafoe/projects/me/CXXEg-stage6-verify/tests/run_graph_fixtures.py" "--binary" "/Users/wafoe/projects/me/CXXEg-stage6-verify/build-stage6-validation/20261006T040533995553Z-78182/release/test_graph_fixtures" "--root" "/Users/wafoe/projects/me/CXXEg-stage6-verify/tests/fixtures/operators-v1"
+18: Working Directory: /Users/wafoe/projects/me/CXXEg-stage6-verify/build-stage6-validation/20261006T040533995553Z-78182/release
+18: Test timeout computed to be: 1500
+18: Graph fixture checksum/provenance: PASS
+18: graph fixture add_hand core=PASS
+18: graph fixture mul_scalar core=PASS
+18: graph fixture matmul_rectangular core=PASS
+18: graph fixture matmul_zero_inner core=PASS
+18: graph fixture copy_ids_transpose core=PASS
+18: graph fixture copy_fp32 core=PASS
+18: graph fixture materialize_transpose core=PASS
+18: graph fixture add_empty core=PASS
+18: graph fixture rmsnorm_hand_zero_row unsupported=PASS
+18: graph fixture softmax_stable unsupported=PASS
+18: graph fixture softmax_decode_offset unsupported=PASS
+18: graph fixture softmax_all_masked unsupported=PASS
+18: graph fixture rope_interleaved_hand unsupported=PASS
+18: graph fixture rope_tiny_heads unsupported=PASS
+18: graph fixture embedding_hand unsupported=PASS
+18: graph fixture swiglu_hand unsupported=PASS
+18: graph fixture attention_decode_tiny_geometry unsupported=PASS
+18: Graph fixtures: PASS numeric_core=8 unsupported=9
+18/29 Test #18: graph_fixtures ...................   Passed    0.46 sec
+test 19
+      Start 19: graph_trace
+
+19: Test command: /Users/wafoe/projects/me/CXXEg-stage6-verify/build-stage6-validation/20261006T040533995553Z-78182/release/test_graph_trace
+19: Working Directory: /Users/wafoe/projects/me/CXXEg-stage6-verify/build-stage6-validation/20261006T040533995553Z-78182/release
+19: Test timeout computed to be: 1500
+19: diamond trace: NodeBegin:10:- Tensor:10:0 Tensor:10:1 Allocate:10:2 Tensor:10:2 NodeEnd:10:- NodeBegin:20:- Tensor:20:2 Tensor:20:1 Allocate:20:3 Tensor:20:3 NodeEnd:20:- Release:20:1 NodeBegin:30:- Tensor:30:2 Tensor:30:0 Allocate:30:4 Tensor:30:4 NodeEnd:30:- Release:30:0 Release:30:2 Free:30:2 NodeBegin:40:- Tensor:40:3 Tensor:40:4 Allocate:40:5 Tensor:40:5 NodeEnd:40:- Release:40:3 Free:40:3 Release:40:4 Free:40:4 Output:-:5 
+19: graph trace: PASS
+19/29 Test #19: graph_trace ......................   Passed    0.37 sec
+test 20
+      Start 20: arena
+
+20: Test command: /Users/wafoe/projects/me/CXXEg-stage6-verify/build-stage6-validation/20261006T040533995553Z-78182/release/test_arena
+20: Working Directory: /Users/wafoe/projects/me/CXXEg-stage6-verify/build-stage6-validation/20261006T040533995553Z-78182/release
+20: Test timeout computed to be: 1500
+20: arena properties: PASS seeds=6 operations=18000
+20: arena accounting/reuse: PASS
+20/29 Test #20: arena ............................   Passed    0.46 sec
+test 21
+      Start 21: allocation_provider
+
+21: Test command: /Users/wafoe/projects/me/CXXEg-stage6-verify/build-stage6-validation/20261006T040533995553Z-78182/release/test_allocation_provider
+21: Working Directory: /Users/wafoe/projects/me/CXXEg-stage6-verify/build-stage6-validation/20261006T040533995553Z-78182/release
+21: Test timeout computed to be: 1500
+21: allocation provider: PASS
+21/29 Test #21: allocation_provider ..............   Passed    0.38 sec
+test 22
+      Start 22: allocator_benchmark_workloads
+
+22: Test command: /Users/wafoe/projects/me/CXXEg-stage6-verify/build-stage6-validation/20261006T040533995553Z-78182/release/bench_allocator "--self-test"
+22: Working Directory: /Users/wafoe/projects/me/CXXEg-stage6-verify/build-stage6-validation/20261006T040533995553Z-78182/release
+22: Test timeout computed to be: 1500
+22: allocator benchmark workload correctness: PASS (untimed)
+22/29 Test #22: allocator_benchmark_workloads ....   Passed    0.39 sec
+test 23
+      Start 23: allocator_tools
+
+23: Test command: /Users/wafoe/miniforge3/bin/python3.14 "/Users/wafoe/projects/me/CXXEg-stage6-verify/tests/test_allocator_tools.py"
+23: Working Directory: /Users/wafoe/projects/me/CXXEg-stage6-verify/build-stage6-validation/20261006T040533995553Z-78182/release
+23: Test timeout computed to be: 1500
+23: ..........
+23: ----------------------------------------------------------------------
+23: Ran 10 tests in 0.041s
+23: 
+23: OK
+23/29 Test #23: allocator_tools ..................   Passed    0.13 sec
+test 24
+      Start 24: memory_planner
+
+24: Test command: /Users/wafoe/projects/me/CXXEg-stage6-verify/build-stage6-validation/20261006T040533995553Z-78182/release/test_memory_planner
+24: Working Directory: /Users/wafoe/projects/me/CXXEg-stage6-verify/build-stage6-validation/20261006T040533995553Z-78182/release
+24: Test timeout computed to be: 1500
+24: memory planner: PASS
+24/29 Test #24: memory_planner ...................   Passed    0.39 sec
+test 25
+      Start 25: planned_executor
+
+25: Test command: /Users/wafoe/projects/me/CXXEg-stage6-verify/build-stage6-validation/20261006T040533995553Z-78182/release/test_planned_executor
+25: Working Directory: /Users/wafoe/projects/me/CXXEg-stage6-verify/build-stage6-validation/20261006T040533995553Z-78182/release
+25: Test timeout computed to be: 1500
+25: planned executor: PASS
+25/29 Test #25: planned_executor .................   Passed    0.55 sec
+test 26
+      Start 26: planner_benchmark_workloads
+
+26: Test command: /Users/wafoe/projects/me/CXXEg-stage6-verify/build-stage6-validation/20261006T040533995553Z-78182/release/bench_planner "--self-test"
+26: Working Directory: /Users/wafoe/projects/me/CXXEg-stage6-verify/build-stage6-validation/20261006T040533995553Z-78182/release
+26: Test timeout computed to be: 1500
+26: planner benchmark workload correctness: PASS (untimed)
+26/29 Test #26: planner_benchmark_workloads ......   Passed    0.42 sec
+test 27
+      Start 27: planner_tools
+
+27: Test command: /Users/wafoe/miniforge3/bin/python3.14 "/Users/wafoe/projects/me/CXXEg-stage6-verify/tests/test_planner_tools.py"
+27: Working Directory: /Users/wafoe/projects/me/CXXEg-stage6-verify/build-stage6-validation/20261006T040533995553Z-78182/release
+27: Test timeout computed to be: 1500
+27: .................
+27: ----------------------------------------------------------------------
+27: Ran 17 tests in 0.185s
+27: 
+27: OK
+27/29 Test #27: planner_tools ....................   Passed    0.27 sec
+test 28
+      Start 28: common
+
+28: Test command: /Users/wafoe/projects/me/CXXEg-stage6-verify/build-stage6-validation/20261006T040533995553Z-78182/release/test_common
+28: Working Directory: /Users/wafoe/projects/me/CXXEg-stage6-verify/build-stage6-validation/20261006T040533995553Z-78182/release
+28: Test timeout computed to be: 1500
+28: CPU reference, validation, statistics, GFLOPS, CSV: PASS
+28/29 Test #28: common ...........................   Passed    0.39 sec
+test 29
+      Start 29: tools
+
+29: Test command: /Users/wafoe/miniforge3/bin/python3.14 "/Users/wafoe/projects/me/CXXEg-stage6-verify/tests/test_tools.py"
+29: Working Directory: /Users/wafoe/projects/me/CXXEg-stage6-verify/build-stage6-validation/20261006T040533995553Z-78182/release
+29: Test timeout computed to be: 1500
+29: test_bad_numeric_input (__main__.AnalysisTests.test_bad_numeric_input) ... ok
+29: test_changed_comparison_conditions (__main__.AnalysisTests.test_changed_comparison_conditions) ... ok
+29: test_cli_missing_csv_preserves_existing_report (__main__.AnalysisTests.test_cli_missing_csv_preserves_existing_report) ... ok
+29: test_duplicate_or_single_kernel (__main__.AnalysisTests.test_duplicate_or_single_kernel) ... ok
+29: test_failure_not_success (__main__.AnalysisTests.test_failure_not_success) ... ok
+29: test_invalid_build_and_commit (__main__.AnalysisTests.test_invalid_build_and_commit) ... ok
+29: test_missing_raw_samples (__main__.AnalysisTests.test_missing_raw_samples) ... ok
+29: test_no_data_no_report (__main__.AnalysisTests.test_no_data_no_report) ... ok
+29: test_no_report_without_completed_run (__main__.AnalysisTests.test_no_report_without_completed_run) ... ok
+29: test_path_traversal (__main__.AnalysisTests.test_path_traversal) ... ok
+29: test_ratio_wrong_units (__main__.AnalysisTests.test_ratio_wrong_units) ... ok
+29: test_report_from_raw (__main__.AnalysisTests.test_report_from_raw) ... ok
+29: test_timing_raw_tamper (__main__.AnalysisTests.test_timing_raw_tamper) ... ok
+29: test_wrong_gflops (__main__.AnalysisTests.test_wrong_gflops) ... ok
+29: test_clean_and_dirty_source (__main__.ProvenanceTests.test_clean_and_dirty_source) ... ok
+29: test_header_stable (__main__.ProvenanceTests.test_header_stable) ... ok
+29: test_results_and_report_excluded (__main__.ProvenanceTests.test_results_and_report_excluded) ... ok
+29: test_untracked_source_included (__main__.ProvenanceTests.test_untracked_source_included) ... ok
+29: test_failed_environment_capture_preserved (__main__.ScriptFailureTests.test_failed_environment_capture_preserved) ... ok
+29: test_stale_binary_refused_before_benchmark (__main__.ScriptFailureTests.test_stale_binary_refused_before_benchmark) ... ok
+29: 
+29: ----------------------------------------------------------------------
+29: Ran 20 tests in 1.288s
+29: 
+29: OK
+29/29 Test #29: tools ............................   Passed    1.36 sec
+
+100% tests passed out of 29
+
+Label Time Summary:
+arena        =   1.36 sec*proc (4 tests)
+backend      =   2.73 sec*proc (6 tests)
+cpu          =  10.37 sec*proc (27 tests)
+graph        =   1.99 sec*proc (5 tests)
+operators    =   2.08 sec*proc (6 tests)
+planner      =   1.64 sec*proc (4 tests)
+tensor       =   0.95 sec*proc (3 tests)
+
+Total Test time (real) =  12.14 sec

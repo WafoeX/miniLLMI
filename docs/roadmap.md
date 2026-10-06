@@ -1,6 +1,6 @@
 # Stage 1–19 implementation blueprint
 
-> **Status.** Stage 0 is accepted. Its source identity is `f7aaec4` / digest `cc1414…20dc0c`; reproducible T4 results and profiler evidence are committed through `f0f1de7`. Stage 1 Tensor/storage, Stage 2 operators and Stage 3 validated CPU graphs are implemented; see [the Tensor contract](tensor.md), [Stage 1 evidence](stage1_report.md), [operator contracts](operators.md), [Stage 2 evidence](stage2_report.md), [graph contracts](graph.md) and [Stage 3 evidence](stage3_report.md). Stage 4 host arena/provider is implemented; see [arena contracts](arena.md) and [Stage 4 evidence](stage4_report.md). Stage 5 CPU lifetime/slot planner and prepared execution are implemented and pass the required memory gate; see [planner contracts](planner.md) and [Stage 5 evidence](stage5_report.md). S5-C4 inplace is `skipped_optional`; dynamic remains default and measured small-graph latency regresses. Stage 6–19 remain **Proposed Design**, not implemented functionality.
+> **Status.** Stage 0 is accepted. Its source identity is `f7aaec4` / digest `cc1414…20dc0c`; reproducible T4 results and profiler evidence are committed through `f0f1de7`. Stage 1 Tensor/storage, Stage 2 operators and Stage 3 validated CPU graphs are implemented; see [the Tensor contract](tensor.md), [Stage 1 evidence](stage1_report.md), [operator contracts](operators.md), [Stage 2 evidence](stage2_report.md), [graph contracts](graph.md) and [Stage 3 evidence](stage3_report.md). Stage 4 host arena/provider is implemented; see [arena contracts](arena.md) and [Stage 4 evidence](stage4_report.md). Stage 5 CPU lifetime/slot planner and prepared execution are implemented and pass the required memory gate; see [planner contracts](planner.md) and [Stage 5 evidence](stage5_report.md). S5-C4 inplace is `skipped_optional`; dynamic remains default and measured small-graph latency regresses. Stage 6 common backend/CPU dispatch and immutable FP32 ijk baseline are implemented and CPU-only accepted; see [CPU backend contracts](cpu_backend.md) and [Stage 6 evidence](stage6_report.md). Default FP64 math/dynamic allocation remain stable; transformer primitives stay Unsupported. Stage 7–19 remain **Proposed Design**, not implemented functionality.
 
 ## 1. Architecture and invariants
 
@@ -86,7 +86,7 @@ Every result is appended, never manually rewritten, and includes timestamp, run 
 
 | Experiment | Inputs | Fixed controls | Variable | Outputs |
 |---|---|---|---|---|
-| CPU GEMM | timed 128/256/512/1024 square; small/non-square correctness | FP32/input/compiler/host | algorithm, threads | `results/cpu/cpu_gemm.csv` |
+| CPU GEMM | timed 128/256/512/1024 square; small/non-square correctness | FP32/input/compiler/host | algorithm, threads | `results/cpu/baseline/<run-id>/cpu_gemm.csv` |
 | CUDA sweep | 512–4096, same Stage 0 generator | T4, Release, FP32, Event, 10/50 | kernel config | `results/gemm/baseline.csv`, raw runs |
 | Allocator | fixed synthetic and model graphs | graph/input/lifetimes | allocation policy | `results/allocator/allocator.csv` |
 | Scheduler | fixed mixed graph | graph/input/device | policy/segments | `results/scheduler/scheduler.csv` |

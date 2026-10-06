@@ -1,0 +1,14 @@
+..................F.
+======================================================================
+FAIL: test_stale_binary_failure_preserved (__main__.CpuTools.test_stale_binary_failure_preserved)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/wafoe/projects/me/CXXEg/tests/test_cpu_tools.py", line 189, in test_stale_binary_failure_preserved
+    self.assertEqual(len(failed), 1)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^
+AssertionError: 2 != 1
+
+----------------------------------------------------------------------
+Ran 20 tests in 0.411s
+
+FAILED (failures=1)

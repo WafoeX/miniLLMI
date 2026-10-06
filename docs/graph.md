@@ -10,6 +10,12 @@ the null-provider behavior below remains the stable S3 dynamic baseline. See
 [arena/provider contracts](arena.md) for opt-in arena spans, output-context
 pinning, expanded counters and BlockAllocate/BlockFree trace events.
 
+Stage 6 adds an optional fourth `const Backend*` argument. Default execution
+retains S2 FP64 reference math behind the common Backend interface; explicit
+CPU FP32 v0 selection uses the same graph/provider path. See [CPU backend
+contracts](cpu_backend.md). The lifetime/trace/default semantics below remain
+unchanged; no automatic scheduling or hidden copy is introduced.
+
 ## Ownership, construction and freeze
 
 `include/runtime/graph.hpp` owns value records in ID-keyed maps, not raw node
@@ -99,9 +105,11 @@ Every node executes in frozen order, including dead/disconnected valid branches.
 - NewTensor nodes allocate a canonical CPU Tensor **inside execute**, one
   nonzero backing buffer per node. Allocation of graph outputs is inside the
   same boundary. Empty tensors own no nonzero backing allocation.
-- COPY/MATERIALIZE and ADD/MUL/MATMUL run the existing CPU reference entry point
-  with caller-provided outputs. MATMUL remains the scalar FP64-accumulate
-  correctness oracle, **not** S6's FP32 performance baseline.
+- COPY/MATERIALIZE and ADD/MUL/MATMUL dispatch through Backend with
+  caller-provided outputs. The default CPU backend runs existing S2 reference
+  semantics; default MATMUL remains FP64-accumulate, **not** the explicit S6
+  FP32 performance baseline. Alias nodes likewise validate through Backend but
+  invoke no numerical kernel.
 - Transformer descriptors can freeze, but reference execution returns
   `Unsupported`; there are no Transformer kernels until S12.
 - Release each unpinned TensorId immediately after its last unique consuming

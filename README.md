@@ -1,8 +1,19 @@
-# mini-llm-runtime — Stage 5
+# mini-llm-runtime — Stage 6
 
-基于 C++17/CUDA 的推理引擎项目。**Stage 0 已通过 T4 验收；Stage 1 统一 Tensor/shared Storage；Stage 2 实现 backend-neutral 算子与 core reference；Stage 3 实现冻结 DAG、确定性拓扑、顺序 CPU executor、最后使用释放/alias 保活及有界执行 trace。** Tensor 支持 FP32/INT32、checked shape/stride/offset、CPU storage、零拷贝变换和显式 CPU copy。Transformer 仍只有契约/validators 和离线 expected fixtures，Stage 4 增加对齐 CPU arena、first-fit 复用和显式 allocation provider；Stage 5 完成生命周期分析、静态复用 slots 和显式 prepared execution。尚无 Transformer kernels、scheduler、模型执行、KV Cache 或量化实现。
+基于 C++17/CUDA 的推理引擎项目。**Stage 0 已通过 T4 验收；Stage 1 统一 Tensor/shared Storage；Stage 2 实现 backend-neutral 算子与 core reference；Stage 3 实现冻结 DAG、确定性拓扑、顺序 CPU executor、最后使用释放/alias 保活及有界执行 trace。** Tensor 支持 FP32/INT32、checked shape/stride/offset、CPU storage、零拷贝变换和显式 CPU copy。Transformer 仍只有契约/validators 和离线 expected fixtures，Stage 4 增加对齐 CPU arena、first-fit 复用和显式 allocation provider；Stage 5 完成生命周期分析、静态复用 slots 和显式 prepared execution；Stage 6 将 graph 执行接入统一 Backend，并冻结显式单线程 FP32 `ijk v0` CPU 基线。默认保留 FP64 reference math 与 dynamic allocation。尚无 Transformer kernels、scheduler、模型执行、KV Cache 或量化实现。
 
 Stage 0 naive GEMM 与历史结果保持不变。Stage 1 的 gate 是 CPU-only Debug/Release、属性测试与 ASan/UBSan；不要求 CUDA allocation 或服务器性能数据。后续按 [路线图](docs/roadmap.md) 与 [Change 任务书](docs/tasks/README.md) 执行。
+
+## Stage 6 验收（明确 CPU-only，无需 GPU）
+
+```bash
+python3 tools/validate_cpu.py
+python3 tools/run_cpu_benchmark.py
+# dirty 源码只允许开发正确性验证，不允许计时：
+# python3 tools/validate_cpu.py --allow-dirty
+```
+
+[CPU backend / 冻结基线契约](docs/cpu_backend.md)、[Stage 6 验收记录](docs/stage6_report.md)。同一 clean source 的 Release/Debug/ASan+UBSan 各 29/29 通过；128/256/512/1024 完成三轮独立 Release 基线，原始样本、GFLOPS、compiler auto-vectorization 备注和 provenance 已归档。Transformer primitives 仍明确 `Unsupported`；小图 prepared reuse 更慢，数据保留且不改默认。没有 CPU/GPU 对比或 Stage 7 speedup 声明，尚未开始 Stage 7。
 
 ## Stage 5 验收（明确 CPU-only，无需 GPU）
 

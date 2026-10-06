@@ -1,0 +1,16 @@
+Evidence: /Users/wafoe/projects/me/CXXEg-stage6-verify/results/cpu/local/20261006T040533995553Z-78182
+cmake-version: exit=0
+git-version: exit=0
+release-configure: exit=0
+release-build: exit=0
+release-ctest: exit=0
+debug-configure: exit=0
+debug-build: exit=0
+debug-ctest: exit=0
+sanitizer-configure: exit=0
+sanitizer-build: exit=0
+sanitizer-target: exit=0
+sanitizer-ctest: exit=0
+production-configure: exit=0
+production-build: exit=0
+Stage 6 CPU validation: PASS (Release/Debug/ASan+UBSan/production build)

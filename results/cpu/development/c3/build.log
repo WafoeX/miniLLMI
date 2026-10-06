@@ -1,0 +1,54 @@
+-- Configuring done (0.2s)
+-- Generating done (0.0s)
+-- Build files have been written to: /Users/wafoe/projects/me/CXXEg/build-stage6-dev
+[  1%] Building CXX object CMakeFiles/runtime.dir/src/runtime/cpu_backend.cpp.o
+[  1%] Built target refresh_provenance
+[  4%] Built target stage0_common
+[  7%] Built target test_common
+[  9%] Linking CXX static library libruntime.a
+[ 33%] Built target runtime
+[ 34%] Building CXX object CMakeFiles/test_cpu_transformer_contract.dir/tests/test_cpu_transformer_contract.cpp.o
+[ 39%] Building CXX object CMakeFiles/bench_allocator.dir/bench/bench_allocator.cpp.o
+[ 39%] Linking CXX executable test_cpu_scalar
+[ 39%] Building CXX object CMakeFiles/bench_planner.dir/bench/bench_planner.cpp.o
+[ 41%] Built target test_cpu_scalar
+[ 42%] Linking CXX executable test_cpu_backend_fixtures
+[ 44%] Built target test_cpu_backend_fixtures
+[ 46%] Linking CXX executable test_cpu_backend
+[ 47%] Built target test_cpu_backend
+[ 49%] Linking CXX executable test_tensor
+[ 50%] Built target test_tensor
+[ 52%] Linking CXX executable test_tensor_properties
+[ 53%] Built target test_tensor_properties
+[ 55%] Linking CXX executable test_operator
+[ 57%] Built target test_operator
+[ 58%] Linking CXX executable test_shape_inference
+[ 60%] Built target test_shape_inference
+[ 61%] Linking CXX executable bench_allocator
+[ 63%] Linking CXX executable test_reference
+[ 63%] Built target bench_allocator
+[ 65%] Linking CXX executable bench_planner
+[ 66%] Built target test_reference
+[ 68%] Linking CXX executable test_transformer_contracts
+[ 68%] Built target bench_planner
+[ 69%] Linking CXX executable test_operator_fixtures
+[ 71%] Linking CXX executable test_cpu_transformer_contract
+[ 73%] Built target test_transformer_contracts
+[ 74%] Linking CXX executable test_graph
+[ 76%] Built target test_operator_fixtures
+[ 76%] Built target test_cpu_transformer_contract
+[ 77%] Linking CXX executable test_graph_executor
+[ 79%] Built target test_graph
+[ 80%] Linking CXX executable test_graph_fixtures
+[ 82%] Linking CXX executable test_graph_trace
+[ 84%] Built target test_graph_executor
+[ 85%] Linking CXX executable test_arena
+[ 87%] Built target test_graph_fixtures
+[ 88%] Linking CXX executable test_allocation_provider
+[ 90%] Built target test_graph_trace
+[ 92%] Built target test_arena
+[ 93%] Linking CXX executable test_memory_planner
+[ 95%] Linking CXX executable test_planned_executor
+[ 96%] Built target test_allocation_provider
+[ 98%] Built target test_memory_planner
+[100%] Built target test_planned_executor
