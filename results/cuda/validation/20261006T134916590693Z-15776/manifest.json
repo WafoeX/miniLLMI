@@ -1,0 +1,96 @@
+{
+  "schema_version": 1,
+  "scope": "Stage 8 T4 CUDA integration validation; no performance claim",
+  "run_id": "20261006T134916590693Z-15776",
+  "timestamp": "2026-10-06T13:49:16.590693+00:00",
+  "source": {
+    "commit": "d8a05515a5c372b766afab901f6b66fdf44dcf5c",
+    "source_digest": "be67a7170013373e62fe57aa23b9715deeac66e97db7c407d9c25febac75c6c6",
+    "source_dirty": false
+  },
+  "host": "a3ef0bb002d7",
+  "platform": "Linux-6.6.122+-x86_64-with-glibc2.39",
+  "machine": "x86_64",
+  "commands": [
+    {
+      "label": "nvidia-smi",
+      "argv": [
+        "nvidia-smi"
+      ],
+      "log": "nvidia-smi.log",
+      "exit_code": 0
+    },
+    {
+      "label": "nvcc-version",
+      "argv": [
+        "nvcc",
+        "--version"
+      ],
+      "log": "nvcc-version.log",
+      "exit_code": 0
+    },
+    {
+      "label": "configure",
+      "argv": [
+        "cmake",
+        "-S",
+        "/content/miniLLMI",
+        "-B",
+        "/content/miniLLMI/build-cuda-validation/20261006T134916590693Z-15776",
+        "-DCMAKE_BUILD_TYPE=Release",
+        "-DENABLE_CUDA=ON",
+        "-DCMAKE_CUDA_ARCHITECTURES=75",
+        "-DBUILD_TESTING=ON"
+      ],
+      "log": "configure.log",
+      "exit_code": 0
+    },
+    {
+      "label": "build",
+      "argv": [
+        "cmake",
+        "--build",
+        "/content/miniLLMI/build-cuda-validation/20261006T134916590693Z-15776",
+        "--parallel",
+        "2"
+      ],
+      "log": "build.log",
+      "exit_code": 0
+    },
+    {
+      "label": "gpu-tests",
+      "argv": [
+        "ctest",
+        "--test-dir",
+        "/content/miniLLMI/build-cuda-validation/20261006T134916590693Z-15776",
+        "--output-on-failure",
+        "-L",
+        "gpu"
+      ],
+      "log": "gpu-tests.log",
+      "exit_code": 0
+    },
+    {
+      "label": "gpu-info",
+      "argv": [
+        "/content/miniLLMI/build-cuda-validation/20261006T134916590693Z-15776/gpu_info"
+      ],
+      "log": "gpu-info.log",
+      "exit_code": 0
+    }
+  ],
+  "status": "passed",
+  "source_after": {
+    "commit": "d8a05515a5c372b766afab901f6b66fdf44dcf5c",
+    "source_digest": "be67a7170013373e62fe57aa23b9715deeac66e97db7c407d9c25febac75c6c6",
+    "source_dirty": false
+  },
+  "artifact_sha256": {
+    "build.log": "dc905e02a5b1ba6c77b461c7f34f3bd88784cf125ec6209927f56f6253a4badb",
+    "gpu-tests.log": "3b0c9327da0f55b3c86ffc84edad500ef4e746b78ff5ac784b60c8b290741ccc",
+    "nvcc-version.log": "fc7ce0c80d28ed925fd490dc4e3915ce620fcf115f965189688c6f049243aad5",
+    "nvidia-smi.log": "61e99d6f9e63502a46c06ea3a5df8977e9a7ef2b891e0431a0722922bd546f61",
+    "configure.log": "188253182e6d5bc10ed6df5febedf7c21c2c996c9fa41ff9dd44623c18d64aeb",
+    "gpu-info.log": "10aca15f8e427ba024476b196dc4fb1a86fc8bc3a89de78a445402b47658b05e"
+  }
+}

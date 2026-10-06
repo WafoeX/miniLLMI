@@ -1,0 +1,17 @@
+CUDA Runtime Version: 13000
+CUDA Driver API Version: 13000
+
+Device: 0
+GPU Name: Tesla T4
+GPU UUID (hex): 6e68cfbfdf4e243aecae337ec9e29c0a
+Compute Capability: 7.5
+SM Count: 40
+Global Memory (bytes): 15637086208
+Memory Bus Width (bits): 256
+Memory Clock: removed from CUDA 13 device properties; see nvidia-smi clock query below
+Shared Memory Per Block (bytes): 49152
+Registers Per Block: 65536
+Warp Size: 32
+Max Threads Per Block: 1024
+Max Grid Size: 2147483647,65535,65535
+ECC Enabled: 1
