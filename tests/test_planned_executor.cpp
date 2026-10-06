@@ -122,8 +122,30 @@ void randomized_dags() {
         }
     }
 }
+void typed_reuse_and_devices() {
+    Graph g; g.add_input(0, "x", Tensor::allocate_cpu({8}));
+    auto ids = Tensor::allocate_cpu({4}, DType::INT32); ids.data<std::int32_t>()[2] = 73;
+    g.add_input(9, "ids", ids); g.add_tensor(1, {8}); g.add_tensor(2, {8});
+    g.add_tensor(3, {4}, DType::INT32); g.add_tensor(4, {4}, DType::INT32);
+    g.add_node(0, OpDesc(OpCode::ADD, {0, 0}, {1}));
+    g.add_node(1, OpDesc(OpCode::MATERIALIZE, {1}, {2}));
+    g.add_node(2, OpDesc(OpCode::MATERIALIZE, {9}, {3}));
+    g.add_node(3, OpDesc(OpCode::MATERIALIZE, {3}, {4}));
+    g.add_output("ids", 4); success(g.freeze());
+    PlannedAllocationProvider p(g);
+    require(p.plan().slots.at(1).offset == p.plan().slots.at(3).offset, "INT32 reuses expired larger FP32 span");
+    for (int repeat = 0; repeat < 5; ++repeat) {
+        const auto run = execute_planned(g, p); success(run.status);
+        require(run.outputs.at("ids").data<std::int32_t>()[2] == 73, "typed integer object lifetimes restart every execute");
+    }
+    Graph cuda;
+    auto storage = Storage::wrap(Device(DeviceType::CUDA, 0), 0, nullptr, [](void*) {});
+    cuda.add_input(0, "cuda-metadata", Tensor(storage, DType::FP32, Shape{0}, Stride{1}));
+    cuda.add_output("external", 0); success(cuda.freeze());
+    try { plan_memory(cuda); throw std::runtime_error("CUDA planner accepted"); } catch (const std::invalid_argument&) {}
+}
 }
 int main() {
-    try { integration(); failure_state_zero(); randomized_dags(); require(testing::cpu_allocation_counts().live == 0, "planned executor leaks"); std::cout << "planned executor: PASS\n"; return 0; }
+    try { integration(); failure_state_zero(); randomized_dags(); typed_reuse_and_devices(); require(testing::cpu_allocation_counts().live == 0, "planned executor leaks"); std::cout << "planned executor: PASS\n"; return 0; }
     catch (const std::exception& e) { std::cerr << e.what() << '\n'; return 1; }
 }

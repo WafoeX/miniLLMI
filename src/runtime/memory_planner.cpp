@@ -127,7 +127,9 @@ Status validate_memory_plan(const Graph& graph, const MemoryPlan& plan) {
         if (plan.capacity_bytes % plan.alignment) throw std::invalid_argument("unaligned plan capacity");
         const auto life = analyze_lifetimes(graph);
         std::size_t expected = 0;
-        for (const auto& item : life.roots) if (!item.second.external) {
+        for (const auto& item : life.roots) {
+            if (item.second.device.type() != DeviceType::CPU) throw std::invalid_argument("CPU-only plan requires CPU roots");
+            if (item.second.external) continue;
             ++expected;
             const auto found = plan.slots.find(item.first);
             if (found == plan.slots.end()) throw std::invalid_argument("missing plan root");

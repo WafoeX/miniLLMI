@@ -2,6 +2,8 @@
 
 **Goal:** plan intermediate tensor storage before execution. **Prerequisite:** S4-C4 and frozen graph semantics. **Gate:** planned graphs preserve outputs and meet the roadmap buffer-allocation/arena-capacity improvement gate. This is not a claim of zero C++ heap allocation.
 
+**Execution scope:** explicitly CPU-only host planner/reference integration and CPU-only memory/latency diagnostic; local named-host Release measurements are permitted. CUDA planning/server performance is not claimed. Frozen workloads, policies and timing boundaries are in [planner contracts](../planner.md). S5-C4 is `skipped_optional` (default disabled; not necessary for the required gate).
+
 ## S5-C1 — Lifetime analysis
 - **Goal/type:** Compute birth, first/last use, consumer counts; mark graph inputs, outputs, aliases/views. *Functional + Correctness.*
 - **Depends/files:** S3/S4; `memory_planner.hpp/.cpp`, tests.
