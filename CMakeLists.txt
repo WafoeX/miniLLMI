@@ -61,7 +61,7 @@ add_library(runtime src/runtime/storage.cpp src/runtime/tensor.cpp src/runtime/c
     src/runtime/operator.cpp src/runtime/shape_inference.cpp src/runtime/reference.cpp
     src/runtime/layout.cpp src/runtime/graph.cpp src/runtime/graph_executor.cpp src/runtime/graph_trace.cpp
     src/runtime/arena.cpp src/runtime/allocation_provider.cpp src/runtime/memory_planner.cpp
-    src/runtime/planned_executor.cpp src/runtime/cpu_backend.cpp)
+    src/runtime/planned_executor.cpp src/runtime/cpu_backend.cpp src/runtime/cpu_scalar.cpp)
 target_include_directories(runtime PUBLIC include)
 target_compile_options(runtime PRIVATE -Wall -Wextra -Wpedantic)
 
@@ -75,6 +75,18 @@ target_compile_options(bench_planner PRIVATE -Wall -Wextra -Wpedantic)
 
 if(BUILD_TESTING)
     target_compile_definitions(runtime PUBLIC RUNTIME_TESTING=1)
+    add_executable(test_cpu_scalar tests/test_cpu_scalar.cpp)
+    target_link_libraries(test_cpu_scalar PRIVATE runtime)
+    target_compile_options(test_cpu_scalar PRIVATE -Wall -Wextra -Wpedantic)
+    add_test(NAME cpu_scalar COMMAND test_cpu_scalar)
+    set_tests_properties(cpu_scalar PROPERTIES LABELS "cpu;backend")
+    add_executable(test_cpu_backend_fixtures tests/test_operator_fixtures.cpp)
+    target_compile_definitions(test_cpu_backend_fixtures PRIVATE CPU_BACKEND_FIXTURES=1)
+    target_link_libraries(test_cpu_backend_fixtures PRIVATE runtime)
+    target_compile_options(test_cpu_backend_fixtures PRIVATE -Wall -Wextra -Wpedantic)
+    add_test(NAME cpu_backend_fixtures COMMAND "${Python3_EXECUTABLE}" "${CMAKE_SOURCE_DIR}/tests/run_operator_fixtures.py"
+        --binary "$<TARGET_FILE:test_cpu_backend_fixtures>" --root "${CMAKE_SOURCE_DIR}/tests/fixtures/operators-v1")
+    set_tests_properties(cpu_backend_fixtures PROPERTIES LABELS "cpu;backend")
     add_executable(test_cpu_backend tests/test_cpu_backend.cpp)
     target_link_libraries(test_cpu_backend PRIVATE runtime)
     target_compile_options(test_cpu_backend PRIVATE -Wall -Wextra -Wpedantic)

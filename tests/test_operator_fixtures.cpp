@@ -1,5 +1,8 @@
 #include "fixture_reader.hpp"
 #include "runtime/reference.hpp"
+#ifdef CPU_BACKEND_FIXTURES
+#include "runtime/cpu_backend.hpp"
+#endif
 #include <algorithm>
 #include <fstream>
 #include <iostream>
@@ -61,7 +64,11 @@ int main(int argc, char** argv) {
                 require(inferred.output->shape == fixture.expected.shape() && inferred.output->dtype == fixture.expected.dtype(), "fixture inferred dtype/shape mismatch");
                 auto output = inferred.output->alias ? *inferred.output->alias : Tensor::allocate_cpu(inferred.output->shape, inferred.output->dtype);
                 const auto before = testing::cpu_allocation_counts();
+#ifdef CPU_BACKEND_FIXTURES
+                const auto status = CpuBackend(CpuMatmul::ScalarFP32V0).execute(fixture.descriptor, inputs, output);
+#else
                 const auto status = reference::execute(fixture.descriptor, inputs, output);
+#endif
                 require(testing::cpu_allocation_counts().allocations == before.allocations, "fixture reference kernel allocated buffers");
                 if (core(fixture.descriptor.code())) {
                     if (!status.ok()) throw std::runtime_error(fixture.name + ": " + status.message);

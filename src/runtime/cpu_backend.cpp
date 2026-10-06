@@ -1,9 +1,18 @@
 #include "runtime/cpu_backend.hpp"
 #include "runtime/reference.hpp"
+#include "cpu_dispatch.hpp"
+#include "cpu_scalar.hpp"
 #include <new>
 #include <stdexcept>
 
 namespace runtime {
+CpuBackend::CpuBackend(CpuMatmul matmul) : matmul_(matmul) {
+    if (matmul != CpuMatmul::ReferenceFP64 && matmul != CpuMatmul::ScalarFP32V0)
+        throw std::invalid_argument("unknown CPU MATMUL algorithm; no silent fallback");
+}
+const char* CpuBackend::name() const noexcept {
+    return matmul_ == CpuMatmul::ReferenceFP64 ? "cpu-reference-fp64" : "cpu-ijk-fp32-v0";
+}
 Status CpuBackend::capability(OpCode code, Device requested, DType dtype) const {
     if (requested != device())
         return Status::failure(StatusCode::DeviceMismatch, "CPU backend requires CPU:0; no hidden transfers");
@@ -37,9 +46,8 @@ BackendPreparation CpuBackend::prepare(const OpDesc& desc, const TensorInputs& i
     for (const auto& input : inputs)
         if (input.get().device() != device())
             return {Status::failure(StatusCode::DeviceMismatch, "CPU backend requires explicit CPU inputs"), 0};
-    const auto inferred = infer_operator(desc, inputs);
-    if (!inferred.ok()) return {inferred.status, 0};
-    return {validate_output_binding(*inferred.output, output), 0};
+    OutputKind kind{};
+    return {detail::validate_cpu_core(desc, inputs, output, kind), 0};
 }
 Status CpuBackend::execute(const OpDesc& desc, const TensorInputs& inputs, Tensor& output, Workspace workspace) const {
     const auto prepared = prepare(desc, inputs, output);
@@ -48,7 +56,8 @@ Status CpuBackend::execute(const OpDesc& desc, const TensorInputs& inputs, Tenso
         return Status::failure(StatusCode::InvalidArgument, "CPU backend requires empty workspace");
     const auto inferred = infer_operator(desc, inputs);
     if (inferred.output->kind == OutputKind::Alias) return Status::success();
-    return reference::execute(desc, inputs, output);
+    return matmul_ == CpuMatmul::ReferenceFP64 ? reference::execute(desc, inputs, output)
+        : detail::execute_cpu_core(desc, inputs, output, detail::matmul_ijk_fp32_v0);
 }
 const Backend& default_cpu_backend() { static const CpuBackend backend; return backend; }
 } // namespace runtime
