@@ -130,9 +130,19 @@ class ValidationTest(unittest.TestCase):
         self.assertTrue(any("check_planner_sanitizers" in command["argv"] for command in manifest["commands"]))
         self.assertEqual(validate_tensor.configuration(5)[0], "planner")
 
+    def test_stage6_reuses_runner_with_backend_target(self):
+        with patch.object(validate_tensor, "inspect", return_value=self.source), \
+                patch.object(validate_tensor, "run_process", side_effect=self.fake_run), \
+                contextlib.redirect_stdout(io.StringIO()):
+            output = validate_tensor.validate(self.root, self.root / "results/cpu/local", 2, False, stage=6)
+        manifest = json.loads((output / "manifest.json").read_text())
+        self.assertEqual(manifest["stage"], 6)
+        self.assertTrue(any("check_cpu_backend_sanitizers" in command["argv"] for command in manifest["commands"]))
+        self.assertEqual(validate_tensor.configuration(6)[0], "cpu")
+
     def test_unknown_stage_rejected(self):
         with self.assertRaises(ValueError):
-            validate_tensor.configuration(6)
+            validate_tensor.configuration(7)
 
     def test_nonpositive_jobs_rejected(self):
         with patch.object(sys, "argv", ["validate_tensor", "--jobs", "0"]), \

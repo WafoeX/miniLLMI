@@ -73,8 +73,22 @@ add_executable(bench_planner bench/bench_planner.cpp)
 target_link_libraries(bench_planner PRIVATE runtime stage0_common)
 target_compile_options(bench_planner PRIVATE -Wall -Wextra -Wpedantic)
 
+add_executable(bench_cpu bench/bench_cpu.cpp)
+target_link_libraries(bench_cpu PRIVATE runtime stage0_common)
+target_compile_options(bench_cpu PRIVATE -Wall -Wextra -Wpedantic)
+
 if(BUILD_TESTING)
     target_compile_definitions(runtime PUBLIC RUNTIME_TESTING=1)
+    add_test(NAME cpu_benchmark_workloads COMMAND bench_cpu --self-test)
+    set_tests_properties(cpu_benchmark_workloads PROPERTIES LABELS "cpu;backend")
+    add_test(NAME cpu_tools COMMAND "${Python3_EXECUTABLE}" "${CMAKE_SOURCE_DIR}/tests/test_cpu_tools.py")
+    set_tests_properties(cpu_tools PROPERTIES LABELS "cpu;backend")
+    add_custom_target(check_cpu_backend
+        COMMAND "${CMAKE_CTEST_COMMAND}" --output-on-failure --verbose -L backend
+        DEPENDS test_cpu_backend test_cpu_scalar test_cpu_backend_fixtures test_cpu_transformer_contract bench_cpu USES_TERMINAL)
+    if(ENABLE_SANITIZERS)
+        add_custom_target(check_cpu_backend_sanitizers DEPENDS check_cpu_backend)
+    endif()
     add_executable(test_cpu_transformer_contract tests/test_cpu_transformer_contract.cpp)
     target_link_libraries(test_cpu_transformer_contract PRIVATE runtime)
     target_compile_options(test_cpu_transformer_contract PRIVATE -Wall -Wextra -Wpedantic)

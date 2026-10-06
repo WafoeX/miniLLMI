@@ -2,6 +2,8 @@
 
 **Goal:** move reference operator execution behind the common backend contract. **Prerequisite:** S3; planner integration follows S5. **Gate:** CPU backend runs core graph correctly without model-specific kernels.
 
+**Acceptance scope (declared before measurements): CPU-only, local named-host Release allowed; GPU/server not required.** See [CPU backend and frozen benchmark contract](../cpu_backend.md). S6 creates a baseline, not an optimization speedup claim: three independent 128/256/512/1024 baseline runs; graph dynamic/reuse pairs alternate order. FP64 oracle is untimed. Default S2 FP64 math and dynamic allocation remain stable. Formal gate status is recorded in [Stage 6 evidence](../stage6_report.md).
+
 ## S6-C1 — Backend interface and capability contract
 - **Goal/type:** Define backend buffer/copy/prepare/execute interface and capability query. *Functional.*
 - **Depends/files:** S1–S3; `backend.hpp`, `cpu_backend.hpp/.cpp`, tests.
@@ -26,6 +28,6 @@
 ## S6-C4 — CPU benchmark harness
 - **Goal/type:** Extend provenance/raw CSV framework for CPU GEMM and graph runs. *Performance + Integration.*
 - **Depends/files:** C2; `bench/bench_cpu.cpp`, scripts/analyzer/results.
-- **Scope/not:** same inputs/control fields; no comparison to GPU.
+- **Scope/not:** same inputs/control fields; no comparison to GPU or timed FP64 oracle. Predeclared local CPU-only scope; zero pool/hand-SIMD/optimization candidates.
 - **Verify/baseline/metrics:** timed square 128/256/512/1024 scalar `ijk`; small/non-square/boundary correctness tests. 2048/4096 CPU timings are optional to avoid an impractical scalar test budget. Record warmup/iterations, threads, GFLOPS and correctness; roadmap paired-run protocol applies.
 - **Accept/commit/risk:** baseline is immutable and distinguishable from Stage 0 CPU oracle. `bench(cpu): add scalar GEMM baseline runner`. Risk: compiler auto-vectorization must be reported, not suppressed.
