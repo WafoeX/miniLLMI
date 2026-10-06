@@ -1,13 +1,13 @@
 #include "runtime/graph_executor.hpp"
 #include "runtime/copy.hpp"
-#include "runtime/reference.hpp"
 #include <algorithm>
 #include <new>
 #include <set>
 
 namespace runtime {
-ExecutionResult execute_graph(const Graph& graph, ExecutionTrace* trace, AllocationProvider* supplied) {
+ExecutionResult execute_graph(const Graph& graph, ExecutionTrace* trace, AllocationProvider* supplied, const Backend* supplied_backend) {
     ExecutionResult result;
+    const auto& backend = supplied_backend ? *supplied_backend : default_cpu_backend();
     DynamicAllocationProvider dynamic;
     auto& provider = supplied ? *supplied : static_cast<AllocationProvider&>(dynamic);
     const auto backing = provider.backing_per_request();
@@ -136,13 +136,9 @@ ExecutionResult execute_graph(const Graph& graph, ExecutionTrace* trace, Allocat
                     pending_allocation.reset();
                     pending_offset.reset();
                     event(TraceKind::Tensor, output_id);
-                    if (contract.kind == OutputKind::Alias) {
-                        event(TraceKind::Alias, output_id);
-                        status = Status::success();
-                    } else {
-                        status = reference::execute(descriptor, inputs, live.at(output_id));
-                        if (status.ok() && contract.kind == OutputKind::Write) event(TraceKind::StateWrite, output_id);
-                    }
+                    status = backend.execute(descriptor, inputs, live.at(output_id));
+                    if (status.ok() && contract.kind == OutputKind::Alias) event(TraceKind::Alias, output_id);
+                    if (status.ok() && contract.kind == OutputKind::Write) event(TraceKind::StateWrite, output_id);
                     if (status.ok() && (descriptor.code() == OpCode::COPY || descriptor.code() == OpCode::MATERIALIZE)) {
                         const auto& source = inputs[0].get();
                         const auto& destination = live.at(output_id);

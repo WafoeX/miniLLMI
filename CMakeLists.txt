@@ -61,7 +61,7 @@ add_library(runtime src/runtime/storage.cpp src/runtime/tensor.cpp src/runtime/c
     src/runtime/operator.cpp src/runtime/shape_inference.cpp src/runtime/reference.cpp
     src/runtime/layout.cpp src/runtime/graph.cpp src/runtime/graph_executor.cpp src/runtime/graph_trace.cpp
     src/runtime/arena.cpp src/runtime/allocation_provider.cpp src/runtime/memory_planner.cpp
-    src/runtime/planned_executor.cpp)
+    src/runtime/planned_executor.cpp src/runtime/cpu_backend.cpp)
 target_include_directories(runtime PUBLIC include)
 target_compile_options(runtime PRIVATE -Wall -Wextra -Wpedantic)
 
@@ -75,6 +75,11 @@ target_compile_options(bench_planner PRIVATE -Wall -Wextra -Wpedantic)
 
 if(BUILD_TESTING)
     target_compile_definitions(runtime PUBLIC RUNTIME_TESTING=1)
+    add_executable(test_cpu_backend tests/test_cpu_backend.cpp)
+    target_link_libraries(test_cpu_backend PRIVATE runtime)
+    target_compile_options(test_cpu_backend PRIVATE -Wall -Wextra -Wpedantic)
+    add_test(NAME cpu_backend COMMAND test_cpu_backend)
+    set_tests_properties(cpu_backend PROPERTIES LABELS "cpu;backend")
     add_executable(test_tensor tests/test_tensor.cpp)
     target_link_libraries(test_tensor PRIVATE runtime)
     target_compile_options(test_tensor PRIVATE -Wall -Wextra -Wpedantic)

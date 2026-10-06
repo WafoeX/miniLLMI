@@ -26,7 +26,7 @@ private:
     Block reservation_; // fixed reservation; lifetime remains owned by shared Storage
     bool running_ = false;
 };
-inline ExecutionResult execute_planned(const Graph& graph, PlannedAllocationProvider& prepared, ExecutionTrace* trace = nullptr) {
-    return execute_graph(graph, trace, &prepared);
+inline ExecutionResult execute_planned(const Graph& graph, PlannedAllocationProvider& prepared, ExecutionTrace* trace = nullptr, const Backend* backend = nullptr) {
+    return execute_graph(graph, trace, &prepared, backend);
 }
 } // namespace runtime

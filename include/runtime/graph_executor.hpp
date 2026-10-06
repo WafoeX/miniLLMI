@@ -3,6 +3,7 @@
 #include "runtime/graph.hpp"
 #include "runtime/graph_trace.hpp"
 #include "runtime/allocation_provider.hpp"
+#include "runtime/backend.hpp"
 
 namespace runtime {
 struct ExecutionCounts {
@@ -23,5 +24,5 @@ struct ExecutionResult {
 // execute, no implicit copies. All nodes execute, even disconnected/dead branches.
 // Shared Storage extends alias lifetimes; only named outputs escape the call.
 ExecutionResult execute_graph(const Graph& graph, ExecutionTrace* trace = nullptr,
-                              AllocationProvider* provider = nullptr);
+                              AllocationProvider* provider = nullptr, const Backend* backend = nullptr);
 } // namespace runtime
