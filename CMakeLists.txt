@@ -60,7 +60,8 @@ target_compile_options(stage0_common PRIVATE -Wall -Wextra -Wpedantic)
 add_library(runtime src/runtime/storage.cpp src/runtime/tensor.cpp src/runtime/copy.cpp
     src/runtime/operator.cpp src/runtime/shape_inference.cpp src/runtime/reference.cpp
     src/runtime/layout.cpp src/runtime/graph.cpp src/runtime/graph_executor.cpp src/runtime/graph_trace.cpp
-    src/runtime/arena.cpp src/runtime/allocation_provider.cpp src/runtime/memory_planner.cpp)
+    src/runtime/arena.cpp src/runtime/allocation_provider.cpp src/runtime/memory_planner.cpp
+    src/runtime/planned_executor.cpp)
 target_include_directories(runtime PUBLIC include)
 target_compile_options(runtime PRIVATE -Wall -Wextra -Wpedantic)
 
@@ -174,9 +175,14 @@ if(BUILD_TESTING)
     target_compile_options(test_memory_planner PRIVATE -Wall -Wextra -Wpedantic)
     add_test(NAME memory_planner COMMAND test_memory_planner)
     set_tests_properties(memory_planner PROPERTIES LABELS "cpu;planner")
+    add_executable(test_planned_executor tests/test_planned_executor.cpp)
+    target_link_libraries(test_planned_executor PRIVATE runtime)
+    target_compile_options(test_planned_executor PRIVATE -Wall -Wextra -Wpedantic)
+    add_test(NAME planned_executor COMMAND test_planned_executor)
+    set_tests_properties(planned_executor PROPERTIES LABELS "cpu;planner")
     add_custom_target(check_planner
         COMMAND "${CMAKE_CTEST_COMMAND}" --output-on-failure --verbose -L planner
-        DEPENDS test_memory_planner USES_TERMINAL)
+        DEPENDS test_memory_planner test_planned_executor USES_TERMINAL)
     if(ENABLE_SANITIZERS)
         add_custom_target(check_planner_sanitizers DEPENDS check_planner)
     endif()

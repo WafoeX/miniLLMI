@@ -89,6 +89,8 @@ ExecutionResult execute_graph(const Graph& graph, ExecutionTrace* trace, Allocat
         catch (...) { --root_handles[base]; throw; }
     };
     try {
+        result.status = provider.validate_graph(graph);
+        if (!result.status.ok()) { event(TraceKind::Failure, {}, 0, result.status.code); return result; }
         result.status = provider.begin();
         if (!result.status.ok()) { event(TraceKind::Failure, {}, 0, result.status.code); return result; }
         session.begun = true;

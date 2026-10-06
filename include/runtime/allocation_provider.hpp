@@ -4,11 +4,14 @@
 #include "runtime/shape_inference.hpp"
 
 namespace runtime {
+class Graph;
 // One-threaded, per-execution allocation seam. Only physical roots are released,
 // never individual alias views. begin/end bracket all calls; no hidden fallback.
 class AllocationProvider {
 public:
     virtual ~AllocationProvider() = default;
+    // Prepared providers reject incompatible graph metadata before any writes.
+    virtual Status validate_graph(const Graph&) const { return Status::success(); }
     virtual Status begin() = 0;
     virtual void end() noexcept = 0;
     virtual Tensor allocate(TensorId root, Shape shape, DType dtype) = 0;
