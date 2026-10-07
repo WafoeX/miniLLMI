@@ -1,0 +1,103 @@
+{
+  "schema_version": 1,
+  "scope": "Stage 11 C2 T4 integration correctness",
+  "cpu_only": false,
+  "run_id": "20261007T075917981077Z-6425",
+  "timestamp": "2026-10-07T07:59:17.981077+00:00",
+  "source_before": {
+    "commit": "44f05b4de37f8398da2105ad624c5b940076c5a0",
+    "source_digest": "d5d1f5755f613c9e125b8c65f279ea81087722540bc1698975fada02b819fff7",
+    "source_dirty": false
+  },
+  "host": "96f897f1da41",
+  "platform": "Linux-6.6.122+-x86_64-with-glibc2.39",
+  "machine": "x86_64",
+  "python": "3.13.15 (main, Aug  6 2026, 11:06:22) [GCC 13.3.0]",
+  "commands": [
+    {
+      "label": "nvidia-smi",
+      "argv": [
+        "nvidia-smi"
+      ],
+      "log": "nvidia-smi.log",
+      "exit_code": 0
+    },
+    {
+      "label": "gpu-query",
+      "argv": [
+        "nvidia-smi",
+        "--query-gpu=name,compute_cap",
+        "--format=csv,noheader"
+      ],
+      "log": "gpu-query.log",
+      "exit_code": 0
+    },
+    {
+      "label": "nvcc-version",
+      "argv": [
+        "nvcc",
+        "--version"
+      ],
+      "log": "nvcc-version.log",
+      "exit_code": 0
+    },
+    {
+      "label": "release-configure",
+      "argv": [
+        "cmake",
+        "-S",
+        "/content/miniLLMI-stage11",
+        "-B",
+        "/content/miniLLMI-stage11/build-stage11-validation/20261007T075917981077Z-6425/release",
+        "-DCMAKE_BUILD_TYPE=Release",
+        "-DBUILD_TESTING=ON",
+        "-DENABLE_CUDA=ON",
+        "-DCMAKE_CUDA_ARCHITECTURES=75"
+      ],
+      "log": "release-configure.log",
+      "exit_code": 0
+    },
+    {
+      "label": "release-build",
+      "argv": [
+        "cmake",
+        "--build",
+        "/content/miniLLMI-stage11/build-stage11-validation/20261007T075917981077Z-6425/release",
+        "--parallel",
+        "2"
+      ],
+      "log": "release-build.log",
+      "exit_code": 0
+    },
+    {
+      "label": "release-tests",
+      "argv": [
+        "ctest",
+        "--test-dir",
+        "/content/miniLLMI-stage11/build-stage11-validation/20261007T075917981077Z-6425/release",
+        "--output-on-failure",
+        "--verbose"
+      ],
+      "log": "release-tests.log",
+      "exit_code": 8
+    }
+  ],
+  "status": "failed",
+  "c4_status": "not_started",
+  "gpu_name": "Tesla T4",
+  "cuda_architecture": "75",
+  "error": "failed command: release-tests",
+  "source_after": {
+    "commit": "44f05b4de37f8398da2105ad624c5b940076c5a0",
+    "source_digest": "d5d1f5755f613c9e125b8c65f279ea81087722540bc1698975fada02b819fff7",
+    "source_dirty": false
+  },
+  "artifact_sha256": {
+    "gpu-query.log": "970124eb7802b596887a05959888abca62dd286f97b53041d0196a752d9268ac",
+    "nvcc-version.log": "fc7ce0c80d28ed925fd490dc4e3915ce620fcf115f965189688c6f049243aad5",
+    "nvidia-smi.log": "3522695d61c513147338a2e963e9e74232d30937a4270710a033b53baa3725df",
+    "release-build.log": "6e68a6beb15c89463ce90d7379a79fd635d648d424dd882ca369230f214e523c",
+    "release-configure.log": "0e12008f76972d9b78089b8dd7b81f1ac4774f56c966fe57a94b1d380a4893bc",
+    "release-tests.log": "83593cfd7332275b0c4aacc1df734abbf1b772b11e4721ed28f8b1bb01d5263b"
+  }
+}

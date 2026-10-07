@@ -1,0 +1,278 @@
+{
+  "scope": "Stage 11 C2 correctness only; not C4 timing acceptance",
+  "pairs": [
+    {
+      "kernel": "cuda-stage0-naive",
+      "shape_mkn": [
+        17,
+        13,
+        11
+      ],
+      "repeat": 0,
+      "counts": {
+        "copies": 4,
+        "copy_bytes": 2952,
+        "backend_dispatches": 9,
+        "backend_switches": 2,
+        "allocations": 0
+      },
+      "correctness": "passed"
+    },
+    {
+      "kernel": "cuda-stage0-naive",
+      "shape_mkn": [
+        17,
+        13,
+        11
+      ],
+      "repeat": 1,
+      "counts": {
+        "copies": 4,
+        "copy_bytes": 2952,
+        "backend_dispatches": 9,
+        "backend_switches": 2,
+        "allocations": 0
+      },
+      "correctness": "passed"
+    },
+    {
+      "kernel": "cuda-stage0-naive",
+      "shape_mkn": [
+        64,
+        64,
+        64
+      ],
+      "repeat": 0,
+      "counts": {
+        "copies": 4,
+        "copy_bytes": 65536,
+        "backend_dispatches": 9,
+        "backend_switches": 2,
+        "allocations": 0
+      },
+      "correctness": "passed"
+    },
+    {
+      "kernel": "cuda-stage0-naive",
+      "shape_mkn": [
+        64,
+        64,
+        64
+      ],
+      "repeat": 1,
+      "counts": {
+        "copies": 4,
+        "copy_bytes": 65536,
+        "backend_dispatches": 9,
+        "backend_switches": 2,
+        "allocations": 0
+      },
+      "correctness": "passed"
+    },
+    {
+      "kernel": "cuda-stage0-naive",
+      "shape_mkn": [
+        0,
+        3,
+        2
+      ],
+      "repeat": 0,
+      "counts": {
+        "copies": 1,
+        "copy_bytes": 24,
+        "backend_dispatches": 6,
+        "backend_switches": 2,
+        "allocations": 0
+      },
+      "correctness": "passed"
+    },
+    {
+      "kernel": "cuda-stage0-naive",
+      "shape_mkn": [
+        0,
+        3,
+        2
+      ],
+      "repeat": 1,
+      "counts": {
+        "copies": 1,
+        "copy_bytes": 24,
+        "backend_dispatches": 6,
+        "backend_switches": 2,
+        "allocations": 0
+      },
+      "correctness": "passed"
+    },
+    {
+      "kernel": "cuda-stage0-naive",
+      "shape_mkn": [
+        2,
+        0,
+        3
+      ],
+      "repeat": 0,
+      "counts": {
+        "copies": 2,
+        "copy_bytes": 48,
+        "backend_dispatches": 7,
+        "backend_switches": 2,
+        "allocations": 0
+      },
+      "correctness": "passed"
+    },
+    {
+      "kernel": "cuda-stage0-naive",
+      "shape_mkn": [
+        2,
+        0,
+        3
+      ],
+      "repeat": 1,
+      "counts": {
+        "copies": 2,
+        "copy_bytes": 48,
+        "backend_dispatches": 7,
+        "backend_switches": 2,
+        "allocations": 0
+      },
+      "correctness": "passed"
+    },
+    {
+      "kernel": "cuda-stage9-tiled",
+      "shape_mkn": [
+        17,
+        13,
+        11
+      ],
+      "repeat": 0,
+      "counts": {
+        "copies": 4,
+        "copy_bytes": 2952,
+        "backend_dispatches": 9,
+        "backend_switches": 2,
+        "allocations": 0
+      },
+      "correctness": "passed"
+    },
+    {
+      "kernel": "cuda-stage9-tiled",
+      "shape_mkn": [
+        17,
+        13,
+        11
+      ],
+      "repeat": 1,
+      "counts": {
+        "copies": 4,
+        "copy_bytes": 2952,
+        "backend_dispatches": 9,
+        "backend_switches": 2,
+        "allocations": 0
+      },
+      "correctness": "passed"
+    },
+    {
+      "kernel": "cuda-stage9-tiled",
+      "shape_mkn": [
+        64,
+        64,
+        64
+      ],
+      "repeat": 0,
+      "counts": {
+        "copies": 4,
+        "copy_bytes": 65536,
+        "backend_dispatches": 9,
+        "backend_switches": 2,
+        "allocations": 0
+      },
+      "correctness": "passed"
+    },
+    {
+      "kernel": "cuda-stage9-tiled",
+      "shape_mkn": [
+        64,
+        64,
+        64
+      ],
+      "repeat": 1,
+      "counts": {
+        "copies": 4,
+        "copy_bytes": 65536,
+        "backend_dispatches": 9,
+        "backend_switches": 2,
+        "allocations": 0
+      },
+      "correctness": "passed"
+    },
+    {
+      "kernel": "cuda-stage9-tiled",
+      "shape_mkn": [
+        0,
+        3,
+        2
+      ],
+      "repeat": 0,
+      "counts": {
+        "copies": 1,
+        "copy_bytes": 24,
+        "backend_dispatches": 6,
+        "backend_switches": 2,
+        "allocations": 0
+      },
+      "correctness": "passed"
+    },
+    {
+      "kernel": "cuda-stage9-tiled",
+      "shape_mkn": [
+        0,
+        3,
+        2
+      ],
+      "repeat": 1,
+      "counts": {
+        "copies": 1,
+        "copy_bytes": 24,
+        "backend_dispatches": 6,
+        "backend_switches": 2,
+        "allocations": 0
+      },
+      "correctness": "passed"
+    },
+    {
+      "kernel": "cuda-stage9-tiled",
+      "shape_mkn": [
+        2,
+        0,
+        3
+      ],
+      "repeat": 0,
+      "counts": {
+        "copies": 2,
+        "copy_bytes": 48,
+        "backend_dispatches": 7,
+        "backend_switches": 2,
+        "allocations": 0
+      },
+      "correctness": "passed"
+    },
+    {
+      "kernel": "cuda-stage9-tiled",
+      "shape_mkn": [
+        2,
+        0,
+        3
+      ],
+      "repeat": 1,
+      "counts": {
+        "copies": 2,
+        "copy_bytes": 48,
+        "backend_dispatches": 7,
+        "backend_switches": 2,
+        "allocations": 0
+      },
+      "correctness": "passed"
+    }
+  ],
+  "status": "passed"
+}

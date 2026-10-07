@@ -1,0 +1,143 @@
+[  1%] Building CXX object CMakeFiles/runtime.dir/src/runtime/storage.cpp.o
+[  1%] Built target refresh_provenance
+[  2%] Building CXX object CMakeFiles/runtime.dir/src/runtime/tensor.cpp.o
+[  3%] Building CXX object CMakeFiles/runtime.dir/src/runtime/copy.cpp.o
+[  4%] Building CXX object CMakeFiles/runtime.dir/src/runtime/operator.cpp.o
+[  5%] Building CXX object CMakeFiles/runtime.dir/src/runtime/shape_inference.cpp.o
+[  6%] Building CXX object CMakeFiles/stage0_common.dir/src/common.cpp.o
+[  7%] Building CXX object CMakeFiles/runtime.dir/src/runtime/reference.cpp.o
+[  8%] Building CXX object CMakeFiles/runtime.dir/src/runtime/layout.cpp.o
+[ 10%] Linking CXX static library libstage0_common.a
+[ 10%] Built target stage0_common
+[ 11%] Building CXX object CMakeFiles/runtime.dir/src/runtime/graph.cpp.o
+[ 12%] Building CXX object CMakeFiles/runtime.dir/src/runtime/graph_executor.cpp.o
+[ 13%] Building CXX object CMakeFiles/test_common.dir/tests/test_common.cpp.o
+[ 14%] Building CXX object CMakeFiles/runtime.dir/src/runtime/graph_trace.cpp.o
+[ 15%] Building CXX object CMakeFiles/runtime.dir/src/runtime/arena.cpp.o
+[ 16%] Linking CXX executable test_common
+[ 16%] Built target test_common
+[ 17%] Building CXX object CMakeFiles/runtime.dir/src/runtime/allocation_provider.cpp.o
+[ 19%] Building CUDA object CMakeFiles/stage0_cuda.dir/backend/cuda/sgemm_v0_naive.cu.o
+[ 20%] Building CXX object CMakeFiles/runtime.dir/src/runtime/memory_planner.cpp.o
+[ 21%] Building CXX object CMakeFiles/runtime.dir/src/runtime/planned_executor.cpp.o
+[ 22%] Building CXX object CMakeFiles/runtime.dir/src/runtime/cpu_backend.cpp.o
+[ 23%] Building CUDA object CMakeFiles/stage0_cuda.dir/backend/cuda/sgemm_v1_tiled.cu.o
+[ 24%] Building CXX object CMakeFiles/runtime.dir/src/runtime/cpu_scalar.cpp.o
+[ 25%] Building CXX object CMakeFiles/runtime.dir/src/runtime/cpu_optimized.cpp.o
+[ 26%] Building CXX object CMakeFiles/runtime.dir/src/runtime/thread_pool.cpp.o
+[ 28%] Building CXX object CMakeFiles/runtime.dir/src/runtime/scheduler.cpp.o
+[ 29%] Building CUDA object CMakeFiles/stage0_cuda.dir/backend/cuda/sgemm_registry.cu.o
+[ 30%] Linking CXX static library libruntime.a
+[ 30%] Built target runtime
+[ 31%] Building CUDA object CMakeFiles/stage0_cuda.dir/backend/cuda/cublas_gemm.cu.o
+[ 32%] Building CXX object CMakeFiles/bench_allocator.dir/bench/bench_allocator.cpp.o
+[ 33%] Linking CXX executable bench_allocator
+[ 33%] Built target bench_allocator
+[ 34%] Building CXX object CMakeFiles/bench_planner.dir/bench/bench_planner.cpp.o
+[ 35%] Linking CXX static library libstage0_cuda.a
+[ 35%] Built target stage0_cuda
+[ 37%] Building CXX object CMakeFiles/bench_cpu.dir/bench/bench_cpu.cpp.o
+[ 38%] Linking CXX executable bench_planner
+[ 38%] Built target bench_planner
+[ 39%] Building CXX object CMakeFiles/test_scheduler.dir/tests/test_scheduler.cpp.o
+[ 40%] Linking CXX executable bench_cpu
+[ 40%] Built target bench_cpu
+[ 41%] Building CXX object CMakeFiles/test_cpu_transformer_contract.dir/tests/test_cpu_transformer_contract.cpp.o
+[ 42%] Linking CXX executable test_scheduler
+[ 42%] Built target test_scheduler
+[ 43%] Building CXX object CMakeFiles/test_cpu_scalar.dir/tests/test_cpu_scalar.cpp.o
+[ 44%] Linking CXX executable test_cpu_transformer_contract
+[ 44%] Built target test_cpu_transformer_contract
+[ 46%] Building CXX object CMakeFiles/test_thread_pool.dir/tests/test_thread_pool.cpp.o
+[ 47%] Linking CXX executable test_thread_pool
+[ 47%] Built target test_thread_pool
+[ 48%] Building CXX object CMakeFiles/test_cpu_backend_fixtures.dir/tests/test_operator_fixtures.cpp.o
+[ 49%] Linking CXX executable test_cpu_scalar
+[ 49%] Built target test_cpu_scalar
+[ 50%] Building CXX object CMakeFiles/test_cpu_backend.dir/tests/test_cpu_backend.cpp.o
+[ 51%] Linking CXX executable test_cpu_backend
+[ 51%] Built target test_cpu_backend
+[ 52%] Building CXX object CMakeFiles/test_tensor.dir/tests/test_tensor.cpp.o
+[ 53%] Linking CXX executable test_cpu_backend_fixtures
+[ 53%] Built target test_cpu_backend_fixtures
+[ 55%] Building CXX object CMakeFiles/test_tensor_properties.dir/tests/test_tensor_properties.cpp.o
+[ 56%] Linking CXX executable test_tensor
+[ 56%] Built target test_tensor
+[ 57%] Building CXX object CMakeFiles/test_operator.dir/tests/test_operator.cpp.o
+[ 58%] Linking CXX executable test_tensor_properties
+[ 58%] Built target test_tensor_properties
+[ 59%] Building CXX object CMakeFiles/test_shape_inference.dir/tests/test_shape_inference.cpp.o
+[ 60%] Linking CXX executable test_operator
+[ 60%] Built target test_operator
+[ 61%] Building CXX object CMakeFiles/test_reference.dir/tests/test_reference.cpp.o
+[ 62%] Linking CXX executable test_shape_inference
+[ 62%] Built target test_shape_inference
+[ 64%] Building CXX object CMakeFiles/test_transformer_contracts.dir/tests/test_transformer_contracts.cpp.o
+[ 65%] Linking CXX executable test_reference
+[ 65%] Built target test_reference
+[ 66%] Building CXX object CMakeFiles/test_operator_fixtures.dir/tests/test_operator_fixtures.cpp.o
+[ 67%] Linking CXX executable test_transformer_contracts
+[ 67%] Built target test_transformer_contracts
+[ 68%] Building CXX object CMakeFiles/test_graph.dir/tests/test_graph.cpp.o
+[ 69%] Linking CXX executable test_operator_fixtures
+[ 69%] Built target test_operator_fixtures
+[ 70%] Building CXX object CMakeFiles/test_graph_executor.dir/tests/test_graph_executor.cpp.o
+[ 71%] Linking CXX executable test_graph
+[ 71%] Built target test_graph
+[ 73%] Building CXX object CMakeFiles/test_graph_fixtures.dir/tests/test_graph_fixtures.cpp.o
+[ 74%] Linking CXX executable test_graph_executor
+[ 74%] Built target test_graph_executor
+[ 75%] Building CXX object CMakeFiles/test_graph_trace.dir/tests/test_graph_trace.cpp.o
+[ 76%] Linking CXX executable test_graph_fixtures
+[ 76%] Built target test_graph_fixtures
+[ 77%] Building CXX object CMakeFiles/test_arena.dir/tests/test_arena.cpp.o
+[ 78%] Linking CXX executable test_graph_trace
+[ 78%] Built target test_graph_trace
+[ 79%] Building CXX object CMakeFiles/test_allocation_provider.dir/tests/test_allocation_provider.cpp.o
+[ 80%] Linking CXX executable test_arena
+[ 80%] Built target test_arena
+[ 82%] Building CXX object CMakeFiles/test_memory_planner.dir/tests/test_memory_planner.cpp.o
+[ 83%] Linking CXX executable test_allocation_provider
+[ 83%] Built target test_allocation_provider
+[ 84%] Building CXX object CMakeFiles/test_planned_executor.dir/tests/test_planned_executor.cpp.o
+[ 85%] Linking CXX executable test_memory_planner
+[ 85%] Built target test_memory_planner
+[ 86%] Building CUDA object CMakeFiles/runtime_cuda.dir/backend/cuda/cuda_backend.cu.o
+[ 87%] Linking CXX executable test_planned_executor
+[ 87%] Built target test_planned_executor
+[ 88%] Building CXX object CMakeFiles/gpu_info.dir/bench/gpu_info.cpp.o
+[ 89%] Linking CXX executable gpu_info
+[ 89%] Built target gpu_info
+[ 91%] Building CXX object CMakeFiles/bench_gemm.dir/bench/bench_gemm.cpp.o
+[ 92%] Linking CXX static library libruntime_cuda.a
+[ 92%] Built target runtime_cuda
+[ 93%] Building CXX object CMakeFiles/test_cuda_gemm.dir/tests/test_cuda_gemm.cpp.o
+[ 94%] Linking CXX executable bench_gemm
+[ 94%] Built target bench_gemm
+[ 95%] Building CXX object CMakeFiles/test_cuda_backend.dir/tests/test_cuda_backend.cpp.o
+[ 96%] Linking CXX executable test_cuda_gemm
+[ 96%] Built target test_cuda_gemm
+[ 97%] Building CXX object CMakeFiles/test_cuda_scheduler.dir/tests/test_cuda_scheduler.cpp.o
+/content/miniLLMI-stage11/tests/test_cuda_scheduler.cpp: In function ‘void {anonymous}::snapshot(const std::filesystem::__cxx11::path&, const std::string&, const runtime::Graph&, const runtime::MemoryPlan&, const runtime::ExecutionResult&, const runtime::Tensor&, const runtime::ExecutionTrace&)’:
+/content/miniLLMI-stage11/tests/test_cuda_scheduler.cpp:34:9: warning: this ‘if’ clause does not guard... [-Wmisleading-indentation]
+   34 |         if (!first) out << ','; first = false;
+      |         ^~
+/content/miniLLMI-stage11/tests/test_cuda_scheduler.cpp:34:33: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the ‘if’
+   34 |         if (!first) out << ','; first = false;
+      |                                 ^~~~~
+/content/miniLLMI-stage11/tests/test_cuda_scheduler.cpp:40:9: warning: this ‘if’ clause does not guard... [-Wmisleading-indentation]
+   40 |         if (!first) out << ','; first = false;
+      |         ^~
+/content/miniLLMI-stage11/tests/test_cuda_scheduler.cpp:40:33: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the ‘if’
+   40 |         if (!first) out << ','; first = false;
+      |                                 ^~~~~
+/content/miniLLMI-stage11/tests/test_cuda_scheduler.cpp:45:9: warning: this ‘if’ clause does not guard... [-Wmisleading-indentation]
+   45 |         if (!first) out << ','; first = false;
+      |         ^~
+/content/miniLLMI-stage11/tests/test_cuda_scheduler.cpp:45:33: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the ‘if’
+   45 |         if (!first) out << ','; first = false;
+      |                                 ^~~~~
+[ 98%] Linking CXX executable test_cuda_backend
+[ 98%] Built target test_cuda_backend
+[100%] Linking CXX executable test_cuda_scheduler
+[100%] Built target test_cuda_scheduler

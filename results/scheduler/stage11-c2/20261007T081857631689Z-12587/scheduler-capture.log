@@ -1,0 +1,17 @@
+cuda-stage0-naive-17-13-11-repeat0 copies=4 bytes=2952 switches=2 dispatches=9 PASS
+cuda-stage0-naive-17-13-11-repeat1 copies=4 bytes=2952 switches=2 dispatches=9 PASS
+cuda-stage0-naive-64-64-64-repeat0 copies=4 bytes=65536 switches=2 dispatches=9 PASS
+cuda-stage0-naive-64-64-64-repeat1 copies=4 bytes=65536 switches=2 dispatches=9 PASS
+cuda-stage0-naive-0-3-2-repeat0 copies=1 bytes=24 switches=2 dispatches=6 PASS
+cuda-stage0-naive-0-3-2-repeat1 copies=1 bytes=24 switches=2 dispatches=6 PASS
+cuda-stage0-naive-2-0-3-repeat0 copies=2 bytes=48 switches=2 dispatches=7 PASS
+cuda-stage0-naive-2-0-3-repeat1 copies=2 bytes=48 switches=2 dispatches=7 PASS
+cuda-stage9-tiled-17-13-11-repeat0 copies=4 bytes=2952 switches=2 dispatches=9 PASS
+cuda-stage9-tiled-17-13-11-repeat1 copies=4 bytes=2952 switches=2 dispatches=9 PASS
+cuda-stage9-tiled-64-64-64-repeat0 copies=4 bytes=65536 switches=2 dispatches=9 PASS
+cuda-stage9-tiled-64-64-64-repeat1 copies=4 bytes=65536 switches=2 dispatches=9 PASS
+cuda-stage9-tiled-0-3-2-repeat0 copies=1 bytes=24 switches=2 dispatches=6 PASS
+cuda-stage9-tiled-0-3-2-repeat1 copies=1 bytes=24 switches=2 dispatches=6 PASS
+cuda-stage9-tiled-2-0-3-repeat0 copies=2 bytes=48 switches=2 dispatches=7 PASS
+cuda-stage9-tiled-2-0-3-repeat1 copies=2 bytes=48 switches=2 dispatches=7 PASS
+CUDA scheduler: PASS (manual/automatic, fanout, state versions, repeated runs, D2D, aliases, empty, v0/v1)

@@ -1,0 +1,497 @@
+Internal ctest changing into directory: /content/miniLLMI-stage11/build-stage11-validation/20261007T081857631689Z-12587/release
+UpdateCTestConfiguration  from :/content/miniLLMI-stage11/build-stage11-validation/20261007T081857631689Z-12587/release/DartConfiguration.tcl
+Parse Config file:/content/miniLLMI-stage11/build-stage11-validation/20261007T081857631689Z-12587/release/DartConfiguration.tcl
+UpdateCTestConfiguration  from :/content/miniLLMI-stage11/build-stage11-validation/20261007T081857631689Z-12587/release/DartConfiguration.tcl
+Parse Config file:/content/miniLLMI-stage11/build-stage11-validation/20261007T081857631689Z-12587/release/DartConfiguration.tcl
+Test project /content/miniLLMI-stage11/build-stage11-validation/20261007T081857631689Z-12587/release
+Constructing a list of tests
+Done constructing a list of tests
+Updating test list for fixtures
+Added 0 tests to meet fixture requirements
+Checking test dependency graph...
+Checking test dependency graph end
+test 1
+      Start  1: scheduler
+
+1: Test command: /content/miniLLMI-stage11/build-stage11-validation/20261007T081857631689Z-12587/release/test_scheduler
+1: Working Directory: /content/miniLLMI-stage11/build-stage11-validation/20261007T081857631689Z-12587/release
+1: Test timeout computed to be: 1500
+1: scheduler: PASS (CPU execution / CUDA metadata only)
+ 1/36 Test  #1: scheduler ........................   Passed    0.00 sec
+test 2
+      Start  2: scheduler_tools
+
+2: Test command: /usr/local/bin/python "/content/miniLLMI-stage11/tests/test_scheduler_tools.py"
+2: Working Directory: /content/miniLLMI-stage11/build-stage11-validation/20261007T081857631689Z-12587/release
+2: Test timeout computed to be: 1500
+2: ..../tmp/tmp6110nd7d/results/scheduler/stage11-c2/20261007T082049720987Z-14034
+2: ../tmp/tmp397__nem/results/scheduler/stage11-c2/20261007T082049740530Z-14034
+2: ...../tmp/tmpfzxomdtq/results/scheduler/stage11-c2/20261007T082049799463Z-14034
+2: ../tmp/tmp021ne3h3/results/scheduler/stage11-c2/20261007T082049802693Z-14034
+2: ...
+2: ----------------------------------------------------------------------
+2: Ran 16 tests in 0.168s
+2: 
+2: OK
+ 2/36 Test  #2: scheduler_tools ..................   Passed    0.28 sec
+test 3
+      Start  3: cpu_benchmark_workloads
+
+3: Test command: /content/miniLLMI-stage11/build-stage11-validation/20261007T081857631689Z-12587/release/bench_cpu "--self-test"
+3: Working Directory: /content/miniLLMI-stage11/build-stage11-validation/20261007T081857631689Z-12587/release
+3: Test timeout computed to be: 1500
+3: CPU benchmark correctness: PASS eight zero/small/non-square/boundary shapes and graph policies (untimed)
+ 3/36 Test  #3: cpu_benchmark_workloads ..........   Passed    0.00 sec
+test 4
+      Start  4: cpu_tools
+
+4: Test command: /usr/local/bin/python "/content/miniLLMI-stage11/tests/test_cpu_tools.py"
+4: Working Directory: /content/miniLLMI-stage11/build-stage11-validation/20261007T081857631689Z-12587/release
+4: Test timeout computed to be: 1500
+4: ......................
+4: ----------------------------------------------------------------------
+4: Ran 22 tests in 1.385s
+4: 
+4: OK
+ 4/36 Test  #4: cpu_tools ........................   Passed    1.51 sec
+test 5
+      Start  5: cpu_transformer_contract
+
+5: Test command: /content/miniLLMI-stage11/build-stage11-validation/20261007T081857631689Z-12587/release/test_cpu_transformer_contract "/content/miniLLMI-stage11/tests/fixtures/operators-v1/operators-v1.txt"
+5: Working Directory: /content/miniLLMI-stage11/build-stage11-validation/20261007T081857631689Z-12587/release
+5: Test timeout computed to be: 1500
+5: CPU primitive reservations: PASS all six Unsupported, no numerical implementation
+ 5/36 Test  #5: cpu_transformer_contract .........   Passed    0.00 sec
+test 6
+      Start  6: cpu_scalar
+
+6: Test command: /content/miniLLMI-stage11/build-stage11-validation/20261007T081857631689Z-12587/release/test_cpu_scalar
+6: Working Directory: /content/miniLLMI-stage11/build-stage11-validation/20261007T081857631689Z-12587/release
+6: Test timeout computed to be: 1500
+6: CPU FP32 ijk v0 + ikj C1: PASS seed=24578/28673 random=240 zero/rectangular/guards/errors/copy/planner
+ 6/36 Test  #6: cpu_scalar .......................   Passed    0.04 sec
+test 7
+      Start  7: thread_pool
+
+7: Test command: /content/miniLLMI-stage11/build-stage11-validation/20261007T081857631689Z-12587/release/test_thread_pool
+7: Working Directory: /content/miniLLMI-stage11/build-stage11-validation/20261007T081857631689Z-12587/release
+7: Test timeout computed to be: 1500
+7: CPU FIFO pool: PASS exactly-once/status/exception/zero/shutdown/backend workers=1,2,4
+ 7/36 Test  #7: thread_pool ......................   Passed    0.01 sec
+test 8
+      Start  8: cpu_backend_fixtures
+
+8: Test command: /usr/local/bin/python "/content/miniLLMI-stage11/tests/run_operator_fixtures.py" "--binary" "/content/miniLLMI-stage11/build-stage11-validation/20261007T081857631689Z-12587/release/test_cpu_backend_fixtures" "--root" "/content/miniLLMI-stage11/tests/fixtures/operators-v1"
+8: Working Directory: /content/miniLLMI-stage11/build-stage11-validation/20261007T081857631689Z-12587/release
+8: Test timeout computed to be: 1500
+8: Fixture checksum/provenance: PASS; tiny weights=21 tensors, 461056 bytes (not model execution)
+8: fixture add_hand core=PASS max_abs=0 atol=1e-06 rtol=1e-05
+8: descriptor {"version":1,"op":"ADD","inputs":[0,1],"outputs":[2],"attributes":{},"backend_hint":null}
+8: fixture mul_scalar core=PASS max_abs=0 atol=1e-06 rtol=1e-05
+8: descriptor {"version":1,"op":"MUL","inputs":[0,1],"outputs":[2],"attributes":{},"backend_hint":null}
+8: fixture matmul_rectangular core=PASS max_abs=0 atol=1e-06 rtol=1e-05
+8: descriptor {"version":1,"op":"MATMUL","inputs":[0,1],"outputs":[2],"attributes":{},"backend_hint":null}
+8: fixture matmul_zero_inner core=PASS max_abs=0 atol=1e-06 rtol=1e-05
+8: descriptor {"version":1,"op":"MATMUL","inputs":[0,1],"outputs":[2],"attributes":{},"backend_hint":null}
+8: fixture copy_ids_transpose core=PASS max_abs=0 atol=1e-06 rtol=1e-05
+8: descriptor {"version":1,"op":"COPY","inputs":[0,1],"outputs":[2],"attributes":{"overlap":"reject_except_exact_self"},"backend_hint":null}
+8: fixture copy_fp32 core=PASS max_abs=0 atol=1e-06 rtol=1e-05
+8: descriptor {"version":1,"op":"COPY","inputs":[0,1],"outputs":[2],"attributes":{"overlap":"reject_except_exact_self"},"backend_hint":null}
+8: fixture materialize_transpose core=PASS max_abs=0 atol=1e-06 rtol=1e-05
+8: descriptor {"version":1,"op":"MATERIALIZE","inputs":[0],"outputs":[1],"attributes":{},"backend_hint":null}
+8: fixture add_empty core=PASS max_abs=0 atol=1e-06 rtol=1e-05
+8: descriptor {"version":1,"op":"ADD","inputs":[0,1],"outputs":[2],"attributes":{},"backend_hint":null}
+8: fixture rmsnorm_hand_zero_row metadata=PASS numeric=pending-S12
+8: descriptor {"version":1,"op":"RMSNORM","inputs":[0,1],"outputs":[2],"attributes":{"epsilon":1.0000000000000001e-05},"backend_hint":null}
+8: fixture softmax_stable metadata=PASS numeric=pending-S12
+8: descriptor {"version":1,"op":"SOFTMAX","inputs":[0],"outputs":[1],"attributes":{"causal":false,"query_position":0,"key_position":0,"max_positions":1088},"backend_hint":null}
+8: fixture softmax_decode_offset metadata=PASS numeric=pending-S12
+8: descriptor {"version":1,"op":"SOFTMAX","inputs":[0],"outputs":[1],"attributes":{"causal":true,"query_position":2,"key_position":0,"max_positions":1088},"backend_hint":null}
+8: fixture softmax_all_masked metadata=PASS numeric=pending-S12
+8: descriptor {"version":1,"op":"SOFTMAX","inputs":[0],"outputs":[1],"attributes":{"causal":true,"query_position":0,"key_position":2,"max_positions":1088},"backend_hint":null}
+8: fixture rope_interleaved_hand metadata=PASS numeric=pending-S12
+8: descriptor {"version":1,"op":"ROPE","inputs":[0],"outputs":[1],"attributes":{"position":1,"base":10000,"max_positions":1088},"backend_hint":null}
+8: fixture rope_tiny_heads metadata=PASS numeric=pending-S12
+8: descriptor {"version":1,"op":"ROPE","inputs":[0],"outputs":[1],"attributes":{"position":17,"base":10000,"max_positions":1088},"backend_hint":null}
+8: fixture embedding_hand metadata=PASS numeric=pending-S12
+8: descriptor {"version":1,"op":"EMBEDDING","inputs":[0,1],"outputs":[2],"attributes":{},"backend_hint":null}
+8: fixture swiglu_hand metadata=PASS numeric=pending-S12
+8: descriptor {"version":1,"op":"SWIGLU","inputs":[0,1],"outputs":[2],"attributes":{},"backend_hint":null}
+8: fixture attention_decode_tiny_geometry metadata=PASS numeric=pending-S12
+8: descriptor {"version":1,"op":"ATTENTION","inputs":[0,1,2],"outputs":[3],"attributes":{"heads":4,"head_dim":16,"causal":true,"query_position":2,"key_position":0,"max_positions":1088},"backend_hint":null}
+8: Operator fixtures: PASS numeric_core=8 transformer_metadata=9 malformed_reader=10
+ 8/36 Test  #8: cpu_backend_fixtures .............   Passed    0.14 sec
+test 9
+      Start  9: cpu_backend
+
+9: Test command: /content/miniLLMI-stage11/build-stage11-validation/20261007T081857631689Z-12587/release/test_cpu_backend
+9: Working Directory: /content/miniLLMI-stage11/build-stage11-validation/20261007T081857631689Z-12587/release
+9: Test timeout computed to be: 1500
+9: CPU backend interface/capability/graph/provider: PASS
+ 9/36 Test  #9: cpu_backend ......................   Passed    0.00 sec
+test 10
+      Start 10: tensor
+
+10: Test command: /content/miniLLMI-stage11/build-stage11-validation/20261007T081857631689Z-12587/release/test_tensor
+10: Working Directory: /content/miniLLMI-stage11/build-stage11-validation/20261007T081857631689Z-12587/release
+10: Test timeout computed to be: 1500
+10: Allocation checks: views/transpose=0 buffers; nonempty materialize=1; copy=24 logical bytes, 0 buffers
+10: Tensor metadata/storage/construction/views/copy: PASS
+10/36 Test #10: tensor ...........................   Passed    0.00 sec
+test 11
+      Start 11: tensor_properties
+
+11: Test command: /content/miniLLMI-stage11/build-stage11-validation/20261007T081857631689Z-12587/release/test_tensor_properties
+11: Working Directory: /content/miniLLMI-stage11/build-stage11-validation/20261007T081857631689Z-12587/release
+11: Test timeout computed to be: 1500
+11: Tensor properties: PASS seed=20903 trials=600 ranks=0..8 FP32/INT32; padding/offset/permutation/slice/materialization/copy/alias
+11/36 Test #11: tensor_properties ................   Passed    0.01 sec
+test 12
+      Start 12: tensor_validation
+
+12: Test command: /usr/local/bin/python "/content/miniLLMI-stage11/tests/test_tensor_validation.py"
+12: Working Directory: /content/miniLLMI-stage11/build-stage11-validation/20261007T081857631689Z-12587/release
+12: Test timeout computed to be: 1500
+12: ............
+12: ----------------------------------------------------------------------
+12: Ran 12 tests in 0.116s
+12: 
+12: OK
+12/36 Test #12: tensor_validation ................   Passed    0.28 sec
+test 13
+      Start 13: operator
+
+13: Test command: /content/miniLLMI-stage11/build-stage11-validation/20261007T081857631689Z-12587/release/test_operator
+13: Working Directory: /content/miniLLMI-stage11/build-stage11-validation/20261007T081857631689Z-12587/release
+13: Test timeout computed to be: 1500
+13: Operator schema/arity/typed attributes/ID/status/serialization: PASS
+13/36 Test #13: operator .........................   Passed    0.00 sec
+test 14
+      Start 14: shape_inference
+
+14: Test command: /content/miniLLMI-stage11/build-stage11-validation/20261007T081857631689Z-12587/release/test_shape_inference
+14: Working Directory: /content/miniLLMI-stage11/build-stage11-validation/20261007T081857631689Z-12587/release
+14: Test timeout computed to be: 1500
+14: Pure core shape/dtype/contiguity/overflow/alias/COPY inference: PASS
+14/36 Test #14: shape_inference ..................   Passed    0.00 sec
+test 15
+      Start 15: operator_reference
+
+15: Test command: /content/miniLLMI-stage11/build-stage11-validation/20261007T081857631689Z-12587/release/test_reference
+15: Working Directory: /content/miniLLMI-stage11/build-stage11-validation/20261007T081857631689Z-12587/release
+15: Test timeout computed to be: 1500
+15: Reference random MATMUL: PASS seed=20995 trials=100 (zero/rectangular), no performance claim
+15: CPU reference ADD/MUL/MATMUL/COPY/MATERIALIZE: PASS
+15/36 Test #15: operator_reference ...............   Passed    0.00 sec
+test 16
+      Start 16: transformer_contracts
+
+16: Test command: /content/miniLLMI-stage11/build-stage11-validation/20261007T081857631689Z-12587/release/test_transformer_contracts
+16: Working Directory: /content/miniLLMI-stage11/build-stage11-validation/20261007T081857631689Z-12587/release
+16: Test timeout computed to be: 1500
+16: Transformer schema/inference/positions/head-lowering/cache-write contract: PASS (no transformer kernels)
+16/36 Test #16: transformer_contracts ............   Passed    0.00 sec
+test 17
+      Start 17: operator_fixtures
+
+17: Test command: /usr/local/bin/python "/content/miniLLMI-stage11/tests/run_operator_fixtures.py" "--binary" "/content/miniLLMI-stage11/build-stage11-validation/20261007T081857631689Z-12587/release/test_operator_fixtures" "--root" "/content/miniLLMI-stage11/tests/fixtures/operators-v1"
+17: Working Directory: /content/miniLLMI-stage11/build-stage11-validation/20261007T081857631689Z-12587/release
+17: Test timeout computed to be: 1500
+17: Fixture checksum/provenance: PASS; tiny weights=21 tensors, 461056 bytes (not model execution)
+17: fixture add_hand core=PASS max_abs=0 atol=1e-06 rtol=1e-05
+17: descriptor {"version":1,"op":"ADD","inputs":[0,1],"outputs":[2],"attributes":{},"backend_hint":null}
+17: fixture mul_scalar core=PASS max_abs=0 atol=1e-06 rtol=1e-05
+17: descriptor {"version":1,"op":"MUL","inputs":[0,1],"outputs":[2],"attributes":{},"backend_hint":null}
+17: fixture matmul_rectangular core=PASS max_abs=0 atol=1e-06 rtol=1e-05
+17: descriptor {"version":1,"op":"MATMUL","inputs":[0,1],"outputs":[2],"attributes":{},"backend_hint":null}
+17: fixture matmul_zero_inner core=PASS max_abs=0 atol=1e-06 rtol=1e-05
+17: descriptor {"version":1,"op":"MATMUL","inputs":[0,1],"outputs":[2],"attributes":{},"backend_hint":null}
+17: fixture copy_ids_transpose core=PASS max_abs=0 atol=1e-06 rtol=1e-05
+17: descriptor {"version":1,"op":"COPY","inputs":[0,1],"outputs":[2],"attributes":{"overlap":"reject_except_exact_self"},"backend_hint":null}
+17: fixture copy_fp32 core=PASS max_abs=0 atol=1e-06 rtol=1e-05
+17: descriptor {"version":1,"op":"COPY","inputs":[0,1],"outputs":[2],"attributes":{"overlap":"reject_except_exact_self"},"backend_hint":null}
+17: fixture materialize_transpose core=PASS max_abs=0 atol=1e-06 rtol=1e-05
+17: descriptor {"version":1,"op":"MATERIALIZE","inputs":[0],"outputs":[1],"attributes":{},"backend_hint":null}
+17: fixture add_empty core=PASS max_abs=0 atol=1e-06 rtol=1e-05
+17: descriptor {"version":1,"op":"ADD","inputs":[0,1],"outputs":[2],"attributes":{},"backend_hint":null}
+17: fixture rmsnorm_hand_zero_row metadata=PASS numeric=pending-S12
+17: descriptor {"version":1,"op":"RMSNORM","inputs":[0,1],"outputs":[2],"attributes":{"epsilon":1.0000000000000001e-05},"backend_hint":null}
+17: fixture softmax_stable metadata=PASS numeric=pending-S12
+17: descriptor {"version":1,"op":"SOFTMAX","inputs":[0],"outputs":[1],"attributes":{"causal":false,"query_position":0,"key_position":0,"max_positions":1088},"backend_hint":null}
+17: fixture softmax_decode_offset metadata=PASS numeric=pending-S12
+17: descriptor {"version":1,"op":"SOFTMAX","inputs":[0],"outputs":[1],"attributes":{"causal":true,"query_position":2,"key_position":0,"max_positions":1088},"backend_hint":null}
+17: fixture softmax_all_masked metadata=PASS numeric=pending-S12
+17: descriptor {"version":1,"op":"SOFTMAX","inputs":[0],"outputs":[1],"attributes":{"causal":true,"query_position":0,"key_position":2,"max_positions":1088},"backend_hint":null}
+17: fixture rope_interleaved_hand metadata=PASS numeric=pending-S12
+17: descriptor {"version":1,"op":"ROPE","inputs":[0],"outputs":[1],"attributes":{"position":1,"base":10000,"max_positions":1088},"backend_hint":null}
+17: fixture rope_tiny_heads metadata=PASS numeric=pending-S12
+17: descriptor {"version":1,"op":"ROPE","inputs":[0],"outputs":[1],"attributes":{"position":17,"base":10000,"max_positions":1088},"backend_hint":null}
+17: fixture embedding_hand metadata=PASS numeric=pending-S12
+17: descriptor {"version":1,"op":"EMBEDDING","inputs":[0,1],"outputs":[2],"attributes":{},"backend_hint":null}
+17: fixture swiglu_hand metadata=PASS numeric=pending-S12
+17: descriptor {"version":1,"op":"SWIGLU","inputs":[0,1],"outputs":[2],"attributes":{},"backend_hint":null}
+17: fixture attention_decode_tiny_geometry metadata=PASS numeric=pending-S12
+17: descriptor {"version":1,"op":"ATTENTION","inputs":[0,1,2],"outputs":[3],"attributes":{"heads":4,"head_dim":16,"causal":true,"query_position":2,"key_position":0,"max_positions":1088},"backend_hint":null}
+17: Operator fixtures: PASS numeric_core=8 transformer_metadata=9 malformed_reader=10
+17/36 Test #17: operator_fixtures ................   Passed    0.13 sec
+test 18
+      Start 18: operator_fixture_tools
+
+18: Test command: /usr/local/bin/python "/content/miniLLMI-stage11/tests/test_operator_fixture_tools.py"
+18: Working Directory: /content/miniLLMI-stage11/build-stage11-validation/20261007T081857631689Z-12587/release
+18: Test timeout computed to be: 1500
+18: .........
+18: ----------------------------------------------------------------------
+18: Ran 9 tests in 0.228s
+18: 
+18: OK
+18/36 Test #18: operator_fixture_tools ...........   Passed    0.34 sec
+test 19
+      Start 19: graph
+
+19: Test command: /content/miniLLMI-stage11/build-stage11-validation/20261007T081857631689Z-12587/release/test_graph
+19: Working Directory: /content/miniLLMI-stage11/build-stage11-validation/20261007T081857631689Z-12587/release
+19: Test timeout computed to be: 1500
+19: graph ownership/topology/state: PASS
+19/36 Test #19: graph ............................   Passed    0.00 sec
+test 20
+      Start 20: graph_executor
+
+20: Test command: /content/miniLLMI-stage11/build-stage11-validation/20261007T081857631689Z-12587/release/test_graph_executor
+20: Working Directory: /content/miniLLMI-stage11/build-stage11-validation/20261007T081857631689Z-12587/release
+20: Test timeout computed to be: 1500
+20: ADD->MATMUL counts: allocations=2 frees=1 peak_live_bytes=56 copies=0
+20: seeded DAGs: PASS cases=60 seed=0x5303 nodes_per_case=12
+20: graph executor: PASS
+20/36 Test #20: graph_executor ...................   Passed    0.02 sec
+test 21
+      Start 21: graph_fixtures
+
+21: Test command: /usr/local/bin/python "/content/miniLLMI-stage11/tests/run_graph_fixtures.py" "--binary" "/content/miniLLMI-stage11/build-stage11-validation/20261007T081857631689Z-12587/release/test_graph_fixtures" "--root" "/content/miniLLMI-stage11/tests/fixtures/operators-v1"
+21: Working Directory: /content/miniLLMI-stage11/build-stage11-validation/20261007T081857631689Z-12587/release
+21: Test timeout computed to be: 1500
+21: Graph fixture checksum/provenance: PASS
+21: graph fixture add_hand core=PASS
+21: graph fixture mul_scalar core=PASS
+21: graph fixture matmul_rectangular core=PASS
+21: graph fixture matmul_zero_inner core=PASS
+21: graph fixture copy_ids_transpose core=PASS
+21: graph fixture copy_fp32 core=PASS
+21: graph fixture materialize_transpose core=PASS
+21: graph fixture add_empty core=PASS
+21: graph fixture rmsnorm_hand_zero_row unsupported=PASS
+21: graph fixture softmax_stable unsupported=PASS
+21: graph fixture softmax_decode_offset unsupported=PASS
+21: graph fixture softmax_all_masked unsupported=PASS
+21: graph fixture rope_interleaved_hand unsupported=PASS
+21: graph fixture rope_tiny_heads unsupported=PASS
+21: graph fixture embedding_hand unsupported=PASS
+21: graph fixture swiglu_hand unsupported=PASS
+21: graph fixture attention_decode_tiny_geometry unsupported=PASS
+21: Graph fixtures: PASS numeric_core=8 unsupported=9
+21/36 Test #21: graph_fixtures ...................   Passed    0.13 sec
+test 22
+      Start 22: graph_trace
+
+22: Test command: /content/miniLLMI-stage11/build-stage11-validation/20261007T081857631689Z-12587/release/test_graph_trace
+22: Working Directory: /content/miniLLMI-stage11/build-stage11-validation/20261007T081857631689Z-12587/release
+22: Test timeout computed to be: 1500
+22: diamond trace: NodeBegin:10:- Tensor:10:0 Tensor:10:1 Allocate:10:2 Tensor:10:2 NodeEnd:10:- NodeBegin:20:- Tensor:20:2 Tensor:20:1 Allocate:20:3 Tensor:20:3 NodeEnd:20:- Release:20:1 NodeBegin:30:- Tensor:30:2 Tensor:30:0 Allocate:30:4 Tensor:30:4 NodeEnd:30:- Release:30:0 Release:30:2 Free:30:2 NodeBegin:40:- Tensor:40:3 Tensor:40:4 Allocate:40:5 Tensor:40:5 NodeEnd:40:- Release:40:3 Free:40:3 Release:40:4 Free:40:4 Output:-:5 
+22: graph trace: PASS
+22/36 Test #22: graph_trace ......................   Passed    0.00 sec
+test 23
+      Start 23: arena
+
+23: Test command: /content/miniLLMI-stage11/build-stage11-validation/20261007T081857631689Z-12587/release/test_arena
+23: Working Directory: /content/miniLLMI-stage11/build-stage11-validation/20261007T081857631689Z-12587/release
+23: Test timeout computed to be: 1500
+23: arena properties: PASS seeds=6 operations=18000
+23: arena accounting/reuse: PASS
+23/36 Test #23: arena ............................   Passed    0.13 sec
+test 24
+      Start 24: allocation_provider
+
+24: Test command: /content/miniLLMI-stage11/build-stage11-validation/20261007T081857631689Z-12587/release/test_allocation_provider
+24: Working Directory: /content/miniLLMI-stage11/build-stage11-validation/20261007T081857631689Z-12587/release
+24: Test timeout computed to be: 1500
+24: allocation provider: PASS
+24/36 Test #24: allocation_provider ..............   Passed    0.00 sec
+test 25
+      Start 25: allocator_benchmark_workloads
+
+25: Test command: /content/miniLLMI-stage11/build-stage11-validation/20261007T081857631689Z-12587/release/bench_allocator "--self-test"
+25: Working Directory: /content/miniLLMI-stage11/build-stage11-validation/20261007T081857631689Z-12587/release
+25: Test timeout computed to be: 1500
+25: allocator benchmark workload correctness: PASS (untimed)
+25/36 Test #25: allocator_benchmark_workloads ....   Passed    0.00 sec
+test 26
+      Start 26: allocator_tools
+
+26: Test command: /usr/local/bin/python "/content/miniLLMI-stage11/tests/test_allocator_tools.py"
+26: Working Directory: /content/miniLLMI-stage11/build-stage11-validation/20261007T081857631689Z-12587/release
+26: Test timeout computed to be: 1500
+26: ..........
+26: ----------------------------------------------------------------------
+26: Ran 10 tests in 0.110s
+26: 
+26: OK
+26/36 Test #26: allocator_tools ..................   Passed    0.27 sec
+test 27
+      Start 27: memory_planner
+
+27: Test command: /content/miniLLMI-stage11/build-stage11-validation/20261007T081857631689Z-12587/release/test_memory_planner
+27: Working Directory: /content/miniLLMI-stage11/build-stage11-validation/20261007T081857631689Z-12587/release
+27: Test timeout computed to be: 1500
+27: memory planner: PASS
+27/36 Test #27: memory_planner ...................   Passed    0.02 sec
+test 28
+      Start 28: planned_executor
+
+28: Test command: /content/miniLLMI-stage11/build-stage11-validation/20261007T081857631689Z-12587/release/test_planned_executor
+28: Working Directory: /content/miniLLMI-stage11/build-stage11-validation/20261007T081857631689Z-12587/release
+28: Test timeout computed to be: 1500
+28: planned executor: PASS
+28/36 Test #28: planned_executor .................   Passed    0.73 sec
+test 29
+      Start 29: planner_benchmark_workloads
+
+29: Test command: /content/miniLLMI-stage11/build-stage11-validation/20261007T081857631689Z-12587/release/bench_planner "--self-test"
+29: Working Directory: /content/miniLLMI-stage11/build-stage11-validation/20261007T081857631689Z-12587/release
+29: Test timeout computed to be: 1500
+29: planner benchmark workload correctness: PASS (untimed)
+29/36 Test #29: planner_benchmark_workloads ......   Passed    0.00 sec
+test 30
+      Start 30: planner_tools
+
+30: Test command: /usr/local/bin/python "/content/miniLLMI-stage11/tests/test_planner_tools.py"
+30: Working Directory: /content/miniLLMI-stage11/build-stage11-validation/20261007T081857631689Z-12587/release
+30: Test timeout computed to be: 1500
+30: .................
+30: ----------------------------------------------------------------------
+30: Ran 17 tests in 0.428s
+30: 
+30: OK
+30/36 Test #30: planner_tools ....................   Passed    0.60 sec
+test 31
+      Start 31: common
+
+31: Test command: /content/miniLLMI-stage11/build-stage11-validation/20261007T081857631689Z-12587/release/test_common
+31: Working Directory: /content/miniLLMI-stage11/build-stage11-validation/20261007T081857631689Z-12587/release
+31: Test timeout computed to be: 1500
+31: CPU reference, validation, statistics, GFLOPS, CSV: PASS
+31/36 Test #31: common ...........................   Passed    0.00 sec
+test 32
+      Start 32: tools
+
+32: Test command: /usr/local/bin/python "/content/miniLLMI-stage11/tests/test_tools.py"
+32: Working Directory: /content/miniLLMI-stage11/build-stage11-validation/20261007T081857631689Z-12587/release
+32: Test timeout computed to be: 1500
+32: test_bad_numeric_input (__main__.AnalysisTests.test_bad_numeric_input) ... ok
+32: test_changed_comparison_conditions (__main__.AnalysisTests.test_changed_comparison_conditions) ... ok
+32: test_cli_missing_csv_preserves_existing_report (__main__.AnalysisTests.test_cli_missing_csv_preserves_existing_report) ... ok
+32: test_duplicate_or_single_kernel (__main__.AnalysisTests.test_duplicate_or_single_kernel) ... ok
+32: test_failure_not_success (__main__.AnalysisTests.test_failure_not_success) ... ok
+32: test_invalid_build_and_commit (__main__.AnalysisTests.test_invalid_build_and_commit) ... ok
+32: test_missing_raw_samples (__main__.AnalysisTests.test_missing_raw_samples) ... ok
+32: test_no_data_no_report (__main__.AnalysisTests.test_no_data_no_report) ... ok
+32: test_no_report_without_completed_run (__main__.AnalysisTests.test_no_report_without_completed_run) ... ok
+32: test_path_traversal (__main__.AnalysisTests.test_path_traversal) ... ok
+32: test_ratio_wrong_units (__main__.AnalysisTests.test_ratio_wrong_units) ... ok
+32: test_report_from_raw (__main__.AnalysisTests.test_report_from_raw) ... ok
+32: test_timing_raw_tamper (__main__.AnalysisTests.test_timing_raw_tamper) ... ok
+32: test_wrong_gflops (__main__.AnalysisTests.test_wrong_gflops) ... ok
+32: test_clean_and_dirty_source (__main__.ProvenanceTests.test_clean_and_dirty_source) ... ok
+32: test_header_stable (__main__.ProvenanceTests.test_header_stable) ... ok
+32: test_results_and_report_excluded (__main__.ProvenanceTests.test_results_and_report_excluded) ... ok
+32: test_untracked_source_included (__main__.ProvenanceTests.test_untracked_source_included) ... ok
+32: test_failed_environment_capture_preserved (__main__.ScriptFailureTests.test_failed_environment_capture_preserved) ... ok
+32: test_stale_binary_refused_before_benchmark (__main__.ScriptFailureTests.test_stale_binary_refused_before_benchmark) ... ok
+32: 
+32: ----------------------------------------------------------------------
+32: Ran 20 tests in 1.137s
+32: 
+32: OK
+32/36 Test #32: tools ............................   Passed    1.23 sec
+test 33
+      Start 33: cuda_gemm_tools
+
+33: Test command: /usr/local/bin/python "/content/miniLLMI-stage11/tests/test_cuda_gemm_tools.py"
+33: Working Directory: /content/miniLLMI-stage11/build-stage11-validation/20261007T081857631689Z-12587/release
+33: Test timeout computed to be: 1500
+33: .......
+33: ----------------------------------------------------------------------
+33: Ran 7 tests in 0.002s
+33: 
+33: OK
+33/36 Test #33: cuda_gemm_tools ..................   Passed    0.08 sec
+test 34
+      Start 34: cuda_scheduler
+
+34: Test command: /content/miniLLMI-stage11/build-stage11-validation/20261007T081857631689Z-12587/release/test_cuda_scheduler
+34: Working Directory: /content/miniLLMI-stage11/build-stage11-validation/20261007T081857631689Z-12587/release
+34: Test timeout computed to be: 1500
+34: cuda-stage0-naive-17-13-11-repeat0 copies=4 bytes=2952 switches=2 dispatches=9 PASS
+34: cuda-stage0-naive-17-13-11-repeat1 copies=4 bytes=2952 switches=2 dispatches=9 PASS
+34: cuda-stage0-naive-64-64-64-repeat0 copies=4 bytes=65536 switches=2 dispatches=9 PASS
+34: cuda-stage0-naive-64-64-64-repeat1 copies=4 bytes=65536 switches=2 dispatches=9 PASS
+34: cuda-stage0-naive-0-3-2-repeat0 copies=1 bytes=24 switches=2 dispatches=6 PASS
+34: cuda-stage0-naive-0-3-2-repeat1 copies=1 bytes=24 switches=2 dispatches=6 PASS
+34: cuda-stage0-naive-2-0-3-repeat0 copies=2 bytes=48 switches=2 dispatches=7 PASS
+34: cuda-stage0-naive-2-0-3-repeat1 copies=2 bytes=48 switches=2 dispatches=7 PASS
+34: cuda-stage9-tiled-17-13-11-repeat0 copies=4 bytes=2952 switches=2 dispatches=9 PASS
+34: cuda-stage9-tiled-17-13-11-repeat1 copies=4 bytes=2952 switches=2 dispatches=9 PASS
+34: cuda-stage9-tiled-64-64-64-repeat0 copies=4 bytes=65536 switches=2 dispatches=9 PASS
+34: cuda-stage9-tiled-64-64-64-repeat1 copies=4 bytes=65536 switches=2 dispatches=9 PASS
+34: cuda-stage9-tiled-0-3-2-repeat0 copies=1 bytes=24 switches=2 dispatches=6 PASS
+34: cuda-stage9-tiled-0-3-2-repeat1 copies=1 bytes=24 switches=2 dispatches=6 PASS
+34: cuda-stage9-tiled-2-0-3-repeat0 copies=2 bytes=48 switches=2 dispatches=7 PASS
+34: cuda-stage9-tiled-2-0-3-repeat1 copies=2 bytes=48 switches=2 dispatches=7 PASS
+34: CUDA scheduler: PASS (manual/automatic, fanout, state versions, repeated runs, D2D, aliases, empty, v0/v1)
+34/36 Test #34: cuda_scheduler ...................   Passed    0.49 sec
+test 35
+      Start 35: cuda_backend
+
+35: Test command: /content/miniLLMI-stage11/build-stage11-validation/20261007T081857631689Z-12587/release/test_cuda_backend
+35: Working Directory: /content/miniLLMI-stage11/build-stage11-validation/20261007T081857631689Z-12587/release
+35: Test timeout computed to be: 1500
+35: cuda-stage0-naive empty MATMUL m=0 k=3 n=2 PASS
+35: cuda-stage0-naive empty MATMUL m=2 k=3 n=0 PASS
+35: cuda-stage0-naive empty MATMUL m=0 k=3 n=0 PASS
+35: cuda-stage0-naive empty MATMUL m=2 k=0 n=3 PASS
+35: cuda-stage0-naive empty MATMUL m=0 k=0 n=0 PASS
+35: cuda-stage9-tiled empty MATMUL m=0 k=3 n=2 PASS
+35: cuda-stage9-tiled empty MATMUL m=2 k=3 n=0 PASS
+35: cuda-stage9-tiled empty MATMUL m=0 k=3 n=0 PASS
+35: cuda-stage9-tiled empty MATMUL m=2 k=0 n=3 PASS
+35: cuda-stage9-tiled empty MATMUL m=0 k=0 n=0 PASS
+35: cuda-cublas empty MATMUL m=0 k=3 n=2 PASS
+35: cuda-cublas empty MATMUL m=2 k=3 n=0 PASS
+35: cuda-cublas empty MATMUL m=0 k=3 n=0 PASS
+35: cuda-cublas empty MATMUL m=2 k=0 n=3 PASS
+35: cuda-cublas empty MATMUL m=0 k=0 n=0 PASS
+35: CUDA backend storage/copy/v0-v1 dispatch/planned graph: PASS
+35/36 Test #35: cuda_backend .....................   Passed    0.39 sec
+test 36
+      Start 36: cuda_gemm
+
+36: Test command: /content/miniLLMI-stage11/build-stage11-validation/20261007T081857631689Z-12587/release/test_cuda_gemm
+36: Working Directory: /content/miniLLMI-stage11/build-stage11-validation/20261007T081857631689Z-12587/release
+36: Test timeout computed to be: 1500
+36: CUDA registry/v0/v1/cuBLAS, rectangles/tails/zero/offsets/guards/events: PASS
+36/36 Test #36: cuda_gemm ........................   Passed    0.40 sec
+
+100% tests passed, 0 tests failed out of 36
+
+Label Time Summary:
+arena        =   0.41 sec*proc (4 tests)
+backend      =   2.10 sec*proc (8 tests)
+cpu          =   4.76 sec*proc (31 tests)
+gpu          =   1.28 sec*proc (3 tests)
+graph        =   0.15 sec*proc (5 tests)
+operators    =   0.48 sec*proc (6 tests)
+planner      =   1.35 sec*proc (4 tests)
+scheduler    =   0.77 sec*proc (3 tests)
+tensor       =   0.30 sec*proc (3 tests)
+tools        =   0.36 sec*proc (2 tests)
+
+Total Test time (real) =   7.28 sec

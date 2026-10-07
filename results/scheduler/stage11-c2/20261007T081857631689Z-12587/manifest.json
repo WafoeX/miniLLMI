@@ -1,0 +1,156 @@
+{
+  "schema_version": 1,
+  "scope": "Stage 11 C2 T4 integration correctness",
+  "cpu_only": false,
+  "run_id": "20261007T081857631689Z-12587",
+  "timestamp": "2026-10-07T08:18:57.631689+00:00",
+  "source_before": {
+    "commit": "6497290f9bba837f6dbb57c0272f7ac854eec2ce",
+    "source_digest": "f0bbea7dde7db159fbe0c6fc59479da3638886ffabb325d3ca2225185af70bb8",
+    "source_dirty": false
+  },
+  "host": "96f897f1da41",
+  "platform": "Linux-6.6.122+-x86_64-with-glibc2.39",
+  "machine": "x86_64",
+  "python": "3.13.15 (main, Aug  6 2026, 11:06:22) [GCC 13.3.0]",
+  "commands": [
+    {
+      "label": "nvidia-smi",
+      "argv": [
+        "nvidia-smi"
+      ],
+      "log": "nvidia-smi.log",
+      "exit_code": 0
+    },
+    {
+      "label": "gpu-query",
+      "argv": [
+        "nvidia-smi",
+        "--query-gpu=name,compute_cap",
+        "--format=csv,noheader"
+      ],
+      "log": "gpu-query.log",
+      "exit_code": 0
+    },
+    {
+      "label": "nvcc-version",
+      "argv": [
+        "nvcc",
+        "--version"
+      ],
+      "log": "nvcc-version.log",
+      "exit_code": 0
+    },
+    {
+      "label": "release-configure",
+      "argv": [
+        "cmake",
+        "-S",
+        "/content/miniLLMI-stage11",
+        "-B",
+        "/content/miniLLMI-stage11/build-stage11-validation/20261007T081857631689Z-12587/release",
+        "-DCMAKE_BUILD_TYPE=Release",
+        "-DBUILD_TESTING=ON",
+        "-DENABLE_CUDA=ON",
+        "-DCMAKE_CUDA_ARCHITECTURES=75"
+      ],
+      "log": "release-configure.log",
+      "exit_code": 0
+    },
+    {
+      "label": "release-build",
+      "argv": [
+        "cmake",
+        "--build",
+        "/content/miniLLMI-stage11/build-stage11-validation/20261007T081857631689Z-12587/release",
+        "--parallel",
+        "2"
+      ],
+      "log": "release-build.log",
+      "exit_code": 0
+    },
+    {
+      "label": "release-tests",
+      "argv": [
+        "ctest",
+        "--test-dir",
+        "/content/miniLLMI-stage11/build-stage11-validation/20261007T081857631689Z-12587/release",
+        "--output-on-failure",
+        "--verbose"
+      ],
+      "log": "release-tests.log",
+      "exit_code": 0
+    },
+    {
+      "label": "gpu-info",
+      "argv": [
+        "/content/miniLLMI-stage11/build-stage11-validation/20261007T081857631689Z-12587/release/gpu_info",
+        "--device",
+        "0"
+      ],
+      "log": "gpu-info.log",
+      "exit_code": 0
+    },
+    {
+      "label": "scheduler-capture",
+      "argv": [
+        "/content/miniLLMI-stage11/build-stage11-validation/20261007T081857631689Z-12587/release/test_cuda_scheduler",
+        "/content/miniLLMI-stage11/results/scheduler/stage11-c2/20261007T081857631689Z-12587/cases"
+      ],
+      "log": "scheduler-capture.log",
+      "exit_code": 0
+    }
+  ],
+  "status": "passed",
+  "c4_status": "not_started",
+  "gpu_name": "Tesla T4",
+  "cuda_architecture": "75",
+  "source_after": {
+    "commit": "6497290f9bba837f6dbb57c0272f7ac854eec2ce",
+    "source_digest": "f0bbea7dde7db159fbe0c6fc59479da3638886ffabb325d3ca2225185af70bb8",
+    "source_dirty": false
+  },
+  "artifact_sha256": {
+    "cases/cuda-stage0-naive-0-3-2-repeat0-automatic.json": "2b2fcb0497387d6ef0b0823ec6297627904d47fa5b94018760aec0b2960eccf0",
+    "cases/cuda-stage0-naive-0-3-2-repeat0-manual.json": "ac7415ce28f42ded842667f10188b6df33623792bdacf5df374d35f954344f9b",
+    "cases/cuda-stage0-naive-0-3-2-repeat1-automatic.json": "2b2fcb0497387d6ef0b0823ec6297627904d47fa5b94018760aec0b2960eccf0",
+    "cases/cuda-stage0-naive-0-3-2-repeat1-manual.json": "ac7415ce28f42ded842667f10188b6df33623792bdacf5df374d35f954344f9b",
+    "cases/cuda-stage0-naive-17-13-11-repeat0-automatic.json": "daedb8a4c3ab2e20334e5d88e488691d28263e22f3e7cb600fcbe85416990009",
+    "cases/cuda-stage0-naive-17-13-11-repeat0-manual.json": "ee5a3b0e3ae973dad5c792591df5b6627b6951ad2f2b7e647370c71a8b58f294",
+    "cases/cuda-stage0-naive-17-13-11-repeat1-automatic.json": "daedb8a4c3ab2e20334e5d88e488691d28263e22f3e7cb600fcbe85416990009",
+    "cases/cuda-stage0-naive-17-13-11-repeat1-manual.json": "ee5a3b0e3ae973dad5c792591df5b6627b6951ad2f2b7e647370c71a8b58f294",
+    "cases/cuda-stage0-naive-2-0-3-repeat0-automatic.json": "2701083e2bede1cee66c607bd767d964b72fabf0853a6e444bd96fda5cda29b5",
+    "cases/cuda-stage0-naive-2-0-3-repeat0-manual.json": "25ed0ccc45d8c17c5f43d9cbbd9b69e8638e9c880876bdde28a35a749c58c40a",
+    "cases/cuda-stage0-naive-2-0-3-repeat1-automatic.json": "2701083e2bede1cee66c607bd767d964b72fabf0853a6e444bd96fda5cda29b5",
+    "cases/cuda-stage0-naive-2-0-3-repeat1-manual.json": "25ed0ccc45d8c17c5f43d9cbbd9b69e8638e9c880876bdde28a35a749c58c40a",
+    "cases/cuda-stage0-naive-64-64-64-repeat0-automatic.json": "f69ee07adb95cd37dd7a21b2da14ec8669fa7be07134f75fb9189f1420279731",
+    "cases/cuda-stage0-naive-64-64-64-repeat0-manual.json": "69d3691dad5db17d0e543be810f709e1106318e81d36f8d62f5ac5b5274f63d9",
+    "cases/cuda-stage0-naive-64-64-64-repeat1-automatic.json": "f69ee07adb95cd37dd7a21b2da14ec8669fa7be07134f75fb9189f1420279731",
+    "cases/cuda-stage0-naive-64-64-64-repeat1-manual.json": "69d3691dad5db17d0e543be810f709e1106318e81d36f8d62f5ac5b5274f63d9",
+    "cases/cuda-stage9-tiled-0-3-2-repeat0-automatic.json": "2b2fcb0497387d6ef0b0823ec6297627904d47fa5b94018760aec0b2960eccf0",
+    "cases/cuda-stage9-tiled-0-3-2-repeat0-manual.json": "ac7415ce28f42ded842667f10188b6df33623792bdacf5df374d35f954344f9b",
+    "cases/cuda-stage9-tiled-0-3-2-repeat1-automatic.json": "2b2fcb0497387d6ef0b0823ec6297627904d47fa5b94018760aec0b2960eccf0",
+    "cases/cuda-stage9-tiled-0-3-2-repeat1-manual.json": "ac7415ce28f42ded842667f10188b6df33623792bdacf5df374d35f954344f9b",
+    "cases/cuda-stage9-tiled-17-13-11-repeat0-automatic.json": "daedb8a4c3ab2e20334e5d88e488691d28263e22f3e7cb600fcbe85416990009",
+    "cases/cuda-stage9-tiled-17-13-11-repeat0-manual.json": "ee5a3b0e3ae973dad5c792591df5b6627b6951ad2f2b7e647370c71a8b58f294",
+    "cases/cuda-stage9-tiled-17-13-11-repeat1-automatic.json": "daedb8a4c3ab2e20334e5d88e488691d28263e22f3e7cb600fcbe85416990009",
+    "cases/cuda-stage9-tiled-17-13-11-repeat1-manual.json": "ee5a3b0e3ae973dad5c792591df5b6627b6951ad2f2b7e647370c71a8b58f294",
+    "cases/cuda-stage9-tiled-2-0-3-repeat0-automatic.json": "2701083e2bede1cee66c607bd767d964b72fabf0853a6e444bd96fda5cda29b5",
+    "cases/cuda-stage9-tiled-2-0-3-repeat0-manual.json": "25ed0ccc45d8c17c5f43d9cbbd9b69e8638e9c880876bdde28a35a749c58c40a",
+    "cases/cuda-stage9-tiled-2-0-3-repeat1-automatic.json": "2701083e2bede1cee66c607bd767d964b72fabf0853a6e444bd96fda5cda29b5",
+    "cases/cuda-stage9-tiled-2-0-3-repeat1-manual.json": "25ed0ccc45d8c17c5f43d9cbbd9b69e8638e9c880876bdde28a35a749c58c40a",
+    "cases/cuda-stage9-tiled-64-64-64-repeat0-automatic.json": "f69ee07adb95cd37dd7a21b2da14ec8669fa7be07134f75fb9189f1420279731",
+    "cases/cuda-stage9-tiled-64-64-64-repeat0-manual.json": "69d3691dad5db17d0e543be810f709e1106318e81d36f8d62f5ac5b5274f63d9",
+    "cases/cuda-stage9-tiled-64-64-64-repeat1-automatic.json": "f69ee07adb95cd37dd7a21b2da14ec8669fa7be07134f75fb9189f1420279731",
+    "cases/cuda-stage9-tiled-64-64-64-repeat1-manual.json": "69d3691dad5db17d0e543be810f709e1106318e81d36f8d62f5ac5b5274f63d9",
+    "gpu-info.log": "1ef5bd6eaa6dcf38c3aa849f6921c00511d8de1e071b8a6a5cf8064e0536d304",
+    "gpu-query.log": "970124eb7802b596887a05959888abca62dd286f97b53041d0196a752d9268ac",
+    "nvcc-version.log": "fc7ce0c80d28ed925fd490dc4e3915ce620fcf115f965189688c6f049243aad5",
+    "nvidia-smi.log": "6ee08db280d7cb5f9d0b267df044ee6e1d8d4a4019f19051173d3c59c64182ad",
+    "release-build.log": "638712610c4231a748ccc382745f54c52c7487970ef122e36ce49f7848efc1ee",
+    "release-configure.log": "244c73429cc1cfee4c29ac866e63fdb0117e514638621813c40605f6ab66c06e",
+    "release-tests.log": "f81e31c59b2f9af75eda5e7c5520c95988384ed0ef67dc49416e337de0343ff6",
+    "scheduler-capture.log": "a834c2bd33616e452b2aec637ed22f55c562319c371a28a52e3cc7ce8256a8bb",
+    "validation.json": "c12d58f96f33e675afd0c0cb797c18d8466493c5e9d0cddf2ed7f0cb987c5a61"
+  }
+}
