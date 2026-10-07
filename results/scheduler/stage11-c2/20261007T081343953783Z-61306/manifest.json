@@ -1,0 +1,158 @@
+{
+  "schema_version": 1,
+  "scope": "Stage 11 C1/C2 CPU-only",
+  "cpu_only": true,
+  "run_id": "20261007T081343953783Z-61306",
+  "timestamp": "2026-10-07T08:13:43.953783+00:00",
+  "source_before": {
+    "commit": "bdf0fb60eb5fa5192f45ccedd458acea2894c4df",
+    "source_digest": "10109728170d2e744ed8a8c2a3d119a9d2d014467c81da5f02b0f6e6efe533bc",
+    "source_dirty": false
+  },
+  "host": "Wafoe-MacBook.local",
+  "platform": "macOS-26.7-arm64-arm-64bit-Mach-O",
+  "machine": "arm64",
+  "python": "3.14.6 | packaged by conda-forge | (main, Aug 11 2026, 10:24:52) [Clang 20.1.8 ]",
+  "commands": [
+    {
+      "label": "release-configure",
+      "argv": [
+        "cmake",
+        "-S",
+        "/Users/wafoe/projects/me/CXXEg-stage11-hotfix-verify",
+        "-B",
+        "/Users/wafoe/projects/me/CXXEg-stage11-hotfix-verify/build-stage11-validation/20261007T081343953783Z-61306/release",
+        "-DCMAKE_BUILD_TYPE=Release",
+        "-DBUILD_TESTING=ON",
+        "-DENABLE_CUDA=OFF"
+      ],
+      "log": "release-configure.log",
+      "exit_code": 0
+    },
+    {
+      "label": "release-build",
+      "argv": [
+        "cmake",
+        "--build",
+        "/Users/wafoe/projects/me/CXXEg-stage11-hotfix-verify/build-stage11-validation/20261007T081343953783Z-61306/release",
+        "--parallel",
+        "2"
+      ],
+      "log": "release-build.log",
+      "exit_code": 0
+    },
+    {
+      "label": "release-tests",
+      "argv": [
+        "ctest",
+        "--test-dir",
+        "/Users/wafoe/projects/me/CXXEg-stage11-hotfix-verify/build-stage11-validation/20261007T081343953783Z-61306/release",
+        "--output-on-failure",
+        "--verbose"
+      ],
+      "log": "release-tests.log",
+      "exit_code": 0
+    },
+    {
+      "label": "debug-configure",
+      "argv": [
+        "cmake",
+        "-S",
+        "/Users/wafoe/projects/me/CXXEg-stage11-hotfix-verify",
+        "-B",
+        "/Users/wafoe/projects/me/CXXEg-stage11-hotfix-verify/build-stage11-validation/20261007T081343953783Z-61306/debug",
+        "-DCMAKE_BUILD_TYPE=Debug",
+        "-DBUILD_TESTING=ON",
+        "-DENABLE_CUDA=OFF"
+      ],
+      "log": "debug-configure.log",
+      "exit_code": 0
+    },
+    {
+      "label": "debug-build",
+      "argv": [
+        "cmake",
+        "--build",
+        "/Users/wafoe/projects/me/CXXEg-stage11-hotfix-verify/build-stage11-validation/20261007T081343953783Z-61306/debug",
+        "--parallel",
+        "2"
+      ],
+      "log": "debug-build.log",
+      "exit_code": 0
+    },
+    {
+      "label": "debug-tests",
+      "argv": [
+        "ctest",
+        "--test-dir",
+        "/Users/wafoe/projects/me/CXXEg-stage11-hotfix-verify/build-stage11-validation/20261007T081343953783Z-61306/debug",
+        "--output-on-failure",
+        "--verbose"
+      ],
+      "log": "debug-tests.log",
+      "exit_code": 0
+    },
+    {
+      "label": "sanitizers-configure",
+      "argv": [
+        "cmake",
+        "-S",
+        "/Users/wafoe/projects/me/CXXEg-stage11-hotfix-verify",
+        "-B",
+        "/Users/wafoe/projects/me/CXXEg-stage11-hotfix-verify/build-stage11-validation/20261007T081343953783Z-61306/sanitizers",
+        "-DCMAKE_BUILD_TYPE=Debug",
+        "-DBUILD_TESTING=ON",
+        "-DENABLE_CUDA=OFF",
+        "-DENABLE_SANITIZERS=ON"
+      ],
+      "log": "sanitizers-configure.log",
+      "exit_code": 0
+    },
+    {
+      "label": "sanitizers-build",
+      "argv": [
+        "cmake",
+        "--build",
+        "/Users/wafoe/projects/me/CXXEg-stage11-hotfix-verify/build-stage11-validation/20261007T081343953783Z-61306/sanitizers",
+        "--parallel",
+        "2"
+      ],
+      "log": "sanitizers-build.log",
+      "exit_code": 0
+    },
+    {
+      "label": "sanitizers-tests",
+      "argv": [
+        "ctest",
+        "--test-dir",
+        "/Users/wafoe/projects/me/CXXEg-stage11-hotfix-verify/build-stage11-validation/20261007T081343953783Z-61306/sanitizers",
+        "--output-on-failure",
+        "--verbose"
+      ],
+      "log": "sanitizers-tests.log",
+      "exit_code": 0
+    }
+  ],
+  "status": "passed",
+  "c4_status": "not_started",
+  "sanitizer_environment": {
+    "ASAN_OPTIONS": "detect_leaks=0",
+    "UBSAN_OPTIONS": "halt_on_error=1:print_stacktrace=1"
+  },
+  "source_after": {
+    "commit": "bdf0fb60eb5fa5192f45ccedd458acea2894c4df",
+    "source_digest": "10109728170d2e744ed8a8c2a3d119a9d2d014467c81da5f02b0f6e6efe533bc",
+    "source_dirty": false
+  },
+  "artifact_sha256": {
+    "debug-build.log": "f56bb76e3d6737c89ec9376c2852d2a476c73194300c40f1365c96259d72bd8f",
+    "debug-configure.log": "7afa811e589ef419445b17a88214902314b1c7ab2948107c85e6607cf901303f",
+    "debug-tests.log": "d0687e528e9d853d8c749bf712f1301f3b5ed64d395030bb8afc2496e08d8a20",
+    "release-build.log": "f3d138a12d528aa27ef07eb19d81ef145a0771d1970e5cc7395f87a328ec8580",
+    "release-configure.log": "b811388bacb01aa706a395e66becbb31473b8e73c6afab9d5a8f1733bffe696c",
+    "release-tests.log": "2c8d11966a27c8ae2a5b79e39f30588191fbe811d2be7b07b83d984df2d85b10",
+    "sanitizers-build.log": "90920f3b6d8d20c9cca4d7744c43bcb6138af31c6839431287e53a2c8abad667",
+    "sanitizers-configure.log": "b29488faedc936d212d8b71d166124fd95883c866412dc6724772940b60c2c7a",
+    "sanitizers-tests.log": "a27a7bea9bc00ea40c797daf86ef03129ee7668b5a84a010b9af2ce3ff5564c9"
+  }
+}
