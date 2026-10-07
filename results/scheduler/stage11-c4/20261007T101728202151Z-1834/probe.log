@@ -1,0 +1,1 @@
+{"schema_version":1,"benchmark":"scheduler-c4-v1","commit":"906af4d3bf73f3156d0fe5dececa305247c46d89","source_digest":"2e1f15f1e4d19cca85a5bd1a66c2cb788f7e9da672d863c648f7efb85b59f0fc","source_dirty":false,"build_type":"Release","compiler":"GNU 13.3.0","cuda_compiler":"NVIDIA 13.0.88","cuda_architecture":"75","testing":false,"cuda_enabled":true,"input_hash":"4bc396fd55be2a5c"}
