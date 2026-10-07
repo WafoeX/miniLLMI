@@ -62,7 +62,7 @@ add_library(runtime src/runtime/storage.cpp src/runtime/tensor.cpp src/runtime/c
     src/runtime/layout.cpp src/runtime/graph.cpp src/runtime/graph_executor.cpp src/runtime/graph_trace.cpp
     src/runtime/arena.cpp src/runtime/allocation_provider.cpp src/runtime/memory_planner.cpp
     src/runtime/planned_executor.cpp src/runtime/cpu_backend.cpp src/runtime/cpu_scalar.cpp src/runtime/cpu_optimized.cpp
-    src/runtime/thread_pool.cpp)
+    src/runtime/thread_pool.cpp src/runtime/scheduler.cpp)
 target_include_directories(runtime PUBLIC include)
 target_compile_options(runtime PRIVATE -Wall -Wextra -Wpedantic)
 
@@ -80,6 +80,11 @@ target_compile_options(bench_cpu PRIVATE -Wall -Wextra -Wpedantic)
 
 if(BUILD_TESTING)
     target_compile_definitions(runtime PUBLIC RUNTIME_TESTING=1)
+    add_executable(test_scheduler tests/test_scheduler.cpp)
+    target_link_libraries(test_scheduler PRIVATE runtime)
+    target_compile_options(test_scheduler PRIVATE -Wall -Wextra -Wpedantic)
+    add_test(NAME scheduler COMMAND test_scheduler)
+    set_tests_properties(scheduler PROPERTIES LABELS "cpu;scheduler")
     add_test(NAME cpu_benchmark_workloads COMMAND bench_cpu --self-test)
     set_tests_properties(cpu_benchmark_workloads PROPERTIES LABELS "cpu;backend")
     add_test(NAME cpu_tools COMMAND "${Python3_EXECUTABLE}" "${CMAKE_SOURCE_DIR}/tests/test_cpu_tools.py")
