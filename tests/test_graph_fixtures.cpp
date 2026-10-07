@@ -6,8 +6,8 @@
 namespace {
 using namespace runtime;
 void require(bool value, const char* message) { if (!value) throw std::runtime_error(message); }
-bool core(OpCode code) {
-    return code == OpCode::ADD || code == OpCode::MUL || code == OpCode::MATMUL || code == OpCode::COPY || code == OpCode::MATERIALIZE;
+bool is_numeric(OpCode code) {
+    return code != OpCode::ATTENTION;
 }
 }
 int main(int argc, char** argv) {
@@ -30,7 +30,7 @@ int main(int argc, char** argv) {
             const auto before = testing::cpu_allocation_counts();
             {
                 const auto result = execute_graph(graph);
-                if (core(fixture.descriptor.code())) {
+                if (is_numeric(fixture.descriptor.code())) {
                     if (!result.ok()) throw std::runtime_error(fixture.name + ": " + result.status.message);
                     const auto& actual = result.outputs.at("result");
                     for (std::size_t i = 0; i < actual.numel(); ++i) {
@@ -43,7 +43,7 @@ int main(int argc, char** argv) {
                     }
                     ++numeric; std::cout << "graph fixture " << fixture.name << " core=PASS\n";
                 } else {
-                    require(result.status.code == StatusCode::Unsupported && result.failed_node == 0 && result.outputs.empty(), "Transformer kernels must remain unsupported until S12");
+                    require(result.status.code == StatusCode::Unsupported && result.failed_node == 0 && result.outputs.empty(), "ATTENTION must compose graph operators instead of dispatching an opaque kernel");
                     ++unsupported; std::cout << "graph fixture " << fixture.name << " unsupported=PASS\n";
                 }
                 require(testing::cpu_allocation_counts().allocations - before.allocations == result.counts.allocations, "fixture graph allocation counter agrees with Storage");

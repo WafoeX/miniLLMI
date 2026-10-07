@@ -6,7 +6,7 @@ import subprocess
 import sys
 from pathlib import Path
 
-from run_operator_fixtures import CORE, ROOT, verify
+from run_operator_fixtures import NUMERIC, ROOT, verify
 
 
 def main():
@@ -23,10 +23,10 @@ def main():
         if process.returncode:
             return process.returncode
         reports = re.findall(r"^graph fixture (\S+) (core|unsupported)=PASS$", process.stdout, re.MULTILINE)
-        expected = [(case["name"], "core" if case["op"] in CORE else "unsupported") for case in manifest["cases"]]
+        expected = [(case["name"], "core" if case["op"] in NUMERIC else "unsupported") for case in manifest["cases"]]
         if reports != expected:
             raise ValueError("graph fixture execution coverage mismatch")
-        numeric = sum(case["op"] in CORE for case in manifest["cases"])
+        numeric = sum(case["op"] in NUMERIC for case in manifest["cases"])
         summary = f"Graph fixtures: PASS numeric_core={numeric} unsupported={len(expected) - numeric}"
         if summary not in process.stdout.splitlines():
             raise ValueError("graph fixture summary mismatch")

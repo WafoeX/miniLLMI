@@ -15,7 +15,8 @@ MODEL = {"version": 1, "batch": 1, "layers": 2, "hidden": 64, "heads": 4,
          "head_dim": 16, "ffn": 128, "vocab": 258, "max_seq": 1088,
          "bos": 256, "eos": 257, "rms_epsilon": 1e-5, "rope_base": 10000,
          "projection_output_channel_axis": 1, "rope_layout": "interleaved", "bias": False}
-NUMERIC = {"ADD", "MUL", "MATMUL", "COPY", "MATERIALIZE", "RMSNORM", "SOFTMAX", "ROPE", "EMBEDDING", "SWIGLU"}
+CORE = {"ADD", "MUL", "MATMUL", "COPY", "MATERIALIZE"}
+NUMERIC = CORE | {"RMSNORM", "SOFTMAX", "ROPE", "EMBEDDING", "SWIGLU"}
 
 
 def expected_weights():

@@ -33,7 +33,7 @@ void placement_tests() {
         require(add.ok() && add.device == Device{} && add.fell_back && !add.reason.empty(), "explicit CPU fallback");
     }
     require(!strict.place(OpCode::ADD, DType::FP32, {a, a}, cuda.device()).ok(), "strict unsupported error");
-    require(!scheduler.place(OpCode::RMSNORM, DType::FP32, {a, a}, cuda.device()).ok(), "S12 not implemented on either backend");
+    require(!scheduler.place(OpCode::ATTENTION, DType::FP32, {a, a}, cuda.device()).ok(), "opaque ATTENTION kernel is not implemented on either backend");
     require(local.place(OpCode::MATMUL, DType::FP32, {a, b}, cuda.device()).device == Device{}, "CPU-only fallback");
     require(!Scheduler(cpu, nullptr, PlacementFallback::Error).place(OpCode::MATMUL, DType::FP32, {a, b}, cuda.device()).ok(), "missing CUDA strict error");
     require(scheduler.place(OpCode::MATMUL, DType::FP32, {a, b}, Device(DeviceType::CUDA, 1)).fell_back, "unregistered device fallback");

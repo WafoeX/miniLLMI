@@ -93,10 +93,10 @@ void failures() {
     const auto oom = execute_graph(graph);
     require(oom.status.code == StatusCode::ResourceExhausted && oom.failed_node == 0 && oom.outputs.empty() &&
             oom.counts.allocations == 0 && testing::cpu_allocation_counts().live == before.live, "allocation failure cleanup");
-    Graph unsupported; unsupported.add_input(0, "x", sequence({1, 2}));
-    unsupported.add_tensor(1, {1, 2}); unsupported.add_tensor(2, {1, 2}); unsupported.add_tensor(3, {1, 2});
+    Graph unsupported; unsupported.add_input(0, "x", sequence({1, 1, 2}));
+    unsupported.add_tensor(1, {1, 1, 2}); unsupported.add_tensor(2, {1, 1, 2}); unsupported.add_tensor(3, {1, 1, 2});
     unsupported.add_node(0, OpDesc(OpCode::ADD, {0, 0}, {1}));
-    unsupported.add_node(1, OpDesc(OpCode::SOFTMAX, {1}, {2}, SoftmaxAttrs{}));
+    unsupported.add_node(1, OpDesc(OpCode::ATTENTION, {1, 1, 1}, {2}, AttentionAttrs{1, 2, true, 0, 0, 1088}));
     unsupported.add_node(2, OpDesc(OpCode::ADD, {2, 2}, {3}));
     unsupported.add_output("early", 1); unsupported.add_output("result", 3); success(unsupported.freeze());
     const auto no_kernel = execute_graph(unsupported);
