@@ -1,0 +1,16 @@
+CPU reference cache miss 512x512x512 (full single-thread ijk; not timed)
+sgemm_v0_naive: median=0.57929599285125732 ms, 463.382 GFLOPS, max_error=8.10623e-06
+sgemm_v1_tiled: median=0.37478399276733398 ms, 716.24 GFLOPS, max_error=8.10623e-06
+cublas: median=0.075584001839160919 ms, 3551.49 GFLOPS, max_error=8.10623e-06
+CPU reference cache miss 1024x1024x1024 (full single-thread ijk; not timed)
+sgemm_v0_naive: median=5.6002719402313232 ms, 383.461 GFLOPS, max_error=2.14577e-05
+sgemm_v1_tiled: median=2.6480638980865479 ms, 810.964 GFLOPS, max_error=2.14577e-05
+cublas: median=0.40220800042152405 ms, 5339.24 GFLOPS, max_error=5.24521e-06
+CPU reference cache miss 2048x2048x2048 (full single-thread ijk; not timed)
+sgemm_v0_naive: median=41.030241012573242 ms, 418.712 GFLOPS, max_error=4.00543e-05
+sgemm_v1_tiled: median=26.981087684631348 ms, 636.737 GFLOPS, max_error=4.00543e-05
+cublas: median=4.3130879402160645 ms, 3983.19 GFLOPS, max_error=2.67029e-05
+CPU reference cache miss 4096x4096x4096 (full single-thread ijk; not timed)
+sgemm_v0_naive: median=413.65118408203125 ms, 332.258 GFLOPS, max_error=9.34601e-05
+sgemm_v1_tiled: median=259.23416137695312 ms, 530.173 GFLOPS, max_error=9.34601e-05
+cublas: median=40.072223663330078 ms, 3429.78 GFLOPS, max_error=9.34601e-05

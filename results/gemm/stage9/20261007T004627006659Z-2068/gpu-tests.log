@@ -1,0 +1,14 @@
+Internal ctest changing into directory: /content/miniLLMI/build-cuda-stage9/20261007T004627006659Z-2068
+Test project /content/miniLLMI/build-cuda-stage9/20261007T004627006659Z-2068
+    Start 32: cuda_backend
+1/2 Test #32: cuda_backend .....................   Passed    2.67 sec
+    Start 33: cuda_gemm
+2/2 Test #33: cuda_gemm ........................   Passed    0.63 sec
+
+100% tests passed, 0 tests failed out of 2
+
+Label Time Summary:
+backend    =   2.67 sec*proc (1 test)
+gpu        =   3.30 sec*proc (2 tests)
+
+Total Test time (real) =   3.31 sec

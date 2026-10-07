@@ -1,0 +1,268 @@
+{
+  "schema_version": 1,
+  "scope": "Stage 9 T4 paired v0/v1 tiled/cuBLAS correctness and performance; no Nsight claim",
+  "run_id": "20261007T004627006659Z-2068",
+  "timestamp": "2026-10-07T00:46:27.006659+00:00",
+  "source": {
+    "commit": "25002980ecfaee9d1104ddca83da21462aa01256",
+    "source_digest": "92cd20a0e02ac0a9bc1941a8da9b99b118384141a4b4c3164297d2273dc222eb",
+    "source_dirty": false
+  },
+  "host": "f659722719e8",
+  "platform": "Linux-6.6.122+-x86_64-with-glibc2.39",
+  "machine": "x86_64",
+  "configuration": {
+    "sizes": [
+      512,
+      1024,
+      2048,
+      4096
+    ],
+    "warmup": 10,
+    "iterations": 50,
+    "seed": 42,
+    "atol": 0.001,
+    "rtol": 0.001,
+    "orders": [
+      "v0,v1,cublas",
+      "v1,v0,cublas",
+      "v0,v1,cublas"
+    ],
+    "candidate": "sgemm_v1_tiled",
+    "baseline": "sgemm_v0_naive",
+    "cpu_reference": "single-thread-fp64-ijk",
+    "reference_cache": "fresh-per-run; reused only across paired repetitions"
+  },
+  "commands": [
+    {
+      "label": "nvidia-smi-before",
+      "argv": [
+        "nvidia-smi",
+        "--query-gpu=name,uuid,compute_cap",
+        "--format=csv,noheader"
+      ],
+      "log": "nvidia-smi-before.log",
+      "exit_code": 0
+    },
+    {
+      "label": "nvcc-version",
+      "argv": [
+        "nvcc",
+        "--version"
+      ],
+      "log": "nvcc-version.log",
+      "exit_code": 0
+    },
+    {
+      "label": "configure",
+      "argv": [
+        "cmake",
+        "-S",
+        "/content/miniLLMI",
+        "-B",
+        "/content/miniLLMI/build-cuda-stage9/20261007T004627006659Z-2068",
+        "-DCMAKE_BUILD_TYPE=Release",
+        "-DENABLE_CUDA=ON",
+        "-DCMAKE_CUDA_ARCHITECTURES=75",
+        "-DBUILD_TESTING=ON"
+      ],
+      "log": "configure.log",
+      "exit_code": 0
+    },
+    {
+      "label": "build",
+      "argv": [
+        "cmake",
+        "--build",
+        "/content/miniLLMI/build-cuda-stage9/20261007T004627006659Z-2068",
+        "--parallel",
+        "2"
+      ],
+      "log": "build.log",
+      "exit_code": 0
+    },
+    {
+      "label": "gpu-tests",
+      "argv": [
+        "ctest",
+        "--test-dir",
+        "/content/miniLLMI/build-cuda-stage9/20261007T004627006659Z-2068",
+        "--output-on-failure",
+        "-L",
+        "gpu"
+      ],
+      "log": "gpu-tests.log",
+      "exit_code": 0
+    },
+    {
+      "label": "gpu-info",
+      "argv": [
+        "/content/miniLLMI/build-cuda-stage9/20261007T004627006659Z-2068/gpu_info"
+      ],
+      "log": "gpu-info.log",
+      "exit_code": 0
+    },
+    {
+      "label": "benchmark-0",
+      "argv": [
+        "/content/miniLLMI/build-cuda-stage9/20261007T004627006659Z-2068/bench_gemm",
+        "--experiment",
+        "stage9",
+        "--kernel",
+        "all",
+        "--order",
+        "v0,v1,cublas",
+        "--sizes",
+        "512,1024,2048,4096",
+        "--warmup",
+        "10",
+        "--iterations",
+        "50",
+        "--seed",
+        "42",
+        "--atol",
+        "0.001",
+        "--rtol",
+        "0.001",
+        "--run-id",
+        "20261007T004627006659Z-2068-r0",
+        "--raw-dir",
+        "/content/miniLLMI/results/gemm/stage9/20261007T004627006659Z-2068/raw/repeat-0",
+        "--csv",
+        "/content/miniLLMI/results/gemm/stage9/20261007T004627006659Z-2068/repeat-0.csv",
+        "--reference-cache-dir",
+        "/content/miniLLMI/results/gemm/stage9/20261007T004627006659Z-2068/reference-cache"
+      ],
+      "log": "benchmark-0.log",
+      "exit_code": 0
+    },
+    {
+      "label": "benchmark-1",
+      "argv": [
+        "/content/miniLLMI/build-cuda-stage9/20261007T004627006659Z-2068/bench_gemm",
+        "--experiment",
+        "stage9",
+        "--kernel",
+        "all",
+        "--order",
+        "v1,v0,cublas",
+        "--sizes",
+        "512,1024,2048,4096",
+        "--warmup",
+        "10",
+        "--iterations",
+        "50",
+        "--seed",
+        "42",
+        "--atol",
+        "0.001",
+        "--rtol",
+        "0.001",
+        "--run-id",
+        "20261007T004627006659Z-2068-r1",
+        "--raw-dir",
+        "/content/miniLLMI/results/gemm/stage9/20261007T004627006659Z-2068/raw/repeat-1",
+        "--csv",
+        "/content/miniLLMI/results/gemm/stage9/20261007T004627006659Z-2068/repeat-1.csv",
+        "--reference-cache-dir",
+        "/content/miniLLMI/results/gemm/stage9/20261007T004627006659Z-2068/reference-cache"
+      ],
+      "log": "benchmark-1.log",
+      "exit_code": 0
+    },
+    {
+      "label": "benchmark-2",
+      "argv": [
+        "/content/miniLLMI/build-cuda-stage9/20261007T004627006659Z-2068/bench_gemm",
+        "--experiment",
+        "stage9",
+        "--kernel",
+        "all",
+        "--order",
+        "v0,v1,cublas",
+        "--sizes",
+        "512,1024,2048,4096",
+        "--warmup",
+        "10",
+        "--iterations",
+        "50",
+        "--seed",
+        "42",
+        "--atol",
+        "0.001",
+        "--rtol",
+        "0.001",
+        "--run-id",
+        "20261007T004627006659Z-2068-r2",
+        "--raw-dir",
+        "/content/miniLLMI/results/gemm/stage9/20261007T004627006659Z-2068/raw/repeat-2",
+        "--csv",
+        "/content/miniLLMI/results/gemm/stage9/20261007T004627006659Z-2068/repeat-2.csv",
+        "--reference-cache-dir",
+        "/content/miniLLMI/results/gemm/stage9/20261007T004627006659Z-2068/reference-cache"
+      ],
+      "log": "benchmark-2.log",
+      "exit_code": 0
+    },
+    {
+      "label": "nvidia-smi-after",
+      "argv": [
+        "nvidia-smi",
+        "--query-gpu=name,uuid,compute_cap",
+        "--format=csv,noheader"
+      ],
+      "log": "nvidia-smi-after.log",
+      "exit_code": 0
+    },
+    {
+      "label": "analyze",
+      "argv": [
+        "/usr/bin/python3",
+        "/content/miniLLMI/tools/analyze_cuda_gemm.py",
+        "/content/miniLLMI/results/gemm/stage9/20261007T004627006659Z-2068"
+      ],
+      "log": "analyze.log",
+      "exit_code": 1
+    }
+  ],
+  "measurements": [
+    {
+      "repeat": 0,
+      "order": "v0,v1,cublas",
+      "raw_dir": "raw/repeat-0",
+      "csv": "repeat-0.csv",
+      "run_id": "20261007T004627006659Z-2068-r0"
+    },
+    {
+      "repeat": 1,
+      "order": "v1,v0,cublas",
+      "raw_dir": "raw/repeat-1",
+      "csv": "repeat-1.csv",
+      "run_id": "20261007T004627006659Z-2068-r1"
+    },
+    {
+      "repeat": 2,
+      "order": "v0,v1,cublas",
+      "raw_dir": "raw/repeat-2",
+      "csv": "repeat-2.csv",
+      "run_id": "20261007T004627006659Z-2068-r2"
+    }
+  ],
+  "status": "failed",
+  "gpu_name": "Tesla T4",
+  "reference_cache": {
+    "path": "reference-cache",
+    "files": [
+      "reference-cache/1024x1024x1024-seed42-67c6933e2adeaecc.f32",
+      "reference-cache/2048x2048x2048-seed42-451256a4b3d1d959.f32",
+      "reference-cache/4096x4096x4096-seed42-a92f5e0931254f02.f32",
+      "reference-cache/512x512x512-seed42-3760d84e5a172613.f32"
+    ]
+  },
+  "source_after": {
+    "commit": "25002980ecfaee9d1104ddca83da21462aa01256",
+    "source_digest": "92cd20a0e02ac0a9bc1941a8da9b99b118384141a4b4c3164297d2273dc222eb",
+    "source_dirty": false
+  },
+  "error": "failed command: analyze"
+}
