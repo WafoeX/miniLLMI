@@ -62,7 +62,7 @@ add_library(runtime src/runtime/storage.cpp src/runtime/tensor.cpp src/runtime/c
     src/runtime/layout.cpp src/runtime/graph.cpp src/runtime/graph_executor.cpp src/runtime/graph_trace.cpp
     src/runtime/arena.cpp src/runtime/allocation_provider.cpp src/runtime/memory_planner.cpp
     src/runtime/planned_executor.cpp src/runtime/cpu_backend.cpp src/runtime/cpu_scalar.cpp src/runtime/cpu_optimized.cpp
-    src/runtime/thread_pool.cpp src/runtime/scheduler.cpp src/runtime/transformer_ops.cpp)
+    src/runtime/thread_pool.cpp src/runtime/scheduler.cpp src/runtime/transformer_ops.cpp src/runtime/attention.cpp)
 target_include_directories(runtime PUBLIC include)
 target_compile_options(runtime PRIVATE -Wall -Wextra -Wpedantic)
 
@@ -115,6 +115,11 @@ if(BUILD_TESTING)
     target_compile_options(test_transformer_ops PRIVATE -Wall -Wextra -Wpedantic)
     add_test(NAME transformer_ops COMMAND test_transformer_ops "${CMAKE_SOURCE_DIR}/tests/fixtures/operators-v1/operators-v1.txt")
     set_tests_properties(transformer_ops PROPERTIES LABELS "cpu;transformer")
+    add_executable(test_attention_graph tests/test_attention_graph.cpp)
+    target_link_libraries(test_attention_graph PRIVATE runtime)
+    target_compile_options(test_attention_graph PRIVATE -Wall -Wextra -Wpedantic)
+    add_test(NAME attention_graph COMMAND test_attention_graph "${CMAKE_SOURCE_DIR}/tests/fixtures/operators-v1/operators-v1.txt")
+    set_tests_properties(attention_graph PROPERTIES LABELS "cpu;transformer")
     add_executable(test_cpu_scalar tests/test_cpu_scalar.cpp)
     target_link_libraries(test_cpu_scalar PRIVATE runtime)
     target_compile_options(test_cpu_scalar PRIVATE -Wall -Wextra -Wpedantic)
