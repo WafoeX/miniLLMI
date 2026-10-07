@@ -50,6 +50,34 @@ record the legacy trace regression and a Python platform-mock regression before
 they were fixed. Their pre-test source digests were not captured and are not
 retroactively reconstructed. They are not acceptance evidence.
 
+## First T4 failure and adapter hotfix (C2 still pending)
+
+Retained result commit `b5b4bc3` contains
+[`20261007T075353274825Z-2587`](../results/scheduler/stage11-c2/20261007T075353274825Z-2587/manifest.json):
+Tesla T4, clean source `44f05b4` before/after, all six artifact hashes verified.
+Release configure/nvcc build passed; 35/36 CTests passed. The failing test is
+`cuda_scheduler`: v0 manual/automatic 17×13×11 and 64×64×64 each passed two
+repeats, then execution failed on the first empty case (M=0,K=3,N=2).
+State-version, D2D/alias and v1 portions of that scheduler test were not reached.
+No full snapshot capture or C2 acceptance was produced.
+
+Code inspection identifies the boundary mismatch: Runtime shape inference
+allows zero dimensions, while preserved Stage 0 launchers call `elements()`,
+which rejects nonpositive dimensions. The CUDA **adapter**, not Stage 0,
+now returns success for empty M/N outputs and clears a nonempty K=0 output
+with synchronous `cudaMemsetAsync` completion before returning. No baseline
+kernel change, hidden host math, allocation or tolerance relaxation is made.
+New direct adapter tests cover M/N/K=0 and repeated NaN/nonzero-poisoned K=0
+outputs for v0, v1 and cuBLAS. They require fresh T4 execution; locally only
+host C++ syntax and CPU regressions can run. Graph failures now log the exact
+case, mode, status and failed node. Three GCC indentation warnings in snapshot
+serialization are also fixed. Original failed artifacts are not edited.
+
+The patched CUDA target cannot be checked by the local Mac CUDA-mode checker:
+there is no CUDA SDK/libdevice, and local CMake has `ENABLE_CUDA=OFF`. These
+explicitly handled toolchain/target-scope diagnostics are not a claim of clean
+CUDA syntax. Fresh nvcc build and all GPU regression tests remain required.
+
 ## What still needs T4
 
 Follow [the Colab procedure](stage11_colab.md):

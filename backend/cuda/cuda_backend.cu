@@ -122,6 +122,15 @@ Status CudaBackend::execute(const OpDesc& desc, const TensorInputs& inputs, Tens
         const auto& left = inputs[0].get(); const auto& right = inputs[1].get();
         const auto m = as_size(left.shape()[0]), k = as_size(left.shape()[1]), n = as_size(right.shape()[1]);
         if (m > static_cast<std::size_t>(INT_MAX) || n > static_cast<std::size_t>(INT_MAX) || k > static_cast<std::size_t>(INT_MAX)) return Status::failure(StatusCode::Overflow, "CUDA MATMUL shape exceeds int range");
+        // Runtime shapes may be empty, but preserved Stage 0 launchers require
+        // strictly positive dimensions. Handle these semantics at the adapter
+        // boundary without changing a baseline kernel or using a host fallback.
+        if (m == 0 || n == 0) return Status::success();
+        if (k == 0) {
+            CUDA_CHECK(cudaMemsetAsync(pointer(output), 0, output.nbytes(), state_->stream));
+            CUDA_CHECK(cudaStreamSynchronize(state_->stream));
+            return Status::success();
+        }
         const stage0::Shape shape{static_cast<int>(m), static_cast<int>(n), static_cast<int>(k)};
         auto* a = static_cast<const float*>(pointer(left)); auto* b = static_cast<const float*>(pointer(right)); auto* c = static_cast<float*>(pointer(output));
         const auto kernel = state_->matmul == CudaMatmul::Stage0Naive ? stage0::GemmKernel::V0Naive

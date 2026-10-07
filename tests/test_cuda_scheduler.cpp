@@ -13,6 +13,10 @@
 namespace {
 using namespace runtime;
 void require(bool value, const char* message) { if (!value) throw std::runtime_error(message); }
+void executed(const ExecutionResult& result, const std::string& context) {
+    if (!result.ok()) throw std::runtime_error(context + ": " + status_name(result.status.code) + ": " + result.status.message
+        + "; failed_node=" + (result.failed_node ? std::to_string(*result.failed_node) : "none"));
+}
 void equal(const Tensor& value, const Tensor& reference) {
     require(value.shape() == reference.shape(), "shape equality");
     for (std::size_t i = 0; i < value.numel(); ++i) {
@@ -31,18 +35,21 @@ void snapshot(const std::filesystem::path& directory, const std::string& label, 
         << "},\"workspace_bytes\":0,\"device_capacities\":[";
     bool first = true;
     for (const auto& item : plan.device_capacity_bytes) {
-        if (!first) out << ','; first = false;
+        if (!first) out << ',';
+        first = false;
         out << "{\"device\":\"" << (item.first.type() == DeviceType::CPU ? "cpu:" : "cuda:") << item.first.index()
             << "\",\"bytes\":" << item.second << '}';
     }
     out << "],\"nodes\":["; first = true;
     for (auto node : graph.order()) {
-        if (!first) out << ','; first = false;
+        if (!first) out << ',';
+        first = false;
         out << "{\"id\":" << node << ",\"descriptor\":" << graph.nodes().at(node).descriptor.serialize() << '}';
     }
     out << "],\"trace_dropped\":" << trace.dropped() << ",\"trace\":["; first = true;
     for (const auto& event : trace.events()) {
-        if (!first) out << ','; first = false;
+        if (!first) out << ',';
+        first = false;
         out << "{\"kind\":\"" << trace_name(event.kind) << "\",\"bytes\":" << event.bytes << ",\"node\":";
         if (event.node) out << *event.node; else out << "null";
         out << ",\"tensor\":"; if (event.tensor) out << *event.tensor; else out << "null";
@@ -68,9 +75,11 @@ void mixed(const CudaBackend& cuda, const std::filesystem::path& artifacts) {
         ExecutionCounts a, b;
         for (int run = 0; run < 2; ++run) {
             ExecutionTrace trace, manual_trace;
+            const auto label = std::string(cuda.name()) + "-" + std::to_string(shape[0]) + "-" + std::to_string(shape[1]) + "-" + std::to_string(shape[2]) + "-repeat" + std::to_string(run);
             const auto result = execute_graph(*rewritten.graph, &trace, &automatic, nullptr, &scheduler);
             const auto reference = execute_graph(manual, &manual_trace, &baseline, nullptr, &scheduler);
-            require(result.ok() && reference.ok(), "manual and automatic execute");
+            executed(result, label + " automatic");
+            executed(reference, label + " manual");
             equal(result.outputs.at("result"), oracle.outputs.at("result")); equal(reference.outputs.at("result"), oracle.outputs.at("result"));
             a = result.counts; b = reference.counts;
             require(a.copies == b.copies && a.copy_bytes == b.copy_bytes && a.backend_switches == b.backend_switches, "actual counters match manual baseline");
@@ -84,7 +93,6 @@ void mixed(const CudaBackend& cuda, const std::filesystem::path& artifacts) {
                 }
             }
             require(copy_count == a.copies && copy_bytes == a.copy_bytes && switches == a.backend_switches, "trace independently agrees with executed counts");
-            const auto label = std::string(cuda.name()) + "-" + std::to_string(shape[0]) + "-" + std::to_string(shape[1]) + "-" + std::to_string(shape[2]) + "-repeat" + std::to_string(run);
             snapshot(artifacts, label + "-automatic", *rewritten.graph, automatic.plan(), result, oracle.outputs.at("result"), trace);
             snapshot(artifacts, label + "-manual", manual, baseline.plan(), reference, oracle.outputs.at("result"), manual_trace);
             std::cout << label << " copies=" << a.copies << " bytes=" << a.copy_bytes << " switches=" << a.backend_switches << " dispatches=" << a.backend_dispatches << " PASS\n";
@@ -109,7 +117,7 @@ void state_versions(const CudaBackend& cuda) {
     for (int run = 0; run < 3; ++run) {
         for (int i = 0; i < 4; ++i) source.data<float>()[i] = static_cast<float>(i + run * 10);
         const auto result = execute_graph(*r.graph, nullptr, &prepared, nullptr, &scheduler);
-        require(result.ok(), "synchronous state writes and versioned transfers");
+        executed(result, "synchronous state writes repeat" + std::to_string(run));
         equal(result.outputs.at("result"), source); equal(state, source);
         require(result.counts.copies == 6 && result.counts.copy_bytes == 96, "CPU write + two distinct state H2Ds + weight H2D + write D2H + output D2H");
     }
@@ -124,7 +132,7 @@ void copies_and_aliases(const CudaBackend& cuda) {
     g.add_node(1, OpDesc(OpCode::RESHAPE, {1}, {2}, ReshapeAttrs{Shape{4}})); g.add_output("view", 2); scheduler_workload::check(g.freeze());
     const auto r = scheduler.rewrite(g); require(r.ok(), "D2D + CUDA metadata alias");
     ScheduledAllocationProvider provider(*r.graph, scheduler);
-    auto result = execute_graph(*r.graph, nullptr, &provider, nullptr, &scheduler); require(result.ok(), "D2D execution");
+    auto result = execute_graph(*r.graph, nullptr, &provider, nullptr, &scheduler); executed(result, "D2D execution");
     auto out = Tensor::allocate_cpu({4}); scheduler_workload::check(cuda.copy(result.outputs.at("view"), out)); equal(out, host.reshape({4}));
     require(result.counts.copies == 1 && result.counts.backend_dispatches == 1 && result.counts.backend_switches == 0, "alias is not backend dispatch");
     auto escaped = result.outputs.at("view"); result.outputs.clear(); require(!provider.begin().ok(), "escaped CUDA alias pins backing");

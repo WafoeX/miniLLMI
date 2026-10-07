@@ -1,6 +1,7 @@
 #include "runtime/cuda_backend.hpp"
 #include "runtime/graph_executor.hpp"
 #include <cmath>
+#include <limits>
 #include <iostream>
 #include <stdexcept>
 #include <string>
@@ -9,10 +10,31 @@ namespace {
 using namespace runtime;
 void require(bool value, const char* message) { if (!value) throw std::runtime_error(message); }
 void success(const Status& status) { if (!status.ok()) throw std::runtime_error(status.message); }
+void empty_matmul_tests(const CudaBackend& backend) {
+    // Exercise the adapter boundary, not the positive-shape Stage 0 launcher.
+    // K=0 has a nonempty output: overwrite poisoned values on EVERY call.
+    for (const auto& shape : {Shape{0, 3, 2}, Shape{2, 3, 0}, Shape{0, 3, 0}, Shape{2, 0, 3}, Shape{0, 0, 0}}) {
+        auto a = backend.allocate({shape[0], shape[1]}, DType::FP32, backend.device());
+        auto b = backend.allocate({shape[1], shape[2]}, DType::FP32, backend.device());
+        auto c = backend.allocate({shape[0], shape[2]}, DType::FP32, backend.device());
+        require(a.ok() && b.ok() && c.ok(), "empty MATMUL allocation");
+        auto host = Tensor::allocate_cpu({shape[0], shape[2]});
+        for (int repeat = 0; repeat < 2; ++repeat) {
+            for (std::size_t i = 0; i < host.numel(); ++i)
+                host.data<float>()[i] = repeat == 0 ? std::numeric_limits<float>::quiet_NaN() : 17.F;
+            success(backend.copy(host, *c.tensor));
+            success(backend.execute(OpDesc(OpCode::MATMUL, {0, 1}, {2}), {*a.tensor, *b.tensor}, *c.tensor));
+            success(backend.copy(*c.tensor, host));
+            for (std::size_t i = 0; i < host.numel(); ++i) require(host.data<float>()[i] == 0.F, "K=0 must clear all output values");
+        }
+        std::cout << backend.name() << " empty MATMUL m=" << shape[0] << " k=" << shape[1] << " n=" << shape[2] << " PASS\n";
+    }
+}
 }
 int main() {
     try {
         CudaBackend cuda(0);
+        empty_matmul_tests(cuda);
         auto host_a = Tensor::allocate_cpu({2, 3});
         auto host_b = Tensor::allocate_cpu({3, 2});
         auto host_c = Tensor::allocate_cpu({2, 2});
@@ -30,6 +52,9 @@ int main() {
         for (std::size_t i = 0; i < host_c.numel(); ++i) require(std::abs(host_c.data<float>()[i] - expected[i]) < 1e-4F, "CUDA v0 adapter result");
         CudaBackend tiled(0, CudaMatmul::Stage9Tiled);
         require(std::string(tiled.name()) == "cuda-stage9-tiled", "tiled runtime selection name");
+        empty_matmul_tests(tiled);
+        CudaBackend blas(0, CudaMatmul::CuBlas);
+        empty_matmul_tests(blas);
         success(tiled.execute(matmul, {*a.tensor, *b.tensor}, *c.tensor));
         success(tiled.copy(*c.tensor, host_c));
         for (std::size_t i = 0; i < host_c.numel(); ++i) require(std::abs(host_c.data<float>()[i] - expected[i]) < 1e-4F, "CUDA tiled runtime result");

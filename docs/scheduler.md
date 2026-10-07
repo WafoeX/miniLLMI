@@ -76,7 +76,12 @@ calls and bytes. `BackendCPU`/`BackendCUDA` trace events record actual dispatche
 calls, including the CUDA copy backend for D2H. Metadata aliases and empty/self
 copies do not add dispatches. `backend_switches` counts transitions between
 consecutive executed backend devices (not placement/segment-count proxies).
-Legacy unscheduled traces and default CPU dynamic/CUDA v0 paths are preserved.
+CUDA adapter MATMUL accepts the Runtime's zero dimensions: M/N=0 is an
+empty-output no-op; K=0 with nonempty output is explicitly zero-filled on its
+own CUDA stream and synchronized. Positive-size Stage 0/v1/cuBLAS dispatch is
+unchanged. Backend dispatch counters describe calls, not CUDA kernel launches;
+an empty compute call can dispatch without launching a kernel. Legacy
+unscheduled traces and default CPU dynamic/CUDA v0 paths are preserved.
 The prepared path does not claim zero C++ metadata heap allocations.
 
 ## Validation and limits

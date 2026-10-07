@@ -26,6 +26,28 @@ If this directory already exists, use `git pull --ff-only` on the same branch
 and verify no source edits/untracked code. Do not reset away earlier failures.
 The tested commit will be recorded automatically; result commits come later.
 
+## Retry after the first C2 T4 failure
+
+The preserved first run `20261007T075353274825Z-2587` built successfully but
+failed on empty CUDA MATMUL semantics. A CUDA adapter hotfix and direct v0/v1/
+cuBLAS empty-shape regression tests are now available. Do not edit the baseline
+kernel, remove the empty cases, or reuse a pre-fix build. After the patch is
+pushed, use your existing clean checkout:
+
+```bash
+%%bash
+set -euo pipefail
+cd /content/miniLLMI-stage11
+git pull --ff-only origin feat/scheduler-stage11
+git rev-parse HEAD
+git status --short
+python3 tools/run_scheduler_validation.py
+```
+
+The runner creates a new run and fresh build, preserving the failed one.
+Push the new result directory using §3, even if the new run fails. C2/C4
+acceptance remains pending until all required tests and captures pass.
+
 ## 2. Build and capture
 
 ```bash
