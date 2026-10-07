@@ -1,8 +1,12 @@
-# mini-llm-runtime — Stage 11
+# mini-llm-runtime — Stage 12
 
-基于 C++17/CUDA 的推理引擎项目，**Stage 0–11 已通过各自必需验收项**，详见 [路线图](docs/roadmap.md)。已有统一 Tensor/shared Storage、backend-neutral 算子、冻结 DAG/顺序 executor、有界 trace、arena/生命周期内存规划、CPU backend/显式优化路径、CUDA storage/copy/GEMM、Nsight 对比及异构 scheduler。调度器支持确定性放置、显式 COPY 插入、同版本 fan-out 去重和逐设备规划，复用原 graph/executor/provider。
+基于 C++17/CUDA 的推理引擎项目，**Stage 0–12 已通过各自必需验收项**，详见 [路线图](docs/roadmap.md)。已有统一 Tensor/shared Storage、backend-neutral 算子、冻结 DAG/顺序 executor、有界 trace、arena/生命周期内存规划、CPU backend/显式优化路径、CUDA storage/copy/GEMM、Nsight 对比及异构 scheduler。调度器支持确定性放置、显式 COPY 插入、同版本 fan-out 去重和逐设备规划，复用原 graph/executor/provider。
 
-默认保留 **FP64 CPU reference math、dynamic allocation 与 CUDA v0**；Stage 0 与冻结 CPU 基线不改写。Transformer primitives 仍只有契约/validators 和离线 expected fixtures；Stage 12–19 尚未实现，不宣称模型执行、KV Cache、量化或端到端模型收益。
+默认保留 **FP64 CPU reference math、dynamic allocation 与 CUDA v0**；Stage 0 与冻结 CPU 基线不改写。Stage 12 已实现 RMSNorm、SwiGLU、稳定 causal Softmax、interleaved RoPE、Embedding 和由普通 graph 算子组成的 per-head attention。T4 混合路径仅将 projection MATMUL/COPY 放在 CUDA；其余 primitive 显式回到 CPU。没有模型执行、KV Cache、量化、性能或语言质量收益声明；Stage 13–19 尚未实现。
+
+## Stage 12 验收（C1–C5 完成）
+
+CPU Release **37/37 CTests** 通过。Tesla T4 上 GPU 标签 **5/5**、transformer 标签 **3/3** 通过；`cuda_transformer_ops` 验证 CUDA projection MATMUL、两次 H2D/一次 D2H 显式调度传输以及 CPU Softmax/RMSNorm。参见 [Stage 12 验收记录](docs/stage12_report.md)、[primitive 任务书](docs/tasks/stage-12-transformer-ops.md) 和 [Colab 步骤](docs/stage12_colab.md)。这是功能/集成验收而非基准测试。
 
 ## Stage 11 验收（C1/C2/C4 完成，C3 可选跳过）
 
