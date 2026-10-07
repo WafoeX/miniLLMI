@@ -1,0 +1,61 @@
+2026-10-07T11:58:50Z
+tested_commit=
+Wed Oct  7 11:58:50 2026       
++-----------------------------------------------------------------------------------------+
+| NVIDIA-SMI 580.82.07              Driver Version: 580.82.07      CUDA Version: 13.0     |
++-----------------------------------------+------------------------+----------------------+
+| GPU  Name                 Persistence-M | Bus-Id          Disp.A | Volatile Uncorr. ECC |
+| Fan  Temp   Perf          Pwr:Usage/Cap |           Memory-Usage | GPU-Util  Compute M. |
+|                                         |                        |               MIG M. |
+|=========================================+========================+======================|
+|   0  Tesla T4                       Off |   00000000:00:04.0 Off |                    0 |
+| N/A   49C    P8             10W /   70W |       0MiB /  15360MiB |      0%      Default |
+|                                         |                        |                  N/A |
++-----------------------------------------+------------------------+----------------------+
+
++-----------------------------------------------------------------------------------------+
+| Processes:                                                                              |
+|  GPU   GI   CI              PID   Type   Process name                        GPU Memory |
+|        ID   ID                                                               Usage      |
+|=========================================================================================|
+|  No running processes found                                                             |
++-----------------------------------------------------------------------------------------+
+Internal ctest changing into directory: /content/miniLLMI/build-stage12-t4
+Test project /content/miniLLMI/build-stage12-t4
+    Start  1: scheduler_benchmark_workloads
+1/5 Test  #1: scheduler_benchmark_workloads ....   Passed    0.50 sec
+    Start 38: cuda_transformer_ops
+2/5 Test #38: cuda_transformer_ops .............   Passed    0.41 sec
+    Start 39: cuda_scheduler
+3/5 Test #39: cuda_scheduler ...................   Passed    0.45 sec
+    Start 40: cuda_backend
+4/5 Test #40: cuda_backend .....................   Passed    0.45 sec
+    Start 41: cuda_gemm
+5/5 Test #41: cuda_gemm ........................   Passed    0.46 sec
+
+100% tests passed, 0 tests failed out of 5
+
+Label Time Summary:
+backend        =   0.45 sec*proc (1 test)
+gpu            =   2.26 sec*proc (5 tests)
+scheduler      =   0.95 sec*proc (2 tests)
+transformer    =   0.41 sec*proc (1 test)
+
+Total Test time (real) =   2.27 sec
+Internal ctest changing into directory: /content/miniLLMI/build-stage12-t4
+Test project /content/miniLLMI/build-stage12-t4
+    Start  8: transformer_ops
+1/3 Test  #8: transformer_ops ..................   Passed    0.01 sec
+    Start  9: attention_graph
+2/3 Test  #9: attention_graph ..................   Passed    0.01 sec
+    Start 38: cuda_transformer_ops
+3/3 Test #38: cuda_transformer_ops .............   Passed    0.43 sec
+
+100% tests passed, 0 tests failed out of 3
+
+Label Time Summary:
+cpu            =   0.01 sec*proc (2 tests)
+gpu            =   0.43 sec*proc (1 test)
+transformer    =   0.44 sec*proc (3 tests)
+
+Total Test time (real) =   0.45 sec
