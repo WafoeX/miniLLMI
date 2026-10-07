@@ -31,7 +31,7 @@ void malformed_reader_tests() {
 }
 bool is_numeric(OpCode code) {
     return code == OpCode::ADD || code == OpCode::MUL || code == OpCode::MATMUL || code == OpCode::COPY || code == OpCode::MATERIALIZE ||
-           code == OpCode::RMSNORM || code == OpCode::SWIGLU;
+           code == OpCode::RMSNORM || code == OpCode::SOFTMAX || code == OpCode::SWIGLU;
 }
 void compare(const fixtures::Case& fixture, const Tensor& actual) {
     require(actual.is_contiguous() && fixture.expected.is_contiguous(), "fixture comparison requires declared contiguous output");

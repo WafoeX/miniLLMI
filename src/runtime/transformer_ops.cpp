@@ -1,5 +1,6 @@
 #include "transformer_ops.hpp"
 
+#include <algorithm>
 #include <cmath>
 #include <limits>
 
@@ -44,6 +45,54 @@ Status rmsnorm(const TensorInputs& inputs, Tensor& output, const NormAttrs& attr
     return Status::success();
 }
 
+Status softmax(const TensorInputs& inputs, Tensor& output, const SoftmaxAttrs& attrs) {
+    const auto queries = as_size(inputs[0].get().shape()[0]);
+    const auto keys = as_size(inputs[0].get().shape()[1]);
+    const auto* scores = inputs[0].get().data<float>();
+    // Validate only unmasked entries before writing any row. A masked score is
+    // semantically ignored, including a NaN/Inf payload in its storage slot.
+    for (std::size_t query = 0; query < queries; ++query) {
+        const auto absolute_query = attrs.query_position + static_cast<std::int64_t>(query);
+        for (std::size_t key = 0; key < keys; ++key) {
+            const auto visible = !attrs.causal || attrs.key_position + static_cast<std::int64_t>(key) <= absolute_query;
+            if (visible && !std::isfinite(scores[query * keys + key]))
+                return nonfinite("SOFTMAX unmasked score contains NaN/Inf");
+        }
+    }
+
+    auto* result = output.data<float>();
+    for (std::size_t query = 0; query < queries; ++query) {
+        const auto absolute_query = attrs.query_position + static_cast<std::int64_t>(query);
+        bool any_visible = false;
+        float maximum = -std::numeric_limits<float>::infinity();
+        for (std::size_t key = 0; key < keys; ++key) {
+            if (attrs.causal && attrs.key_position + static_cast<std::int64_t>(key) > absolute_query) continue;
+            any_visible = true;
+            maximum = std::max(maximum, scores[query * keys + key]);
+        }
+        if (!any_visible) {
+            for (std::size_t key = 0; key < keys; ++key) result[query * keys + key] = 0;
+            continue;
+        }
+        double sum = 0;
+        for (std::size_t key = 0; key < keys; ++key) {
+            if (attrs.causal && attrs.key_position + static_cast<std::int64_t>(key) > absolute_query) continue;
+            sum += std::exp(static_cast<double>(scores[query * keys + key] - maximum));
+        }
+        if (!std::isfinite(sum) || sum <= 0) return nonfinite("SOFTMAX normalization is nonfinite");
+        for (std::size_t key = 0; key < keys; ++key) {
+            if (attrs.causal && attrs.key_position + static_cast<std::int64_t>(key) > absolute_query) {
+                result[query * keys + key] = 0;
+                continue;
+            }
+            const auto value = static_cast<float>(std::exp(static_cast<double>(scores[query * keys + key] - maximum)) / sum);
+            if (!std::isfinite(value)) return nonfinite("SOFTMAX result is nonfinite");
+            result[query * keys + key] = value;
+        }
+    }
+    return Status::success();
+}
+
 Status swiglu(const TensorInputs& inputs, Tensor& output) {
     const auto finite_gate = finite_fp32(inputs[0], "SWIGLU gate contains NaN/Inf");
     if (!finite_gate.ok()) return finite_gate;
@@ -70,6 +119,8 @@ Status execute_transformer_cpu(const OpDesc& descriptor, const TensorInputs& inp
         switch (descriptor.code()) {
         case OpCode::RMSNORM:
             return rmsnorm(inputs, output, std::get<NormAttrs>(descriptor.attrs()));
+        case OpCode::SOFTMAX:
+            return softmax(inputs, output, std::get<SoftmaxAttrs>(descriptor.attrs()));
         case OpCode::SWIGLU:
             return swiglu(inputs, output);
         default:

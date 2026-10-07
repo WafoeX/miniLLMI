@@ -26,14 +26,14 @@ void compare(const fixtures::Case& fixture, const Tensor& actual) {
     }
 }
 
-bool c1(OpCode code) {
-    return code == OpCode::RMSNORM || code == OpCode::SWIGLU;
+bool implemented(OpCode code) {
+    return code == OpCode::RMSNORM || code == OpCode::SOFTMAX || code == OpCode::SWIGLU;
 }
 
 void fixture_conformance(const std::vector<fixtures::Case>& cases) {
     std::size_t covered = 0;
     for (const auto& fixture : cases) {
-        if (!c1(fixture.descriptor.code())) continue;
+        if (!implemented(fixture.descriptor.code())) continue;
         TensorInputs inputs;
         for (const auto& input : fixture.inputs) inputs.emplace_back(input);
         for (const auto mode : {CpuMatmul::ReferenceFP64, CpuMatmul::ScalarFP32V0}) {
@@ -50,7 +50,23 @@ void fixture_conformance(const std::vector<fixtures::Case>& cases) {
         }
         ++covered;
     }
-    require(covered == 2, "C1 fixtures cover RMSNorm and SwiGLU");
+    require(covered == 5, "C1-C2 fixtures cover RMSNorm, SwiGLU, and all Softmax mask cases");
+}
+
+void softmax_mask_and_errors() {
+    auto scores = Tensor::allocate_cpu({1, 2});
+    auto output = Tensor::allocate_cpu({1, 2});
+    scores.data<float>()[0] = 0;
+    scores.data<float>()[1] = std::numeric_limits<float>::quiet_NaN();
+    const auto masked = OpDesc(OpCode::SOFTMAX, {0}, {1}, SoftmaxAttrs{true, 0, 0, 1088});
+    require(CpuBackend().execute(masked, {scores}, output).ok(), "masked nonfinite score is ignored");
+    require(output.data<float>()[0] == 1 && output.data<float>()[1] == 0, "causal mask output is exact");
+    scores.data<float>()[0] = std::numeric_limits<float>::quiet_NaN();
+    scores.data<float>()[1] = 0;
+    output.data<float>()[0] = output.data<float>()[1] = 46;
+    const auto status = CpuBackend().execute(masked, {scores}, output);
+    require(status.code == StatusCode::NonFinite, "unmasked nonfinite score is rejected");
+    require(output.data<float>()[0] == 46 && output.data<float>()[1] == 46, "SOFTMAX preflight leaves output unchanged");
 }
 
 void errors_are_prewrite() {
@@ -87,9 +103,10 @@ int main(int argc, char** argv) {
         std::ifstream stream(argv[1]);
         if (!stream) throw std::runtime_error("fixture file could not be opened");
         fixture_conformance(fixtures::load(stream));
+        softmax_mask_and_errors();
         errors_are_prewrite();
         require(testing::cpu_allocation_counts().live == 0, "transformer C1 test leaked backing storage");
-        std::cout << "Transformer C1 RMSNorm/SwiGLU: PASS fixture/reference/prewrite/no-allocation\n";
+        std::cout << "Transformer C1-C2 RMSNorm/SwiGLU/Softmax: PASS fixture/masks/prewrite/no-allocation\n";
         return 0;
     } catch (const std::exception& error) {
         std::cerr << "test_transformer_ops: " << error.what() << '\n';

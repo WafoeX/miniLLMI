@@ -11,7 +11,7 @@ void require(bool value, const char* message) { if (!value) throw std::runtime_e
 void unsupported(const Status& status, OpCode code) {
     require(status.code == StatusCode::Unsupported && status.message == std::string(op_name(code)) + " CPU primitive is not implemented", "unimplemented primitive must return exact Unsupported diagnostic");
 }
-bool c1(OpCode code) { return code == OpCode::RMSNORM || code == OpCode::SWIGLU; }
+bool implemented(OpCode code) { return code == OpCode::RMSNORM || code == OpCode::SOFTMAX || code == OpCode::SWIGLU; }
 } // namespace
 int main(int argc, char** argv) {
     try {
@@ -26,10 +26,10 @@ int main(int argc, char** argv) {
                 TensorInputs inputs; for (const auto& tensor : fixture.inputs) inputs.emplace_back(tensor);
                 auto out = Tensor::allocate_cpu(fixture.expected.shape(), fixture.expected.dtype());
                 for (std::size_t i = 0; i < out.numel(); ++i) out.data<float>()[i] = 99;
-                if (c1(code)) {
-                    require(backend.capability(code, Device{}, out.dtype()).ok(), "C1 primitive capability");
-                    require(backend.prepare(fixture.descriptor, inputs, out).ok(), "C1 primitive prepare");
-                    require(backend.execute(fixture.descriptor, inputs, out).ok(), "C1 primitive execute");
+                if (implemented(code)) {
+                    require(backend.capability(code, Device{}, out.dtype()).ok(), "implemented primitive capability");
+                    require(backend.prepare(fixture.descriptor, inputs, out).ok(), "implemented primitive prepare");
+                    require(backend.execute(fixture.descriptor, inputs, out).ok(), "implemented primitive execute");
                 } else {
                     unsupported(backend.capability(code, Device{}, out.dtype()), code);
                     unsupported(backend.prepare(fixture.descriptor, inputs, out).status, code);
@@ -41,7 +41,7 @@ int main(int argc, char** argv) {
             Graph graph; auto x = Tensor::allocate_cpu({1, 2}); x.data<float>()[0] = 1; x.data<float>()[1] = 2;
             graph.add_input(0, "x", x); graph.add_tensor(1, {1, 2}); graph.add_tensor(2, {1, 2});
             graph.add_node(0, OpDesc(OpCode::ADD, {0, 0}, {1}));
-            graph.add_node(1, OpDesc(OpCode::SOFTMAX, {1}, {2}, SoftmaxAttrs{}));
+            graph.add_node(1, OpDesc(OpCode::ROPE, {1}, {2}, RopeAttrs{}));
             graph.add_output("probabilities", 2); require(graph.freeze().ok(), "reserved primitive graph remains inferable");
             PlannedAllocationProvider plan(graph);
             for (AllocationProvider* provider : {static_cast<AllocationProvider*>(nullptr), static_cast<AllocationProvider*>(&plan)}) {
@@ -50,7 +50,7 @@ int main(int argc, char** argv) {
             }
         }
         require(covered.size() == 6, "all six S2 transformer descriptors covered");
-        std::cout << "CPU transformer capability transition: PASS C1 enabled, C2-C4 still Unsupported\n";
+        std::cout << "CPU transformer capability transition: PASS C1-C2 enabled, C3-C4 still Unsupported\n";
         return 0;
     } catch (const std::exception& e) { std::cerr << "test_cpu_transformer_contract: " << e.what() << '\n'; return 1; }
 }
