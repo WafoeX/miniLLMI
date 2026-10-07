@@ -141,5 +141,40 @@ No C4 GPU latency numbers have been captured locally. Server evidence remains
 required, with no speedup gate. C3 grouping remains skipped; default dynamic CPU,
 FP64 CPU math and CUDA v0 selection are unchanged. See [Colab handoff](stage11_colab.md).
 
+## C4 clean local verification (not GPU acceptance)
+
+- Tested code: `1a331e694bbed7398c11f521c88b9102a1d340e7`, clean before/after;
+  digest `67b6a59b874be57d6d1d06d7f0c3427f51ac664a5a5b2cc09d435e1e4aba5aaa`.
+- Separate results commit: `472ec1b`.
+- [Fresh CPU-only capture](../results/scheduler/stage11-c2/20261007T092335811153Z-73363/manifest.json):
+  Release/Debug/ASan+UBSan each **35/35 CTests** pass, nine commands exit 0,
+  **9/9 hashes** verified, no compiler warnings/errors. This reuses the C2
+  CPU-capture tool/family; it is not new C2 GPU or C4 latency evidence.
+  macOS 26.7 / arm64 / AppleClang 21; ASan `detect_leaks=0`, no LSan claim.
+- [Additional host checks](../results/scheduler/stage11-c4-host-checks/20261007T092335811153Z-73363/manifest.json):
+  fresh CPU Release `BUILD_TESTING=OFF` build, untimed self-test, clean/non-test
+  probe, actual CPU timing refusal (expected exit 1, no output directory), and
+  both CUDA-interface C++ host syntax checks with `-Werror`; **10/10 hashes**
+  verified. No nvcc, CUDA SDK, GPU link or GPU execution is certified locally.
+- C4 tooling contains **11 CPU-only protocol tests** with temporary synthetic
+  timing fixtures, including frozen controls, malformed/missing/duplicate rows,
+  full independent oracle, actual trace/lifetime accounting, wrong GPU/test/CPU
+  probes, source changes including finalization, hash coverage, no overwrite,
+  both CTest summary formats, and failed-capture retention. The production C++
+  input hash independently agrees with Python (`4bc396fd55be2a5c`). Its oracle
+  and trace checks also agree with the existing C2 T4 64-square captures;
+  **those historical snapshots are not substituted for C4 timing**.
+- Active changed-path C++/Python/Markdown checks return no findings. CMake LSP
+  was unavailable; native fresh configure/build/test validates that path instead.
+- [Preserved C4 dirty-development mock failure](../results/scheduler/stage11-development-failures/20261007-c4-local/README.md)
+  remains stored with its provenance limitation; it is not acceptance evidence.
+  Verification worktree `/Users/wafoe/projects/me/CXXEg-stage11-c4-verify` retains
+  the builds. Original untracked `AGENTS.md` remains untouched.
+
+Construction/rewrite/preparation costs are excluded from the C4 timer, so its
+ratios cannot claim to accelerate graph construction. Only steady execution
+of equivalent already-prepared graphs is compared. Stage 11 completion remains
+blocked on C4's fresh T4 capture and review.
+
 Contracts and limits: [scheduler](scheduler.md), [task book](tasks/stage-11-scheduler.md),
 [roadmap](roadmap.md). Stage 0 v0 and frozen CPU baseline source were not edited.
