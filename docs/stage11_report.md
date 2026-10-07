@@ -73,6 +73,15 @@ host C++ syntax and CPU regressions can run. Graph failures now log the exact
 case, mode, status and failed node. Three GCC indentation warnings in snapshot
 serialization are also fixed. Original failed artifacts are not edited.
 
+Hotfix source `bdf0fb60eb5fa5192f45ccedd458acea2894c4df` was retested in a
+fresh clean worktree: Release/Debug/ASan+UBSan each 33/33 pass, nine commands
+exit 0, source before/after identical and clean. Evidence:
+[`20261007T081343953783Z-61306`](../results/scheduler/stage11-c2/20261007T081343953783Z-61306/manifest.json),
+source digest `10109728170d2e744ed8a8c2a3d119a9d2d014467c81da5f02b0f6e6efe533bc`,
+9/9 retained hashes verified, separate results commit `39743c0`. Both GPU test
+host C++ syntax checks also pass without warnings. These are CPU-only checks;
+the newly added CUDA regression cases have not yet run on T4.
+
 The patched CUDA target cannot be checked by the local Mac CUDA-mode checker:
 there is no CUDA SDK/libdevice, and local CMake has `ENABLE_CUDA=OFF`. These
 explicitly handled toolchain/target-scope diagnostics are not a claim of clean
