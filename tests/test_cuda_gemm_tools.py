@@ -8,6 +8,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 TOOLS = ROOT / "tools"
+RUNNER = TOOLS / "run_cuda_gemm_stage9.py"
 _spec = importlib.util.spec_from_file_location("analyze_cuda_gemm", TOOLS / "analyze_cuda_gemm.py")
 if _spec is None or _spec.loader is None:
     raise RuntimeError("cannot load Stage 9 analyzer")
@@ -39,6 +40,14 @@ class CudaGemmToolTests(unittest.TestCase):
                 analyzer.number(value)
         with self.assertRaises(ValueError):
             analyzer.integer("01")
+
+    def test_runner_uses_a_fresh_full_fp64_reference_cache_for_paired_repeats(self):
+        source = RUNNER.read_text(encoding="utf-8")
+        self.assertIn('reference_cache = output / "reference-cache"', source)
+        self.assertIn('"cpu_reference": "single-thread-fp64-ijk"', source)
+        self.assertIn('"reference_cache": "fresh-per-run; reused only across paired repetitions"', source)
+        self.assertIn('"--reference-cache-dir", reference_cache', source)
+        self.assertIn('if len(cache_files) != len(SIZES):', source)
 
 
 if __name__ == "__main__":

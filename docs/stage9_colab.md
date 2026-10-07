@@ -43,7 +43,7 @@ git log -1 --oneline
 
 ## 3. Run the complete acceptance runner
 
-The script makes its own fresh Release CUDA build for SM75, runs GPU CTest (including V1 boundary/offset/guard/dispatch checks), captures three alternating paired v0/V1/cuBLAS repetitions, and writes raw samples plus a verified derived summary.
+The script makes its own fresh Release CUDA build for SM75, runs GPU CTest (including V1 boundary/offset/guard/dispatch checks), captures three alternating paired v0/V1/cuBLAS repetitions, and writes raw samples plus a verified derived summary. On the recorded two-worker T4/Colab host, it computes each mandatory full single-thread FP64 reference once in that fresh run directory and reuses it only across the later paired repetitions; every kernel/repetition still performs initial and final full-output validation.
 
 ```bash
 %%bash
@@ -71,7 +71,7 @@ Accept S9-C1/C2 only if all are true:
 
 1. `manifest.json` has `"status": "passed"`, unchanged `source`/`source_after`, and a real T4 identity;
 2. fresh Release CUDA build and all GPU CTests pass;
-3. every V0/V1/cuBLAS initial/final full-output check passes for each mandatory size;
+3. every V0/V1/cuBLAS initial/final full-output check passes for each mandatory size, and `manifest.json` records exactly four `reference-cache/*.f32` full-oracle files;
 4. `analysis.json` has `candidate_wins_every_run: true` and `gate_passed: true` (median paired geometric-mean V0/V1 speedup ≥1.05×);
 5. all raw data, failures if any, logs, CSVs and hashes are preserved.
 

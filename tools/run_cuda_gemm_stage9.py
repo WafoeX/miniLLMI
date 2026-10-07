@@ -29,6 +29,7 @@ def main():
     output = root / "results/gemm/stage9" / run_id
     output.mkdir(parents=True, exist_ok=False)
     build = root / "build-cuda-stage9" / run_id
+    reference_cache = output / "reference-cache"
     manifest = {
         "schema_version": 1,
         "scope": "Stage 9 T4 paired v0/v1 tiled/cuBLAS correctness and performance; no Nsight claim",
@@ -36,7 +37,9 @@ def main():
         "host": platform.node(), "platform": platform.platform(), "machine": platform.machine(),
         "configuration": {"sizes": SIZES, "warmup": 10, "iterations": 50, "seed": 42,
                           "atol": .001, "rtol": .001, "orders": ORDERS,
-                          "candidate": "sgemm_v1_tiled", "baseline": "sgemm_v0_naive"},
+                          "candidate": "sgemm_v1_tiled", "baseline": "sgemm_v0_naive",
+                          "cpu_reference": "single-thread-fp64-ijk",
+                          "reference_cache": "fresh-per-run; reused only across paired repetitions"},
         "commands": [], "measurements": [], "status": "running",
     }
 
@@ -77,7 +80,12 @@ def main():
             run(f"benchmark-{repeat}", [binary, "--experiment", "stage9", "--kernel", "all", "--order", order,
                                           "--sizes", ",".join(map(str, SIZES)), "--warmup", "10", "--iterations", "50",
                                           "--seed", "42", "--atol", "0.001", "--rtol", "0.001", "--run-id", benchmark_id,
-                                          "--raw-dir", raw, "--csv", csv])
+                                          "--raw-dir", raw, "--csv", csv, "--reference-cache-dir", reference_cache])
+        cache_files = sorted(path.relative_to(output).as_posix() for path in reference_cache.glob("*.f32"))
+        if len(cache_files) != len(SIZES):
+            raise RuntimeError("Stage 9 CPU reference cache coverage mismatch")
+        manifest["reference_cache"] = {"path": str(reference_cache.relative_to(output)), "files": cache_files}
+        save()
         run("nvidia-smi-after", ["nvidia-smi", "--query-gpu=name,uuid,compute_cap", "--format=csv,noheader"])
         manifest["source_after"] = inspect(root)
         if manifest["source_after"] != source:
