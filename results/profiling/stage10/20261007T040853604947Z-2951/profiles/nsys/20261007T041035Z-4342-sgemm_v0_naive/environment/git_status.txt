@@ -1,0 +1,15 @@
+COMMAND: git status --porcelain=v1 --untracked-files=all
+?? results/profiling/stage10/20261007T040853604947Z-2951/build.log
+?? results/profiling/stage10/20261007T040853604947Z-2951/configure.log
+?? results/profiling/stage10/20261007T040853604947Z-2951/gpu-tests.log
+?? results/profiling/stage10/20261007T040853604947Z-2951/manifest.json
+?? results/profiling/stage10/20261007T040853604947Z-2951/ncu-version.log
+?? results/profiling/stage10/20261007T040853604947Z-2951/nsys-version.log
+?? results/profiling/stage10/20261007T040853604947Z-2951/nvcc-version.log
+?? results/profiling/stage10/20261007T040853604947Z-2951/nvidia-smi-before.log
+?? results/profiling/stage10/20261007T040853604947Z-2951/profile-nsys-v0.log
+?? results/profiling/stage10/20261007T040853604947Z-2951/profiles/nsys/20261007T041035Z-4342-sgemm_v0_naive/binary.json
+?? results/profiling/stage10/20261007T040853604947Z-2951/profiles/nsys/20261007T041035Z-4342-sgemm_v0_naive/environment/git_commit.txt
+?? results/profiling/stage10/20261007T040853604947Z-2951/profiles/nsys/20261007T041035Z-4342-sgemm_v0_naive/environment/git_status.txt
+?? results/profiling/stage10/20261007T040853604947Z-2951/profiles/nsys/20261007T041035Z-4342-sgemm_v0_naive/environment/system_info.txt
+?? results/profiling/stage10/20261007T040853604947Z-2951/profiles/nsys/20261007T041035Z-4342-sgemm_v0_naive/source.json

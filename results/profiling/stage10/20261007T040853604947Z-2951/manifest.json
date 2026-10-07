@@ -1,0 +1,339 @@
+{
+  "schema_version": 1,
+  "scope": "Stage 10 T4 Nsight v0/selected V1 comparison; profiler timing is not benchmark evidence",
+  "run_id": "20261007T040853604947Z-2951",
+  "timestamp": "2026-10-07T04:08:53.604947+00:00",
+  "source": {
+    "commit": "785ab17af06fc0676dbb8a25c6a6d3e8983930aa",
+    "source_digest": "c33b9ecbed732361ab021328b12470e8c6c5b0dc16edef76fbe74faf0cb549f7",
+    "source_dirty": false
+  },
+  "host": "dd3a06c5388b",
+  "platform": "Linux-6.6.122+-x86_64-with-glibc2.39",
+  "machine": "x86_64",
+  "configuration": {
+    "shape": [
+      4096,
+      4096,
+      4096
+    ],
+    "warmup": 10,
+    "iterations": 50,
+    "kernels": [
+      "sgemm_v0_naive",
+      "sgemm_v1_tiled"
+    ],
+    "tools": [
+      "nsys",
+      "ncu"
+    ],
+    "reference_cache": "fresh-per-run; full FP64 oracle reused only between profile captures"
+  },
+  "artifact_location": "Google Drive: /content/drive/MyDrive/miniLLMI-stage10/",
+  "commands": [
+    {
+      "label": "nvidia-smi-before",
+      "argv": [
+        "nvidia-smi",
+        "--query-gpu=name,uuid,compute_cap",
+        "--format=csv,noheader"
+      ],
+      "log": "nvidia-smi-before.log",
+      "exit_code": 0
+    },
+    {
+      "label": "nvcc-version",
+      "argv": [
+        "nvcc",
+        "--version"
+      ],
+      "log": "nvcc-version.log",
+      "exit_code": 0
+    },
+    {
+      "label": "nsys-version",
+      "argv": [
+        "nsys",
+        "--version"
+      ],
+      "log": "nsys-version.log",
+      "exit_code": 0
+    },
+    {
+      "label": "ncu-version",
+      "argv": [
+        "ncu",
+        "--version"
+      ],
+      "log": "ncu-version.log",
+      "exit_code": 0
+    },
+    {
+      "label": "configure",
+      "argv": [
+        "cmake",
+        "-S",
+        "/content/miniLLMI",
+        "-B",
+        "/content/miniLLMI/build-cuda-stage10/20261007T040853604947Z-2951",
+        "-DCMAKE_BUILD_TYPE=Release",
+        "-DENABLE_CUDA=ON",
+        "-DCMAKE_CUDA_ARCHITECTURES=75",
+        "-DBUILD_TESTING=ON"
+      ],
+      "log": "configure.log",
+      "exit_code": 0
+    },
+    {
+      "label": "build",
+      "argv": [
+        "cmake",
+        "--build",
+        "/content/miniLLMI/build-cuda-stage10/20261007T040853604947Z-2951",
+        "--parallel",
+        "2"
+      ],
+      "log": "build.log",
+      "exit_code": 0
+    },
+    {
+      "label": "gpu-tests",
+      "argv": [
+        "ctest",
+        "--test-dir",
+        "/content/miniLLMI/build-cuda-stage10/20261007T040853604947Z-2951",
+        "--output-on-failure",
+        "-L",
+        "gpu"
+      ],
+      "log": "gpu-tests.log",
+      "exit_code": 0
+    },
+    {
+      "label": "profile-nsys-v0",
+      "argv": [
+        "/content/miniLLMI/scripts/profile_gemm.sh",
+        "nsys",
+        "v0",
+        "--artifact-location",
+        "Google Drive: /content/drive/MyDrive/miniLLMI-stage10/nsys/v0"
+      ],
+      "log": "profile-nsys-v0.log",
+      "exit_code": 0
+    },
+    {
+      "label": "profile-nsys-v1",
+      "argv": [
+        "/content/miniLLMI/scripts/profile_gemm.sh",
+        "nsys",
+        "v1",
+        "--artifact-location",
+        "Google Drive: /content/drive/MyDrive/miniLLMI-stage10/nsys/v1"
+      ],
+      "log": "profile-nsys-v1.log",
+      "exit_code": 0
+    },
+    {
+      "label": "profile-ncu-v0",
+      "argv": [
+        "/content/miniLLMI/scripts/profile_gemm.sh",
+        "ncu",
+        "v0",
+        "--artifact-location",
+        "Google Drive: /content/drive/MyDrive/miniLLMI-stage10/ncu/v0"
+      ],
+      "log": "profile-ncu-v0.log",
+      "exit_code": 0
+    },
+    {
+      "label": "profile-ncu-v1",
+      "argv": [
+        "/content/miniLLMI/scripts/profile_gemm.sh",
+        "ncu",
+        "v1",
+        "--artifact-location",
+        "Google Drive: /content/drive/MyDrive/miniLLMI-stage10/ncu/v1"
+      ],
+      "log": "profile-ncu-v1.log",
+      "exit_code": 0
+    },
+    {
+      "label": "nvidia-smi-after",
+      "argv": [
+        "nvidia-smi",
+        "--query-gpu=name,uuid,compute_cap",
+        "--format=csv,noheader"
+      ],
+      "log": "nvidia-smi-after.log",
+      "exit_code": 0
+    }
+  ],
+  "profiles": [
+    {
+      "tool": "nsys",
+      "kernel": "sgemm_v0_naive",
+      "directory": "profiles/nsys/20261007T041035Z-4342-sgemm_v0_naive",
+      "report": "trace.nsys-rep",
+      "report_sha256": "51afa2d5487f3bfbffeb849595561236ad1b2716c3e7ba128cebecef02fd8511",
+      "artifact_location": "Google Drive: /content/drive/MyDrive/miniLLMI-stage10/nsys/v0"
+    },
+    {
+      "tool": "nsys",
+      "kernel": "sgemm_v1_tiled",
+      "directory": "profiles/nsys/20261007T042347Z-7983-sgemm_v1_tiled",
+      "report": "trace.nsys-rep",
+      "report_sha256": "53a60bc7b1a04811d5db95d98e7abe7ad440e278cb22c0ef2dedfc2f00691450",
+      "artifact_location": "Google Drive: /content/drive/MyDrive/miniLLMI-stage10/nsys/v1"
+    },
+    {
+      "tool": "ncu",
+      "kernel": "sgemm_v0_naive",
+      "directory": "profiles/ncu/20261007T042409Z-8257-sgemm_v0_naive",
+      "report": "metrics.ncu-rep",
+      "report_sha256": "81d117363bb9c53ccd88e3961308823c5b12a33931757040081cfb4888b82277",
+      "artifact_location": "Google Drive: /content/drive/MyDrive/miniLLMI-stage10/ncu/v0"
+    },
+    {
+      "tool": "ncu",
+      "kernel": "sgemm_v1_tiled",
+      "directory": "profiles/ncu/20261007T042613Z-9003-sgemm_v1_tiled",
+      "report": "metrics.ncu-rep",
+      "report_sha256": "162eb8f3630625118b493462971d3abbf7c2bf767cf220bd31a6d814745b84f3",
+      "artifact_location": "Google Drive: /content/drive/MyDrive/miniLLMI-stage10/ncu/v1"
+    }
+  ],
+  "status": "passed",
+  "gpu_name": "Tesla T4",
+  "source_after": {
+    "commit": "785ab17af06fc0676dbb8a25c6a6d3e8983930aa",
+    "source_digest": "c33b9ecbed732361ab021328b12470e8c6c5b0dc16edef76fbe74faf0cb549f7",
+    "source_dirty": false
+  },
+  "artifact_sha256": {
+    "build.log": "2ef22d348062da53ff0cc7bc3f0d19f7dd2a5d22d5147458cbf8cdd83fb43cc5",
+    "nvidia-smi-before.log": "21834c0256e7b8f0885fba6e24f44a9911740310f463128bf9c853201c4e1fc6",
+    "gpu-tests.log": "b007308c985151c64f97edb3e2b43e0f21b07f00f6b3a56c57d99f589f9115ec",
+    "nvidia-smi-after.log": "21834c0256e7b8f0885fba6e24f44a9911740310f463128bf9c853201c4e1fc6",
+    "profile-nsys-v1.log": "a9424854df5ec3114ab45415c9b532c5e4f6d6269f2b2ad2840ebfaf80bf1723",
+    "profile-ncu-v0.log": "56e029117fa4190de658995847f9fad328e689e9b4e06fba7c5a4c48a395d986",
+    "nvcc-version.log": "fc7ce0c80d28ed925fd490dc4e3915ce620fcf115f965189688c6f049243aad5",
+    "ncu-version.log": "2d9d5b790a56200c6f276274de256d1ef993da377405dd41fba702d892ba88f0",
+    "configure.log": "6f6d69f5f3fbb967d87af6f77a2ded59d68852f4cc49995026de68962dd9604d",
+    "profile-nsys-v0.log": "83ff2667127048e151ff7bf2d3f1eca71619860a2ad3197d93022960eda45ccd",
+    "profile-ncu-v1.log": "e7b6c3ed370f9af76533e026fc78a56f7706c2736ec20ebe080b92899e99ee8c",
+    "nsys-version.log": "8680a848fca3c0c89545e784a27ef2afe9d9a2cb92f7a5df248cc85336100f21",
+    "reference-cache/4096x4096x4096-seed42-a92f5e0931254f02.f32": "cf2bfa2887b18f59ab2d964c8fe8a8db86cf4f70531c5ee9360a9d65bbf31f76",
+    "profiles/nsys/20261007T041035Z-4342-sgemm_v0_naive/profile.log": "4e2d68f0c1afeb3671eaf405b23bc68ff32d04095433180c3bd7e9bed9a14f01",
+    "profiles/nsys/20261007T041035Z-4342-sgemm_v0_naive/binary.json": "17bf50a524a29ca602d4a2a4e45e5169518223609ee97cbf9e718677d2daface",
+    "profiles/nsys/20261007T041035Z-4342-sgemm_v0_naive/stats.txt": "f71e96fb0072eaac330b1d9590eb5d92375ea6781d5da2e59a514ab02475e510",
+    "profiles/nsys/20261007T041035Z-4342-sgemm_v0_naive/profile_manifest.json": "c259df5d7b24885cf74229c474954205601862e387a0bafec06d07dbda75a457",
+    "profiles/nsys/20261007T041035Z-4342-sgemm_v0_naive/artifact_location.txt": "e8e2fee940b898b6b602e9a3a769b4cdcb744a69cd521b59fb26be576d8cc01e",
+    "profiles/nsys/20261007T041035Z-4342-sgemm_v0_naive/command.txt": "d4d66fe78752113b736707c3d97e14cccc09a2dbafdcba8e2464e001c538c172",
+    "profiles/nsys/20261007T041035Z-4342-sgemm_v0_naive/source.json": "a798926dd5facc0d4c28a8438bed3aa1ef019180013b3fe108e04a5a800ecdeb",
+    "profiles/nsys/20261007T041035Z-4342-sgemm_v0_naive/status.txt": "c550f641b70ad965f13f2b2eaf0b9e0654f19ded07074dde98576987382f61b8",
+    "profiles/nsys/20261007T041035Z-4342-sgemm_v0_naive/trace.sqlite": "8c38805747b45017517df060e075599fda5a28314a9b10d37f32bab8f5d18270",
+    "profiles/nsys/20261007T041035Z-4342-sgemm_v0_naive/trace.nsys-rep": "51afa2d5487f3bfbffeb849595561236ad1b2716c3e7ba128cebecef02fd8511",
+    "profiles/nsys/20261007T041035Z-4342-sgemm_v0_naive/profile_timing.csv": "ee14b4d966187d9e95b0f5813c2f5fd5b95789f2a8f4686ea764f51bfe82ac19",
+    "profiles/nsys/20261007T042347Z-7983-sgemm_v1_tiled/profile.log": "35a204e275fd851a9a83370b128d1a36d6379a881f5f3d4bbf49a672b501860d",
+    "profiles/nsys/20261007T042347Z-7983-sgemm_v1_tiled/binary.json": "17bf50a524a29ca602d4a2a4e45e5169518223609ee97cbf9e718677d2daface",
+    "profiles/nsys/20261007T042347Z-7983-sgemm_v1_tiled/stats.txt": "02b66661eed24f225ff00b7b7fc8c49038a91d1c154334ee90ce98c06448475e",
+    "profiles/nsys/20261007T042347Z-7983-sgemm_v1_tiled/profile_manifest.json": "7e42a7641866963a90c6f3df3285670a80a9bd154de1ebd59d1362a27093c223",
+    "profiles/nsys/20261007T042347Z-7983-sgemm_v1_tiled/artifact_location.txt": "49ce6a9b2e7b2b4da427be35de2b8f46f141b757a8e846f76af73a68592a1ac5",
+    "profiles/nsys/20261007T042347Z-7983-sgemm_v1_tiled/command.txt": "8b60addb3bd69a13060a8c81e36201373064319b4a97921be85aa6192ead5cd5",
+    "profiles/nsys/20261007T042347Z-7983-sgemm_v1_tiled/source.json": "a798926dd5facc0d4c28a8438bed3aa1ef019180013b3fe108e04a5a800ecdeb",
+    "profiles/nsys/20261007T042347Z-7983-sgemm_v1_tiled/status.txt": "c550f641b70ad965f13f2b2eaf0b9e0654f19ded07074dde98576987382f61b8",
+    "profiles/nsys/20261007T042347Z-7983-sgemm_v1_tiled/trace.sqlite": "9537bb682ce0237cc77572df768f97c34898c3d8572287c5042022f8ae3d0c38",
+    "profiles/nsys/20261007T042347Z-7983-sgemm_v1_tiled/trace.nsys-rep": "53a60bc7b1a04811d5db95d98e7abe7ad440e278cb22c0ef2dedfc2f00691450",
+    "profiles/nsys/20261007T042347Z-7983-sgemm_v1_tiled/profile_timing.csv": "d3aff3acb3ed3f26abdd05f2730b2f44dd2d3a349c08eb72239eef755723f99a",
+    "profiles/nsys/20261007T042347Z-7983-sgemm_v1_tiled/environment/gcc_version.txt": "402fe2635c83ab883920194a5a9b8738dc4f78f5f3b112c5a7f0e6fb2e7bfa17",
+    "profiles/nsys/20261007T042347Z-7983-sgemm_v1_tiled/environment/nvcc_version.txt": "adf0ef85dcf190590d4b1e4ccb253602ece66e7d65ba2f1bd036976ed3cffa53",
+    "profiles/nsys/20261007T042347Z-7983-sgemm_v1_tiled/environment/git_status.txt": "64474e75c715ee24da65a65f80df49eb9b24860b88dd3ec5242faa867928761b",
+    "profiles/nsys/20261007T042347Z-7983-sgemm_v1_tiled/environment/system_info.txt": "14d9c784042d234214dee179f83b1ba6758ff9ecff2ef047aed67edf4327d5d9",
+    "profiles/nsys/20261007T042347Z-7983-sgemm_v1_tiled/environment/capture_status.txt": "553e30a4329da2679e854e8ecd40dc093a3e67e82e42b42d32f07ef28fc5668f",
+    "profiles/nsys/20261007T042347Z-7983-sgemm_v1_tiled/environment/source.json": "a798926dd5facc0d4c28a8438bed3aa1ef019180013b3fe108e04a5a800ecdeb",
+    "profiles/nsys/20261007T042347Z-7983-sgemm_v1_tiled/environment/gpu_info.txt": "653ba890cd542d6c02cf93705c1094ab8e47c3b6f87a70fb6d376d5b3e25ed05",
+    "profiles/nsys/20261007T042347Z-7983-sgemm_v1_tiled/environment/git_commit.txt": "fd942001a08a24101c578132d4175663de412cc46a84aa00cc35a6e4d48c0ba7",
+    "profiles/nsys/20261007T042347Z-7983-sgemm_v1_tiled/environment/gpu_clocks.txt": "af21a604ad725fccdfa0d646a8daf68bfa8722578e237af33a07da277903ec41",
+    "profiles/nsys/20261007T042347Z-7983-sgemm_v1_tiled/environment/cmake_version.txt": "f643f36f874347f3f2790314aacae8e61cf58ccd5fee270b1ebf770c6c8136e4",
+    "profiles/nsys/20261007T042347Z-7983-sgemm_v1_tiled/environment/nvidia_smi.txt": "264598f1c594416a715ab3afdb227b0f08fbef97813e57adb9e8d8d5152709ea",
+    "profiles/nsys/20261007T042347Z-7983-sgemm_v1_tiled/raw/completed.txt": "1394286334639fac5ce7e8601a27a5f227072dd48a0e5813a78d38c8206d952d",
+    "profiles/nsys/20261007T042347Z-7983-sgemm_v1_tiled/raw/build_info.json": "17bf50a524a29ca602d4a2a4e45e5169518223609ee97cbf9e718677d2daface",
+    "profiles/nsys/20261007T042347Z-7983-sgemm_v1_tiled/raw/argv.txt": "39bb7d9ef039ee6710162a85e08e34431ca44444f08d29cf389333652cc1cd8c",
+    "profiles/nsys/20261007T042347Z-7983-sgemm_v1_tiled/raw/4096x4096x4096/summary.csv": "d3aff3acb3ed3f26abdd05f2730b2f44dd2d3a349c08eb72239eef755723f99a",
+    "profiles/nsys/20261007T042347Z-7983-sgemm_v1_tiled/raw/4096x4096x4096/correctness.csv": "b51fab514a1a7e8be752048b561b9ab9f79a970f8bd1e13681ab55fbbc089d36",
+    "profiles/nsys/20261007T042347Z-7983-sgemm_v1_tiled/raw/4096x4096x4096/sgemm_v1_tiled_samples.csv": "1dc3bc4d99ca4ffc115b0fafa1df83d40646d862078c69c5062add5c6e9b129f",
+    "profiles/nsys/20261007T041035Z-4342-sgemm_v0_naive/environment/gcc_version.txt": "402fe2635c83ab883920194a5a9b8738dc4f78f5f3b112c5a7f0e6fb2e7bfa17",
+    "profiles/nsys/20261007T041035Z-4342-sgemm_v0_naive/environment/nvcc_version.txt": "adf0ef85dcf190590d4b1e4ccb253602ece66e7d65ba2f1bd036976ed3cffa53",
+    "profiles/nsys/20261007T041035Z-4342-sgemm_v0_naive/environment/git_status.txt": "505cb786ad217711a3f445c36414204d3f93bc7f351557c026f2059c3a40510f",
+    "profiles/nsys/20261007T041035Z-4342-sgemm_v0_naive/environment/system_info.txt": "b9d51d8122cb4bedecab52597d378c78423b336393d69569178b6f1ae9915ad1",
+    "profiles/nsys/20261007T041035Z-4342-sgemm_v0_naive/environment/capture_status.txt": "553e30a4329da2679e854e8ecd40dc093a3e67e82e42b42d32f07ef28fc5668f",
+    "profiles/nsys/20261007T041035Z-4342-sgemm_v0_naive/environment/source.json": "a798926dd5facc0d4c28a8438bed3aa1ef019180013b3fe108e04a5a800ecdeb",
+    "profiles/nsys/20261007T041035Z-4342-sgemm_v0_naive/environment/gpu_info.txt": "50d329cd80df29bf230512cc18eb5868042d4fc29520fec947ca660511d9740a",
+    "profiles/nsys/20261007T041035Z-4342-sgemm_v0_naive/environment/git_commit.txt": "fd942001a08a24101c578132d4175663de412cc46a84aa00cc35a6e4d48c0ba7",
+    "profiles/nsys/20261007T041035Z-4342-sgemm_v0_naive/environment/gpu_clocks.txt": "fb375e43fbf6f927bead9a6f04ed089c098759005d787f382848f5c838dbe197",
+    "profiles/nsys/20261007T041035Z-4342-sgemm_v0_naive/environment/cmake_version.txt": "f643f36f874347f3f2790314aacae8e61cf58ccd5fee270b1ebf770c6c8136e4",
+    "profiles/nsys/20261007T041035Z-4342-sgemm_v0_naive/environment/nvidia_smi.txt": "5090ee233551667c1baab98c3252038a6626e51473b05509be01605fb3b2d083",
+    "profiles/nsys/20261007T041035Z-4342-sgemm_v0_naive/raw/completed.txt": "1394286334639fac5ce7e8601a27a5f227072dd48a0e5813a78d38c8206d952d",
+    "profiles/nsys/20261007T041035Z-4342-sgemm_v0_naive/raw/build_info.json": "17bf50a524a29ca602d4a2a4e45e5169518223609ee97cbf9e718677d2daface",
+    "profiles/nsys/20261007T041035Z-4342-sgemm_v0_naive/raw/argv.txt": "4cf24a78c46db69ebb100e2f4c6d00e5a72cae928ff0c2546abeafeedd9d7720",
+    "profiles/nsys/20261007T041035Z-4342-sgemm_v0_naive/raw/4096x4096x4096/sgemm_v0_naive_samples.csv": "05dc0dc974c864f8cc06f517a14f90cf721be493d3dcdb967e728997e9346aff",
+    "profiles/nsys/20261007T041035Z-4342-sgemm_v0_naive/raw/4096x4096x4096/summary.csv": "ee14b4d966187d9e95b0f5813c2f5fd5b95789f2a8f4686ea764f51bfe82ac19",
+    "profiles/nsys/20261007T041035Z-4342-sgemm_v0_naive/raw/4096x4096x4096/correctness.csv": "ff7825263e24fc2360e86f5ac0aacf2e4cb568bd44407230de06d60bb774173c",
+    "profiles/ncu/20261007T042409Z-8257-sgemm_v0_naive/profile.log": "376491ce6658cc9c11bf95a7cb4c0edd2f64b5698d6598cc595b9a43e18c6e54",
+    "profiles/ncu/20261007T042409Z-8257-sgemm_v0_naive/binary.json": "17bf50a524a29ca602d4a2a4e45e5169518223609ee97cbf9e718677d2daface",
+    "profiles/ncu/20261007T042409Z-8257-sgemm_v0_naive/metrics.csv": "7e2759205f35f9e3a10fea3d8bd1e5d440829897cfd5aab2643a752e40c2c1ef",
+    "profiles/ncu/20261007T042409Z-8257-sgemm_v0_naive/profile_manifest.json": "bb50a48dc00d52bbd9ba06dd0bfd3a163fd139cfdc97446bdbd3f2b4a5b9218b",
+    "profiles/ncu/20261007T042409Z-8257-sgemm_v0_naive/artifact_location.txt": "1da77d9e0c95779f697ee8ff8faf6455f13d25a03063419240083ab3c5b7a388",
+    "profiles/ncu/20261007T042409Z-8257-sgemm_v0_naive/command.txt": "7b0d72088e1378916b9973a1f5e969f20431b4bf6aad03420919410e94eb85e7",
+    "profiles/ncu/20261007T042409Z-8257-sgemm_v0_naive/source.json": "a798926dd5facc0d4c28a8438bed3aa1ef019180013b3fe108e04a5a800ecdeb",
+    "profiles/ncu/20261007T042409Z-8257-sgemm_v0_naive/status.txt": "c550f641b70ad965f13f2b2eaf0b9e0654f19ded07074dde98576987382f61b8",
+    "profiles/ncu/20261007T042409Z-8257-sgemm_v0_naive/available_metrics.txt": "93c58566e35c3dfdf4a4712c514764e3517204888eb408bb30a7ae707a60ad02",
+    "profiles/ncu/20261007T042409Z-8257-sgemm_v0_naive/metrics.ncu-rep": "81d117363bb9c53ccd88e3961308823c5b12a33931757040081cfb4888b82277",
+    "profiles/ncu/20261007T042409Z-8257-sgemm_v0_naive/profile_timing.csv": "3c5dd77c7fb6f7a9973017282350cf93a2cd4f41e7cd63031d5ec2e80c1eaa05",
+    "profiles/ncu/20261007T042613Z-9003-sgemm_v1_tiled/profile.log": "6d0f84476aff0b5b443f3c9ec408e20b5cad4afb1ec8c6ae40c511d440341bab",
+    "profiles/ncu/20261007T042613Z-9003-sgemm_v1_tiled/binary.json": "17bf50a524a29ca602d4a2a4e45e5169518223609ee97cbf9e718677d2daface",
+    "profiles/ncu/20261007T042613Z-9003-sgemm_v1_tiled/metrics.csv": "35b5bb0e5b7ccb2bb10bb39977d0784613b0bd72014543e1556965998b65912f",
+    "profiles/ncu/20261007T042613Z-9003-sgemm_v1_tiled/profile_manifest.json": "51dca82c2c13a4e3a13e26e1fb0d3d6829f1c52ef98ce016bb0a6398967debb3",
+    "profiles/ncu/20261007T042613Z-9003-sgemm_v1_tiled/artifact_location.txt": "69d9670bb5b6c8d7dd66024e2813cbc9920957f480ba46592c60bb793615a42b",
+    "profiles/ncu/20261007T042613Z-9003-sgemm_v1_tiled/command.txt": "51efd3e4e89be7e88c2a4592066bdd240db02dc74c64552668b586c6a3a22d69",
+    "profiles/ncu/20261007T042613Z-9003-sgemm_v1_tiled/source.json": "a798926dd5facc0d4c28a8438bed3aa1ef019180013b3fe108e04a5a800ecdeb",
+    "profiles/ncu/20261007T042613Z-9003-sgemm_v1_tiled/status.txt": "c550f641b70ad965f13f2b2eaf0b9e0654f19ded07074dde98576987382f61b8",
+    "profiles/ncu/20261007T042613Z-9003-sgemm_v1_tiled/available_metrics.txt": "93c58566e35c3dfdf4a4712c514764e3517204888eb408bb30a7ae707a60ad02",
+    "profiles/ncu/20261007T042613Z-9003-sgemm_v1_tiled/metrics.ncu-rep": "162eb8f3630625118b493462971d3abbf7c2bf767cf220bd31a6d814745b84f3",
+    "profiles/ncu/20261007T042613Z-9003-sgemm_v1_tiled/profile_timing.csv": "9428b3ad8dc3d3140fbf23fbeca0f983ab635bf79bef17f9567b13afccc150f5",
+    "profiles/ncu/20261007T042613Z-9003-sgemm_v1_tiled/environment/gcc_version.txt": "402fe2635c83ab883920194a5a9b8738dc4f78f5f3b112c5a7f0e6fb2e7bfa17",
+    "profiles/ncu/20261007T042613Z-9003-sgemm_v1_tiled/environment/nvcc_version.txt": "adf0ef85dcf190590d4b1e4ccb253602ece66e7d65ba2f1bd036976ed3cffa53",
+    "profiles/ncu/20261007T042613Z-9003-sgemm_v1_tiled/environment/git_status.txt": "94ba0130eec193004d939ab776b292225409933045ec8e075410293ba9efcaa6",
+    "profiles/ncu/20261007T042613Z-9003-sgemm_v1_tiled/environment/system_info.txt": "b8b0f127f9007922609d37ba1d6210ce4468e46920a70cd7c381e933a8fc1be3",
+    "profiles/ncu/20261007T042613Z-9003-sgemm_v1_tiled/environment/capture_status.txt": "553e30a4329da2679e854e8ecd40dc093a3e67e82e42b42d32f07ef28fc5668f",
+    "profiles/ncu/20261007T042613Z-9003-sgemm_v1_tiled/environment/source.json": "a798926dd5facc0d4c28a8438bed3aa1ef019180013b3fe108e04a5a800ecdeb",
+    "profiles/ncu/20261007T042613Z-9003-sgemm_v1_tiled/environment/gpu_info.txt": "19c063203e78006b539c0b0b165338c84a768857bb375391ef6bc601873448a8",
+    "profiles/ncu/20261007T042613Z-9003-sgemm_v1_tiled/environment/git_commit.txt": "fd942001a08a24101c578132d4175663de412cc46a84aa00cc35a6e4d48c0ba7",
+    "profiles/ncu/20261007T042613Z-9003-sgemm_v1_tiled/environment/gpu_clocks.txt": "78d191e40fe2d0fdbea10ad0685305f3f8920dbcb878ee59506d401958d6ca71",
+    "profiles/ncu/20261007T042613Z-9003-sgemm_v1_tiled/environment/cmake_version.txt": "f643f36f874347f3f2790314aacae8e61cf58ccd5fee270b1ebf770c6c8136e4",
+    "profiles/ncu/20261007T042613Z-9003-sgemm_v1_tiled/environment/nvidia_smi.txt": "7b82bf66e7e777ec343e0921f3556034c7272b3da09739cb7b5c50de24fe3980",
+    "profiles/ncu/20261007T042613Z-9003-sgemm_v1_tiled/raw/completed.txt": "1394286334639fac5ce7e8601a27a5f227072dd48a0e5813a78d38c8206d952d",
+    "profiles/ncu/20261007T042613Z-9003-sgemm_v1_tiled/raw/build_info.json": "17bf50a524a29ca602d4a2a4e45e5169518223609ee97cbf9e718677d2daface",
+    "profiles/ncu/20261007T042613Z-9003-sgemm_v1_tiled/raw/argv.txt": "16a99c3114b2639b0b4634098f9795a21cae771983c4fde1d851b80d0524d7c6",
+    "profiles/ncu/20261007T042613Z-9003-sgemm_v1_tiled/raw/4096x4096x4096/summary.csv": "9428b3ad8dc3d3140fbf23fbeca0f983ab635bf79bef17f9567b13afccc150f5",
+    "profiles/ncu/20261007T042613Z-9003-sgemm_v1_tiled/raw/4096x4096x4096/correctness.csv": "df415c2aae55c050a40745f048540134c57ac865e2dc841b442f708badb8e1fe",
+    "profiles/ncu/20261007T042613Z-9003-sgemm_v1_tiled/raw/4096x4096x4096/sgemm_v1_tiled_samples.csv": "20f7df52a12d980ee833059a11ec96830820dec2bb040819583db5e2a841cdb9",
+    "profiles/ncu/20261007T042409Z-8257-sgemm_v0_naive/environment/gcc_version.txt": "402fe2635c83ab883920194a5a9b8738dc4f78f5f3b112c5a7f0e6fb2e7bfa17",
+    "profiles/ncu/20261007T042409Z-8257-sgemm_v0_naive/environment/nvcc_version.txt": "adf0ef85dcf190590d4b1e4ccb253602ece66e7d65ba2f1bd036976ed3cffa53",
+    "profiles/ncu/20261007T042409Z-8257-sgemm_v0_naive/environment/git_status.txt": "535149174af2ed0d48e1e82a80abf5e96477bc927fd93a711fc1b347209467f1",
+    "profiles/ncu/20261007T042409Z-8257-sgemm_v0_naive/environment/system_info.txt": "68e766bccf1b2a33a981e5e20a6adddc8f6481567a34a060690cd0558a1bc710",
+    "profiles/ncu/20261007T042409Z-8257-sgemm_v0_naive/environment/capture_status.txt": "553e30a4329da2679e854e8ecd40dc093a3e67e82e42b42d32f07ef28fc5668f",
+    "profiles/ncu/20261007T042409Z-8257-sgemm_v0_naive/environment/source.json": "a798926dd5facc0d4c28a8438bed3aa1ef019180013b3fe108e04a5a800ecdeb",
+    "profiles/ncu/20261007T042409Z-8257-sgemm_v0_naive/environment/gpu_info.txt": "68c4452148e998af25387d3083ef2578057930b56b71a316e0349d50126c63cd",
+    "profiles/ncu/20261007T042409Z-8257-sgemm_v0_naive/environment/git_commit.txt": "fd942001a08a24101c578132d4175663de412cc46a84aa00cc35a6e4d48c0ba7",
+    "profiles/ncu/20261007T042409Z-8257-sgemm_v0_naive/environment/gpu_clocks.txt": "8aa08212f0e999b0837706d5f827d4d94635712cea6c39d291d6a2d6640b8c36",
+    "profiles/ncu/20261007T042409Z-8257-sgemm_v0_naive/environment/cmake_version.txt": "f643f36f874347f3f2790314aacae8e61cf58ccd5fee270b1ebf770c6c8136e4",
+    "profiles/ncu/20261007T042409Z-8257-sgemm_v0_naive/environment/nvidia_smi.txt": "ffd96570c9dd0c71863ca1335f8cf36c2ce3ad32caca5d2d52e16a9aaaf42d5a",
+    "profiles/ncu/20261007T042409Z-8257-sgemm_v0_naive/raw/completed.txt": "1394286334639fac5ce7e8601a27a5f227072dd48a0e5813a78d38c8206d952d",
+    "profiles/ncu/20261007T042409Z-8257-sgemm_v0_naive/raw/build_info.json": "17bf50a524a29ca602d4a2a4e45e5169518223609ee97cbf9e718677d2daface",
+    "profiles/ncu/20261007T042409Z-8257-sgemm_v0_naive/raw/argv.txt": "518b26a62ce922627c8739e6f5f39593e7eea88ec7ec1b8c306eac73c5d2c5f2",
+    "profiles/ncu/20261007T042409Z-8257-sgemm_v0_naive/raw/4096x4096x4096/sgemm_v0_naive_samples.csv": "e1b2e3d90bf4de8d458860f64416f8936c547efd0b29f99e1260ebde34899960",
+    "profiles/ncu/20261007T042409Z-8257-sgemm_v0_naive/raw/4096x4096x4096/summary.csv": "3c5dd77c7fb6f7a9973017282350cf93a2cd4f41e7cd63031d5ec2e80c1eaa05",
+    "profiles/ncu/20261007T042409Z-8257-sgemm_v0_naive/raw/4096x4096x4096/correctness.csv": "de9d87d78d202827ed4ef645f3ec574a8a94e799bf5d00329ea2917269c37a47"
+  }
+}

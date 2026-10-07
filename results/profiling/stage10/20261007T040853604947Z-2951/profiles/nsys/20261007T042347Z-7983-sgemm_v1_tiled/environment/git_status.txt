@@ -1,0 +1,50 @@
+COMMAND: git status --porcelain=v1 --untracked-files=all
+ M results/environment/cmake_version.txt
+ M results/environment/git_commit.txt
+ M results/environment/gpu_clocks.txt
+ M results/environment/gpu_info.txt
+ M results/environment/latest_capture.txt
+ M results/environment/nvidia_smi.txt
+ M results/environment/system_info.txt
+?? results/profiling/stage10/20261007T040853604947Z-2951/build.log
+?? results/profiling/stage10/20261007T040853604947Z-2951/configure.log
+?? results/profiling/stage10/20261007T040853604947Z-2951/gpu-tests.log
+?? results/profiling/stage10/20261007T040853604947Z-2951/manifest.json
+?? results/profiling/stage10/20261007T040853604947Z-2951/ncu-version.log
+?? results/profiling/stage10/20261007T040853604947Z-2951/nsys-version.log
+?? results/profiling/stage10/20261007T040853604947Z-2951/nvcc-version.log
+?? results/profiling/stage10/20261007T040853604947Z-2951/nvidia-smi-before.log
+?? results/profiling/stage10/20261007T040853604947Z-2951/profile-nsys-v0.log
+?? results/profiling/stage10/20261007T040853604947Z-2951/profile-nsys-v1.log
+?? results/profiling/stage10/20261007T040853604947Z-2951/profiles/nsys/20261007T041035Z-4342-sgemm_v0_naive/artifact_location.txt
+?? results/profiling/stage10/20261007T040853604947Z-2951/profiles/nsys/20261007T041035Z-4342-sgemm_v0_naive/binary.json
+?? results/profiling/stage10/20261007T040853604947Z-2951/profiles/nsys/20261007T041035Z-4342-sgemm_v0_naive/command.txt
+?? results/profiling/stage10/20261007T040853604947Z-2951/profiles/nsys/20261007T041035Z-4342-sgemm_v0_naive/environment/capture_status.txt
+?? results/profiling/stage10/20261007T040853604947Z-2951/profiles/nsys/20261007T041035Z-4342-sgemm_v0_naive/environment/cmake_version.txt
+?? results/profiling/stage10/20261007T040853604947Z-2951/profiles/nsys/20261007T041035Z-4342-sgemm_v0_naive/environment/gcc_version.txt
+?? results/profiling/stage10/20261007T040853604947Z-2951/profiles/nsys/20261007T041035Z-4342-sgemm_v0_naive/environment/git_commit.txt
+?? results/profiling/stage10/20261007T040853604947Z-2951/profiles/nsys/20261007T041035Z-4342-sgemm_v0_naive/environment/git_status.txt
+?? results/profiling/stage10/20261007T040853604947Z-2951/profiles/nsys/20261007T041035Z-4342-sgemm_v0_naive/environment/gpu_clocks.txt
+?? results/profiling/stage10/20261007T040853604947Z-2951/profiles/nsys/20261007T041035Z-4342-sgemm_v0_naive/environment/gpu_info.txt
+?? results/profiling/stage10/20261007T040853604947Z-2951/profiles/nsys/20261007T041035Z-4342-sgemm_v0_naive/environment/nvcc_version.txt
+?? results/profiling/stage10/20261007T040853604947Z-2951/profiles/nsys/20261007T041035Z-4342-sgemm_v0_naive/environment/nvidia_smi.txt
+?? results/profiling/stage10/20261007T040853604947Z-2951/profiles/nsys/20261007T041035Z-4342-sgemm_v0_naive/environment/source.json
+?? results/profiling/stage10/20261007T040853604947Z-2951/profiles/nsys/20261007T041035Z-4342-sgemm_v0_naive/environment/system_info.txt
+?? results/profiling/stage10/20261007T040853604947Z-2951/profiles/nsys/20261007T041035Z-4342-sgemm_v0_naive/profile.log
+?? results/profiling/stage10/20261007T040853604947Z-2951/profiles/nsys/20261007T041035Z-4342-sgemm_v0_naive/profile_manifest.json
+?? results/profiling/stage10/20261007T040853604947Z-2951/profiles/nsys/20261007T041035Z-4342-sgemm_v0_naive/profile_timing.csv
+?? results/profiling/stage10/20261007T040853604947Z-2951/profiles/nsys/20261007T041035Z-4342-sgemm_v0_naive/raw/4096x4096x4096/correctness.csv
+?? results/profiling/stage10/20261007T040853604947Z-2951/profiles/nsys/20261007T041035Z-4342-sgemm_v0_naive/raw/4096x4096x4096/sgemm_v0_naive_samples.csv
+?? results/profiling/stage10/20261007T040853604947Z-2951/profiles/nsys/20261007T041035Z-4342-sgemm_v0_naive/raw/4096x4096x4096/summary.csv
+?? results/profiling/stage10/20261007T040853604947Z-2951/profiles/nsys/20261007T041035Z-4342-sgemm_v0_naive/raw/argv.txt
+?? results/profiling/stage10/20261007T040853604947Z-2951/profiles/nsys/20261007T041035Z-4342-sgemm_v0_naive/raw/build_info.json
+?? results/profiling/stage10/20261007T040853604947Z-2951/profiles/nsys/20261007T041035Z-4342-sgemm_v0_naive/raw/completed.txt
+?? results/profiling/stage10/20261007T040853604947Z-2951/profiles/nsys/20261007T041035Z-4342-sgemm_v0_naive/source.json
+?? results/profiling/stage10/20261007T040853604947Z-2951/profiles/nsys/20261007T041035Z-4342-sgemm_v0_naive/stats.txt
+?? results/profiling/stage10/20261007T040853604947Z-2951/profiles/nsys/20261007T041035Z-4342-sgemm_v0_naive/status.txt
+?? results/profiling/stage10/20261007T040853604947Z-2951/profiles/nsys/20261007T042347Z-7983-sgemm_v1_tiled/binary.json
+?? results/profiling/stage10/20261007T040853604947Z-2951/profiles/nsys/20261007T042347Z-7983-sgemm_v1_tiled/environment/git_commit.txt
+?? results/profiling/stage10/20261007T040853604947Z-2951/profiles/nsys/20261007T042347Z-7983-sgemm_v1_tiled/environment/git_status.txt
+?? results/profiling/stage10/20261007T040853604947Z-2951/profiles/nsys/20261007T042347Z-7983-sgemm_v1_tiled/environment/system_info.txt
+?? results/profiling/stage10/20261007T040853604947Z-2951/profiles/nsys/20261007T042347Z-7983-sgemm_v1_tiled/source.json
+?? results/profiling/stage10/20261007T040853604947Z-2951/reference-cache/4096x4096x4096-seed42-a92f5e0931254f02.f32

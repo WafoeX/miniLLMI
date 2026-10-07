@@ -1,0 +1,38 @@
+Generating SQLite file /content/miniLLMI/results/profiling/stage10/20261007T040853604947Z-2951/profiles/nsys/20261007T041035Z-4342-sgemm_v0_naive/trace.sqlite from /content/miniLLMI/results/profiling/stage10/20261007T040853604947Z-2951/profiles/nsys/20261007T041035Z-4342-sgemm_v0_naive/trace.nsys-rep
+Processing [/content/miniLLMI/results/profiling/stage10/20261007T040853604947Z-2951/profiles/nsys/20261007T041035Z-4342-sgemm_v0_naive/trace.sqlite] with [/opt/nvidia/nsight-compute/2025.3.1/host/target-linux-x64/reports/cuda_gpu_kern_sum.py]... 
+
+ ** CUDA GPU Kernel Summary (cuda_gpu_kern_sum):
+
+ Time (%)  Total Time (ns)  Instances   Avg (ns)     Med (ns)    Min (ns)   Max (ns)   StdDev (ns)                                           Name                                          
+ --------  ---------------  ---------  -----------  -----------  ---------  ---------  -----------  ---------------------------------------------------------------------------------------
+    100.0      26981798205         61  442324560.7  446532878.0  386258796  466832945   19868058.8  stage0::<unnamed>::sgemm_v0_naive(const float *, const float *, float *, int, int, int)
+
+Processing [/content/miniLLMI/results/profiling/stage10/20261007T040853604947Z-2951/profiles/nsys/20261007T041035Z-4342-sgemm_v0_naive/trace.sqlite] with [/opt/nvidia/nsight-compute/2025.3.1/host/target-linux-x64/reports/cuda_api_sum.py]... 
+
+ ** CUDA API Summary (cuda_api_sum):
+
+ Time (%)  Total Time (ns)  Num Calls    Avg (ns)     Med (ns)    Min (ns)    Max (ns)   StdDev (ns)                    Name                  
+ --------  ---------------  ---------  ------------  -----------  ---------  ----------  ------------  ---------------------------------------
+     82.9      22439104301         50   448782086.0  454402662.0  420113364   466858063    13650281.8  cudaEventSynchronize                   
+     15.1       4085083734          4  1021270933.5      47106.5       6818  4084982703  2042474513.3  cudaStreamSynchronize                  
+      1.9        526167536          4   131541884.0   17169583.0   15110251   476718119   230123133.3  cudaMemcpyAsync                        
+      0.0          3862670          7      551810.0     185218.0      19120     2132005      794249.2  cudaFree                               
+      0.0          2135458         61       35007.5      31176.0       6167      286011       34546.0  cudaLaunchKernel                       
+      0.0          1347377        100       13473.8      15726.5       3405       53024       10259.7  cudaEventRecord                        
+      0.0           856757          6      142792.8     132760.0       6125      342975      110146.0  cudaMalloc                             
+      0.0           235897        880         268.1        242.0        149        1329         100.0  cuGetProcAddress_v2                    
+      0.0            99016          1       99016.0      99016.0      99016       99016           0.0  cudaMemsetAsync                        
+      0.0            82077          1       82077.0      82077.0      82077       82077           0.0  cudaStreamCreateWithFlags              
+      0.0            71330          1       71330.0      71330.0      71330       71330           0.0  cuLibraryLoadData                      
+      0.0            45796         61         750.8        817.0        182        1604         285.3  cuKernelGetName                        
+      0.0            44789          4       11197.3       3132.0       1557       36968       17202.5  cudaDeviceSynchronize                  
+      0.0            41532         18        2307.3        769.0        576       17482        4558.3  cudaEventCreateWithFlags               
+      0.0            28819         20        1441.0        475.0        303       18020        3915.2  cudaEventDestroy                       
+      0.0            16264          2        8132.0       8132.0       1153       15111        9869.8  cudaEventCreate                        
+      0.0            13399          1       13399.0      13399.0      13399       13399           0.0  cudaStreamDestroy                      
+      0.0             7542          4        1885.5       1540.0       1181        3281         955.7  cuInit                                 
+      0.0             3483          3        1161.0        774.0        706        2003         730.0  cudaGetDriverEntryPointByVersion_v12050
+      0.0             1895          3         631.7        404.0        166        1325         612.1  cuModuleGetLoadingMode                 
+      0.0              591          1         591.0        591.0        591         591           0.0  cudaGetDeviceProperties_v12000         
+      0.0              564          1         564.0        564.0        564         564           0.0  cuLibraryGetKernel                     
+

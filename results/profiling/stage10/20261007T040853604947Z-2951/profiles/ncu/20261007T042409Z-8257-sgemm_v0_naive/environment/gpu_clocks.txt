@@ -1,0 +1,3 @@
+COMMAND: nvidia-smi --query-gpu=uuid\,clocks.max.memory\,clocks.current.memory\,clocks.current.sm\,temperature.gpu\,pstate --format=csv
+uuid, clocks.max.memory [MHz], clocks.current.memory [MHz], clocks.current.sm [MHz], temperature.gpu, pstate
+GPU-dad12852-ad7d-badb-33b6-e895195fe9d2, 5001 MHz, 5000 MHz, 300 MHz, 74, P0

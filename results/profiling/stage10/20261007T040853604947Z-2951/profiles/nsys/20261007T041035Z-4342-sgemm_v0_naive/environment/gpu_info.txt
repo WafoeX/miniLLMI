@@ -1,0 +1,23 @@
+COMMAND: /content/miniLLMI/build-cuda-stage10/20261007T040853604947Z-2951/gpu_info
+CUDA Runtime Version: 13000
+CUDA Driver API Version: 13000
+
+Device: 0
+GPU Name: Tesla T4
+GPU UUID (hex): dad12852ad7dbadb33b6e895195fe9d2
+Compute Capability: 7.5
+SM Count: 40
+Global Memory (bytes): 15637086208
+Memory Bus Width (bits): 256
+Memory Clock: removed from CUDA 13 device properties; see nvidia-smi clock query below
+Shared Memory Per Block (bytes): 49152
+Registers Per Block: 65536
+Warp Size: 32
+Max Threads Per Block: 1024
+Max Grid Size: 2147483647,65535,65535
+ECC Enabled: 1
+
+Driver clock telemetry (MHz, match by UUID):
+COMMAND: nvidia-smi --query-gpu=uuid\,clocks.max.memory\,clocks.current.memory\,clocks.current.sm\,temperature.gpu\,pstate --format=csv
+uuid, clocks.max.memory [MHz], clocks.current.memory [MHz], clocks.current.sm [MHz], temperature.gpu, pstate
+GPU-dad12852-ad7d-badb-33b6-e895195fe9d2, 5001 MHz, 5000 MHz, 765 MHz, 42, P0
