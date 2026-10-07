@@ -10,5 +10,6 @@ The Stage 11 C2 adapter hotfix handles the Runtime's empty shapes before the
 preserved positive-shape Stage 0 launch boundary: empty M/N returns success;
 nonempty K=0 outputs are device-zero-filled and synchronized. This applies to
 v0/v1/cuBLAS selection without modifying their launchers, introducing host math
-or allocating scratch. Fresh T4 regression acceptance is still pending; see
-[the Stage 11 failure/handoff record](stage11_report.md).
+or allocating scratch. Stage 11 C2 regression acceptance is **T4-verified**
+(v0/v1/cuBLAS empty shapes and mixed graphs); see
+[the Stage 11 acceptance record](stage11_report.md).

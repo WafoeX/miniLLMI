@@ -95,7 +95,9 @@ GPU v0 and explicit v1, actual traces, repeated state writes, D2D and aliases.
 They retain full CPU reference/output vectors and both execution traces when
 invoked with a new artifact directory.
 
-See [C2 Colab procedure](stage11_colab.md). C2 T4 acceptance is pending; C4 is
-not started until it passes. C3 segmentation is `skipped_optional`: no tracing
+C2 is **T4-accepted**: [verified capture](stage11_report.md), 36/36 tests,
+41/41 hashes and 16 full-output/manual/automatic trace pairs. The zero-shape
+adapter fix is T4-verified. See [Colab procedure](stage11_colab.md). Required C4
+latency evidence is still pending. C3 segmentation is `skipped_optional`: no tracing
 has yet justified a grouping optimization; no reduction in actual switches or
 latency is claimed. No Stage 11 completion or model/scheduler speedup claim.

@@ -1,9 +1,9 @@
-# Stage 11 — Local implementation record (T4 pending)
+# Stage 11 — C2 T4 acceptance; C4 pending
 
-**Stage 11 is not complete.** C1 is CPU-accepted; C2 code and local correctness
-checks pass, but required mixed-backend T4 acceptance is pending. C3 is
-`skipped_optional`; C4 is `not_started` until C2 passes. No latency/speedup,
-segmentation benefit, CUDA correctness or model inference claim is made here.
+**Stage 11 is not complete.** C1 is CPU-accepted and C2 is **T4-accepted**.
+C3 is `skipped_optional`; required C4 benchmark/report is now unblocked but
+not yet accepted. No latency/speedup, segmentation benefit or model inference
+claim is made by the C2 correctness evidence.
 
 ## Code and reproducibility
 
@@ -50,7 +50,7 @@ record the legacy trace regression and a Python platform-mock regression before
 they were fixed. Their pre-test source digests were not captured and are not
 retroactively reconstructed. They are not acceptance evidence.
 
-## First T4 failure and adapter hotfix (C2 still pending)
+## First T4 failure and adapter hotfix (historical)
 
 Retained result commit `b5b4bc3` contains
 [`20261007T075353274825Z-2587`](../results/scheduler/stage11-c2/20261007T075353274825Z-2587/manifest.json):
@@ -80,33 +80,48 @@ exit 0, source before/after identical and clean. Evidence:
 source digest `10109728170d2e744ed8a8c2a3d119a9d2d014467c81da5f02b0f6e6efe533bc`,
 9/9 retained hashes verified, separate results commit `39743c0`. Both GPU test
 host C++ syntax checks also pass without warnings. These are CPU-only checks;
-the newly added CUDA regression cases have not yet run on T4.
+at that time the newly added CUDA regression cases had not yet run on T4.
 
 The patched CUDA target cannot be checked by the local Mac CUDA-mode checker:
 there is no CUDA SDK/libdevice, and local CMake has `ENABLE_CUDA=OFF`. These
 explicitly handled toolchain/target-scope diagnostics are not a claim of clean
-CUDA syntax. Fresh nvcc build and all GPU regression tests remain required.
+CUDA syntax. The following independent T4 capture now verifies that build
+and all regression tests; local CUDA-mode checks remain unavailable.
 
-## What still needs T4
+## C2 accepted T4 capture
 
-Follow [the Colab procedure](stage11_colab.md):
+- Result commit: `d4af778e94ed060572547b5e745e05c621c80947`.
+- Run: [`20261007T081857631689Z-12587`](../results/scheduler/stage11-c2/20261007T081857631689Z-12587/manifest.json).
+- Tested source: `6497290f9bba837f6dbb57c0272f7ac854eec2ce`, clean before/after.
+- Source digest: `f0bbea7dde7db159fbe0c6fc59479da3638886ffabb325d3ca2225185af70bb8`, independently replayed from Git including executable bits.
+- Tesla T4 CC 7.5; fresh Release/nvcc build without compiler warnings.
+- All eight commands exit 0; all **36/36 CTests** pass, including the direct v0/v1/cuBLAS empty-shape regressions, persistent-state versions, D2D and output-alias lifetime tests.
+- **41/41 artifact hashes** verified locally; 32 full-output/manual/automatic trace snapshots validated as 16 pairs. Local replay of `validate_snapshots` exactly matches saved `validation.json`.
 
-```bash
-python3 tools/run_scheduler_validation.py
-```
+Observed per-execution counters match in manual/automatic and v0/v1:
 
-The ready C2 suite validates manual versus automatic CPU→CUDA→CPU graphs,
-rectangular/empty cases, v0 and explicit v1, full FP64-accumulating CPU reference
-outputs, actual trace/copy bytes/counts/backend switches, repeated versioned
-state writes, D2D, metadata aliases and output lifetime. These are **test
-requirements**, not observed GPU results. Full outputs and traces are saved
-for independent local revalidation after the result commit is pushed.
+| M,K,N | Actual copies | Actual copy bytes | Backend dispatches | Executed switches |
+|---|---:|---:|---:|---:|
+| 17,13,11 | 4 | 2952 | 9 | 2 |
+| 64,64,64 | 4 | 65536 | 9 | 2 |
+| 0,3,2 | 1 | 24 | 6 | 2 |
+| 2,0,3 | 2 | 48 | 7 | 2 |
 
-Once C2 T4 evidence passes, implement the dependent C4 fixed paired Release
-manual/automatic latency benchmark and report. Stage 11 completion needs that
-server evidence too; no scheduler speedup gate applies. C3 grouping remains
-skipped unless later tracing justifies it. The runtime's default dynamic CPU
-path, FP64 CPU math and Stage 0 CUDA v0 selection remain unchanged.
+All full outputs agree with CPU references under the frozen .001 absolute/
+relative tolerances, trace counters independently match, and intermediate
+backing allocations are zero during execution. Dispatches count backend API
+calls, not CUDA kernel launches. This is correctness/integration acceptance,
+not latency evidence. Three pre-hotfix failed T4 attempts on `44f05b4` are
+retained (`075353…`, `075648…`, `075917…`); the two additionally returned failed
+manifests also have all six hashes verified. Failures were not discarded.
+
+## Remaining C4 gate
+
+C2 now satisfies the dependency of C4. Implement the fixed paired Release
+manual/automatic latency benchmark and report before Stage 11 completion.
+Its server evidence is still required; no scheduler speedup gate applies.
+C3 grouping remains skipped; default dynamic CPU, FP64 CPU math and CUDA v0
+selection remain unchanged. See [Colab handoff](stage11_colab.md).
 
 Contracts and limits: [scheduler](scheduler.md), [task book](tasks/stage-11-scheduler.md),
 [roadmap](roadmap.md). Stage 0 v0 and frozen CPU baseline source were not edited.

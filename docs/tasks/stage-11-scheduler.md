@@ -5,9 +5,9 @@
 ## Execution status
 
 - C1: **CPU-accepted**, `cdadc25` (`feat(scheduler): add backend capability placement`), Release 32/32 CTests at that Change.
-- C2: implementation/local checks ready; **T4 mixed graph acceptance pending**. Fresh clean-source Release/Debug/ASan+UBSan each 33/33 pass; [local evidence](../stage11_report.md). See [contract](../scheduler.md) and [Colab capture](../stage11_colab.md). CPU metadata tests are not GPU evidence.
+- C2: **T4-accepted** on clean `6497290`, result `d4af778`, run `20261007T081857631689Z-12587`: 36/36 CTests, 41/41 hashes and 16 manual/automatic snapshot pairs verified. [Acceptance evidence](../stage11_report.md), [contract](../scheduler.md), [Colab capture](../stage11_colab.md).
 - C3: `skipped_optional`; no measured avoidable overhead yet justifies segmentation.
-- C4: `not_started`, awaiting required C2 acceptance before dependent implementation. Stage 11 is **not complete**.
+- C4: `not_started`, now unblocked by verified C2 acceptance. Required server benchmark/report still pending. Stage 11 is **not complete**.
 
 ## S11-C1 — Capability and placement policy
 - **Goal/type:** Map `(op,dtype,layout,device)` to supported backend; deterministic policy selects CPU/CUDA. *Functional.*
