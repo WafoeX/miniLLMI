@@ -1,6 +1,6 @@
 # Stage 9 — CUDA SGEMM optimization experiments
 
-**Implementation status:** S9-C1/C2 source and CPU-only evidence tooling are ready; mandatory T4 correctness/performance acceptance is pending. See [the CUDA SGEMM contract](../cuda_gemm.md), [handoff status](../stage9_report.md), and [Colab commands](../stage9_colab.md). C3–C6 have not been attempted.
+**Implementation status:** S9-C1/C2 are T4 accepted; the required clean-source correctness and three paired performance runs pass the CUDA improvement gate. See [the CUDA SGEMM contract](../cuda_gemm.md), [acceptance evidence](../stage9_report.md), and [Colab procedure](../stage9_colab.md). C3–C6 are `skipped_optional` because V1 passed.
 
 **Goal:** add selectable kernels without changing Stage 0 v0 or conditions. **Prerequisite:** S8-C5. **Gate:** required C1/C2 plus roadmap CUDA improvement gate; each attempted kernel has T4 correctness/raw data. C3–C6 are optional and stop once one custom path suffices; there is no v6 requirement.
 
