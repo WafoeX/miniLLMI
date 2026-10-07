@@ -35,6 +35,8 @@ editing it, commit it on a new result branch, then push it:
 
 ```bash
 mkdir -p results/transformer/stage12-c5
+# Repeat this here: separate Colab cells do not retain shell variables.
+TESTED_COMMIT=$(git rev-parse HEAD)
 {
   date -u +%Y-%m-%dT%H:%M:%SZ
   printf 'tested_commit=%s\n' "$TESTED_COMMIT"
