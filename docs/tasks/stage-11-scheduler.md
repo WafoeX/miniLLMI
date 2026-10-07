@@ -7,7 +7,7 @@
 - C1: **CPU-accepted**, `cdadc25` (`feat(scheduler): add backend capability placement`), Release 32/32 CTests at that Change.
 - C2: **T4-accepted** on clean `6497290`, result `d4af778`, run `20261007T081857631689Z-12587`: 36/36 CTests, 41/41 hashes and 16 manual/automatic snapshot pairs verified. [Acceptance evidence](../stage11_report.md), [contract](../scheduler.md), [Colab capture](../stage11_colab.md).
 - C3: `skipped_optional`; no measured avoidable overhead yet justifies segmentation.
-- C4: `not_started`, now unblocked by verified C2 acceptance. Required server benchmark/report still pending. Stage 11 is **not complete**.
+- C4: `code_ready_server_pending`: fixed 64×64×64 CUDA-v0 manual/automatic paired benchmark, raw trace/counter capture and independent oracle/analyzer implemented after C2 acceptance. Local verification does not replace required T4 evidence; Stage 11 is **not complete**. [Frozen protocol/handoff](../stage11_colab.md).
 
 ## S11-C1 — Capability and placement policy
 - **Goal/type:** Map `(op,dtype,layout,device)` to supported backend; deterministic policy selects CPU/CUDA. *Functional.*

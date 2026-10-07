@@ -1,8 +1,8 @@
 # Stage 11 — C2 T4 acceptance; C4 pending
 
 **Stage 11 is not complete.** C1 is CPU-accepted and C2 is **T4-accepted**.
-C3 is `skipped_optional`; required C4 benchmark/report is now unblocked but
-not yet accepted. No latency/speedup, segmentation benefit or model inference
+C3 is `skipped_optional`; required C4 benchmark/report tooling is implemented
+but its T4 capture is not yet accepted. No latency/speedup, segmentation benefit or model inference
 claim is made by the C2 correctness evidence.
 
 ## Code and reproducibility
@@ -117,11 +117,29 @@ manifests also have all six hashes verified. Failures were not discarded.
 
 ## Remaining C4 gate
 
-C2 now satisfies the dependency of C4. Implement the fixed paired Release
-manual/automatic latency benchmark and report before Stage 11 completion.
-Its server evidence is still required; no scheduler speedup gate applies.
-C3 grouping remains skipped; default dynamic CPU, FP64 CPU math and CUDA v0
-selection remain unchanged. See [Colab handoff](stage11_colab.md).
+C2 now satisfies the dependency of C4. `bench/bench_scheduler.cpp` and
+`tools/run_scheduler_benchmark.py` implement a fixed 64×64×64 CUDA-v0 paired
+Release manual/automatic comparison: three independent paired processes,
+M/A–A/M–M/A order, 3 warmup executions, 10 samples × batch 5. Each timed execution
+validates full output/counters; initial/final snapshots retain complete outputs,
+references and actual traces. The same snapshot writer is shared with C2 tests.
+`tools/analyze_scheduler.py` independently reconstructs the deterministic inputs
+and FP64 oracle, validates all 60 rows / 12 snapshots, then generates the report
+and paired CSV. No raw or derived evidence is overwritten.
+
+Production timing requires clean source, Release, CUDA and `BUILD_TESTING=OFF`.
+The runner first executes a fresh testing build's 38 CPU/GPU CTests, then uses a
+separate fresh production build. Timer scope includes synchronous execution,
+actual-counter checks, full oracle scan and output release; prepare, input/oracle
+construction and trace/I/O are excluded. Tensor memory includes both contexts,
+external inputs and oracle; graph-owned peak live bytes and output retention
+are independently replayed from logical BlockAllocate/BlockFree traces, not
+confused with actual backing allocations. Sample SD/ranges/CV are retained;
+Colab contention/clocks are not controlled. Metadata/driver/library memory is
+not measured.
+No C4 GPU latency numbers have been captured locally. Server evidence remains
+required, with no speedup gate. C3 grouping remains skipped; default dynamic CPU,
+FP64 CPU math and CUDA v0 selection are unchanged. See [Colab handoff](stage11_colab.md).
 
 Contracts and limits: [scheduler](scheduler.md), [task book](tasks/stage-11-scheduler.md),
 [roadmap](roadmap.md). Stage 0 v0 and frozen CPU baseline source were not edited.

@@ -98,6 +98,11 @@ invoked with a new artifact directory.
 C2 is **T4-accepted**: [verified capture](stage11_report.md), 36/36 tests,
 41/41 hashes and 16 full-output/manual/automatic trace pairs. The zero-shape
 adapter fix is T4-verified. See [Colab procedure](stage11_colab.md). Required C4
-latency evidence is still pending. C3 segmentation is `skipped_optional`: no tracing
+latency evidence is still pending; the fixed 64×64×64 CUDA-v0 paired benchmark
+and independent analyzer are ready. Benchmark timing uses the same original
+executor/provider and synchronous backend calls, and includes full-output checks
+and output release; prepare/trace/I/O are excluded. CPU builds provide only an
+untimed fallback self-test and refuse scheduler latency timing.
+C3 segmentation is `skipped_optional`: no tracing
 has yet justified a grouping optimization; no reduction in actual switches or
 latency is claimed. No Stage 11 completion or model/scheduler speedup claim.

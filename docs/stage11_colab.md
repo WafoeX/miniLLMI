@@ -1,38 +1,14 @@
-# Stage 11 C2 — Colab T4 acceptance
+# Stage 11 C4 — Colab T4 paired benchmark handoff
 
-**Status:** C1 is CPU-accepted; C2 code/local tests are ready, T4 acceptance
-pending. This run validates correctness/copies/lifetimes, **not** C4 latency.
-Per the task DAG, C4 starts only after C2 passes. C3 is `skipped_optional`.
+**C2 is T4-accepted**: result `d4af778`, run `20261007T081857631689Z-12587`,
+36/36 tests, 41/41 hashes and 16 full snapshot pairs verified.
+**Stage 11 is not complete**: C4 tooling is ready; its T4 capture/review remains
+required. C3 is `skipped_optional`; there is **no scheduler speedup gate**.
 
-## 1. Fresh clean checkout
+## 1. Update a clean T4 checkout
 
-Select a **T4 GPU** runtime in Colab. In a shell cell:
-
-```bash
-%%bash
-set -euo pipefail
-cd /content
-# A NEW checkout; do not reuse a dirty previous stage checkout.
-git clone --branch feat/scheduler-stage11 https://github.com/WafoeX/miniLLMI.git miniLLMI-stage11
-cd miniLLMI-stage11
-git pull --ff-only
-git rev-parse HEAD
-git status --short
-nvidia-smi
-nvcc --version
-```
-
-If this directory already exists, use `git pull --ff-only` on the same branch
-and verify no source edits/untracked code. Do not reset away earlier failures.
-The tested commit will be recorded automatically; result commits come later.
-
-## Retry after the first C2 T4 failure
-
-The preserved first run `20261007T075353274825Z-2587` built successfully but
-failed on empty CUDA MATMUL semantics. A CUDA adapter hotfix and direct v0/v1/
-cuBLAS empty-shape regression tests are now available. Do not edit the baseline
-kernel, remove the empty cases, or reuse a pre-fix build. After the patch is
-pushed, use your existing clean checkout:
+Select a **T4 GPU** runtime. Use the existing checkout after committing/pushing
+previous results; do not discard failures or reset source edits:
 
 ```bash
 %%bash
@@ -41,68 +17,101 @@ cd /content/miniLLMI-stage11
 git pull --ff-only origin feat/scheduler-stage11
 git rev-parse HEAD
 git status --short
-python3 tools/run_scheduler_validation.py
+nvidia-smi
+nvcc --version
 ```
 
-The runner creates a new run and fresh build, preserving the failed one.
-Push the new result directory using §3, even if the new run fails. C2/C4
-acceptance remains pending until all required tests and captures pass.
+If the previous checkout is unavailable, create a **new** one:
 
-## 2. Build and capture
+```bash
+%%bash
+set -euo pipefail
+cd /content
+git clone --branch feat/scheduler-stage11 https://github.com/WafoeX/miniLLMI.git miniLLMI-stage11-c4
+```
+
+For a new checkout, substitute `/content/miniLLMI-stage11-c4` below. Do not run
+against an older checkout that lacks `tools/run_scheduler_benchmark.py`.
+
+## 2. Capture C4
 
 ```bash
 %%bash
 set -euo pipefail
 cd /content/miniLLMI-stage11
-python3 tools/run_scheduler_validation.py
+python3 tools/run_scheduler_benchmark.py
 ```
 
-The runner refuses dirty source or a non-T4 device; derives SM75 from the actual
-T4 CC 7.5 query, makes a **fresh Release build**, runs all CPU/GPU CTests, checks
-CUDA device 0 independently and runs `test_cuda_scheduler` again to save 32
-full-output/manual/automatic trace JSON snapshots. It independently validates
-all 16 pairs against CPU references, expected actual copy bytes/counts,
-dispatches/switches and graph protocol. No benchmarks or profiler tools run.
+The runner:
 
-Raw output: `results/scheduler/stage11-c2/<run-id>/`. The manifest retains clean
-source before/after, host/Python/GPU/build commands, exit codes, and SHA-256 of
-all artifacts, including failures/partial runs. `validation.json` is generated
-from snapshots, not hand-edited. Test coverage also includes versioned state
-writes, fresh values on repeated execution, D2D, CUDA metadata aliases, and
-escaped output lifetime blocking. CUDA v0 remains the default; v1 is explicit.
+- Refuses dirty source or a non-T4 device; records actual CC 7.5 / SM75,
+  GPU/driver, host/Python and compiler environment.
+- Creates two **fresh Release** builds: testing ON for all **38 CPU/GPU CTests**
+  and testing OFF for the actual benchmark. Never times a test-instrumented,
+  stale, dirty or CPU-only binary.
+- Freezes one 64×64×64 mixed graph and deterministic identical inputs; CPU
+  FP64-reference backend plus **CUDA v0** in both modes. Manual explicit COPY
+  versus automatic insertion, with identical effective placement/kernels.
+- Runs **three independent paired processes**, ordered M/A, A/M, M/A;
+  each mode uses 3 warmup executions, 10 samples × batch 5.
+- Records 60 raw latency rows with actual counters and full initial/final
+  output/reference/trace snapshots (12 total). Every timed execution checks
+  the entire CPU output and actual counters. An independent Python FP64 oracle
+  also validates all serialized references/outputs; tolerance stays .001/.001.
+- Generates `analysis.json`, `scheduler.csv`, and `report.md` only from raw
+  artifacts; never hand-edit metrics or overwrite earlier runs.
 
-A success prints the result directory. A failure also prints/preserves its
-result directory before returning nonzero. Do not delete failed attempts;
-send the full directory/logs so the failure can be diagnosed.
+Timer scope is synchronous graph execution + counter checks + full oracle scan
++ output release, **not bare-kernel/model latency**. Prepare, oracle/input
+construction, trace and file I/O are excluded. Both prepared contexts remain
+resident; the report includes their per-device backing, inputs and reference
+storage, while explicitly excluding unmeasured driver/library/metadata heaps.
+Peak graph-owned live bytes, reserved backing and total tensor residency are
+separate quantities. Sample ranges/SD/CV are reported; shared-host contention
+and clocks are not controlled. No segmentation, switch-reduction or
+kernel-improvement claim is made.
 
-## 3. Push evidence separately
+Output: `results/scheduler/stage11-c4/<run-id>/`. The manifest stores unchanged
+clean tested source/digest, every command/exit code, build caches/compile
+commands and SHA-256 of **all** artifacts. Failed/partial runs are retained and
+also print their result directory. Push failures too; do not delete/retry in
+place or change the frozen protocol to force a favourable result.
 
-Authenticate Git securely through your usual Colab method; do not paste a
-GitHub token into chat, committed files or notebook output. Then:
+## 3. Push the result in a separate cell
+
+Authenticate Git securely by your usual method. Never expose a token in chat,
+committed files or notebook output.
 
 ```bash
 %%bash
 set -euo pipefail
 cd /content/miniLLMI-stage11
-git add results/scheduler/stage11-c2
-git commit -m "test(scheduler): record Stage 11 C2 T4 validation"
+git add results/scheduler/stage11-c4
+git commit -m "bench(scheduler): record Stage 11 C4 T4 paired capture"
 git push origin feat/scheduler-stage11
 git rev-parse HEAD
 ```
 
-Send the result commit and run ID. We will fetch/verify hashes, tested source,
-CPU/GPU test logs, snapshots/recomputed correctness and copy counters locally.
-**Only then** is C2 T4-accepted and the dependent C4 benchmark/report implemented.
-Stage 11 completion requires C4 server evidence as well; no speedup gate applies.
+Send the **result commit and run ID**. We will fetch/verify source, all hashes,
+38-test logs, raw samples, independent oracle/trace/counters and derived replay
+before accepting C4 and closing Stage 11. A correct but slower automatic mode
+is valid evidence, not a reason to discard a run.
 
-## CPU-only reproducibility
-
-On a clean source checkout/worktree:
+A completed capture can be verified without rewriting evidence:
 
 ```bash
-python3 tools/run_scheduler_validation.py --cpu-only
+python3 tools/analyze_scheduler.py results/scheduler/stage11-c4/<run-id>
 ```
 
-This captures fresh Release/Debug/ASan+UBSan and all applicable CTests. macOS
-sets ASan `detect_leaks=0` (no LSan claim); Linux enables leak checking.
-CPU-only success never certifies CUDA or Stage 11 mixed-backend acceptance.
+## Historical C2 / CPU-only reproduction
+
+`python3 tools/run_scheduler_validation.py` reproduces C2's fresh T4 correctness
+suite and 32 snapshots; it never produces C4 latency evidence. The first failed
+empty-shape attempts and adapter fix are preserved in the [report](stage11_report.md).
+The original Stage 0 launchers remain unchanged.
+
+On a clean source checkout, `python3 tools/run_scheduler_validation.py --cpu-only`
+captures fresh Release/Debug/ASan+UBSan tests including the new C4 CPU fallback
+self-test and protocol mocks. `bench_scheduler --probe` reports build controls;
+`--self-test` is untimed. CPU-only timing is refused. macOS ASan uses
+`detect_leaks=0` (no LSan claim). None of these checks certifies GPU execution.

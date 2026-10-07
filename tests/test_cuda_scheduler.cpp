@@ -2,12 +2,10 @@
 #include "runtime/scheduler.hpp"
 #include "runtime/graph_executor.hpp"
 #include "../bench/scheduler_workload.hpp"
+#include "../bench/scheduler_artifacts.hpp"
 #include <cmath>
 #include <iostream>
 #include <filesystem>
-#include <fstream>
-#include <iomanip>
-#include <limits>
 #include <stdexcept>
 
 namespace {
@@ -24,45 +22,7 @@ void equal(const Tensor& value, const Tensor& reference) {
         require(std::isfinite(actual) && std::abs(actual - expected) <= .001F + .001F * std::abs(expected), "mixed values agree with CPU reference");
     }
 }
-void snapshot(const std::filesystem::path& directory, const std::string& label, const Graph& graph,
-              const MemoryPlan& plan, const ExecutionResult& result, const Tensor& oracle, const ExecutionTrace& trace) {
-    if (directory.empty()) return;
-    std::ofstream out(directory / (label + ".json")); out.exceptions(std::ios::failbit | std::ios::badbit);
-    out << std::setprecision(std::numeric_limits<float>::max_digits10);
-    out << "{\"schema_version\":1,\"atol\":0.001,\"rtol\":0.001,\"counts\":{\"copies\":" << result.counts.copies
-        << ",\"copy_bytes\":" << result.counts.copy_bytes << ",\"backend_dispatches\":" << result.counts.backend_dispatches
-        << ",\"backend_switches\":" << result.counts.backend_switches << ",\"allocations\":" << result.counts.allocations
-        << "},\"workspace_bytes\":0,\"device_capacities\":[";
-    bool first = true;
-    for (const auto& item : plan.device_capacity_bytes) {
-        if (!first) out << ',';
-        first = false;
-        out << "{\"device\":\"" << (item.first.type() == DeviceType::CPU ? "cpu:" : "cuda:") << item.first.index()
-            << "\",\"bytes\":" << item.second << '}';
-    }
-    out << "],\"nodes\":["; first = true;
-    for (auto node : graph.order()) {
-        if (!first) out << ',';
-        first = false;
-        out << "{\"id\":" << node << ",\"descriptor\":" << graph.nodes().at(node).descriptor.serialize() << '}';
-    }
-    out << "],\"trace_dropped\":" << trace.dropped() << ",\"trace\":["; first = true;
-    for (const auto& event : trace.events()) {
-        if (!first) out << ',';
-        first = false;
-        out << "{\"kind\":\"" << trace_name(event.kind) << "\",\"bytes\":" << event.bytes << ",\"node\":";
-        if (event.node) out << *event.node; else out << "null";
-        out << ",\"tensor\":"; if (event.tensor) out << *event.tensor; else out << "null";
-        if (event.metadata) out << ",\"device\":\"" << (event.metadata->device.type() == DeviceType::CPU ? "cpu:" : "cuda:")
-            << event.metadata->device.index() << "\",\"offset_bytes\":" << event.metadata->offset_bytes << ",\"capacity_bytes\":" << event.metadata->capacity_bytes;
-        out << '}';
-    }
-    const auto values = [&](const Tensor& tensor) {
-        out << '['; for (std::size_t i = 0; i < tensor.numel(); ++i) { if (i) out << ','; out << tensor.data<float>()[i]; } out << ']';
-    };
-    out << "],\"output\":"; values(result.outputs.at("result"));
-    out << ",\"cpu_reference\":"; values(oracle); out << "}\n";
-}
+using scheduler_artifacts::snapshot;
 void mixed(const CudaBackend& cuda, const std::filesystem::path& artifacts) {
     Scheduler scheduler(default_cpu_backend(), &cuda);
     for (const auto& shape : {Shape{17, 13, 11}, Shape{64, 64, 64}, Shape{0, 3, 2}, Shape{2, 0, 3}}) {
