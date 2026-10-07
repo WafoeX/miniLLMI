@@ -1,9 +1,14 @@
-# Stage 11 C4 — Colab T4 paired benchmark handoff
+# Stage 11 C4 — accepted Colab T4 paired benchmark reproduction
 
 **C2 is T4-accepted**: result `d4af778`, run `20261007T081857631689Z-12587`,
 36/36 tests, 41/41 hashes and 16 full snapshot pairs verified.
-**Stage 11 is not complete**: C4 tooling is ready; its T4 capture/review remains
-required. C3 is `skipped_optional`; there is **no scheduler speedup gate**.
+**Stage 11 is complete to required C1/C2/C4.** C4 result `a84fbd8`, run
+`20261007T101728202151Z-1834`, is independently verified: clean tested source
+`906af4d`, 38/38 tests, 36/36 hashes, 60 raw rows and 12 full snapshots.
+Median paired ratio 1.004480× is diagnostic only; the slower third pair is
+retained. C3 is `skipped_optional`; there is **no scheduler speedup gate**.
+See [acceptance report](stage11_report.md). Instructions below reproduce the
+accepted protocol in a new run; no further run is needed to close Stage 11.
 
 ## 1. Update a clean T4 checkout
 
@@ -92,10 +97,10 @@ git push origin feat/scheduler-stage11
 git rev-parse HEAD
 ```
 
-Send the **result commit and run ID**. We will fetch/verify source, all hashes,
-38-test logs, raw samples, independent oracle/trace/counters and derived replay
-before accepting C4 and closing Stage 11. A correct but slower automatic mode
-is valid evidence, not a reason to discard a run.
+For a new reproduction, send its **result commit and run ID** for independent
+source/hash/test/oracle/trace/derived verification; do not replace the accepted
+capture or its tested-source identity. A correct but slower automatic mode is
+valid evidence, not a reason to discard a run.
 
 A completed capture can be verified without rewriting evidence:
 

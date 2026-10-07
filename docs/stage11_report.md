@@ -1,9 +1,10 @@
-# Stage 11 — C2 T4 acceptance; C4 pending
+# Stage 11 — accepted scheduler and heterogeneous execution
 
-**Stage 11 is not complete.** C1 is CPU-accepted and C2 is **T4-accepted**.
-C3 is `skipped_optional`; required C4 benchmark/report tooling is implemented
-but its T4 capture is not yet accepted. No latency/speedup, segmentation benefit or model inference
-claim is made by the C2 correctness evidence.
+**Stage 11 is complete to its required C1/C2/C4 gates.** C1 is CPU-accepted;
+C2 and C4 are **T4-accepted**. C3 is `skipped_optional`. The fixed paired
+execution ratio is diagnostic, not a scheduler speedup or placement-benefit
+claim; no segmentation or model inference claim is made. Stage 12–19 remain
+proposed, not implemented.
 
 ## Code and reproducibility
 
@@ -115,7 +116,7 @@ not latency evidence. Three pre-hotfix failed T4 attempts on `44f05b4` are
 retained (`075353…`, `075648…`, `075917…`); the two additionally returned failed
 manifests also have all six hashes verified. Failures were not discarded.
 
-## Remaining C4 gate
+## C4 frozen protocol
 
 C2 now satisfies the dependency of C4. `bench/bench_scheduler.cpp` and
 `tools/run_scheduler_benchmark.py` implement a fixed 64×64×64 CUDA-v0 paired
@@ -137,9 +138,10 @@ are independently replayed from logical BlockAllocate/BlockFree traces, not
 confused with actual backing allocations. Sample SD/ranges/CV are retained;
 Colab contention/clocks are not controlled. Metadata/driver/library memory is
 not measured.
-No C4 GPU latency numbers have been captured locally. Server evidence remains
-required, with no speedup gate. C3 grouping remains skipped; default dynamic CPU,
-FP64 CPU math and CUDA v0 selection are unchanged. See [Colab handoff](stage11_colab.md).
+No C4 GPU latency numbers were captured locally. The independent server capture
+below now supplies the required evidence; no speedup gate applies. C3 grouping
+remains skipped; default dynamic CPU, FP64 CPU math and CUDA v0 selection are
+unchanged. See [Colab reproduction](stage11_colab.md).
 
 ## C4 clean local verification (not GPU acceptance)
 
@@ -173,8 +175,53 @@ FP64 CPU math and CUDA v0 selection are unchanged. See [Colab handoff](stage11_c
 
 Construction/rewrite/preparation costs are excluded from the C4 timer, so its
 ratios cannot claim to accelerate graph construction. Only steady execution
-of equivalent already-prepared graphs is compared. Stage 11 completion remains
-blocked on C4's fresh T4 capture and review.
+of equivalent already-prepared graphs is compared. Local checks alone did not
+close C4; the following fresh T4 capture and independent review do.
+
+## C4 accepted T4 capture
+
+- Result commit: `a84fbd82132629e34b3548d681cf347bc1430fc0` (data only).
+- Run: [`20261007T101728202151Z-1834`](../results/scheduler/stage11-c4/20261007T101728202151Z-1834/manifest.json).
+- Tested source: `906af4d3bf73f3156d0fe5dececa305247c46d89`, clean and identical
+  before/after. Digest `2e1f15f1e4d19cca85a5bd1a66c2cb788f7e9da672d863c648f7efb85b59f0fc`
+  independently replayed from all 189 source-tree files, including executable bits.
+- Tesla T4 CC 7.5 / SM75; all **14 commands exit 0**. Fresh testing Release
+  build passes **38/38 CTests**, including CUDA scheduler/adapter regressions
+  and the new mixed-CUDA benchmark self-test. A separate fresh production
+  Release build uses `BUILD_TESTING=OFF`; captured compile commands confirm
+  no `RUNTIME_TESTING` in its benchmark and no fast-math flags in either build.
+  Configure/build logs have no compiler/CMake warnings or errors.
+- **36/36 artifact hashes** and complete file coverage verified. All **60 raw
+  timing rows / 12 full snapshots** pass independent input/FP64 oracle,
+  graph/dependency, copy/dispatch, node-completion and logical-lifetime checks.
+  Saved `analysis.json` replays within the declared 1e-12 numeric tolerance;
+  regenerated report is byte-identical and paired CSV controls/numbers agree
+  (same tolerance for floating serialization). Original artifacts are unchanged.
+- Generated [paired report](../results/scheduler/stage11-c4/20261007T101728202151Z-1834/report.md),
+  [paired CSV](../results/scheduler/stage11-c4/20261007T101728202151Z-1834/scheduler.csv)
+  and [analysis](../results/scheduler/stage11-c4/20261007T101728202151Z-1834/analysis.json)
+  retain all samples, dispersion, controls and provenance.
+
+The manual/automatic median-latency ratios are **1.022333×, 1.004480×,
+0.981100×**; their median is **1.004480×**. The third pair is slower for the
+automatic graph and is retained. With uncontrolled Colab contention/clocks
+and reported sample dispersion, these numbers do **not** demonstrate a
+meaningful or statistically established scheduling benefit. No sufficient
+speedup gate exists for C4, so correctness plus the complete fixed-protocol
+report satisfies its acceptance criteria without further optimization.
+
+Both modes execute 4 copies / 65536 bytes / 9 backend API dispatches / 2
+executed switches, with zero execution-time intermediate backing allocations.
+Peak graph-owned live bytes are 65536, retained output 16384; each context
+reserves CPU 49152 + CUDA 65536. Both contexts, shared host inputs and oracle
+together account for 311296 tensor bytes, workspace 0; driver/library/metadata
+heaps are excluded explicitly. Equal effective placement and identical CUDA v0
+kernels isolate the comparison from kernel changes; prepare/rewrite cost is
+not timed. C3 segmentation stays skipped, with no switch-reduction claim.
+
+Required C1/C2/C4 are now accepted. All historical failed runs and the slower
+third pair remain preserved, baseline code/default execution remain unchanged,
+and Stage 11 is complete. This does not complete M5 or implement Stage 12.
 
 Contracts and limits: [scheduler](scheduler.md), [task book](tasks/stage-11-scheduler.md),
 [roadmap](roadmap.md). Stage 0 v0 and frozen CPU baseline source were not edited.

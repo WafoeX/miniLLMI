@@ -1,6 +1,18 @@
-# mini-llm-runtime — Stage 6
+# mini-llm-runtime — Stage 11
 
-基于 C++17/CUDA 的推理引擎项目。**Stage 0 已通过 T4 验收；Stage 1 统一 Tensor/shared Storage；Stage 2 实现 backend-neutral 算子与 core reference；Stage 3 实现冻结 DAG、确定性拓扑、顺序 CPU executor、最后使用释放/alias 保活及有界执行 trace。** Tensor 支持 FP32/INT32、checked shape/stride/offset、CPU storage、零拷贝变换和显式 CPU copy。Transformer 仍只有契约/validators 和离线 expected fixtures，Stage 4 增加对齐 CPU arena、first-fit 复用和显式 allocation provider；Stage 5 完成生命周期分析、静态复用 slots 和显式 prepared execution；Stage 6 将 graph 执行接入统一 Backend，并冻结显式单线程 FP32 `ijk v0` CPU 基线。默认保留 FP64 reference math 与 dynamic allocation。尚无 Transformer kernels、scheduler、模型执行、KV Cache 或量化实现。
+基于 C++17/CUDA 的推理引擎项目，**Stage 0–11 已通过各自必需验收项**，详见 [路线图](docs/roadmap.md)。已有统一 Tensor/shared Storage、backend-neutral 算子、冻结 DAG/顺序 executor、有界 trace、arena/生命周期内存规划、CPU backend/显式优化路径、CUDA storage/copy/GEMM、Nsight 对比及异构 scheduler。调度器支持确定性放置、显式 COPY 插入、同版本 fan-out 去重和逐设备规划，复用原 graph/executor/provider。
+
+默认保留 **FP64 CPU reference math、dynamic allocation 与 CUDA v0**；Stage 0 与冻结 CPU 基线不改写。Transformer primitives 仍只有契约/validators 和离线 expected fixtures；Stage 12–19 尚未实现，不宣称模型执行、KV Cache、量化或端到端模型收益。
+
+## Stage 11 验收（C1/C2/C4 完成，C3 可选跳过）
+
+C1 已 CPU 验收；C2 T4 验收覆盖显式传输、状态版本和 alias 生命周期；C4 在 clean `906af4d` 上完成三轮固定 64×64×64 CUDA-v0 手动 COPY／自动插入配对执行，结果提交 `a84fbd8`。**38/38 CTests、36/36 文件哈希、60 条原始计时记录和 12 份完整输出/trace 快照**独立复核通过。
+
+配对比值中位数 **1.004480×** 仅作诊断；第三轮自动图稍慢且保留，没有调度器提速门槛或收益宣称。每次执行实际 4 copies / 65536 bytes / 9 backend dispatches / 2 switches，执行期中间 backing 分配为 0。计时包含同步执行、counter/full-output 检查和 output release，不含构图/rewrite/prepare/trace I/O，也不是裸 kernel 或模型延迟。
+
+[Scheduler 契约](docs/scheduler.md) · [Stage 11 验收记录](docs/stage11_report.md) · [Colab 复现步骤](docs/stage11_colab.md) · [生成的 T4 配对报告](results/scheduler/stage11-c4/20261007T101728202151Z-1834/report.md)
+
+以下保留早期阶段的历史验收入口，不表示项目仍停留在该阶段。
 
 Stage 0 naive GEMM 与历史结果保持不变。Stage 1 的 gate 是 CPU-only Debug/Release、属性测试与 ASan/UBSan；不要求 CUDA allocation 或服务器性能数据。后续按 [路线图](docs/roadmap.md) 与 [Change 任务书](docs/tasks/README.md) 执行。
 
@@ -13,7 +25,7 @@ python3 tools/run_cpu_benchmark.py
 # python3 tools/validate_cpu.py --allow-dirty
 ```
 
-[CPU backend / 冻结基线契约](docs/cpu_backend.md)、[Stage 6 验收记录](docs/stage6_report.md)。同一 clean source 的 Release/Debug/ASan+UBSan 各 29/29 通过；128/256/512/1024 完成三轮独立 Release 基线，原始样本、GFLOPS、compiler auto-vectorization 备注和 provenance 已归档。Transformer primitives 仍明确 `Unsupported`；小图 prepared reuse 更慢，数据保留且不改默认。没有 CPU/GPU 对比或 Stage 7 speedup 声明，尚未开始 Stage 7。
+[CPU backend / 冻结基线契约](docs/cpu_backend.md)、[Stage 6 验收记录](docs/stage6_report.md)。同一 clean source 的 Release/Debug/ASan+UBSan 各 29/29 通过；128/256/512/1024 完成三轮独立 Release 基线，原始样本、GFLOPS、compiler auto-vectorization 备注和 provenance 已归档。Transformer primitives 仍明确 `Unsupported`；小图 prepared reuse 更慢，数据保留且不改默认。本节仅记录 Stage 6 历史基线，不是 CPU/GPU 对比。Stage 7 后续 CPU-only 验收另见 [CPU 并行契约](docs/cpu_parallel.md) 与 [Stage 7 报告](docs/stage7_report.md)。
 
 ## Stage 5 验收（明确 CPU-only，无需 GPU）
 
