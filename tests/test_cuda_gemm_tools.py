@@ -41,6 +41,21 @@ class CudaGemmToolTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             analyzer.integer("01")
 
+    def test_sample_statistics_allow_only_summary_derived_fields_to_differ(self):
+        summary = dict.fromkeys(analyzer.COLUMNS, "0")
+        summary.update({"m": "1", "n": "1", "k": "1", "min_ms": "1", "max_ms": "1",
+                        "mean_ms": "1", "median_ms": "1", "std_ms": "0", "gflops": "2e-06",
+                        "speedup_vs_naive": "1", "cublas_ratio": "100", "status": "ok"})
+        raw = []
+        for index in range(50):
+            sample = dict(summary)
+            for field in analyzer.SAMPLE_DERIVED_FIELDS:
+                sample[field] = "timing_sample" if field == "status" else ""
+            sample["sample_index"] = str(index)
+            sample["elapsed_ms"] = "1"
+            raw.append(sample)
+        self.assertEqual(analyzer.statistics_from_samples(summary, raw), 1)
+
     def test_runner_uses_a_fresh_full_fp64_reference_cache_for_paired_repeats(self):
         source = RUNNER.read_text(encoding="utf-8")
         self.assertIn('reference_cache = output / "reference-cache"', source)

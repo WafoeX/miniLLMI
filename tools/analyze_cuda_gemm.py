@@ -26,6 +26,8 @@ PAIR_FIELDS = ("timestamp", "run_id", "commit", "source_digest", "source_dirty",
                "compute_capability", "cuda", "cuda_driver", "cublas_version", "compiler", "cuda_compiler", "cuda_architectures",
                "build_type", "m", "n", "k", "dtype", "layout", "math_mode", "alpha", "beta", "warmup", "iterations",
                "seed", "input_hash", "atol", "rtol", "schema_version", "kernel_order")
+SAMPLE_DERIVED_FIELDS = ("min_ms", "max_ms", "median_ms", "mean_ms", "std_ms", "gflops",
+                         "speedup_vs_naive", "cublas_ratio", "status")
 
 
 def digest(path):
@@ -93,7 +95,7 @@ def statistics_from_samples(summary, raw):
     for index, sample in enumerate(raw):
         if sample["status"] != "timing_sample" or integer(sample["sample_index"]) != index:
             raise ValueError("bad sample sequence")
-        if any(sample[field] != summary[field] for field in COLUMNS):
+        if any(sample[field] != summary[field] for field in COLUMNS if field not in SAMPLE_DERIVED_FIELDS):
             raise ValueError("raw sample metadata differs from summary")
         elapsed = number(sample["elapsed_ms"])
         if elapsed <= 0:
