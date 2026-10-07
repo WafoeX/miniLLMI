@@ -5,7 +5,7 @@
 ## Execution status
 
 - C1: **CPU-accepted**, `cdadc25` (`feat(scheduler): add backend capability placement`), Release 32/32 CTests at that Change.
-- C2: implementation/local checks ready; **T4 mixed graph acceptance pending**. See [contract](../scheduler.md) and [Colab capture](../stage11_colab.md). CPU metadata tests are not GPU evidence.
+- C2: implementation/local checks ready; **T4 mixed graph acceptance pending**. Fresh clean-source Release/Debug/ASan+UBSan each 33/33 pass; [local evidence](../stage11_report.md). See [contract](../scheduler.md) and [Colab capture](../stage11_colab.md). CPU metadata tests are not GPU evidence.
 - C3: `skipped_optional`; no measured avoidable overhead yet justifies segmentation.
 - C4: `not_started`, awaiting required C2 acceptance before dependent implementation. Stage 11 is **not complete**.
 
