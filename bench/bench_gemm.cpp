@@ -85,10 +85,8 @@ Options parse(int argc, char** argv) {
         throw std::invalid_argument("kernel must be all, naive, tiled or cublas");
     if (o.experiment != "baseline" && o.experiment != "profiling" && o.experiment != "stage9")
         throw std::invalid_argument("invalid experiment");
-    if (o.experiment != "stage9" && (o.kernel == "tiled" || o.kernel == "v1" || o.kernel == "sgemm_v1_tiled"))
-        throw std::invalid_argument("tiled is available only in experiment stage9");
-    if (!o.reference_cache_dir.empty() && o.experiment != "stage9")
-        throw std::invalid_argument("--reference-cache-dir is supported only for experiment stage9");
+    if (!o.reference_cache_dir.empty() && o.experiment != "stage9" && o.experiment != "profiling")
+        throw std::invalid_argument("--reference-cache-dir is supported only for stage9 or profiling experiments");
     if (o.experiment == "stage9" && o.csv == fs::path("results/gemm/baseline.csv")) o.csv = "results/gemm/stage9.csv";
     if (o.run_id.empty()) o.run_id = automatic_id();
     if (o.run_id.size() > 120 || !std::all_of(o.run_id.begin(), o.run_id.end(), [](unsigned char c) {

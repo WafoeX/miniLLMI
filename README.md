@@ -133,11 +133,11 @@ python3 tools/analyze_results.py --run-id <实际-run-id> \
 ## Profiling（与正式计时分开）
 
 ```bash
-./scripts/profile_gemm.sh nsys naive
-./scripts/profile_gemm.sh ncu naive
+./scripts/profile_gemm.sh nsys v0
+./scripts/profile_gemm.sh ncu v0
 ```
 
-采集仅用于分析 baseline；Profiler 的 Event 时间带扰动，标记 `experiment=profiling`，不得用于正式性能比较。详见 [docs/profiling.md](docs/profiling.md)。
+采集仅用于分析；Profiler 的 Event 时间带扰动，标记 `experiment=profiling`，不得用于正式性能比较。Stage 10 的 T4 V0/V1 全量采集使用 `python3 tools/run_cuda_gemm_stage10.py`；详见 [profiling protocol](docs/profiling.md) 和 [Colab acceptance guide](docs/stage10_colab.md)。
 
 ## 文件与操作文档
 

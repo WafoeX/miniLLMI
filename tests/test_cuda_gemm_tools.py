@@ -9,6 +9,8 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 TOOLS = ROOT / "tools"
 RUNNER = TOOLS / "run_cuda_gemm_stage9.py"
+STAGE10_RUNNER = TOOLS / "run_cuda_gemm_stage10.py"
+PROFILE_SCRIPT = ROOT / "scripts/profile_gemm.sh"
 _spec = importlib.util.spec_from_file_location("analyze_cuda_gemm", TOOLS / "analyze_cuda_gemm.py")
 if _spec is None or _spec.loader is None:
     raise RuntimeError("cannot load Stage 9 analyzer")
@@ -63,6 +65,22 @@ class CudaGemmToolTests(unittest.TestCase):
         self.assertIn('"reference_cache": "fresh-per-run; reused only across paired repetitions"', source)
         self.assertIn('"--reference-cache-dir", reference_cache', source)
         self.assertIn('if len(cache_files) != len(SIZES):', source)
+
+    def test_stage10_runner_captures_only_required_v0_v1_profiles(self):
+        source = STAGE10_RUNNER.read_text(encoding="utf-8")
+        self.assertIn('KERNELS = ("v0", "v1")', source)
+        self.assertIn('TOOLS = ("nsys", "ncu")', source)
+        self.assertIn('"PROFILE_REFERENCE_CACHE_DIR": str(output / "reference-cache")', source)
+        self.assertIn('if len(list((output / "reference-cache").glob("*.f32"))) != 1:', source)
+        self.assertIn('"-L", "gpu"', source)
+
+    def test_profile_script_maps_aliases_and_exports_hashed_reports(self):
+        source = PROFILE_SCRIPT.read_text(encoding="utf-8")
+        self.assertIn('v0|naive|sgemm_v0_naive) KERNEL="sgemm_v0_naive"', source)
+        self.assertIn('v1|tiled|sgemm_v1_tiled) KERNEL="sgemm_v1_tiled"', source)
+        self.assertIn('ncu --import "$REPORT" --page details --csv > "$OUT/metrics.csv"', source)
+        self.assertIn('"report_sha256": sha256(report)', source)
+        self.assertIn('--artifact-location LOCATION', source)
 
 
 if __name__ == "__main__":
