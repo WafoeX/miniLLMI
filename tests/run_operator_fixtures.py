@@ -15,7 +15,7 @@ MODEL = {"version": 1, "batch": 1, "layers": 2, "hidden": 64, "heads": 4,
          "head_dim": 16, "ffn": 128, "vocab": 258, "max_seq": 1088,
          "bos": 256, "eos": 257, "rms_epsilon": 1e-5, "rope_base": 10000,
          "projection_output_channel_axis": 1, "rope_layout": "interleaved", "bias": False}
-CORE = {"ADD", "MUL", "MATMUL", "COPY", "MATERIALIZE"}
+NUMERIC = {"ADD", "MUL", "MATMUL", "COPY", "MATERIALIZE", "RMSNORM", "SWIGLU"}
 
 
 def expected_weights():
@@ -123,8 +123,8 @@ def main():
                 raise ValueError("C++ canonical serialization/fixture metadata mismatch")
             if desc["attributes"] != expected_attributes(case):
                 raise ValueError("C++ typed attribute serialization/manifest mismatch")
-        match = re.search(r"Operator fixtures: PASS numeric_core=(\d+) transformer_metadata=(\d+)", process.stdout)
-        numeric = sum(case["op"] in CORE for case in manifest["cases"])
+        match = re.search(r"Operator fixtures: PASS numeric=(\d+) transformer_metadata=(\d+)", process.stdout)
+        numeric = sum(case["op"] in NUMERIC for case in manifest["cases"])
         if not match or int(match[1]) != numeric or int(match[2]) != len(manifest["cases"]) - numeric:
             raise ValueError("fixture execution coverage mismatch")
         return 0

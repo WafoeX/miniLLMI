@@ -1,6 +1,7 @@
 #include "runtime/reference.hpp"
 #include "runtime/copy.hpp"
 #include "cpu_dispatch.hpp"
+#include "transformer_ops.hpp"
 #include <cmath>
 #include <stdexcept>
 
@@ -62,10 +63,11 @@ Status validate_cpu_core(const OpDesc& descriptor, const TensorInputs& inputs, c
     kind = inferred.output->kind;
     if (descriptor.code() == OpCode::MATERIALIZE && memory_spans_overlap(inputs[0].get(), output))
         return Status::failure(StatusCode::Aliasing, "MATERIALIZE requires independent output storage");
-    if (descriptor.code() == OpCode::ADD || descriptor.code() == OpCode::MUL || descriptor.code() == OpCode::MATMUL)
+    if (descriptor.code() == OpCode::ADD || descriptor.code() == OpCode::MUL || descriptor.code() == OpCode::MATMUL ||
+        descriptor.code() == OpCode::RMSNORM || descriptor.code() == OpCode::SWIGLU)
         for (const auto& input : inputs)
             if (memory_spans_overlap(input.get(), output))
-                return Status::failure(StatusCode::Aliasing, "CPU arithmetic rejects overlapping input/output spans");
+                return Status::failure(StatusCode::Aliasing, "CPU arithmetic/transformer primitive rejects overlapping input/output spans");
     return Status::success();
 }
 Status execute_cpu_core(const OpDesc& descriptor, const TensorInputs& inputs, Tensor& output, MatmulKernel matmul, ThreadPool* pool) {
@@ -86,6 +88,8 @@ Status execute_cpu_core(const OpDesc& descriptor, const TensorInputs& inputs, Te
             if (descriptor.code() == OpCode::MATMUL) return matmul(inputs[0].get(), inputs[1].get(), output, pool);
             return reference::elementwise(descriptor.code(), inputs[0].get(), inputs[1].get(), output);
         }
+        case OpCode::RMSNORM: case OpCode::SWIGLU:
+            return execute_transformer_cpu(descriptor, inputs, output);
         default:
             return Status::failure(StatusCode::Unsupported, "operator has no Stage 2 CPU reference kernel; metadata aliases bind through inference");
         }

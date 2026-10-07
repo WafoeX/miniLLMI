@@ -29,8 +29,9 @@ void malformed_reader_tests() {
         require(rejected, "malformed fixture accepted");
     }
 }
-bool core(OpCode code) {
-    return code == OpCode::ADD || code == OpCode::MUL || code == OpCode::MATMUL || code == OpCode::COPY || code == OpCode::MATERIALIZE;
+bool is_numeric(OpCode code) {
+    return code == OpCode::ADD || code == OpCode::MUL || code == OpCode::MATMUL || code == OpCode::COPY || code == OpCode::MATERIALIZE ||
+           code == OpCode::RMSNORM || code == OpCode::SWIGLU;
 }
 void compare(const fixtures::Case& fixture, const Tensor& actual) {
     require(actual.is_contiguous() && fixture.expected.is_contiguous(), "fixture comparison requires declared contiguous output");
@@ -70,18 +71,18 @@ int main(int argc, char** argv) {
                 const auto status = reference::execute(fixture.descriptor, inputs, output);
 #endif
                 require(testing::cpu_allocation_counts().allocations == before.allocations, "fixture reference kernel allocated buffers");
-                if (core(fixture.descriptor.code())) {
+                if (is_numeric(fixture.descriptor.code())) {
                     if (!status.ok()) throw std::runtime_error(fixture.name + ": " + status.message);
                     compare(fixture, output); ++numeric;
                 } else {
-                    require(status.code == StatusCode::Unsupported, "S2 must not silently execute Transformer kernels");
+                    require(status.code == StatusCode::Unsupported, "unimplemented Transformer primitive must report Unsupported");
                     std::cout << "fixture " << fixture.name << " metadata=PASS numeric=pending-S12\n"; ++metadata;
                 }
                 std::cout << "descriptor " << fixture.descriptor.serialize() << '\n';
             }
         }
         require(testing::cpu_allocation_counts().live == 0, "fixture parser/harness leaked buffers");
-        std::cout << "Operator fixtures: PASS numeric_core=" << numeric << " transformer_metadata=" << metadata << " malformed_reader=10\n";
+        std::cout << "Operator fixtures: PASS numeric=" << numeric << " transformer_metadata=" << metadata << " malformed_reader=10\n";
         return 0;
     } catch (const std::exception& error) {
         std::cerr << "test_operator_fixtures: " << error.what() << '\n'; return 1;

@@ -37,11 +37,12 @@ Status CpuBackend::capability(OpCode code, Device requested, DType dtype) const 
     case OpCode::COPY: case OpCode::MATERIALIZE:
     case OpCode::RESHAPE: case OpCode::VIEW: case OpCode::NARROW: case OpCode::SLICE:
     case OpCode::TRANSPOSE: case OpCode::PERMUTE: return Status::success();
-    // Internal op descriptors/attrs already exist in S2. Reserve the normal
-    // dispatch route, not a model-specific hook or early S12 implementation.
-    case OpCode::RMSNORM: case OpCode::SOFTMAX: case OpCode::ROPE:
-    case OpCode::EMBEDDING: case OpCode::SWIGLU: case OpCode::ATTENTION:
-        return Status::failure(StatusCode::Unsupported, std::string(op_name(code)) + " CPU primitive reserved for Stage 12");
+    case OpCode::RMSNORM: case OpCode::SWIGLU:
+        return dtype == DType::FP32 ? Status::success() : Status::failure(StatusCode::DTypeMismatch, "CPU transformer arithmetic requires FP32");
+    // S12 primitives are enabled independently. ATTENTION remains a graph
+    // composition rather than an opaque backend kernel.
+    case OpCode::SOFTMAX: case OpCode::ROPE: case OpCode::EMBEDDING: case OpCode::ATTENTION:
+        return Status::failure(StatusCode::Unsupported, std::string(op_name(code)) + " CPU primitive is not implemented");
     default: return Status::failure(StatusCode::Unsupported, "operator has no CPU backend implementation");
     }
 }

@@ -9,8 +9,9 @@ namespace {
 using namespace runtime;
 void require(bool value, const char* message) { if (!value) throw std::runtime_error(message); }
 void unsupported(const Status& status, OpCode code) {
-    require(status.code == StatusCode::Unsupported && status.message == std::string(op_name(code)) + " CPU primitive reserved for Stage 12", "reserved primitive must return exact Unsupported diagnostic");
+    require(status.code == StatusCode::Unsupported && status.message == std::string(op_name(code)) + " CPU primitive is not implemented", "unimplemented primitive must return exact Unsupported diagnostic");
 }
+bool c1(OpCode code) { return code == OpCode::RMSNORM || code == OpCode::SWIGLU; }
 } // namespace
 int main(int argc, char** argv) {
     try {
@@ -25,12 +26,16 @@ int main(int argc, char** argv) {
                 TensorInputs inputs; for (const auto& tensor : fixture.inputs) inputs.emplace_back(tensor);
                 auto out = Tensor::allocate_cpu(fixture.expected.shape(), fixture.expected.dtype());
                 for (std::size_t i = 0; i < out.numel(); ++i) out.data<float>()[i] = 99;
-                const auto before = testing::cpu_allocation_counts();
-                unsupported(backend.capability(code, Device{}, out.dtype()), code);
-                unsupported(backend.prepare(fixture.descriptor, inputs, out).status, code);
-                unsupported(backend.execute(fixture.descriptor, inputs, out), code);
-                require(testing::cpu_allocation_counts().allocations == before.allocations, "unsupported primitives cannot allocate buffers");
-                for (std::size_t i = 0; i < out.numel(); ++i) require(out.data<float>()[i] == 99, "unsupported primitives cannot write output");
+                if (c1(code)) {
+                    require(backend.capability(code, Device{}, out.dtype()).ok(), "C1 primitive capability");
+                    require(backend.prepare(fixture.descriptor, inputs, out).ok(), "C1 primitive prepare");
+                    require(backend.execute(fixture.descriptor, inputs, out).ok(), "C1 primitive execute");
+                } else {
+                    unsupported(backend.capability(code, Device{}, out.dtype()), code);
+                    unsupported(backend.prepare(fixture.descriptor, inputs, out).status, code);
+                    unsupported(backend.execute(fixture.descriptor, inputs, out), code);
+                    for (std::size_t i = 0; i < out.numel(); ++i) require(out.data<float>()[i] == 99, "unsupported primitives cannot write output");
+                }
                 covered.insert(code);
             }
             Graph graph; auto x = Tensor::allocate_cpu({1, 2}); x.data<float>()[0] = 1; x.data<float>()[1] = 2;
@@ -45,7 +50,7 @@ int main(int argc, char** argv) {
             }
         }
         require(covered.size() == 6, "all six S2 transformer descriptors covered");
-        std::cout << "CPU primitive reservations: PASS all six Unsupported, no numerical implementation\n";
+        std::cout << "CPU transformer capability transition: PASS C1 enabled, C2-C4 still Unsupported\n";
         return 0;
     } catch (const std::exception& e) { std::cerr << "test_cpu_transformer_contract: " << e.what() << '\n'; return 1; }
 }

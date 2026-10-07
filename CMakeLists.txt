@@ -62,7 +62,7 @@ add_library(runtime src/runtime/storage.cpp src/runtime/tensor.cpp src/runtime/c
     src/runtime/layout.cpp src/runtime/graph.cpp src/runtime/graph_executor.cpp src/runtime/graph_trace.cpp
     src/runtime/arena.cpp src/runtime/allocation_provider.cpp src/runtime/memory_planner.cpp
     src/runtime/planned_executor.cpp src/runtime/cpu_backend.cpp src/runtime/cpu_scalar.cpp src/runtime/cpu_optimized.cpp
-    src/runtime/thread_pool.cpp src/runtime/scheduler.cpp)
+    src/runtime/thread_pool.cpp src/runtime/scheduler.cpp src/runtime/transformer_ops.cpp)
 target_include_directories(runtime PUBLIC include)
 target_compile_options(runtime PRIVATE -Wall -Wextra -Wpedantic)
 
@@ -101,7 +101,7 @@ if(BUILD_TESTING)
     set_tests_properties(cpu_tools PROPERTIES LABELS "cpu;backend")
     add_custom_target(check_cpu_backend
         COMMAND "${CMAKE_CTEST_COMMAND}" --output-on-failure --verbose -L backend
-        DEPENDS test_cpu_backend test_cpu_scalar test_thread_pool test_cpu_backend_fixtures test_cpu_transformer_contract bench_cpu USES_TERMINAL)
+        DEPENDS test_cpu_backend test_cpu_scalar test_thread_pool test_cpu_backend_fixtures test_cpu_transformer_contract test_transformer_ops bench_cpu USES_TERMINAL)
     if(ENABLE_SANITIZERS)
         add_custom_target(check_cpu_backend_sanitizers DEPENDS check_cpu_backend)
     endif()
@@ -110,6 +110,11 @@ if(BUILD_TESTING)
     target_compile_options(test_cpu_transformer_contract PRIVATE -Wall -Wextra -Wpedantic)
     add_test(NAME cpu_transformer_contract COMMAND test_cpu_transformer_contract "${CMAKE_SOURCE_DIR}/tests/fixtures/operators-v1/operators-v1.txt")
     set_tests_properties(cpu_transformer_contract PROPERTIES LABELS "cpu;backend")
+    add_executable(test_transformer_ops tests/test_transformer_ops.cpp)
+    target_link_libraries(test_transformer_ops PRIVATE runtime)
+    target_compile_options(test_transformer_ops PRIVATE -Wall -Wextra -Wpedantic)
+    add_test(NAME transformer_ops COMMAND test_transformer_ops "${CMAKE_SOURCE_DIR}/tests/fixtures/operators-v1/operators-v1.txt")
+    set_tests_properties(transformer_ops PROPERTIES LABELS "cpu;transformer")
     add_executable(test_cpu_scalar tests/test_cpu_scalar.cpp)
     target_link_libraries(test_cpu_scalar PRIVATE runtime)
     target_compile_options(test_cpu_scalar PRIVATE -Wall -Wextra -Wpedantic)
