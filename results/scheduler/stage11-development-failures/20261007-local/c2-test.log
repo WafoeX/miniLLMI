@@ -1,0 +1,86 @@
+Test project /Users/wafoe/projects/me/CXXEg/build-stage11-local
+      Start  1: scheduler
+ 1/32 Test  #1: scheduler ........................   Passed    0.57 sec
+      Start  2: cpu_benchmark_workloads
+ 2/32 Test  #2: cpu_benchmark_workloads ..........   Passed    0.40 sec
+      Start  3: cpu_tools
+ 3/32 Test  #3: cpu_tools ........................   Passed    0.52 sec
+      Start  4: cpu_transformer_contract
+ 4/32 Test  #4: cpu_transformer_contract .........   Passed    0.40 sec
+      Start  5: cpu_scalar
+ 5/32 Test  #5: cpu_scalar .......................   Passed    0.40 sec
+      Start  6: thread_pool
+ 6/32 Test  #6: thread_pool ......................   Passed    0.42 sec
+      Start  7: cpu_backend_fixtures
+ 7/32 Test  #7: cpu_backend_fixtures .............   Passed    0.47 sec
+      Start  8: cpu_backend
+ 8/32 Test  #8: cpu_backend ......................   Passed    0.45 sec
+      Start  9: tensor
+ 9/32 Test  #9: tensor ...........................   Passed    0.41 sec
+      Start 10: tensor_properties
+10/32 Test #10: tensor_properties ................   Passed    0.38 sec
+      Start 11: tensor_validation
+11/32 Test #11: tensor_validation ................   Passed    0.14 sec
+      Start 12: operator
+12/32 Test #12: operator .........................   Passed    0.40 sec
+      Start 13: shape_inference
+13/32 Test #13: shape_inference ..................   Passed    0.41 sec
+      Start 14: operator_reference
+14/32 Test #14: operator_reference ...............   Passed    0.36 sec
+      Start 15: transformer_contracts
+15/32 Test #15: transformer_contracts ............   Passed    0.46 sec
+      Start 16: operator_fixtures
+16/32 Test #16: operator_fixtures ................   Passed    0.53 sec
+      Start 17: operator_fixture_tools
+17/32 Test #17: operator_fixture_tools ...........   Passed    0.10 sec
+      Start 18: graph
+18/32 Test #18: graph ............................   Passed    0.37 sec
+      Start 19: graph_executor
+19/32 Test #19: graph_executor ...................   Passed    0.44 sec
+      Start 20: graph_fixtures
+20/32 Test #20: graph_fixtures ...................   Passed    0.52 sec
+      Start 21: graph_trace
+21/32 Test #21: graph_trace ......................***Failed    0.50 sec
+diamond full trace golden order
+
+      Start 22: arena
+22/32 Test #22: arena ............................   Passed    0.48 sec
+      Start 23: allocation_provider
+23/32 Test #23: allocation_provider ..............   Passed    0.43 sec
+      Start 24: allocator_benchmark_workloads
+24/32 Test #24: allocator_benchmark_workloads ....   Passed    0.41 sec
+      Start 25: allocator_tools
+25/32 Test #25: allocator_tools ..................   Passed    0.13 sec
+      Start 26: memory_planner
+26/32 Test #26: memory_planner ...................   Passed    0.49 sec
+      Start 27: planned_executor
+27/32 Test #27: planned_executor .................   Passed    0.65 sec
+      Start 28: planner_benchmark_workloads
+28/32 Test #28: planner_benchmark_workloads ......   Passed    0.47 sec
+      Start 29: planner_tools
+29/32 Test #29: planner_tools ....................   Passed    0.28 sec
+      Start 30: common
+30/32 Test #30: common ...........................   Passed    0.00 sec
+      Start 31: tools
+31/32 Test #31: tools ............................   Passed    2.01 sec
+      Start 32: cuda_gemm_tools
+32/32 Test #32: cuda_gemm_tools ..................   Passed    0.04 sec
+
+97% tests passed, 1 tests failed out of 32
+
+Label Time Summary:
+arena        =   1.45 sec*proc (4 tests)
+backend      =   3.05 sec*proc (7 tests)
+cpu          =  12.01 sec*proc (30 tests)
+graph        =   2.27 sec*proc (5 tests)
+operators    =   2.26 sec*proc (6 tests)
+planner      =   1.89 sec*proc (4 tests)
+scheduler    =   0.57 sec*proc (1 test)
+tensor       =   0.92 sec*proc (3 tests)
+tools        =   0.04 sec*proc (1 test)
+
+Total Test time (real) =  14.04 sec
+
+The following tests FAILED:
+	 21 - graph_trace (Failed)                              cpu graph
+Errors while running CTest

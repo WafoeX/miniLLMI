@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "scope": "CPU-only dirty development failures; not acceptance evidence",
+  "base_commit_during_development": "cdadc25",
+  "source_dirty": true,
+  "source_digest_before": null,
+  "source_digest_note": "Not captured before these development tests; no retroactive reconstruction",
+  "failures": [
+    {"log": "c2-test.log", "reason": "Legacy trace golden order changed"},
+    {"log": "c2-fixed-tests.log", "reason": "Protocol mock intercepted platform subprocess"}
+  ],
+  "artifact_sha256": {
+    "c2-test.log": "ac00a008f09917109f3cc31fca17cc5068d15205c095c41221f6a6d62c39daec",
+    "c2-fixed-tests.log": "a02e7eb113c7682e6affb146b84217eb9a54f8b48ddf811643bf91dabb868b9d"
+  }
+}
