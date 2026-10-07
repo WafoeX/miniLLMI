@@ -2,6 +2,13 @@
 
 **Goal:** choose capable backends and make device transitions explicit. **Prerequisite:** S5, S6, S8. **Gate:** required C1/C2/C4; mixed graph values equal CPU references and copies are counted. C3 segmentation is optional; no scheduler speedup gate.
 
+## Execution status
+
+- C1: **CPU-accepted**, `cdadc25` (`feat(scheduler): add backend capability placement`), Release 32/32 CTests at that Change.
+- C2: implementation/local checks ready; **T4 mixed graph acceptance pending**. See [contract](../scheduler.md) and [Colab capture](../stage11_colab.md). CPU metadata tests are not GPU evidence.
+- C3: `skipped_optional`; no measured avoidable overhead yet justifies segmentation.
+- C4: `not_started`, awaiting required C2 acceptance before dependent implementation. Stage 11 is **not complete**.
+
 ## S11-C1 — Capability and placement policy
 - **Goal/type:** Map `(op,dtype,layout,device)` to supported backend; deterministic policy selects CPU/CUDA. *Functional.*
 - **Depends/files:** S6/S8; `scheduler.hpp/.cpp`, tests.

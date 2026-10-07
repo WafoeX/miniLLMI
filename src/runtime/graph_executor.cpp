@@ -1,11 +1,12 @@
 #include "runtime/graph_executor.hpp"
 #include "runtime/copy.hpp"
+#include "runtime/scheduler.hpp"
 #include <algorithm>
 #include <new>
 #include <set>
 
 namespace runtime {
-ExecutionResult execute_graph(const Graph& graph, ExecutionTrace* trace, AllocationProvider* supplied, const Backend* supplied_backend) {
+ExecutionResult execute_graph(const Graph& graph, ExecutionTrace* trace, AllocationProvider* supplied, const Backend* supplied_backend, const Scheduler* scheduler) {
     ExecutionResult result;
     const auto& backend = supplied_backend ? *supplied_backend : default_cpu_backend();
     DynamicAllocationProvider dynamic;
@@ -30,7 +31,7 @@ ExecutionResult execute_graph(const Graph& graph, ExecutionTrace* trace, Allocat
                     const auto offset = root_offsets.find(*record.base);
                     if (offset != root_offsets.end() || (pending_offset && pending_offset->first == *record.base)) {
                         metadata->offset_bytes += offset != root_offsets.end() ? offset->second : pending_offset->second;
-                        if (!backing) metadata->capacity_bytes = provider.capacity();
+                        if (!backing) metadata->capacity_bytes = provider.capacity_for(*record.base);
                     }
                 }
                 trace->record(kind, result.failed_node, tensor, record.base, metadata ? &*metadata : nullptr, bytes, status);
@@ -42,13 +43,19 @@ ExecutionResult execute_graph(const Graph& graph, ExecutionTrace* trace, Allocat
         event(TraceKind::Failure, {}, 0, result.status.code);
         return result;
     }
+    if (scheduler && (!supplied || supplied_backend)) {
+        result.status = Status::failure(StatusCode::InvalidArgument, "scheduled execution requires an explicit provider and no single-backend override");
+        event(TraceKind::Failure, {}, 0, result.status.code);
+        return result;
+    }
     for (const auto& item : graph.tensors()) {
-        if (item.second.device != backend.device()) {
+        if (scheduler ? !scheduler->has_device(item.second.device) : item.second.device != backend.device()) {
             result.status = Status::failure(StatusCode::DeviceMismatch, "graph tensors must use the selected backend device; no hidden transfers");
             event(TraceKind::Failure, item.first, 0, result.status.code);
             return result;
         }
     }
+    std::optional<Device> previous_backend;
     std::map<TensorId, Tensor> live;
     std::map<TensorId, std::size_t> remaining, root_handles, owned_bytes;
     std::set<TensorId> pinned;
@@ -136,7 +143,17 @@ ExecutionResult execute_graph(const Graph& graph, ExecutionTrace* trace, Allocat
                     pending_allocation.reset();
                     pending_offset.reset();
                     event(TraceKind::Tensor, output_id);
-                    status = backend.execute(descriptor, inputs, live.at(output_id));
+                    std::optional<Device> executed;
+                    if (scheduler) status = scheduler->execute_node(descriptor, inputs, live.at(output_id), executed);
+                    else { executed = backend.device(); status = backend.execute(descriptor, inputs, live.at(output_id)); }
+                    if (executed) {
+                        ++result.counts.backend_dispatches;
+                        if (previous_backend && *previous_backend != *executed) ++result.counts.backend_switches;
+                        previous_backend = executed;
+                        const auto dispatch_kind = executed->type() == DeviceType::CPU
+                            ? TraceKind::BackendCPU : TraceKind::BackendCUDA;
+                        if (scheduler) event(dispatch_kind, output_id); // preserve legacy trace format
+                    }
                     if (status.ok() && contract.kind == OutputKind::Alias) event(TraceKind::Alias, output_id);
                     if (status.ok() && contract.kind == OutputKind::Write) event(TraceKind::StateWrite, output_id);
                     if (status.ok() && (descriptor.code() == OpCode::COPY || descriptor.code() == OpCode::MATERIALIZE)) {
@@ -177,6 +194,11 @@ ExecutionResult execute_graph(const Graph& graph, ExecutionTrace* trace, Allocat
         return result;
     } catch (const std::bad_alloc&) {
         result.status = Status::failure(StatusCode::ResourceExhausted, "CPU graph allocation failed");
+        event(TraceKind::Failure, {}, 0, result.status.code);
+        cleanup();
+        return result;
+    } catch (const std::exception& error) {
+        result.status = Status::failure(StatusCode::InvalidArgument, error.what());
         event(TraceKind::Failure, {}, 0, result.status.code);
         cleanup();
         return result;

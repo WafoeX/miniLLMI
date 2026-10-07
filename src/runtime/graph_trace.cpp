@@ -10,6 +10,7 @@ const char* trace_name(TraceKind kind) {
     TRACE_NAME(Alias); TRACE_NAME(StateWrite); TRACE_NAME(Copy);
     TRACE_NAME(NodeEnd); TRACE_NAME(Release); TRACE_NAME(Free);
     TRACE_NAME(Output); TRACE_NAME(Failure); TRACE_NAME(BlockAllocate); TRACE_NAME(BlockFree);
+    TRACE_NAME(BackendCPU); TRACE_NAME(BackendCUDA);
 #undef TRACE_NAME
     }
     throw std::invalid_argument("unknown trace kind");

@@ -20,6 +20,9 @@ public:
         return type_ == other.type_ && index_ == other.index_;
     }
     bool operator!=(Device other) const noexcept { return !(*this == other); }
+    bool operator<(Device other) const noexcept {
+        return type_ < other.type_ || (type_ == other.type_ && index_ < other.index_);
+    }
 private:
     DeviceType type_;
     int index_;

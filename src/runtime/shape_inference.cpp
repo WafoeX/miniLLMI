@@ -119,6 +119,12 @@ LayoutInferenceResult infer_layout(const OpDesc& descriptor, const LayoutInputs&
             return canonical(first, first.shape);
         }
         case OpCode::COPY: {
+            const auto& attrs = std::get<CopyAttrs>(descriptor.attrs());
+            if (attrs.destination) {
+                auto prototype = first;
+                prototype.device = *attrs.destination;
+                return canonical(prototype, first.shape);
+            }
             const auto& destination = inputs[1].get();
             if (first.dtype != destination.dtype) return fail(StatusCode::DTypeMismatch, "COPY dtype mismatch");
             if (first.shape != destination.shape) return fail(StatusCode::ShapeMismatch, "COPY shape mismatch; ranges must be predeclared views");
@@ -174,7 +180,7 @@ InferenceResult infer_operator(const OpDesc& descriptor, const TensorInputs& inp
     if (!inferred.ok()) return {inferred.status, std::nullopt};
     // Distinct wrapped Storage objects may still refer to overlapping addresses.
     // Layout inference knows symbolic roots only; preserve Tensor's address check.
-    if (descriptor.code() == OpCode::COPY && !same_tensor_layout(inputs[0].get(), inputs[1].get()) &&
+    if (descriptor.code() == OpCode::COPY && inputs.size() == 2 && !same_tensor_layout(inputs[0].get(), inputs[1].get()) &&
         memory_spans_overlap(inputs[0].get(), inputs[1].get()))
         return {Status::failure(StatusCode::Aliasing, "COPY rejects intersecting address spans except exact self-copy"), std::nullopt};
     const auto& layout = inferred.output->layout;

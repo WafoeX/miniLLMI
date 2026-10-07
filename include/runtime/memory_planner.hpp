@@ -37,6 +37,9 @@ struct PlannedSlot {
 struct MemoryPlan {
     std::map<TensorId, PlannedSlot> slots; // NewTensor roots only, including outputs
     std::size_t alignment = 64, capacity_bytes = 0, peak_live_bytes = 0, reuse_count = 0;
+    // Offsets are local to each device's backing storage. capacity_bytes is the
+    // sum, never a shared address space across CPU/CUDA.
+    std::map<Device, std::size_t> device_capacity_bytes;
     PlanPolicy policy = PlanPolicy::Reuse;
     std::string graph_signature; // full structural identity, not a hash/pointer
 };

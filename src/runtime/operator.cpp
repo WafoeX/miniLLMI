@@ -68,7 +68,9 @@ template<class Container> void array(std::ostream& out, const Container& values)
 Status validate_schema(OpCode code, const std::vector<TensorId>& inputs,
                        const std::vector<TensorId>& outputs, const OpAttrs& attrs) {
     try {
-        if (inputs.size() != input_arity(code) || outputs.size() != 1)
+        const auto* copy = code == OpCode::COPY ? attribute<CopyAttrs>(attrs) : nullptr;
+        const auto arity = copy && copy->destination ? std::size_t{1} : input_arity(code);
+        if (inputs.size() != arity || outputs.size() != 1)
             return Status::failure(StatusCode::ArityMismatch, "operator requires its fixed input arity and one output");
         if (std::find(inputs.begin(), inputs.end(), INVALID_TENSOR_ID) != inputs.end() || outputs[0] == INVALID_TENSOR_ID)
             return Status::failure(StatusCode::InvalidArgument, "invalid tensor ID sentinel");
@@ -161,7 +163,11 @@ std::string OpDesc::serialize() const {
     std::visit([&](const auto& a) {
         using A = std::decay_t<decltype(a)>;
         if constexpr (std::is_same_v<A, std::monostate>) out << "{}";
-        else if constexpr (std::is_same_v<A, CopyAttrs>) out << "{\"overlap\":\"reject_except_exact_self\"}";
+        else if constexpr (std::is_same_v<A, CopyAttrs>) {
+            out << "{\"overlap\":\"reject_except_exact_self\"";
+            if (a.destination) out << ",\"destination\":\"" << (a.destination->type() == DeviceType::CPU ? "cpu:" : "cuda:") << a.destination->index() << '"';
+            out << '}';
+        }
         else if constexpr (std::is_same_v<A, ReshapeAttrs>) {
             out << "{\"shape\":"; array(out, a.shape.values()); out << '}';
         } else if constexpr (std::is_same_v<A, ViewAttrs>) {

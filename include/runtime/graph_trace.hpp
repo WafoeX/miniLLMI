@@ -4,7 +4,7 @@
 #include <limits>
 
 namespace runtime {
-enum class TraceKind { NodeBegin, Tensor, Allocate, Alias, StateWrite, Copy, NodeEnd, Release, Free, Output, Failure, BlockAllocate, BlockFree };
+enum class TraceKind { NodeBegin, Tensor, Allocate, Alias, StateWrite, Copy, NodeEnd, Release, Free, Output, Failure, BlockAllocate, BlockFree, BackendCPU, BackendCUDA };
 const char* trace_name(TraceKind kind);
 struct TraceEvent {
     TraceKind kind;

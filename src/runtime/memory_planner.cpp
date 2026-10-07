@@ -77,7 +77,7 @@ std::string signature(const Graph& graph) {
     return text.str();
 }
 bool overlap(const PlannedSlot& a, const PlannedSlot& b) {
-    return a.bytes && b.bytes && a.offset < b.offset + b.bytes && b.offset < a.offset + a.bytes;
+    return a.device == b.device && a.bytes && b.bytes && a.offset < b.offset + b.bytes && b.offset < a.offset + a.bytes;
 }
 bool simultaneous(const PlannedSlot& a, const PlannedSlot& b) {
     return a.birth <= b.last_use && b.birth <= a.last_use;
@@ -90,11 +90,8 @@ MemoryPlan plan_memory(const Graph& graph, PlanPolicy policy, std::size_t alignm
     MemoryPlan plan;
     plan.alignment = alignment; plan.policy = policy; plan.graph_signature = signature(graph);
     std::vector<RootLifetime> roots;
-    std::optional<Device> device;
     for (const auto& item : lifetimes.roots) {
         const auto& root = item.second;
-        if (device && root.device != *device) throw std::invalid_argument("planner requires one homogeneous device");
-        device = root.device;
         if (!root.external) roots.push_back(root);
     }
     std::sort(roots.begin(), roots.end(), [](const auto& a, const auto& b) {
@@ -105,7 +102,8 @@ MemoryPlan plan_memory(const Graph& graph, PlanPolicy policy, std::size_t alignm
         std::size_t live = root.bytes;
         for (const auto& item : plan.slots) {
             if (item.second.last_use >= root.birth) live = add(live, item.second.bytes);
-            if (item.second.bytes && (policy == PlanPolicy::NoReuse || item.second.last_use >= root.birth)) active.push_back(item.second);
+            if (item.second.device == root.device && item.second.bytes &&
+                (policy == PlanPolicy::NoReuse || item.second.last_use >= root.birth)) active.push_back(item.second);
         }
         plan.peak_live_bytes = std::max(plan.peak_live_bytes, live);
         std::sort(active.begin(), active.end(), [](const auto& a, const auto& b) { return a.offset < b.offset; });
@@ -116,9 +114,11 @@ MemoryPlan plan_memory(const Graph& graph, PlanPolicy policy, std::size_t alignm
         }
         PlannedSlot slot{root.root, offset, root.bytes, root.birth, root.last_use, root.device};
         for (const auto& previous : plan.slots) if (overlap(slot, previous.second)) { ++plan.reuse_count; break; }
-        plan.capacity_bytes = std::max(plan.capacity_bytes, root.bytes ? align_up(add(offset, root.bytes), alignment) : std::size_t{0});
+        auto& capacity = plan.device_capacity_bytes[root.device];
+        capacity = std::max(capacity, root.bytes ? align_up(add(offset, root.bytes), alignment) : std::size_t{0});
         plan.slots.emplace(root.root, slot);
     }
+    for (const auto& item : plan.device_capacity_bytes) plan.capacity_bytes = add(plan.capacity_bytes, item.second);
     return plan;
 }
 Status validate_memory_plan(const Graph& graph, const MemoryPlan& plan) {
@@ -129,10 +129,7 @@ Status validate_memory_plan(const Graph& graph, const MemoryPlan& plan) {
         if (plan.capacity_bytes % plan.alignment) throw std::invalid_argument("unaligned plan capacity");
         const auto life = analyze_lifetimes(graph);
         std::size_t expected = 0;
-        std::optional<Device> device;
         for (const auto& item : life.roots) {
-            if (device && item.second.device != *device) throw std::invalid_argument("planner requires one homogeneous device");
-            device = item.second.device;
             if (item.second.external) continue;
             ++expected;
             const auto found = plan.slots.find(item.first);
@@ -141,7 +138,8 @@ Status validate_memory_plan(const Graph& graph, const MemoryPlan& plan) {
             const auto& r = item.second;
             if (a.root != item.first || a.bytes != r.bytes || a.birth != r.birth || a.last_use != r.last_use ||
                 a.device != r.device || a.offset % plan.alignment ||
-                a.offset > plan.capacity_bytes || a.bytes > plan.capacity_bytes - a.offset)
+                !plan.device_capacity_bytes.count(r.device) ||
+                a.offset > plan.device_capacity_bytes.at(r.device) || a.bytes > plan.device_capacity_bytes.at(r.device) - a.offset)
                 throw std::invalid_argument("invalid planned span/interval/device");
         }
         if (expected != plan.slots.size()) throw std::invalid_argument("extra planned roots");
@@ -150,6 +148,7 @@ Status validate_memory_plan(const Graph& graph, const MemoryPlan& plan) {
                 throw std::invalid_argument("overlapping live planned spans");
         // Accounting is derived independently at every birth; includes outputs.
         std::size_t peak = 0, reused = 0, capacity = 0;
+        std::map<Device, std::size_t> capacities;
         for (const auto& a : plan.slots) {
             std::size_t live = 0;
             bool reuse = false;
@@ -158,9 +157,11 @@ Status validate_memory_plan(const Graph& graph, const MemoryPlan& plan) {
                 if (b.second.birth < a.second.birth && overlap(a.second, b.second)) reuse = true;
             }
             peak = std::max(peak, live); reused += reuse;
-            if (a.second.bytes) capacity = std::max(capacity, align_up(add(a.second.offset, a.second.bytes), plan.alignment));
+            auto& device_capacity = capacities[a.second.device];
+            if (a.second.bytes) device_capacity = std::max(device_capacity, align_up(add(a.second.offset, a.second.bytes), plan.alignment));
         }
-        if (peak != plan.peak_live_bytes || reused != plan.reuse_count || capacity != plan.capacity_bytes)
+        for (const auto& item : capacities) capacity = add(capacity, item.second);
+        if (capacities != plan.device_capacity_bytes || peak != plan.peak_live_bytes || reused != plan.reuse_count || capacity != plan.capacity_bytes)
             throw std::invalid_argument("invalid plan accounting");
         return Status::success();
     } catch (const std::invalid_argument& e) { return Status::failure(StatusCode::InvalidArgument, e.what()); }

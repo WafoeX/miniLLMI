@@ -36,7 +36,12 @@ enum class OpCode {
 const char* op_name(OpCode code);
 
 enum class CopyOverlap { RejectExceptExactSelf };
-struct CopyAttrs { CopyOverlap overlap = CopyOverlap::RejectExceptExactSelf; };
+struct CopyAttrs {
+    CopyOverlap overlap = CopyOverlap::RejectExceptExactSelf;
+    // One-input COPY allocates a canonical destination on this device.
+    // Two-input COPY remains a versioned write to explicit persistent state.
+    std::optional<Device> destination = std::nullopt;
+};
 struct ReshapeAttrs { Shape shape; };
 struct ViewAttrs { Shape shape; Stride stride; std::size_t offset_bytes = 0; };
 struct SliceAttrs {

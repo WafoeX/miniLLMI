@@ -18,6 +18,7 @@ public:
     virtual void release(TensorId root) noexcept = 0;
     virtual bool backing_per_request() const noexcept = 0;
     virtual std::size_t capacity() const noexcept { return 0; }
+    virtual std::size_t capacity_for(TensorId) const noexcept { return capacity(); }
 };
 class DynamicAllocationProvider final : public AllocationProvider {
 public:
