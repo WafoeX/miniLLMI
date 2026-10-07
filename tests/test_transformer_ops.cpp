@@ -27,7 +27,7 @@ void compare(const fixtures::Case& fixture, const Tensor& actual) {
 }
 
 bool implemented(OpCode code) {
-    return code == OpCode::RMSNORM || code == OpCode::SOFTMAX || code == OpCode::SWIGLU;
+    return code == OpCode::RMSNORM || code == OpCode::SOFTMAX || code == OpCode::ROPE || code == OpCode::EMBEDDING || code == OpCode::SWIGLU;
 }
 
 void fixture_conformance(const std::vector<fixtures::Case>& cases) {
@@ -50,7 +50,7 @@ void fixture_conformance(const std::vector<fixtures::Case>& cases) {
         }
         ++covered;
     }
-    require(covered == 5, "C1-C2 fixtures cover RMSNorm, SwiGLU, and all Softmax mask cases");
+    require(covered == 8, "C1-C3 fixtures cover all primitive reference vectors");
 }
 
 void softmax_mask_and_errors() {
@@ -67,6 +67,18 @@ void softmax_mask_and_errors() {
     const auto status = CpuBackend().execute(masked, {scores}, output);
     require(status.code == StatusCode::NonFinite, "unmasked nonfinite score is rejected");
     require(output.data<float>()[0] == 46 && output.data<float>()[1] == 46, "SOFTMAX preflight leaves output unchanged");
+}
+
+void embedding_errors_are_prewrite() {
+    auto ids = Tensor::allocate_cpu({2}, DType::INT32);
+    auto table = Tensor::allocate_cpu({2, 2});
+    auto output = Tensor::allocate_cpu({2, 2});
+    ids.data<std::int32_t>()[0] = 0; ids.data<std::int32_t>()[1] = 2;
+    for (std::size_t index = 0; index < table.numel(); ++index) table.data<float>()[index] = static_cast<float>(index);
+    for (std::size_t index = 0; index < output.numel(); ++index) output.data<float>()[index] = 45;
+    const auto status = CpuBackend().execute(OpDesc(OpCode::EMBEDDING, {0, 1}, {2}), {ids, table}, output);
+    require(status.code == StatusCode::OutOfRange, "EMBEDDING rejects an invalid ID");
+    for (std::size_t index = 0; index < output.numel(); ++index) require(output.data<float>()[index] == 45, "EMBEDDING preflight leaves output unchanged");
 }
 
 void errors_are_prewrite() {
@@ -104,9 +116,10 @@ int main(int argc, char** argv) {
         if (!stream) throw std::runtime_error("fixture file could not be opened");
         fixture_conformance(fixtures::load(stream));
         softmax_mask_and_errors();
+        embedding_errors_are_prewrite();
         errors_are_prewrite();
         require(testing::cpu_allocation_counts().live == 0, "transformer C1 test leaked backing storage");
-        std::cout << "Transformer C1-C2 RMSNorm/SwiGLU/Softmax: PASS fixture/masks/prewrite/no-allocation\n";
+        std::cout << "Transformer C1-C3 RMSNorm/SwiGLU/Softmax/RoPE/Embedding: PASS fixture/masks/prewrite/no-allocation\n";
         return 0;
     } catch (const std::exception& error) {
         std::cerr << "test_transformer_ops: " << error.what() << '\n';

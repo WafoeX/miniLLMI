@@ -64,7 +64,8 @@ Status validate_cpu_core(const OpDesc& descriptor, const TensorInputs& inputs, c
     if (descriptor.code() == OpCode::MATERIALIZE && memory_spans_overlap(inputs[0].get(), output))
         return Status::failure(StatusCode::Aliasing, "MATERIALIZE requires independent output storage");
     if (descriptor.code() == OpCode::ADD || descriptor.code() == OpCode::MUL || descriptor.code() == OpCode::MATMUL ||
-        descriptor.code() == OpCode::RMSNORM || descriptor.code() == OpCode::SOFTMAX || descriptor.code() == OpCode::SWIGLU)
+        descriptor.code() == OpCode::RMSNORM || descriptor.code() == OpCode::SOFTMAX || descriptor.code() == OpCode::ROPE ||
+        descriptor.code() == OpCode::EMBEDDING || descriptor.code() == OpCode::SWIGLU)
         for (const auto& input : inputs)
             if (memory_spans_overlap(input.get(), output))
                 return Status::failure(StatusCode::Aliasing, "CPU arithmetic/transformer primitive rejects overlapping input/output spans");
@@ -88,7 +89,7 @@ Status execute_cpu_core(const OpDesc& descriptor, const TensorInputs& inputs, Te
             if (descriptor.code() == OpCode::MATMUL) return matmul(inputs[0].get(), inputs[1].get(), output, pool);
             return reference::elementwise(descriptor.code(), inputs[0].get(), inputs[1].get(), output);
         }
-        case OpCode::RMSNORM: case OpCode::SOFTMAX: case OpCode::SWIGLU:
+        case OpCode::RMSNORM: case OpCode::SOFTMAX: case OpCode::ROPE: case OpCode::EMBEDDING: case OpCode::SWIGLU:
             return execute_transformer_cpu(descriptor, inputs, output);
         default:
             return Status::failure(StatusCode::Unsupported, "operator has no Stage 2 CPU reference kernel; metadata aliases bind through inference");

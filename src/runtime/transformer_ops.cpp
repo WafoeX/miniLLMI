@@ -93,6 +93,48 @@ Status softmax(const TensorInputs& inputs, Tensor& output, const SoftmaxAttrs& a
     return Status::success();
 }
 
+Status rope(const TensorInputs& inputs, Tensor& output, const RopeAttrs& attrs) {
+    const auto finite = finite_fp32(inputs[0], "ROPE input contains NaN/Inf");
+    if (!finite.ok()) return finite;
+    const auto& shape = inputs[0].get().shape();
+    const auto tokens = as_size(shape[0]);
+    const auto dim = as_size(shape[shape.rank() - 1]);
+    const auto heads = shape.rank() == 3 ? as_size(shape[1]) : 1U;
+    const auto* source = inputs[0].get().data<float>();
+    auto* result = output.data<float>();
+    for (std::size_t token = 0; token < tokens; ++token) {
+        const auto position = static_cast<double>(attrs.position + static_cast<std::int64_t>(token));
+        for (std::size_t head = 0; head < heads; ++head) for (std::size_t pair = 0; pair < dim / 2; ++pair) {
+            const auto theta = position / std::pow(attrs.base, 2.0 * static_cast<double>(pair) / static_cast<double>(dim));
+            const auto base = (token * heads + head) * dim + 2 * pair;
+            const auto even = source[base], odd = source[base + 1];
+            const auto rotated_even = static_cast<float>(static_cast<double>(even) * std::cos(theta) - static_cast<double>(odd) * std::sin(theta));
+            const auto rotated_odd = static_cast<float>(static_cast<double>(even) * std::sin(theta) + static_cast<double>(odd) * std::cos(theta));
+            if (!std::isfinite(rotated_even) || !std::isfinite(rotated_odd)) return nonfinite("ROPE result is nonfinite");
+            result[base] = rotated_even; result[base + 1] = rotated_odd;
+        }
+    }
+    return Status::success();
+}
+
+Status embedding(const TensorInputs& inputs, Tensor& output) {
+    const auto* ids = inputs[0].get().data<std::int32_t>();
+    const auto* table = inputs[1].get().data<float>();
+    const auto tokens = inputs[0].get().numel();
+    const auto vocab = as_size(inputs[1].get().shape()[0]);
+    const auto hidden = as_size(inputs[1].get().shape()[1]);
+    for (std::size_t index = 0; index < tokens; ++index)
+        if (ids[index] < 0 || static_cast<std::size_t>(ids[index]) >= vocab)
+            return Status::failure(StatusCode::OutOfRange, "EMBEDDING token ID is outside [0,vocab)");
+    const auto finite = finite_fp32(inputs[1], "EMBEDDING table contains NaN/Inf");
+    if (!finite.ok()) return finite;
+    auto* result = output.data<float>();
+    for (std::size_t token = 0; token < tokens; ++token)
+        for (std::size_t channel = 0; channel < hidden; ++channel)
+            result[token * hidden + channel] = table[static_cast<std::size_t>(ids[token]) * hidden + channel];
+    return Status::success();
+}
+
 Status swiglu(const TensorInputs& inputs, Tensor& output) {
     const auto finite_gate = finite_fp32(inputs[0], "SWIGLU gate contains NaN/Inf");
     if (!finite_gate.ok()) return finite_gate;
@@ -121,6 +163,10 @@ Status execute_transformer_cpu(const OpDesc& descriptor, const TensorInputs& inp
             return rmsnorm(inputs, output, std::get<NormAttrs>(descriptor.attrs()));
         case OpCode::SOFTMAX:
             return softmax(inputs, output, std::get<SoftmaxAttrs>(descriptor.attrs()));
+        case OpCode::ROPE:
+            return rope(inputs, output, std::get<RopeAttrs>(descriptor.attrs()));
+        case OpCode::EMBEDDING:
+            return embedding(inputs, output);
         case OpCode::SWIGLU:
             return swiglu(inputs, output);
         default:
