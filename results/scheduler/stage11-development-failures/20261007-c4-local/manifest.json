@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "status": "failed_development_only",
+  "scope": "CPU-only protocol unit fixtures; not CUDA or latency evidence",
+  "command": ["python3", "tests/test_scheduler_benchmark_tools.py"],
+  "exit_code": 1,
+  "source_dirty": true,
+  "source_digest": null,
+  "provenance_limit": "No pre-test source digest was captured; it is not reconstructed retroactively.",
+  "failure": "Python platform.platform lazy uname subprocess was intercepted by the test mock; unexpected timeout keyword",
+  "artifact_sha256": {
+    "README.md": "0fd09a7f7d1cad72af08bd77ef9114f44031038dfff2ea865c51d31aad8c923c",
+    "python-platform-mock.log": "239ae6745caa32ede019e5c504959b23011a8cb0e6a73c2ddba2acad6ccd7549"
+  }
+}

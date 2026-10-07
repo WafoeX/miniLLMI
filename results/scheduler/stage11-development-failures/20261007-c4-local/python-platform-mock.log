@@ -1,0 +1,363 @@
+.....EEEEEE.E
+======================================================================
+ERROR: test_never_time_cpu_binary (__main__.SchedulerBenchmarkTools.test_never_time_cpu_binary)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/wafoe/projects/me/CXXEg/tests/test_scheduler_benchmark_tools.py", line 231, in test_never_time_cpu_binary
+    manifest = self.mock_capture(cpu_probe=True)
+  File "/Users/wafoe/projects/me/CXXEg/tests/test_scheduler_benchmark_tools.py", line 198, in mock_capture
+    runner.capture(root, root / "results", root / "build")
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/wafoe/projects/me/CXXEg/tools/run_scheduler_benchmark.py", line 46, in capture
+    "run_id": run_id, "status": "running", "platform": platform.platform(), "python": sys.version,
+                                                       ~~~~~~~~~~~~~~~~~^^
+  File "/Users/wafoe/miniforge3/lib/python3.14/platform.py", line 1360, in platform
+    system, node, release, version, machine, processor = uname()
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/wafoe/miniforge3/lib/python3.14/platform.py", line 964, in __iter__
+    (self.processor,)
+     ^^^^^^^^^^^^^^
+  File "/Users/wafoe/miniforge3/lib/python3.14/functools.py", line 1126, in __get__
+    val = self.func(instance)
+  File "/Users/wafoe/miniforge3/lib/python3.14/platform.py", line 959, in processor
+    return _unknown_as_blank(_Processor.get())
+                             ~~~~~~~~~~~~~~^^
+  File "/Users/wafoe/miniforge3/lib/python3.14/platform.py", line 891, in get
+    return func() or ''
+           ~~~~^^
+  File "/Users/wafoe/miniforge3/lib/python3.14/platform.py", line 927, in from_subprocess
+    return subprocess.check_output(
+           ~~~~~~~~~~~~~~~~~~~~~~~^
+        ['uname', '-p'],
+        ^^^^^^^^^^^^^^^^
+    ...<2 lines>...
+        encoding="utf8",
+        ^^^^^^^^^^^^^^^^
+    ).strip()
+    ^
+  File "/Users/wafoe/miniforge3/lib/python3.14/subprocess.py", line 473, in check_output
+    return run(*popenargs, stdout=PIPE, timeout=timeout, check=True,
+           ~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+               **kwargs).stdout
+               ^^^^^^^^^
+  File "/Users/wafoe/miniforge3/lib/python3.14/unittest/mock.py", line 1176, in __call__
+    return self._mock_call(*args, **kwargs)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/Users/wafoe/miniforge3/lib/python3.14/unittest/mock.py", line 1180, in _mock_call
+    return self._execute_mock_call(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/Users/wafoe/miniforge3/lib/python3.14/unittest/mock.py", line 1247, in _execute_mock_call
+    result = effect(*args, **kwargs)
+TypeError: SchedulerBenchmarkTools.mock_capture.<locals>.run() got an unexpected keyword argument 'timeout'
+
+======================================================================
+ERROR: test_runner_failures_retained (__main__.SchedulerBenchmarkTools.test_runner_failures_retained) (command='build-testing')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/wafoe/projects/me/CXXEg/tests/test_scheduler_benchmark_tools.py", line 222, in test_runner_failures_retained
+    manifest = self.mock_capture(fail=label)
+  File "/Users/wafoe/projects/me/CXXEg/tests/test_scheduler_benchmark_tools.py", line 198, in mock_capture
+    runner.capture(root, root / "results", root / "build")
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/wafoe/projects/me/CXXEg/tools/run_scheduler_benchmark.py", line 46, in capture
+    "run_id": run_id, "status": "running", "platform": platform.platform(), "python": sys.version,
+                                                       ~~~~~~~~~~~~~~~~~^^
+  File "/Users/wafoe/miniforge3/lib/python3.14/platform.py", line 1360, in platform
+    system, node, release, version, machine, processor = uname()
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/wafoe/miniforge3/lib/python3.14/platform.py", line 964, in __iter__
+    (self.processor,)
+     ^^^^^^^^^^^^^^
+  File "/Users/wafoe/miniforge3/lib/python3.14/functools.py", line 1126, in __get__
+    val = self.func(instance)
+  File "/Users/wafoe/miniforge3/lib/python3.14/platform.py", line 959, in processor
+    return _unknown_as_blank(_Processor.get())
+                             ~~~~~~~~~~~~~~^^
+  File "/Users/wafoe/miniforge3/lib/python3.14/platform.py", line 891, in get
+    return func() or ''
+           ~~~~^^
+  File "/Users/wafoe/miniforge3/lib/python3.14/platform.py", line 927, in from_subprocess
+    return subprocess.check_output(
+           ~~~~~~~~~~~~~~~~~~~~~~~^
+        ['uname', '-p'],
+        ^^^^^^^^^^^^^^^^
+    ...<2 lines>...
+        encoding="utf8",
+        ^^^^^^^^^^^^^^^^
+    ).strip()
+    ^
+  File "/Users/wafoe/miniforge3/lib/python3.14/subprocess.py", line 473, in check_output
+    return run(*popenargs, stdout=PIPE, timeout=timeout, check=True,
+           ~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+               **kwargs).stdout
+               ^^^^^^^^^
+  File "/Users/wafoe/miniforge3/lib/python3.14/unittest/mock.py", line 1176, in __call__
+    return self._mock_call(*args, **kwargs)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/Users/wafoe/miniforge3/lib/python3.14/unittest/mock.py", line 1180, in _mock_call
+    return self._execute_mock_call(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/Users/wafoe/miniforge3/lib/python3.14/unittest/mock.py", line 1247, in _execute_mock_call
+    result = effect(*args, **kwargs)
+TypeError: SchedulerBenchmarkTools.mock_capture.<locals>.run() got an unexpected keyword argument 'timeout'
+
+======================================================================
+ERROR: test_runner_failures_retained (__main__.SchedulerBenchmarkTools.test_runner_failures_retained) (command='ctest')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/wafoe/projects/me/CXXEg/tests/test_scheduler_benchmark_tools.py", line 222, in test_runner_failures_retained
+    manifest = self.mock_capture(fail=label)
+  File "/Users/wafoe/projects/me/CXXEg/tests/test_scheduler_benchmark_tools.py", line 198, in mock_capture
+    runner.capture(root, root / "results", root / "build")
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/wafoe/projects/me/CXXEg/tools/run_scheduler_benchmark.py", line 46, in capture
+    "run_id": run_id, "status": "running", "platform": platform.platform(), "python": sys.version,
+                                                       ~~~~~~~~~~~~~~~~~^^
+  File "/Users/wafoe/miniforge3/lib/python3.14/platform.py", line 1360, in platform
+    system, node, release, version, machine, processor = uname()
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/wafoe/miniforge3/lib/python3.14/platform.py", line 964, in __iter__
+    (self.processor,)
+     ^^^^^^^^^^^^^^
+  File "/Users/wafoe/miniforge3/lib/python3.14/functools.py", line 1126, in __get__
+    val = self.func(instance)
+  File "/Users/wafoe/miniforge3/lib/python3.14/platform.py", line 959, in processor
+    return _unknown_as_blank(_Processor.get())
+                             ~~~~~~~~~~~~~~^^
+  File "/Users/wafoe/miniforge3/lib/python3.14/platform.py", line 891, in get
+    return func() or ''
+           ~~~~^^
+  File "/Users/wafoe/miniforge3/lib/python3.14/platform.py", line 927, in from_subprocess
+    return subprocess.check_output(
+           ~~~~~~~~~~~~~~~~~~~~~~~^
+        ['uname', '-p'],
+        ^^^^^^^^^^^^^^^^
+    ...<2 lines>...
+        encoding="utf8",
+        ^^^^^^^^^^^^^^^^
+    ).strip()
+    ^
+  File "/Users/wafoe/miniforge3/lib/python3.14/subprocess.py", line 473, in check_output
+    return run(*popenargs, stdout=PIPE, timeout=timeout, check=True,
+           ~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+               **kwargs).stdout
+               ^^^^^^^^^
+  File "/Users/wafoe/miniforge3/lib/python3.14/unittest/mock.py", line 1176, in __call__
+    return self._mock_call(*args, **kwargs)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/Users/wafoe/miniforge3/lib/python3.14/unittest/mock.py", line 1180, in _mock_call
+    return self._execute_mock_call(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/Users/wafoe/miniforge3/lib/python3.14/unittest/mock.py", line 1247, in _execute_mock_call
+    result = effect(*args, **kwargs)
+TypeError: SchedulerBenchmarkTools.mock_capture.<locals>.run() got an unexpected keyword argument 'timeout'
+
+======================================================================
+ERROR: test_runner_failures_retained (__main__.SchedulerBenchmarkTools.test_runner_failures_retained) (command='probe')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/wafoe/projects/me/CXXEg/tests/test_scheduler_benchmark_tools.py", line 222, in test_runner_failures_retained
+    manifest = self.mock_capture(fail=label)
+  File "/Users/wafoe/projects/me/CXXEg/tests/test_scheduler_benchmark_tools.py", line 198, in mock_capture
+    runner.capture(root, root / "results", root / "build")
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/wafoe/projects/me/CXXEg/tools/run_scheduler_benchmark.py", line 46, in capture
+    "run_id": run_id, "status": "running", "platform": platform.platform(), "python": sys.version,
+                                                       ~~~~~~~~~~~~~~~~~^^
+  File "/Users/wafoe/miniforge3/lib/python3.14/platform.py", line 1360, in platform
+    system, node, release, version, machine, processor = uname()
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/wafoe/miniforge3/lib/python3.14/platform.py", line 964, in __iter__
+    (self.processor,)
+     ^^^^^^^^^^^^^^
+  File "/Users/wafoe/miniforge3/lib/python3.14/functools.py", line 1126, in __get__
+    val = self.func(instance)
+  File "/Users/wafoe/miniforge3/lib/python3.14/platform.py", line 959, in processor
+    return _unknown_as_blank(_Processor.get())
+                             ~~~~~~~~~~~~~~^^
+  File "/Users/wafoe/miniforge3/lib/python3.14/platform.py", line 891, in get
+    return func() or ''
+           ~~~~^^
+  File "/Users/wafoe/miniforge3/lib/python3.14/platform.py", line 927, in from_subprocess
+    return subprocess.check_output(
+           ~~~~~~~~~~~~~~~~~~~~~~~^
+        ['uname', '-p'],
+        ^^^^^^^^^^^^^^^^
+    ...<2 lines>...
+        encoding="utf8",
+        ^^^^^^^^^^^^^^^^
+    ).strip()
+    ^
+  File "/Users/wafoe/miniforge3/lib/python3.14/subprocess.py", line 473, in check_output
+    return run(*popenargs, stdout=PIPE, timeout=timeout, check=True,
+           ~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+               **kwargs).stdout
+               ^^^^^^^^^
+  File "/Users/wafoe/miniforge3/lib/python3.14/unittest/mock.py", line 1176, in __call__
+    return self._mock_call(*args, **kwargs)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/Users/wafoe/miniforge3/lib/python3.14/unittest/mock.py", line 1180, in _mock_call
+    return self._execute_mock_call(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/Users/wafoe/miniforge3/lib/python3.14/unittest/mock.py", line 1247, in _execute_mock_call
+    result = effect(*args, **kwargs)
+TypeError: SchedulerBenchmarkTools.mock_capture.<locals>.run() got an unexpected keyword argument 'timeout'
+
+======================================================================
+ERROR: test_runner_failures_retained (__main__.SchedulerBenchmarkTools.test_runner_failures_retained) (command='paired-2')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/wafoe/projects/me/CXXEg/tests/test_scheduler_benchmark_tools.py", line 222, in test_runner_failures_retained
+    manifest = self.mock_capture(fail=label)
+  File "/Users/wafoe/projects/me/CXXEg/tests/test_scheduler_benchmark_tools.py", line 198, in mock_capture
+    runner.capture(root, root / "results", root / "build")
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/wafoe/projects/me/CXXEg/tools/run_scheduler_benchmark.py", line 46, in capture
+    "run_id": run_id, "status": "running", "platform": platform.platform(), "python": sys.version,
+                                                       ~~~~~~~~~~~~~~~~~^^
+  File "/Users/wafoe/miniforge3/lib/python3.14/platform.py", line 1360, in platform
+    system, node, release, version, machine, processor = uname()
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/wafoe/miniforge3/lib/python3.14/platform.py", line 964, in __iter__
+    (self.processor,)
+     ^^^^^^^^^^^^^^
+  File "/Users/wafoe/miniforge3/lib/python3.14/functools.py", line 1126, in __get__
+    val = self.func(instance)
+  File "/Users/wafoe/miniforge3/lib/python3.14/platform.py", line 959, in processor
+    return _unknown_as_blank(_Processor.get())
+                             ~~~~~~~~~~~~~~^^
+  File "/Users/wafoe/miniforge3/lib/python3.14/platform.py", line 891, in get
+    return func() or ''
+           ~~~~^^
+  File "/Users/wafoe/miniforge3/lib/python3.14/platform.py", line 927, in from_subprocess
+    return subprocess.check_output(
+           ~~~~~~~~~~~~~~~~~~~~~~~^
+        ['uname', '-p'],
+        ^^^^^^^^^^^^^^^^
+    ...<2 lines>...
+        encoding="utf8",
+        ^^^^^^^^^^^^^^^^
+    ).strip()
+    ^
+  File "/Users/wafoe/miniforge3/lib/python3.14/subprocess.py", line 473, in check_output
+    return run(*popenargs, stdout=PIPE, timeout=timeout, check=True,
+           ~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+               **kwargs).stdout
+               ^^^^^^^^^
+  File "/Users/wafoe/miniforge3/lib/python3.14/unittest/mock.py", line 1176, in __call__
+    return self._mock_call(*args, **kwargs)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/Users/wafoe/miniforge3/lib/python3.14/unittest/mock.py", line 1180, in _mock_call
+    return self._execute_mock_call(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/Users/wafoe/miniforge3/lib/python3.14/unittest/mock.py", line 1247, in _execute_mock_call
+    result = effect(*args, **kwargs)
+TypeError: SchedulerBenchmarkTools.mock_capture.<locals>.run() got an unexpected keyword argument 'timeout'
+
+======================================================================
+ERROR: test_runner_success (__main__.SchedulerBenchmarkTools.test_runner_success)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/wafoe/projects/me/CXXEg/tests/test_scheduler_benchmark_tools.py", line 215, in test_runner_success
+    manifest = self.mock_capture()
+  File "/Users/wafoe/projects/me/CXXEg/tests/test_scheduler_benchmark_tools.py", line 200, in mock_capture
+    runner.capture(root, root / "results", root / "build")
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/wafoe/projects/me/CXXEg/tools/run_scheduler_benchmark.py", line 46, in capture
+    "run_id": run_id, "status": "running", "platform": platform.platform(), "python": sys.version,
+                                                       ~~~~~~~~~~~~~~~~~^^
+  File "/Users/wafoe/miniforge3/lib/python3.14/platform.py", line 1360, in platform
+    system, node, release, version, machine, processor = uname()
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/wafoe/miniforge3/lib/python3.14/platform.py", line 964, in __iter__
+    (self.processor,)
+     ^^^^^^^^^^^^^^
+  File "/Users/wafoe/miniforge3/lib/python3.14/functools.py", line 1126, in __get__
+    val = self.func(instance)
+  File "/Users/wafoe/miniforge3/lib/python3.14/platform.py", line 959, in processor
+    return _unknown_as_blank(_Processor.get())
+                             ~~~~~~~~~~~~~~^^
+  File "/Users/wafoe/miniforge3/lib/python3.14/platform.py", line 891, in get
+    return func() or ''
+           ~~~~^^
+  File "/Users/wafoe/miniforge3/lib/python3.14/platform.py", line 927, in from_subprocess
+    return subprocess.check_output(
+           ~~~~~~~~~~~~~~~~~~~~~~~^
+        ['uname', '-p'],
+        ^^^^^^^^^^^^^^^^
+    ...<2 lines>...
+        encoding="utf8",
+        ^^^^^^^^^^^^^^^^
+    ).strip()
+    ^
+  File "/Users/wafoe/miniforge3/lib/python3.14/subprocess.py", line 473, in check_output
+    return run(*popenargs, stdout=PIPE, timeout=timeout, check=True,
+           ~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+               **kwargs).stdout
+               ^^^^^^^^^
+  File "/Users/wafoe/miniforge3/lib/python3.14/unittest/mock.py", line 1176, in __call__
+    return self._mock_call(*args, **kwargs)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/Users/wafoe/miniforge3/lib/python3.14/unittest/mock.py", line 1180, in _mock_call
+    return self._execute_mock_call(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/Users/wafoe/miniforge3/lib/python3.14/unittest/mock.py", line 1247, in _execute_mock_call
+    result = effect(*args, **kwargs)
+TypeError: SchedulerBenchmarkTools.mock_capture.<locals>.run() got an unexpected keyword argument 'timeout'
+
+======================================================================
+ERROR: test_wrong_gpu_and_source_change (__main__.SchedulerBenchmarkTools.test_wrong_gpu_and_source_change)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/wafoe/projects/me/CXXEg/tests/test_scheduler_benchmark_tools.py", line 227, in test_wrong_gpu_and_source_change
+    self.assertEqual(self.mock_capture(gpu="NVIDIA A100, 8.0, driver, 40000\n")["status"], "failed")
+                     ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/wafoe/projects/me/CXXEg/tests/test_scheduler_benchmark_tools.py", line 198, in mock_capture
+    runner.capture(root, root / "results", root / "build")
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/wafoe/projects/me/CXXEg/tools/run_scheduler_benchmark.py", line 46, in capture
+    "run_id": run_id, "status": "running", "platform": platform.platform(), "python": sys.version,
+                                                       ~~~~~~~~~~~~~~~~~^^
+  File "/Users/wafoe/miniforge3/lib/python3.14/platform.py", line 1360, in platform
+    system, node, release, version, machine, processor = uname()
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/wafoe/miniforge3/lib/python3.14/platform.py", line 964, in __iter__
+    (self.processor,)
+     ^^^^^^^^^^^^^^
+  File "/Users/wafoe/miniforge3/lib/python3.14/functools.py", line 1126, in __get__
+    val = self.func(instance)
+  File "/Users/wafoe/miniforge3/lib/python3.14/platform.py", line 959, in processor
+    return _unknown_as_blank(_Processor.get())
+                             ~~~~~~~~~~~~~~^^
+  File "/Users/wafoe/miniforge3/lib/python3.14/platform.py", line 891, in get
+    return func() or ''
+           ~~~~^^
+  File "/Users/wafoe/miniforge3/lib/python3.14/platform.py", line 927, in from_subprocess
+    return subprocess.check_output(
+           ~~~~~~~~~~~~~~~~~~~~~~~^
+        ['uname', '-p'],
+        ^^^^^^^^^^^^^^^^
+    ...<2 lines>...
+        encoding="utf8",
+        ^^^^^^^^^^^^^^^^
+    ).strip()
+    ^
+  File "/Users/wafoe/miniforge3/lib/python3.14/subprocess.py", line 473, in check_output
+    return run(*popenargs, stdout=PIPE, timeout=timeout, check=True,
+           ~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+               **kwargs).stdout
+               ^^^^^^^^^
+  File "/Users/wafoe/miniforge3/lib/python3.14/unittest/mock.py", line 1176, in __call__
+    return self._mock_call(*args, **kwargs)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/Users/wafoe/miniforge3/lib/python3.14/unittest/mock.py", line 1180, in _mock_call
+    return self._execute_mock_call(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/Users/wafoe/miniforge3/lib/python3.14/unittest/mock.py", line 1247, in _execute_mock_call
+    result = effect(*args, **kwargs)
+TypeError: SchedulerBenchmarkTools.mock_capture.<locals>.run() got an unexpected keyword argument 'timeout'
+
+----------------------------------------------------------------------
+Ran 10 tests in 0.216s
+
+FAILED (errors=7)

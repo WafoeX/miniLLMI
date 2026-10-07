@@ -1,0 +1,1 @@
+bench_scheduler: scheduler timing is T4-only; build ENABLE_CUDA=ON

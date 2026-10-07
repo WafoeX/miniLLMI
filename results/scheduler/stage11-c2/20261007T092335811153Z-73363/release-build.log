@@ -1,0 +1,103 @@
+[  1%] Building CXX object CMakeFiles/runtime.dir/src/runtime/storage.cpp.o
+[  1%] Built target refresh_provenance
+[  2%] Building CXX object CMakeFiles/runtime.dir/src/runtime/tensor.cpp.o
+[  4%] Building CXX object CMakeFiles/runtime.dir/src/runtime/copy.cpp.o
+[  5%] Building CXX object CMakeFiles/runtime.dir/src/runtime/operator.cpp.o
+[  6%] Building CXX object CMakeFiles/runtime.dir/src/runtime/shape_inference.cpp.o
+[  8%] Building CXX object CMakeFiles/runtime.dir/src/runtime/reference.cpp.o
+[  9%] Building CXX object CMakeFiles/runtime.dir/src/runtime/layout.cpp.o
+[ 10%] Building CXX object CMakeFiles/runtime.dir/src/runtime/graph.cpp.o
+[ 12%] Building CXX object CMakeFiles/runtime.dir/src/runtime/graph_executor.cpp.o
+[ 13%] Building CXX object CMakeFiles/stage0_common.dir/src/common.cpp.o
+[ 14%] Building CXX object CMakeFiles/runtime.dir/src/runtime/graph_trace.cpp.o
+[ 16%] Building CXX object CMakeFiles/runtime.dir/src/runtime/arena.cpp.o
+[ 17%] Linking CXX static library libstage0_common.a
+[ 17%] Built target stage0_common
+[ 18%] Building CXX object CMakeFiles/runtime.dir/src/runtime/allocation_provider.cpp.o
+[ 20%] Building CXX object CMakeFiles/runtime.dir/src/runtime/memory_planner.cpp.o
+[ 21%] Building CXX object CMakeFiles/runtime.dir/src/runtime/planned_executor.cpp.o
+[ 22%] Building CXX object CMakeFiles/runtime.dir/src/runtime/cpu_backend.cpp.o
+[ 24%] Building CXX object CMakeFiles/runtime.dir/src/runtime/cpu_scalar.cpp.o
+[ 25%] Building CXX object CMakeFiles/runtime.dir/src/runtime/cpu_optimized.cpp.o
+[ 27%] Building CXX object CMakeFiles/runtime.dir/src/runtime/thread_pool.cpp.o
+[ 28%] Building CXX object CMakeFiles/runtime.dir/src/runtime/scheduler.cpp.o
+[ 29%] Building CXX object CMakeFiles/test_common.dir/tests/test_common.cpp.o
+[ 31%] Linking CXX executable test_common
+[ 31%] Built target test_common
+[ 32%] Linking CXX static library libruntime.a
+[ 32%] Built target runtime
+[ 35%] Building CXX object CMakeFiles/bench_allocator.dir/bench/bench_allocator.cpp.o
+[ 35%] Building CXX object CMakeFiles/bench_planner.dir/bench/bench_planner.cpp.o
+[ 36%] Linking CXX executable bench_allocator
+[ 36%] Built target bench_allocator
+[ 37%] Linking CXX executable bench_planner
+[ 39%] Building CXX object CMakeFiles/bench_cpu.dir/bench/bench_cpu.cpp.o
+[ 39%] Built target bench_planner
+[ 40%] Building CXX object CMakeFiles/bench_scheduler.dir/bench/bench_scheduler.cpp.o
+[ 41%] Linking CXX executable bench_cpu
+[ 41%] Built target bench_cpu
+[ 43%] Linking CXX executable bench_scheduler
+[ 44%] Building CXX object CMakeFiles/test_scheduler.dir/tests/test_scheduler.cpp.o
+[ 44%] Built target bench_scheduler
+[ 45%] Building CXX object CMakeFiles/test_cpu_transformer_contract.dir/tests/test_cpu_transformer_contract.cpp.o
+[ 47%] Linking CXX executable test_scheduler
+[ 47%] Built target test_scheduler
+[ 48%] Building CXX object CMakeFiles/test_cpu_scalar.dir/tests/test_cpu_scalar.cpp.o
+[ 50%] Linking CXX executable test_cpu_transformer_contract
+[ 50%] Built target test_cpu_transformer_contract
+[ 51%] Building CXX object CMakeFiles/test_thread_pool.dir/tests/test_thread_pool.cpp.o
+[ 52%] Linking CXX executable test_thread_pool
+[ 52%] Built target test_thread_pool
+[ 54%] Linking CXX executable test_cpu_scalar
+[ 55%] Building CXX object CMakeFiles/test_cpu_backend_fixtures.dir/tests/test_operator_fixtures.cpp.o
+[ 55%] Built target test_cpu_scalar
+[ 56%] Building CXX object CMakeFiles/test_cpu_backend.dir/tests/test_cpu_backend.cpp.o
+[ 58%] Linking CXX executable test_cpu_backend
+[ 58%] Built target test_cpu_backend
+[ 59%] Linking CXX executable test_cpu_backend_fixtures
+[ 60%] Building CXX object CMakeFiles/test_tensor.dir/tests/test_tensor.cpp.o
+[ 60%] Built target test_cpu_backend_fixtures
+[ 62%] Building CXX object CMakeFiles/test_tensor_properties.dir/tests/test_tensor_properties.cpp.o
+[ 63%] Linking CXX executable test_tensor_properties
+[ 63%] Built target test_tensor_properties
+[ 64%] Linking CXX executable test_tensor
+[ 66%] Building CXX object CMakeFiles/test_operator.dir/tests/test_operator.cpp.o
+[ 66%] Built target test_tensor
+[ 67%] Building CXX object CMakeFiles/test_shape_inference.dir/tests/test_shape_inference.cpp.o
+[ 68%] Linking CXX executable test_operator
+[ 68%] Built target test_operator
+[ 70%] Building CXX object CMakeFiles/test_reference.dir/tests/test_reference.cpp.o
+[ 71%] Linking CXX executable test_shape_inference
+[ 71%] Built target test_shape_inference
+[ 72%] Building CXX object CMakeFiles/test_transformer_contracts.dir/tests/test_transformer_contracts.cpp.o
+[ 74%] Linking CXX executable test_reference
+[ 74%] Built target test_reference
+[ 75%] Building CXX object CMakeFiles/test_operator_fixtures.dir/tests/test_operator_fixtures.cpp.o
+[ 77%] Linking CXX executable test_transformer_contracts
+[ 77%] Built target test_transformer_contracts
+[ 78%] Building CXX object CMakeFiles/test_graph.dir/tests/test_graph.cpp.o
+[ 79%] Linking CXX executable test_operator_fixtures
+[ 79%] Built target test_operator_fixtures
+[ 81%] Building CXX object CMakeFiles/test_graph_executor.dir/tests/test_graph_executor.cpp.o
+[ 82%] Linking CXX executable test_graph
+[ 82%] Built target test_graph
+[ 83%] Building CXX object CMakeFiles/test_graph_fixtures.dir/tests/test_graph_fixtures.cpp.o
+[ 85%] Linking CXX executable test_graph_executor
+[ 85%] Built target test_graph_executor
+[ 86%] Building CXX object CMakeFiles/test_graph_trace.dir/tests/test_graph_trace.cpp.o
+[ 87%] Linking CXX executable test_graph_fixtures
+[ 87%] Built target test_graph_fixtures
+[ 89%] Building CXX object CMakeFiles/test_arena.dir/tests/test_arena.cpp.o
+[ 90%] Linking CXX executable test_graph_trace
+[ 90%] Built target test_graph_trace
+[ 91%] Building CXX object CMakeFiles/test_allocation_provider.dir/tests/test_allocation_provider.cpp.o
+[ 93%] Linking CXX executable test_arena
+[ 93%] Built target test_arena
+[ 94%] Building CXX object CMakeFiles/test_memory_planner.dir/tests/test_memory_planner.cpp.o
+[ 95%] Linking CXX executable test_allocation_provider
+[ 95%] Built target test_allocation_provider
+[ 97%] Linking CXX executable test_memory_planner
+[ 98%] Building CXX object CMakeFiles/test_planned_executor.dir/tests/test_planned_executor.cpp.o
+[ 98%] Built target test_memory_planner
+[100%] Linking CXX executable test_planned_executor
+[100%] Built target test_planned_executor

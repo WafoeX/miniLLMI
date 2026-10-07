@@ -1,0 +1,1 @@
+{"schema_version":1,"benchmark":"scheduler-c4-v1","commit":"1a331e694bbed7398c11f521c88b9102a1d340e7","source_digest":"67b6a59b874be57d6d1d06d7f0c3427f51ac664a5a5b2cc09d435e1e4aba5aaa","source_dirty":false,"build_type":"Release","compiler":"AppleClang 21.0.0.21000334","cuda_compiler":" ","cuda_architecture":"","testing":false,"cuda_enabled":false,"input_hash":"4bc396fd55be2a5c"}

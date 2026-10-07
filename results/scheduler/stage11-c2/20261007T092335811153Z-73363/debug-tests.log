@@ -1,0 +1,571 @@
+UpdateCTestConfiguration  from :/Users/wafoe/projects/me/CXXEg-stage11-c4-verify/build-stage11-validation/20261007T092335811153Z-73363/debug/DartConfiguration.tcl
+Parse Config file:/Users/wafoe/projects/me/CXXEg-stage11-c4-verify/build-stage11-validation/20261007T092335811153Z-73363/debug/DartConfiguration.tcl
+Test project /Users/wafoe/projects/me/CXXEg-stage11-c4-verify/build-stage11-validation/20261007T092335811153Z-73363/debug
+Constructing a list of tests
+Done constructing a list of tests
+Updating test list for fixtures
+Added 0 tests to meet fixture requirements
+Checking test dependency graph...
+Checking test dependency graph end
+test 1
+      Start  1: scheduler_benchmark_workloads
+
+1: Test command: /Users/wafoe/projects/me/CXXEg-stage11-c4-verify/build-stage11-validation/20261007T092335811153Z-73363/debug/bench_scheduler "--self-test"
+1: Working Directory: /Users/wafoe/projects/me/CXXEg-stage11-c4-verify/build-stage11-validation/20261007T092335811153Z-73363/debug
+1: Test timeout computed to be: 1500
+1: scheduler workload self-test PASS (untimed CPU fallback, NOT CUDA evidence)
+ 1/35 Test  #1: scheduler_benchmark_workloads ....   Passed    0.45 sec
+test 2
+      Start  2: scheduler_benchmark_tools
+
+2: Test command: /Users/wafoe/miniforge3/bin/python3.14 "/Users/wafoe/projects/me/CXXEg-stage11-c4-verify/tests/test_scheduler_benchmark_tools.py"
+2: Working Directory: /Users/wafoe/projects/me/CXXEg-stage11-c4-verify/build-stage11-validation/20261007T092335811153Z-73363/debug
+2: Test timeout computed to be: 1500
+2: ......[gpu-query] nvidia-smi --query-gpu=name,compute_cap,driver_version,memory.total --format=csv,noheader,nounits
+2: [gpu-info] nvidia-smi -q
+2: [nvcc-version] nvcc --version
+2: [cmake-version] cmake --version
+2: [configure-testing] cmake -S /private/var/folders/_d/zl76wpvn0xl27knpbdx6v59w0000gn/T/.ctx-mode-4TvTYI/tmp3ejw2esq -B /private/var/folders/_d/zl76wpvn0xl27knpbdx6v59w0000gn/T/.ctx-mode-4TvTYI/tmp3ejw2esq/build/20261007T092412454823Z-74777/testing -DCMAKE_BUILD_TYPE=Release -DENABLE_CUDA=ON -DCMAKE_CUDA_ARCHITECTURES=75 -DCMAKE_EXPORT_COMPILE_COMMANDS=ON -DBUILD_TESTING=ON
+2: [build-testing] cmake --build /private/var/folders/_d/zl76wpvn0xl27knpbdx6v59w0000gn/T/.ctx-mode-4TvTYI/tmp3ejw2esq/build/20261007T092412454823Z-74777/testing --parallel 2
+2: [ctest] ctest --test-dir /private/var/folders/_d/zl76wpvn0xl27knpbdx6v59w0000gn/T/.ctx-mode-4TvTYI/tmp3ejw2esq/build/20261007T092412454823Z-74777/testing --output-on-failure
+2: [configure-production] cmake -S /private/var/folders/_d/zl76wpvn0xl27knpbdx6v59w0000gn/T/.ctx-mode-4TvTYI/tmp3ejw2esq -B /private/var/folders/_d/zl76wpvn0xl27knpbdx6v59w0000gn/T/.ctx-mode-4TvTYI/tmp3ejw2esq/build/20261007T092412454823Z-74777/production -DCMAKE_BUILD_TYPE=Release -DENABLE_CUDA=ON -DCMAKE_CUDA_ARCHITECTURES=75 -DCMAKE_EXPORT_COMPILE_COMMANDS=ON -DBUILD_TESTING=OFF
+2: [build-production] cmake --build /private/var/folders/_d/zl76wpvn0xl27knpbdx6v59w0000gn/T/.ctx-mode-4TvTYI/tmp3ejw2esq/build/20261007T092412454823Z-74777/production --parallel 2
+2: [probe] /private/var/folders/_d/zl76wpvn0xl27knpbdx6v59w0000gn/T/.ctx-mode-4TvTYI/tmp3ejw2esq/build/20261007T092412454823Z-74777/production/bench_scheduler --probe
+2: result directory: /private/var/folders/_d/zl76wpvn0xl27knpbdx6v59w0000gn/T/.ctx-mode-4TvTYI/tmp3ejw2esq/results/20261007T092412454823Z-74777
+2: .[gpu-query] nvidia-smi --query-gpu=name,compute_cap,driver_version,memory.total --format=csv,noheader,nounits
+2: [gpu-info] nvidia-smi -q
+2: [nvcc-version] nvcc --version
+2: [cmake-version] cmake --version
+2: [configure-testing] cmake -S /private/var/folders/_d/zl76wpvn0xl27knpbdx6v59w0000gn/T/.ctx-mode-4TvTYI/tmpsgowrq2c -B /private/var/folders/_d/zl76wpvn0xl27knpbdx6v59w0000gn/T/.ctx-mode-4TvTYI/tmpsgowrq2c/build/20261007T092412459675Z-74777/testing -DCMAKE_BUILD_TYPE=Release -DENABLE_CUDA=ON -DCMAKE_CUDA_ARCHITECTURES=75 -DCMAKE_EXPORT_COMPILE_COMMANDS=ON -DBUILD_TESTING=ON
+2: [build-testing] cmake --build /private/var/folders/_d/zl76wpvn0xl27knpbdx6v59w0000gn/T/.ctx-mode-4TvTYI/tmpsgowrq2c/build/20261007T092412459675Z-74777/testing --parallel 2
+2: result directory: /private/var/folders/_d/zl76wpvn0xl27knpbdx6v59w0000gn/T/.ctx-mode-4TvTYI/tmpsgowrq2c/results/20261007T092412459675Z-74777
+2: [gpu-query] nvidia-smi --query-gpu=name,compute_cap,driver_version,memory.total --format=csv,noheader,nounits
+2: [gpu-info] nvidia-smi -q
+2: [nvcc-version] nvcc --version
+2: [cmake-version] cmake --version
+2: [configure-testing] cmake -S /private/var/folders/_d/zl76wpvn0xl27knpbdx6v59w0000gn/T/.ctx-mode-4TvTYI/tmpbe4hri15 -B /private/var/folders/_d/zl76wpvn0xl27knpbdx6v59w0000gn/T/.ctx-mode-4TvTYI/tmpbe4hri15/build/20261007T092412462407Z-74777/testing -DCMAKE_BUILD_TYPE=Release -DENABLE_CUDA=ON -DCMAKE_CUDA_ARCHITECTURES=75 -DCMAKE_EXPORT_COMPILE_COMMANDS=ON -DBUILD_TESTING=ON
+2: [build-testing] cmake --build /private/var/folders/_d/zl76wpvn0xl27knpbdx6v59w0000gn/T/.ctx-mode-4TvTYI/tmpbe4hri15/build/20261007T092412462407Z-74777/testing --parallel 2
+2: [ctest] ctest --test-dir /private/var/folders/_d/zl76wpvn0xl27knpbdx6v59w0000gn/T/.ctx-mode-4TvTYI/tmpbe4hri15/build/20261007T092412462407Z-74777/testing --output-on-failure
+2: result directory: /private/var/folders/_d/zl76wpvn0xl27knpbdx6v59w0000gn/T/.ctx-mode-4TvTYI/tmpbe4hri15/results/20261007T092412462407Z-74777
+2: [gpu-query] nvidia-smi --query-gpu=name,compute_cap,driver_version,memory.total --format=csv,noheader,nounits
+2: [gpu-info] nvidia-smi -q
+2: [nvcc-version] nvcc --version
+2: [cmake-version] cmake --version
+2: [configure-testing] cmake -S /private/var/folders/_d/zl76wpvn0xl27knpbdx6v59w0000gn/T/.ctx-mode-4TvTYI/tmpqa_ehzf_ -B /private/var/folders/_d/zl76wpvn0xl27knpbdx6v59w0000gn/T/.ctx-mode-4TvTYI/tmpqa_ehzf_/build/20261007T092412465259Z-74777/testing -DCMAKE_BUILD_TYPE=Release -DENABLE_CUDA=ON -DCMAKE_CUDA_ARCHITECTURES=75 -DCMAKE_EXPORT_COMPILE_COMMANDS=ON -DBUILD_TESTING=ON
+2: [build-testing] cmake --build /private/var/folders/_d/zl76wpvn0xl27knpbdx6v59w0000gn/T/.ctx-mode-4TvTYI/tmpqa_ehzf_/build/20261007T092412465259Z-74777/testing --parallel 2
+2: [ctest] ctest --test-dir /private/var/folders/_d/zl76wpvn0xl27knpbdx6v59w0000gn/T/.ctx-mode-4TvTYI/tmpqa_ehzf_/build/20261007T092412465259Z-74777/testing --output-on-failure
+2: [configure-production] cmake -S /private/var/folders/_d/zl76wpvn0xl27knpbdx6v59w0000gn/T/.ctx-mode-4TvTYI/tmpqa_ehzf_ -B /private/var/folders/_d/zl76wpvn0xl27knpbdx6v59w0000gn/T/.ctx-mode-4TvTYI/tmpqa_ehzf_/build/20261007T092412465259Z-74777/production -DCMAKE_BUILD_TYPE=Release -DENABLE_CUDA=ON -DCMAKE_CUDA_ARCHITECTURES=75 -DCMAKE_EXPORT_COMPILE_COMMANDS=ON -DBUILD_TESTING=OFF
+2: [build-production] cmake --build /private/var/folders/_d/zl76wpvn0xl27knpbdx6v59w0000gn/T/.ctx-mode-4TvTYI/tmpqa_ehzf_/build/20261007T092412465259Z-74777/production --parallel 2
+2: [probe] /private/var/folders/_d/zl76wpvn0xl27knpbdx6v59w0000gn/T/.ctx-mode-4TvTYI/tmpqa_ehzf_/build/20261007T092412465259Z-74777/production/bench_scheduler --probe
+2: result directory: /private/var/folders/_d/zl76wpvn0xl27knpbdx6v59w0000gn/T/.ctx-mode-4TvTYI/tmpqa_ehzf_/results/20261007T092412465259Z-74777
+2: [gpu-query] nvidia-smi --query-gpu=name,compute_cap,driver_version,memory.total --format=csv,noheader,nounits
+2: [gpu-info] nvidia-smi -q
+2: [nvcc-version] nvcc --version
+2: [cmake-version] cmake --version
+2: [configure-testing] cmake -S /private/var/folders/_d/zl76wpvn0xl27knpbdx6v59w0000gn/T/.ctx-mode-4TvTYI/tmpr5uas18b -B /private/var/folders/_d/zl76wpvn0xl27knpbdx6v59w0000gn/T/.ctx-mode-4TvTYI/tmpr5uas18b/build/20261007T092412469334Z-74777/testing -DCMAKE_BUILD_TYPE=Release -DENABLE_CUDA=ON -DCMAKE_CUDA_ARCHITECTURES=75 -DCMAKE_EXPORT_COMPILE_COMMANDS=ON -DBUILD_TESTING=ON
+2: [build-testing] cmake --build /private/var/folders/_d/zl76wpvn0xl27knpbdx6v59w0000gn/T/.ctx-mode-4TvTYI/tmpr5uas18b/build/20261007T092412469334Z-74777/testing --parallel 2
+2: [ctest] ctest --test-dir /private/var/folders/_d/zl76wpvn0xl27knpbdx6v59w0000gn/T/.ctx-mode-4TvTYI/tmpr5uas18b/build/20261007T092412469334Z-74777/testing --output-on-failure
+2: [configure-production] cmake -S /private/var/folders/_d/zl76wpvn0xl27knpbdx6v59w0000gn/T/.ctx-mode-4TvTYI/tmpr5uas18b -B /private/var/folders/_d/zl76wpvn0xl27knpbdx6v59w0000gn/T/.ctx-mode-4TvTYI/tmpr5uas18b/build/20261007T092412469334Z-74777/production -DCMAKE_BUILD_TYPE=Release -DENABLE_CUDA=ON -DCMAKE_CUDA_ARCHITECTURES=75 -DCMAKE_EXPORT_COMPILE_COMMANDS=ON -DBUILD_TESTING=OFF
+2: [build-production] cmake --build /private/var/folders/_d/zl76wpvn0xl27knpbdx6v59w0000gn/T/.ctx-mode-4TvTYI/tmpr5uas18b/build/20261007T092412469334Z-74777/production --parallel 2
+2: [probe] /private/var/folders/_d/zl76wpvn0xl27knpbdx6v59w0000gn/T/.ctx-mode-4TvTYI/tmpr5uas18b/build/20261007T092412469334Z-74777/production/bench_scheduler --probe
+2: [self-test] /private/var/folders/_d/zl76wpvn0xl27knpbdx6v59w0000gn/T/.ctx-mode-4TvTYI/tmpr5uas18b/build/20261007T092412469334Z-74777/production/bench_scheduler --self-test
+2: [paired-1] /private/var/folders/_d/zl76wpvn0xl27knpbdx6v59w0000gn/T/.ctx-mode-4TvTYI/tmpr5uas18b/build/20261007T092412469334Z-74777/production/bench_scheduler --output /private/var/folders/_d/zl76wpvn0xl27knpbdx6v59w0000gn/T/.ctx-mode-4TvTYI/tmpr5uas18b/results/20261007T092412469334Z-74777/repeat-1 --repeat 1 --order manual,automatic
+2: [paired-2] /private/var/folders/_d/zl76wpvn0xl27knpbdx6v59w0000gn/T/.ctx-mode-4TvTYI/tmpr5uas18b/build/20261007T092412469334Z-74777/production/bench_scheduler --output /private/var/folders/_d/zl76wpvn0xl27knpbdx6v59w0000gn/T/.ctx-mode-4TvTYI/tmpr5uas18b/results/20261007T092412469334Z-74777/repeat-2 --repeat 2 --order automatic,manual
+2: result directory: /private/var/folders/_d/zl76wpvn0xl27knpbdx6v59w0000gn/T/.ctx-mode-4TvTYI/tmpr5uas18b/results/20261007T092412469334Z-74777
+2: .[gpu-query] nvidia-smi --query-gpu=name,compute_cap,driver_version,memory.total --format=csv,noheader,nounits
+2: [gpu-info] nvidia-smi -q
+2: [nvcc-version] nvcc --version
+2: [cmake-version] cmake --version
+2: [configure-testing] cmake -S /private/var/folders/_d/zl76wpvn0xl27knpbdx6v59w0000gn/T/.ctx-mode-4TvTYI/tmp2m5gk3la -B /private/var/folders/_d/zl76wpvn0xl27knpbdx6v59w0000gn/T/.ctx-mode-4TvTYI/tmp2m5gk3la/build/20261007T092412481027Z-74777/testing -DCMAKE_BUILD_TYPE=Release -DENABLE_CUDA=ON -DCMAKE_CUDA_ARCHITECTURES=75 -DCMAKE_EXPORT_COMPILE_COMMANDS=ON -DBUILD_TESTING=ON
+2: [build-testing] cmake --build /private/var/folders/_d/zl76wpvn0xl27knpbdx6v59w0000gn/T/.ctx-mode-4TvTYI/tmp2m5gk3la/build/20261007T092412481027Z-74777/testing --parallel 2
+2: [ctest] ctest --test-dir /private/var/folders/_d/zl76wpvn0xl27knpbdx6v59w0000gn/T/.ctx-mode-4TvTYI/tmp2m5gk3la/build/20261007T092412481027Z-74777/testing --output-on-failure
+2: [configure-production] cmake -S /private/var/folders/_d/zl76wpvn0xl27knpbdx6v59w0000gn/T/.ctx-mode-4TvTYI/tmp2m5gk3la -B /private/var/folders/_d/zl76wpvn0xl27knpbdx6v59w0000gn/T/.ctx-mode-4TvTYI/tmp2m5gk3la/build/20261007T092412481027Z-74777/production -DCMAKE_BUILD_TYPE=Release -DENABLE_CUDA=ON -DCMAKE_CUDA_ARCHITECTURES=75 -DCMAKE_EXPORT_COMPILE_COMMANDS=ON -DBUILD_TESTING=OFF
+2: [build-production] cmake --build /private/var/folders/_d/zl76wpvn0xl27knpbdx6v59w0000gn/T/.ctx-mode-4TvTYI/tmp2m5gk3la/build/20261007T092412481027Z-74777/production --parallel 2
+2: [probe] /private/var/folders/_d/zl76wpvn0xl27knpbdx6v59w0000gn/T/.ctx-mode-4TvTYI/tmp2m5gk3la/build/20261007T092412481027Z-74777/production/bench_scheduler --probe
+2: [self-test] /private/var/folders/_d/zl76wpvn0xl27knpbdx6v59w0000gn/T/.ctx-mode-4TvTYI/tmp2m5gk3la/build/20261007T092412481027Z-74777/production/bench_scheduler --self-test
+2: [paired-1] /private/var/folders/_d/zl76wpvn0xl27knpbdx6v59w0000gn/T/.ctx-mode-4TvTYI/tmp2m5gk3la/build/20261007T092412481027Z-74777/production/bench_scheduler --output /private/var/folders/_d/zl76wpvn0xl27knpbdx6v59w0000gn/T/.ctx-mode-4TvTYI/tmp2m5gk3la/results/20261007T092412481027Z-74777/repeat-1 --repeat 1 --order manual,automatic
+2: [paired-2] /private/var/folders/_d/zl76wpvn0xl27knpbdx6v59w0000gn/T/.ctx-mode-4TvTYI/tmp2m5gk3la/build/20261007T092412481027Z-74777/production/bench_scheduler --output /private/var/folders/_d/zl76wpvn0xl27knpbdx6v59w0000gn/T/.ctx-mode-4TvTYI/tmp2m5gk3la/results/20261007T092412481027Z-74777/repeat-2 --repeat 2 --order automatic,manual
+2: [paired-3] /private/var/folders/_d/zl76wpvn0xl27knpbdx6v59w0000gn/T/.ctx-mode-4TvTYI/tmp2m5gk3la/build/20261007T092412481027Z-74777/production/bench_scheduler --output /private/var/folders/_d/zl76wpvn0xl27knpbdx6v59w0000gn/T/.ctx-mode-4TvTYI/tmp2m5gk3la/results/20261007T092412481027Z-74777/repeat-3 --repeat 3 --order manual,automatic
+2: result directory: /private/var/folders/_d/zl76wpvn0xl27knpbdx6v59w0000gn/T/.ctx-mode-4TvTYI/tmp2m5gk3la/results/20261007T092412481027Z-74777
+2: [gpu-query] nvidia-smi --query-gpu=name,compute_cap,driver_version,memory.total --format=csv,noheader,nounits
+2: [gpu-info] nvidia-smi -q
+2: [nvcc-version] nvcc --version
+2: [cmake-version] cmake --version
+2: [configure-testing] cmake -S /private/var/folders/_d/zl76wpvn0xl27knpbdx6v59w0000gn/T/.ctx-mode-4TvTYI/tmpsu3mp8n5 -B /private/var/folders/_d/zl76wpvn0xl27knpbdx6v59w0000gn/T/.ctx-mode-4TvTYI/tmpsu3mp8n5/build/20261007T092412539443Z-74777/testing -DCMAKE_BUILD_TYPE=Release -DENABLE_CUDA=ON -DCMAKE_CUDA_ARCHITECTURES=75 -DCMAKE_EXPORT_COMPILE_COMMANDS=ON -DBUILD_TESTING=ON
+2: [build-testing] cmake --build /private/var/folders/_d/zl76wpvn0xl27knpbdx6v59w0000gn/T/.ctx-mode-4TvTYI/tmpsu3mp8n5/build/20261007T092412539443Z-74777/testing --parallel 2
+2: [ctest] ctest --test-dir /private/var/folders/_d/zl76wpvn0xl27knpbdx6v59w0000gn/T/.ctx-mode-4TvTYI/tmpsu3mp8n5/build/20261007T092412539443Z-74777/testing --output-on-failure
+2: [configure-production] cmake -S /private/var/folders/_d/zl76wpvn0xl27knpbdx6v59w0000gn/T/.ctx-mode-4TvTYI/tmpsu3mp8n5 -B /private/var/folders/_d/zl76wpvn0xl27knpbdx6v59w0000gn/T/.ctx-mode-4TvTYI/tmpsu3mp8n5/build/20261007T092412539443Z-74777/production -DCMAKE_BUILD_TYPE=Release -DENABLE_CUDA=ON -DCMAKE_CUDA_ARCHITECTURES=75 -DCMAKE_EXPORT_COMPILE_COMMANDS=ON -DBUILD_TESTING=OFF
+2: [build-production] cmake --build /private/var/folders/_d/zl76wpvn0xl27knpbdx6v59w0000gn/T/.ctx-mode-4TvTYI/tmpsu3mp8n5/build/20261007T092412539443Z-74777/production --parallel 2
+2: [probe] /private/var/folders/_d/zl76wpvn0xl27knpbdx6v59w0000gn/T/.ctx-mode-4TvTYI/tmpsu3mp8n5/build/20261007T092412539443Z-74777/production/bench_scheduler --probe
+2: [self-test] /private/var/folders/_d/zl76wpvn0xl27knpbdx6v59w0000gn/T/.ctx-mode-4TvTYI/tmpsu3mp8n5/build/20261007T092412539443Z-74777/production/bench_scheduler --self-test
+2: [paired-1] /private/var/folders/_d/zl76wpvn0xl27knpbdx6v59w0000gn/T/.ctx-mode-4TvTYI/tmpsu3mp8n5/build/20261007T092412539443Z-74777/production/bench_scheduler --output /private/var/folders/_d/zl76wpvn0xl27knpbdx6v59w0000gn/T/.ctx-mode-4TvTYI/tmpsu3mp8n5/results/20261007T092412539443Z-74777/repeat-1 --repeat 1 --order manual,automatic
+2: [paired-2] /private/var/folders/_d/zl76wpvn0xl27knpbdx6v59w0000gn/T/.ctx-mode-4TvTYI/tmpsu3mp8n5/build/20261007T092412539443Z-74777/production/bench_scheduler --output /private/var/folders/_d/zl76wpvn0xl27knpbdx6v59w0000gn/T/.ctx-mode-4TvTYI/tmpsu3mp8n5/results/20261007T092412539443Z-74777/repeat-2 --repeat 2 --order automatic,manual
+2: [paired-3] /private/var/folders/_d/zl76wpvn0xl27knpbdx6v59w0000gn/T/.ctx-mode-4TvTYI/tmpsu3mp8n5/build/20261007T092412539443Z-74777/production/bench_scheduler --output /private/var/folders/_d/zl76wpvn0xl27knpbdx6v59w0000gn/T/.ctx-mode-4TvTYI/tmpsu3mp8n5/results/20261007T092412539443Z-74777/repeat-3 --repeat 3 --order manual,automatic
+2: result directory: /private/var/folders/_d/zl76wpvn0xl27knpbdx6v59w0000gn/T/.ctx-mode-4TvTYI/tmpsu3mp8n5/results/20261007T092412539443Z-74777
+2: ..[gpu-query] nvidia-smi --query-gpu=name,compute_cap,driver_version,memory.total --format=csv,noheader,nounits
+2: result directory: /private/var/folders/_d/zl76wpvn0xl27knpbdx6v59w0000gn/T/.ctx-mode-4TvTYI/tmpalesea94/results/20261007T092412687563Z-74777
+2: [gpu-query] nvidia-smi --query-gpu=name,compute_cap,driver_version,memory.total --format=csv,noheader,nounits
+2: [gpu-info] nvidia-smi -q
+2: [nvcc-version] nvcc --version
+2: [cmake-version] cmake --version
+2: [configure-testing] cmake -S /private/var/folders/_d/zl76wpvn0xl27knpbdx6v59w0000gn/T/.ctx-mode-4TvTYI/tmp6cxupw3s -B /private/var/folders/_d/zl76wpvn0xl27knpbdx6v59w0000gn/T/.ctx-mode-4TvTYI/tmp6cxupw3s/build/20261007T092412688574Z-74777/testing -DCMAKE_BUILD_TYPE=Release -DENABLE_CUDA=ON -DCMAKE_CUDA_ARCHITECTURES=75 -DCMAKE_EXPORT_COMPILE_COMMANDS=ON -DBUILD_TESTING=ON
+2: [build-testing] cmake --build /private/var/folders/_d/zl76wpvn0xl27knpbdx6v59w0000gn/T/.ctx-mode-4TvTYI/tmp6cxupw3s/build/20261007T092412688574Z-74777/testing --parallel 2
+2: [ctest] ctest --test-dir /private/var/folders/_d/zl76wpvn0xl27knpbdx6v59w0000gn/T/.ctx-mode-4TvTYI/tmp6cxupw3s/build/20261007T092412688574Z-74777/testing --output-on-failure
+2: [configure-production] cmake -S /private/var/folders/_d/zl76wpvn0xl27knpbdx6v59w0000gn/T/.ctx-mode-4TvTYI/tmp6cxupw3s -B /private/var/folders/_d/zl76wpvn0xl27knpbdx6v59w0000gn/T/.ctx-mode-4TvTYI/tmp6cxupw3s/build/20261007T092412688574Z-74777/production -DCMAKE_BUILD_TYPE=Release -DENABLE_CUDA=ON -DCMAKE_CUDA_ARCHITECTURES=75 -DCMAKE_EXPORT_COMPILE_COMMANDS=ON -DBUILD_TESTING=OFF
+2: [build-production] cmake --build /private/var/folders/_d/zl76wpvn0xl27knpbdx6v59w0000gn/T/.ctx-mode-4TvTYI/tmp6cxupw3s/build/20261007T092412688574Z-74777/production --parallel 2
+2: [probe] /private/var/folders/_d/zl76wpvn0xl27knpbdx6v59w0000gn/T/.ctx-mode-4TvTYI/tmp6cxupw3s/build/20261007T092412688574Z-74777/production/bench_scheduler --probe
+2: [self-test] /private/var/folders/_d/zl76wpvn0xl27knpbdx6v59w0000gn/T/.ctx-mode-4TvTYI/tmp6cxupw3s/build/20261007T092412688574Z-74777/production/bench_scheduler --self-test
+2: [paired-1] /private/var/folders/_d/zl76wpvn0xl27knpbdx6v59w0000gn/T/.ctx-mode-4TvTYI/tmp6cxupw3s/build/20261007T092412688574Z-74777/production/bench_scheduler --output /private/var/folders/_d/zl76wpvn0xl27knpbdx6v59w0000gn/T/.ctx-mode-4TvTYI/tmp6cxupw3s/results/20261007T092412688574Z-74777/repeat-1 --repeat 1 --order manual,automatic
+2: [paired-2] /private/var/folders/_d/zl76wpvn0xl27knpbdx6v59w0000gn/T/.ctx-mode-4TvTYI/tmp6cxupw3s/build/20261007T092412688574Z-74777/production/bench_scheduler --output /private/var/folders/_d/zl76wpvn0xl27knpbdx6v59w0000gn/T/.ctx-mode-4TvTYI/tmp6cxupw3s/results/20261007T092412688574Z-74777/repeat-2 --repeat 2 --order automatic,manual
+2: [paired-3] /private/var/folders/_d/zl76wpvn0xl27knpbdx6v59w0000gn/T/.ctx-mode-4TvTYI/tmp6cxupw3s/build/20261007T092412688574Z-74777/production/bench_scheduler --output /private/var/folders/_d/zl76wpvn0xl27knpbdx6v59w0000gn/T/.ctx-mode-4TvTYI/tmp6cxupw3s/results/20261007T092412688574Z-74777/repeat-3 --repeat 3 --order manual,automatic
+2: result directory: /private/var/folders/_d/zl76wpvn0xl27knpbdx6v59w0000gn/T/.ctx-mode-4TvTYI/tmp6cxupw3s/results/20261007T092412688574Z-74777
+2: [gpu-query] nvidia-smi --query-gpu=name,compute_cap,driver_version,memory.total --format=csv,noheader,nounits
+2: [gpu-info] nvidia-smi -q
+2: [nvcc-version] nvcc --version
+2: [cmake-version] cmake --version
+2: [configure-testing] cmake -S /private/var/folders/_d/zl76wpvn0xl27knpbdx6v59w0000gn/T/.ctx-mode-4TvTYI/tmpm_z2yzsa -B /private/var/folders/_d/zl76wpvn0xl27knpbdx6v59w0000gn/T/.ctx-mode-4TvTYI/tmpm_z2yzsa/build/20261007T092412714088Z-74777/testing -DCMAKE_BUILD_TYPE=Release -DENABLE_CUDA=ON -DCMAKE_CUDA_ARCHITECTURES=75 -DCMAKE_EXPORT_COMPILE_COMMANDS=ON -DBUILD_TESTING=ON
+2: [build-testing] cmake --build /private/var/folders/_d/zl76wpvn0xl27knpbdx6v59w0000gn/T/.ctx-mode-4TvTYI/tmpm_z2yzsa/build/20261007T092412714088Z-74777/testing --parallel 2
+2: [ctest] ctest --test-dir /private/var/folders/_d/zl76wpvn0xl27knpbdx6v59w0000gn/T/.ctx-mode-4TvTYI/tmpm_z2yzsa/build/20261007T092412714088Z-74777/testing --output-on-failure
+2: [configure-production] cmake -S /private/var/folders/_d/zl76wpvn0xl27knpbdx6v59w0000gn/T/.ctx-mode-4TvTYI/tmpm_z2yzsa -B /private/var/folders/_d/zl76wpvn0xl27knpbdx6v59w0000gn/T/.ctx-mode-4TvTYI/tmpm_z2yzsa/build/20261007T092412714088Z-74777/production -DCMAKE_BUILD_TYPE=Release -DENABLE_CUDA=ON -DCMAKE_CUDA_ARCHITECTURES=75 -DCMAKE_EXPORT_COMPILE_COMMANDS=ON -DBUILD_TESTING=OFF
+2: [build-production] cmake --build /private/var/folders/_d/zl76wpvn0xl27knpbdx6v59w0000gn/T/.ctx-mode-4TvTYI/tmpm_z2yzsa/build/20261007T092412714088Z-74777/production --parallel 2
+2: [probe] /private/var/folders/_d/zl76wpvn0xl27knpbdx6v59w0000gn/T/.ctx-mode-4TvTYI/tmpm_z2yzsa/build/20261007T092412714088Z-74777/production/bench_scheduler --probe
+2: [self-test] /private/var/folders/_d/zl76wpvn0xl27knpbdx6v59w0000gn/T/.ctx-mode-4TvTYI/tmpm_z2yzsa/build/20261007T092412714088Z-74777/production/bench_scheduler --self-test
+2: [paired-1] /private/var/folders/_d/zl76wpvn0xl27knpbdx6v59w0000gn/T/.ctx-mode-4TvTYI/tmpm_z2yzsa/build/20261007T092412714088Z-74777/production/bench_scheduler --output /private/var/folders/_d/zl76wpvn0xl27knpbdx6v59w0000gn/T/.ctx-mode-4TvTYI/tmpm_z2yzsa/results/20261007T092412714088Z-74777/repeat-1 --repeat 1 --order manual,automatic
+2: [paired-2] /private/var/folders/_d/zl76wpvn0xl27knpbdx6v59w0000gn/T/.ctx-mode-4TvTYI/tmpm_z2yzsa/build/20261007T092412714088Z-74777/production/bench_scheduler --output /private/var/folders/_d/zl76wpvn0xl27knpbdx6v59w0000gn/T/.ctx-mode-4TvTYI/tmpm_z2yzsa/results/20261007T092412714088Z-74777/repeat-2 --repeat 2 --order automatic,manual
+2: [paired-3] /private/var/folders/_d/zl76wpvn0xl27knpbdx6v59w0000gn/T/.ctx-mode-4TvTYI/tmpm_z2yzsa/build/20261007T092412714088Z-74777/production/bench_scheduler --output /private/var/folders/_d/zl76wpvn0xl27knpbdx6v59w0000gn/T/.ctx-mode-4TvTYI/tmpm_z2yzsa/results/20261007T092412714088Z-74777/repeat-3 --repeat 3 --order manual,automatic
+2: result directory: /private/var/folders/_d/zl76wpvn0xl27knpbdx6v59w0000gn/T/.ctx-mode-4TvTYI/tmpm_z2yzsa/results/20261007T092412714088Z-74777
+2: .
+2: ----------------------------------------------------------------------
+2: Ran 11 tests in 0.454s
+2: 
+2: OK
+ 2/35 Test  #2: scheduler_benchmark_tools ........   Passed    0.53 sec
+test 3
+      Start  3: scheduler
+
+3: Test command: /Users/wafoe/projects/me/CXXEg-stage11-c4-verify/build-stage11-validation/20261007T092335811153Z-73363/debug/test_scheduler
+3: Working Directory: /Users/wafoe/projects/me/CXXEg-stage11-c4-verify/build-stage11-validation/20261007T092335811153Z-73363/debug
+3: Test timeout computed to be: 1500
+3: scheduler: PASS (CPU execution / CUDA metadata only)
+ 3/35 Test  #3: scheduler ........................   Passed    0.45 sec
+test 4
+      Start  4: scheduler_tools
+
+4: Test command: /Users/wafoe/miniforge3/bin/python3.14 "/Users/wafoe/projects/me/CXXEg-stage11-c4-verify/tests/test_scheduler_tools.py"
+4: Working Directory: /Users/wafoe/projects/me/CXXEg-stage11-c4-verify/build-stage11-validation/20261007T092335811153Z-73363/debug
+4: Test timeout computed to be: 1500
+4: ..../private/var/folders/_d/zl76wpvn0xl27knpbdx6v59w0000gn/T/.ctx-mode-4TvTYI/tmprospyz4p/results/scheduler/stage11-c2/20261007T092413301354Z-74782
+4: ../private/var/folders/_d/zl76wpvn0xl27knpbdx6v59w0000gn/T/.ctx-mode-4TvTYI/tmp6cn8thkz/results/scheduler/stage11-c2/20261007T092413310581Z-74782
+4: ...../private/var/folders/_d/zl76wpvn0xl27knpbdx6v59w0000gn/T/.ctx-mode-4TvTYI/tmpgxqnaqhv/results/scheduler/stage11-c2/20261007T092413336016Z-74782
+4: ../private/var/folders/_d/zl76wpvn0xl27knpbdx6v59w0000gn/T/.ctx-mode-4TvTYI/tmpvku_tz72/results/scheduler/stage11-c2/20261007T092413337499Z-74782
+4: ...
+4: ----------------------------------------------------------------------
+4: Ran 16 tests in 0.073s
+4: 
+4: OK
+ 4/35 Test  #4: scheduler_tools ..................   Passed    0.15 sec
+test 5
+      Start  5: cpu_benchmark_workloads
+
+5: Test command: /Users/wafoe/projects/me/CXXEg-stage11-c4-verify/build-stage11-validation/20261007T092335811153Z-73363/debug/bench_cpu "--self-test"
+5: Working Directory: /Users/wafoe/projects/me/CXXEg-stage11-c4-verify/build-stage11-validation/20261007T092335811153Z-73363/debug
+5: Test timeout computed to be: 1500
+5: CPU benchmark correctness: PASS eight zero/small/non-square/boundary shapes and graph policies (untimed)
+ 5/35 Test  #5: cpu_benchmark_workloads ..........   Passed    0.49 sec
+test 6
+      Start  6: cpu_tools
+
+6: Test command: /Users/wafoe/miniforge3/bin/python3.14 "/Users/wafoe/projects/me/CXXEg-stage11-c4-verify/tests/test_cpu_tools.py"
+6: Working Directory: /Users/wafoe/projects/me/CXXEg-stage11-c4-verify/build-stage11-validation/20261007T092335811153Z-73363/debug
+6: Test timeout computed to be: 1500
+6: ......................
+6: ----------------------------------------------------------------------
+6: Ran 22 tests in 0.414s
+6: 
+6: OK
+ 6/35 Test  #6: cpu_tools ........................   Passed    0.50 sec
+test 7
+      Start  7: cpu_transformer_contract
+
+7: Test command: /Users/wafoe/projects/me/CXXEg-stage11-c4-verify/build-stage11-validation/20261007T092335811153Z-73363/debug/test_cpu_transformer_contract "/Users/wafoe/projects/me/CXXEg-stage11-c4-verify/tests/fixtures/operators-v1/operators-v1.txt"
+7: Working Directory: /Users/wafoe/projects/me/CXXEg-stage11-c4-verify/build-stage11-validation/20261007T092335811153Z-73363/debug
+7: Test timeout computed to be: 1500
+7: CPU primitive reservations: PASS all six Unsupported, no numerical implementation
+ 7/35 Test  #7: cpu_transformer_contract .........   Passed    0.42 sec
+test 8
+      Start  8: cpu_scalar
+
+8: Test command: /Users/wafoe/projects/me/CXXEg-stage11-c4-verify/build-stage11-validation/20261007T092335811153Z-73363/debug/test_cpu_scalar
+8: Working Directory: /Users/wafoe/projects/me/CXXEg-stage11-c4-verify/build-stage11-validation/20261007T092335811153Z-73363/debug
+8: Test timeout computed to be: 1500
+8: CPU FP32 ijk v0 + ikj C1: PASS seed=24578/28673 random=240 zero/rectangular/guards/errors/copy/planner
+ 8/35 Test  #8: cpu_scalar .......................   Passed    0.50 sec
+test 9
+      Start  9: thread_pool
+
+9: Test command: /Users/wafoe/projects/me/CXXEg-stage11-c4-verify/build-stage11-validation/20261007T092335811153Z-73363/debug/test_thread_pool
+9: Working Directory: /Users/wafoe/projects/me/CXXEg-stage11-c4-verify/build-stage11-validation/20261007T092335811153Z-73363/debug
+9: Test timeout computed to be: 1500
+9: CPU FIFO pool: PASS exactly-once/status/exception/zero/shutdown/backend workers=1,2,4
+ 9/35 Test  #9: thread_pool ......................   Passed    0.47 sec
+test 10
+      Start 10: cpu_backend_fixtures
+
+10: Test command: /Users/wafoe/miniforge3/bin/python3.14 "/Users/wafoe/projects/me/CXXEg-stage11-c4-verify/tests/run_operator_fixtures.py" "--binary" "/Users/wafoe/projects/me/CXXEg-stage11-c4-verify/build-stage11-validation/20261007T092335811153Z-73363/debug/test_cpu_backend_fixtures" "--root" "/Users/wafoe/projects/me/CXXEg-stage11-c4-verify/tests/fixtures/operators-v1"
+10: Working Directory: /Users/wafoe/projects/me/CXXEg-stage11-c4-verify/build-stage11-validation/20261007T092335811153Z-73363/debug
+10: Test timeout computed to be: 1500
+10: Fixture checksum/provenance: PASS; tiny weights=21 tensors, 461056 bytes (not model execution)
+10: fixture add_hand core=PASS max_abs=0 atol=1e-06 rtol=1e-05
+10: descriptor {"version":1,"op":"ADD","inputs":[0,1],"outputs":[2],"attributes":{},"backend_hint":null}
+10: fixture mul_scalar core=PASS max_abs=0 atol=1e-06 rtol=1e-05
+10: descriptor {"version":1,"op":"MUL","inputs":[0,1],"outputs":[2],"attributes":{},"backend_hint":null}
+10: fixture matmul_rectangular core=PASS max_abs=0 atol=1e-06 rtol=1e-05
+10: descriptor {"version":1,"op":"MATMUL","inputs":[0,1],"outputs":[2],"attributes":{},"backend_hint":null}
+10: fixture matmul_zero_inner core=PASS max_abs=0 atol=1e-06 rtol=1e-05
+10: descriptor {"version":1,"op":"MATMUL","inputs":[0,1],"outputs":[2],"attributes":{},"backend_hint":null}
+10: fixture copy_ids_transpose core=PASS max_abs=0 atol=1e-06 rtol=1e-05
+10: descriptor {"version":1,"op":"COPY","inputs":[0,1],"outputs":[2],"attributes":{"overlap":"reject_except_exact_self"},"backend_hint":null}
+10: fixture copy_fp32 core=PASS max_abs=0 atol=1e-06 rtol=1e-05
+10: descriptor {"version":1,"op":"COPY","inputs":[0,1],"outputs":[2],"attributes":{"overlap":"reject_except_exact_self"},"backend_hint":null}
+10: fixture materialize_transpose core=PASS max_abs=0 atol=1e-06 rtol=1e-05
+10: descriptor {"version":1,"op":"MATERIALIZE","inputs":[0],"outputs":[1],"attributes":{},"backend_hint":null}
+10: fixture add_empty core=PASS max_abs=0 atol=1e-06 rtol=1e-05
+10: descriptor {"version":1,"op":"ADD","inputs":[0,1],"outputs":[2],"attributes":{},"backend_hint":null}
+10: fixture rmsnorm_hand_zero_row metadata=PASS numeric=pending-S12
+10: descriptor {"version":1,"op":"RMSNORM","inputs":[0,1],"outputs":[2],"attributes":{"epsilon":1.0000000000000001e-05},"backend_hint":null}
+10: fixture softmax_stable metadata=PASS numeric=pending-S12
+10: descriptor {"version":1,"op":"SOFTMAX","inputs":[0],"outputs":[1],"attributes":{"causal":false,"query_position":0,"key_position":0,"max_positions":1088},"backend_hint":null}
+10: fixture softmax_decode_offset metadata=PASS numeric=pending-S12
+10: descriptor {"version":1,"op":"SOFTMAX","inputs":[0],"outputs":[1],"attributes":{"causal":true,"query_position":2,"key_position":0,"max_positions":1088},"backend_hint":null}
+10: fixture softmax_all_masked metadata=PASS numeric=pending-S12
+10: descriptor {"version":1,"op":"SOFTMAX","inputs":[0],"outputs":[1],"attributes":{"causal":true,"query_position":0,"key_position":2,"max_positions":1088},"backend_hint":null}
+10: fixture rope_interleaved_hand metadata=PASS numeric=pending-S12
+10: descriptor {"version":1,"op":"ROPE","inputs":[0],"outputs":[1],"attributes":{"position":1,"base":10000,"max_positions":1088},"backend_hint":null}
+10: fixture rope_tiny_heads metadata=PASS numeric=pending-S12
+10: descriptor {"version":1,"op":"ROPE","inputs":[0],"outputs":[1],"attributes":{"position":17,"base":10000,"max_positions":1088},"backend_hint":null}
+10: fixture embedding_hand metadata=PASS numeric=pending-S12
+10: descriptor {"version":1,"op":"EMBEDDING","inputs":[0,1],"outputs":[2],"attributes":{},"backend_hint":null}
+10: fixture swiglu_hand metadata=PASS numeric=pending-S12
+10: descriptor {"version":1,"op":"SWIGLU","inputs":[0,1],"outputs":[2],"attributes":{},"backend_hint":null}
+10: fixture attention_decode_tiny_geometry metadata=PASS numeric=pending-S12
+10: descriptor {"version":1,"op":"ATTENTION","inputs":[0,1,2],"outputs":[3],"attributes":{"heads":4,"head_dim":16,"causal":true,"query_position":2,"key_position":0,"max_positions":1088},"backend_hint":null}
+10: Operator fixtures: PASS numeric_core=8 transformer_metadata=9 malformed_reader=10
+10/35 Test #10: cpu_backend_fixtures .............   Passed    0.47 sec
+test 11
+      Start 11: cpu_backend
+
+11: Test command: /Users/wafoe/projects/me/CXXEg-stage11-c4-verify/build-stage11-validation/20261007T092335811153Z-73363/debug/test_cpu_backend
+11: Working Directory: /Users/wafoe/projects/me/CXXEg-stage11-c4-verify/build-stage11-validation/20261007T092335811153Z-73363/debug
+11: Test timeout computed to be: 1500
+11: CPU backend interface/capability/graph/provider: PASS
+11/35 Test #11: cpu_backend ......................   Passed    0.49 sec
+test 12
+      Start 12: tensor
+
+12: Test command: /Users/wafoe/projects/me/CXXEg-stage11-c4-verify/build-stage11-validation/20261007T092335811153Z-73363/debug/test_tensor
+12: Working Directory: /Users/wafoe/projects/me/CXXEg-stage11-c4-verify/build-stage11-validation/20261007T092335811153Z-73363/debug
+12: Test timeout computed to be: 1500
+12: Allocation checks: views/transpose=0 buffers; nonempty materialize=1; copy=24 logical bytes, 0 buffers
+12: Tensor metadata/storage/construction/views/copy: PASS
+12/35 Test #12: tensor ...........................   Passed    0.40 sec
+test 13
+      Start 13: tensor_properties
+
+13: Test command: /Users/wafoe/projects/me/CXXEg-stage11-c4-verify/build-stage11-validation/20261007T092335811153Z-73363/debug/test_tensor_properties
+13: Working Directory: /Users/wafoe/projects/me/CXXEg-stage11-c4-verify/build-stage11-validation/20261007T092335811153Z-73363/debug
+13: Test timeout computed to be: 1500
+13: Tensor properties: PASS seed=20903 trials=600 ranks=0..8 FP32/INT32; padding/offset/permutation/slice/materialization/copy/alias
+13/35 Test #13: tensor_properties ................   Passed    0.45 sec
+test 14
+      Start 14: tensor_validation
+
+14: Test command: /Users/wafoe/miniforge3/bin/python3.14 "/Users/wafoe/projects/me/CXXEg-stage11-c4-verify/tests/test_tensor_validation.py"
+14: Working Directory: /Users/wafoe/projects/me/CXXEg-stage11-c4-verify/build-stage11-validation/20261007T092335811153Z-73363/debug
+14: Test timeout computed to be: 1500
+14: ............
+14: ----------------------------------------------------------------------
+14: Ran 12 tests in 0.057s
+14: 
+14: OK
+14/35 Test #14: tensor_validation ................   Passed    0.11 sec
+test 15
+      Start 15: operator
+
+15: Test command: /Users/wafoe/projects/me/CXXEg-stage11-c4-verify/build-stage11-validation/20261007T092335811153Z-73363/debug/test_operator
+15: Working Directory: /Users/wafoe/projects/me/CXXEg-stage11-c4-verify/build-stage11-validation/20261007T092335811153Z-73363/debug
+15: Test timeout computed to be: 1500
+15: Operator schema/arity/typed attributes/ID/status/serialization: PASS
+15/35 Test #15: operator .........................   Passed    0.46 sec
+test 16
+      Start 16: shape_inference
+
+16: Test command: /Users/wafoe/projects/me/CXXEg-stage11-c4-verify/build-stage11-validation/20261007T092335811153Z-73363/debug/test_shape_inference
+16: Working Directory: /Users/wafoe/projects/me/CXXEg-stage11-c4-verify/build-stage11-validation/20261007T092335811153Z-73363/debug
+16: Test timeout computed to be: 1500
+16: Pure core shape/dtype/contiguity/overflow/alias/COPY inference: PASS
+16/35 Test #16: shape_inference ..................   Passed    0.42 sec
+test 17
+      Start 17: operator_reference
+
+17: Test command: /Users/wafoe/projects/me/CXXEg-stage11-c4-verify/build-stage11-validation/20261007T092335811153Z-73363/debug/test_reference
+17: Working Directory: /Users/wafoe/projects/me/CXXEg-stage11-c4-verify/build-stage11-validation/20261007T092335811153Z-73363/debug
+17: Test timeout computed to be: 1500
+17: Reference random MATMUL: PASS seed=20995 trials=100 (zero/rectangular), no performance claim
+17: CPU reference ADD/MUL/MATMUL/COPY/MATERIALIZE: PASS
+17/35 Test #17: operator_reference ...............   Passed    0.40 sec
+test 18
+      Start 18: transformer_contracts
+
+18: Test command: /Users/wafoe/projects/me/CXXEg-stage11-c4-verify/build-stage11-validation/20261007T092335811153Z-73363/debug/test_transformer_contracts
+18: Working Directory: /Users/wafoe/projects/me/CXXEg-stage11-c4-verify/build-stage11-validation/20261007T092335811153Z-73363/debug
+18: Test timeout computed to be: 1500
+18: Transformer schema/inference/positions/head-lowering/cache-write contract: PASS (no transformer kernels)
+18/35 Test #18: transformer_contracts ............   Passed    0.41 sec
+test 19
+      Start 19: operator_fixtures
+
+19: Test command: /Users/wafoe/miniforge3/bin/python3.14 "/Users/wafoe/projects/me/CXXEg-stage11-c4-verify/tests/run_operator_fixtures.py" "--binary" "/Users/wafoe/projects/me/CXXEg-stage11-c4-verify/build-stage11-validation/20261007T092335811153Z-73363/debug/test_operator_fixtures" "--root" "/Users/wafoe/projects/me/CXXEg-stage11-c4-verify/tests/fixtures/operators-v1"
+19: Working Directory: /Users/wafoe/projects/me/CXXEg-stage11-c4-verify/build-stage11-validation/20261007T092335811153Z-73363/debug
+19: Test timeout computed to be: 1500
+19: Fixture checksum/provenance: PASS; tiny weights=21 tensors, 461056 bytes (not model execution)
+19: fixture add_hand core=PASS max_abs=0 atol=1e-06 rtol=1e-05
+19: descriptor {"version":1,"op":"ADD","inputs":[0,1],"outputs":[2],"attributes":{},"backend_hint":null}
+19: fixture mul_scalar core=PASS max_abs=0 atol=1e-06 rtol=1e-05
+19: descriptor {"version":1,"op":"MUL","inputs":[0,1],"outputs":[2],"attributes":{},"backend_hint":null}
+19: fixture matmul_rectangular core=PASS max_abs=0 atol=1e-06 rtol=1e-05
+19: descriptor {"version":1,"op":"MATMUL","inputs":[0,1],"outputs":[2],"attributes":{},"backend_hint":null}
+19: fixture matmul_zero_inner core=PASS max_abs=0 atol=1e-06 rtol=1e-05
+19: descriptor {"version":1,"op":"MATMUL","inputs":[0,1],"outputs":[2],"attributes":{},"backend_hint":null}
+19: fixture copy_ids_transpose core=PASS max_abs=0 atol=1e-06 rtol=1e-05
+19: descriptor {"version":1,"op":"COPY","inputs":[0,1],"outputs":[2],"attributes":{"overlap":"reject_except_exact_self"},"backend_hint":null}
+19: fixture copy_fp32 core=PASS max_abs=0 atol=1e-06 rtol=1e-05
+19: descriptor {"version":1,"op":"COPY","inputs":[0,1],"outputs":[2],"attributes":{"overlap":"reject_except_exact_self"},"backend_hint":null}
+19: fixture materialize_transpose core=PASS max_abs=0 atol=1e-06 rtol=1e-05
+19: descriptor {"version":1,"op":"MATERIALIZE","inputs":[0],"outputs":[1],"attributes":{},"backend_hint":null}
+19: fixture add_empty core=PASS max_abs=0 atol=1e-06 rtol=1e-05
+19: descriptor {"version":1,"op":"ADD","inputs":[0,1],"outputs":[2],"attributes":{},"backend_hint":null}
+19: fixture rmsnorm_hand_zero_row metadata=PASS numeric=pending-S12
+19: descriptor {"version":1,"op":"RMSNORM","inputs":[0,1],"outputs":[2],"attributes":{"epsilon":1.0000000000000001e-05},"backend_hint":null}
+19: fixture softmax_stable metadata=PASS numeric=pending-S12
+19: descriptor {"version":1,"op":"SOFTMAX","inputs":[0],"outputs":[1],"attributes":{"causal":false,"query_position":0,"key_position":0,"max_positions":1088},"backend_hint":null}
+19: fixture softmax_decode_offset metadata=PASS numeric=pending-S12
+19: descriptor {"version":1,"op":"SOFTMAX","inputs":[0],"outputs":[1],"attributes":{"causal":true,"query_position":2,"key_position":0,"max_positions":1088},"backend_hint":null}
+19: fixture softmax_all_masked metadata=PASS numeric=pending-S12
+19: descriptor {"version":1,"op":"SOFTMAX","inputs":[0],"outputs":[1],"attributes":{"causal":true,"query_position":0,"key_position":2,"max_positions":1088},"backend_hint":null}
+19: fixture rope_interleaved_hand metadata=PASS numeric=pending-S12
+19: descriptor {"version":1,"op":"ROPE","inputs":[0],"outputs":[1],"attributes":{"position":1,"base":10000,"max_positions":1088},"backend_hint":null}
+19: fixture rope_tiny_heads metadata=PASS numeric=pending-S12
+19: descriptor {"version":1,"op":"ROPE","inputs":[0],"outputs":[1],"attributes":{"position":17,"base":10000,"max_positions":1088},"backend_hint":null}
+19: fixture embedding_hand metadata=PASS numeric=pending-S12
+19: descriptor {"version":1,"op":"EMBEDDING","inputs":[0,1],"outputs":[2],"attributes":{},"backend_hint":null}
+19: fixture swiglu_hand metadata=PASS numeric=pending-S12
+19: descriptor {"version":1,"op":"SWIGLU","inputs":[0,1],"outputs":[2],"attributes":{},"backend_hint":null}
+19: fixture attention_decode_tiny_geometry metadata=PASS numeric=pending-S12
+19: descriptor {"version":1,"op":"ATTENTION","inputs":[0,1,2],"outputs":[3],"attributes":{"heads":4,"head_dim":16,"causal":true,"query_position":2,"key_position":0,"max_positions":1088},"backend_hint":null}
+19: Operator fixtures: PASS numeric_core=8 transformer_metadata=9 malformed_reader=10
+19/35 Test #19: operator_fixtures ................   Passed    0.51 sec
+test 20
+      Start 20: operator_fixture_tools
+
+20: Test command: /Users/wafoe/miniforge3/bin/python3.14 "/Users/wafoe/projects/me/CXXEg-stage11-c4-verify/tests/test_operator_fixture_tools.py"
+20: Working Directory: /Users/wafoe/projects/me/CXXEg-stage11-c4-verify/build-stage11-validation/20261007T092335811153Z-73363/debug
+20: Test timeout computed to be: 1500
+20: .........
+20: ----------------------------------------------------------------------
+20: Ran 9 tests in 0.043s
+20: 
+20: OK
+20/35 Test #20: operator_fixture_tools ...........   Passed    0.10 sec
+test 21
+      Start 21: graph
+
+21: Test command: /Users/wafoe/projects/me/CXXEg-stage11-c4-verify/build-stage11-validation/20261007T092335811153Z-73363/debug/test_graph
+21: Working Directory: /Users/wafoe/projects/me/CXXEg-stage11-c4-verify/build-stage11-validation/20261007T092335811153Z-73363/debug
+21: Test timeout computed to be: 1500
+21: graph ownership/topology/state: PASS
+21/35 Test #21: graph ............................   Passed    0.38 sec
+test 22
+      Start 22: graph_executor
+
+22: Test command: /Users/wafoe/projects/me/CXXEg-stage11-c4-verify/build-stage11-validation/20261007T092335811153Z-73363/debug/test_graph_executor
+22: Working Directory: /Users/wafoe/projects/me/CXXEg-stage11-c4-verify/build-stage11-validation/20261007T092335811153Z-73363/debug
+22: Test timeout computed to be: 1500
+22: ADD->MATMUL counts: allocations=2 frees=1 peak_live_bytes=56 copies=0
+22: seeded DAGs: PASS cases=60 seed=0x5303 nodes_per_case=12
+22: graph executor: PASS
+22/35 Test #22: graph_executor ...................   Passed    0.44 sec
+test 23
+      Start 23: graph_fixtures
+
+23: Test command: /Users/wafoe/miniforge3/bin/python3.14 "/Users/wafoe/projects/me/CXXEg-stage11-c4-verify/tests/run_graph_fixtures.py" "--binary" "/Users/wafoe/projects/me/CXXEg-stage11-c4-verify/build-stage11-validation/20261007T092335811153Z-73363/debug/test_graph_fixtures" "--root" "/Users/wafoe/projects/me/CXXEg-stage11-c4-verify/tests/fixtures/operators-v1"
+23: Working Directory: /Users/wafoe/projects/me/CXXEg-stage11-c4-verify/build-stage11-validation/20261007T092335811153Z-73363/debug
+23: Test timeout computed to be: 1500
+23: Graph fixture checksum/provenance: PASS
+23: graph fixture add_hand core=PASS
+23: graph fixture mul_scalar core=PASS
+23: graph fixture matmul_rectangular core=PASS
+23: graph fixture matmul_zero_inner core=PASS
+23: graph fixture copy_ids_transpose core=PASS
+23: graph fixture copy_fp32 core=PASS
+23: graph fixture materialize_transpose core=PASS
+23: graph fixture add_empty core=PASS
+23: graph fixture rmsnorm_hand_zero_row unsupported=PASS
+23: graph fixture softmax_stable unsupported=PASS
+23: graph fixture softmax_decode_offset unsupported=PASS
+23: graph fixture softmax_all_masked unsupported=PASS
+23: graph fixture rope_interleaved_hand unsupported=PASS
+23: graph fixture rope_tiny_heads unsupported=PASS
+23: graph fixture embedding_hand unsupported=PASS
+23: graph fixture swiglu_hand unsupported=PASS
+23: graph fixture attention_decode_tiny_geometry unsupported=PASS
+23: Graph fixtures: PASS numeric_core=8 unsupported=9
+23/35 Test #23: graph_fixtures ...................   Passed    0.45 sec
+test 24
+      Start 24: graph_trace
+
+24: Test command: /Users/wafoe/projects/me/CXXEg-stage11-c4-verify/build-stage11-validation/20261007T092335811153Z-73363/debug/test_graph_trace
+24: Working Directory: /Users/wafoe/projects/me/CXXEg-stage11-c4-verify/build-stage11-validation/20261007T092335811153Z-73363/debug
+24: Test timeout computed to be: 1500
+24: diamond trace: NodeBegin:10:- Tensor:10:0 Tensor:10:1 Allocate:10:2 Tensor:10:2 NodeEnd:10:- NodeBegin:20:- Tensor:20:2 Tensor:20:1 Allocate:20:3 Tensor:20:3 NodeEnd:20:- Release:20:1 NodeBegin:30:- Tensor:30:2 Tensor:30:0 Allocate:30:4 Tensor:30:4 NodeEnd:30:- Release:30:0 Release:30:2 Free:30:2 NodeBegin:40:- Tensor:40:3 Tensor:40:4 Allocate:40:5 Tensor:40:5 NodeEnd:40:- Release:40:3 Free:40:3 Release:40:4 Free:40:4 Output:-:5 
+24: graph trace: PASS
+24/35 Test #24: graph_trace ......................   Passed    0.39 sec
+test 25
+      Start 25: arena
+
+25: Test command: /Users/wafoe/projects/me/CXXEg-stage11-c4-verify/build-stage11-validation/20261007T092335811153Z-73363/debug/test_arena
+25: Working Directory: /Users/wafoe/projects/me/CXXEg-stage11-c4-verify/build-stage11-validation/20261007T092335811153Z-73363/debug
+25: Test timeout computed to be: 1500
+25: arena properties: PASS seeds=6 operations=18000
+25: arena accounting/reuse: PASS
+25/35 Test #25: arena ............................   Passed    0.57 sec
+test 26
+      Start 26: allocation_provider
+
+26: Test command: /Users/wafoe/projects/me/CXXEg-stage11-c4-verify/build-stage11-validation/20261007T092335811153Z-73363/debug/test_allocation_provider
+26: Working Directory: /Users/wafoe/projects/me/CXXEg-stage11-c4-verify/build-stage11-validation/20261007T092335811153Z-73363/debug
+26: Test timeout computed to be: 1500
+26: allocation provider: PASS
+26/35 Test #26: allocation_provider ..............   Passed    0.40 sec
+test 27
+      Start 27: allocator_benchmark_workloads
+
+27: Test command: /Users/wafoe/projects/me/CXXEg-stage11-c4-verify/build-stage11-validation/20261007T092335811153Z-73363/debug/bench_allocator "--self-test"
+27: Working Directory: /Users/wafoe/projects/me/CXXEg-stage11-c4-verify/build-stage11-validation/20261007T092335811153Z-73363/debug
+27: Test timeout computed to be: 1500
+27: allocator benchmark workload correctness: PASS (untimed)
+27/35 Test #27: allocator_benchmark_workloads ....   Passed    0.40 sec
+test 28
+      Start 28: allocator_tools
+
+28: Test command: /Users/wafoe/miniforge3/bin/python3.14 "/Users/wafoe/projects/me/CXXEg-stage11-c4-verify/tests/test_allocator_tools.py"
+28: Working Directory: /Users/wafoe/projects/me/CXXEg-stage11-c4-verify/build-stage11-validation/20261007T092335811153Z-73363/debug
+28: Test timeout computed to be: 1500
+28: ..........
+28: ----------------------------------------------------------------------
+28: Ran 10 tests in 0.041s
+28: 
+28: OK
+28/35 Test #28: allocator_tools ..................   Passed    0.12 sec
+test 29
+      Start 29: memory_planner
+
+29: Test command: /Users/wafoe/projects/me/CXXEg-stage11-c4-verify/build-stage11-validation/20261007T092335811153Z-73363/debug/test_memory_planner
+29: Working Directory: /Users/wafoe/projects/me/CXXEg-stage11-c4-verify/build-stage11-validation/20261007T092335811153Z-73363/debug
+29: Test timeout computed to be: 1500
+29: memory planner: PASS
+29/35 Test #29: memory_planner ...................   Passed    0.41 sec
+test 30
+      Start 30: planned_executor
+
+30: Test command: /Users/wafoe/projects/me/CXXEg-stage11-c4-verify/build-stage11-validation/20261007T092335811153Z-73363/debug/test_planned_executor
+30: Working Directory: /Users/wafoe/projects/me/CXXEg-stage11-c4-verify/build-stage11-validation/20261007T092335811153Z-73363/debug
+30: Test timeout computed to be: 1500
+30: planned executor: PASS
+30/35 Test #30: planned_executor .................   Passed    1.45 sec
+test 31
+      Start 31: planner_benchmark_workloads
+
+31: Test command: /Users/wafoe/projects/me/CXXEg-stage11-c4-verify/build-stage11-validation/20261007T092335811153Z-73363/debug/bench_planner "--self-test"
+31: Working Directory: /Users/wafoe/projects/me/CXXEg-stage11-c4-verify/build-stage11-validation/20261007T092335811153Z-73363/debug
+31: Test timeout computed to be: 1500
+31: planner benchmark workload correctness: PASS (untimed)
+31/35 Test #31: planner_benchmark_workloads ......   Passed    0.43 sec
+test 32
+      Start 32: planner_tools
+
+32: Test command: /Users/wafoe/miniforge3/bin/python3.14 "/Users/wafoe/projects/me/CXXEg-stage11-c4-verify/tests/test_planner_tools.py"
+32: Working Directory: /Users/wafoe/projects/me/CXXEg-stage11-c4-verify/build-stage11-validation/20261007T092335811153Z-73363/debug
+32: Test timeout computed to be: 1500
+32: .................
+32: ----------------------------------------------------------------------
+32: Ran 17 tests in 0.183s
+32: 
+32: OK
+32/35 Test #32: planner_tools ....................   Passed    0.26 sec
+test 33
+      Start 33: common
+
+33: Test command: /Users/wafoe/projects/me/CXXEg-stage11-c4-verify/build-stage11-validation/20261007T092335811153Z-73363/debug/test_common
+33: Working Directory: /Users/wafoe/projects/me/CXXEg-stage11-c4-verify/build-stage11-validation/20261007T092335811153Z-73363/debug
+33: Test timeout computed to be: 1500
+33: CPU reference, validation, statistics, GFLOPS, CSV: PASS
+33/35 Test #33: common ...........................   Passed    0.39 sec
+test 34
+      Start 34: tools
+
+34: Test command: /Users/wafoe/miniforge3/bin/python3.14 "/Users/wafoe/projects/me/CXXEg-stage11-c4-verify/tests/test_tools.py"
+34: Working Directory: /Users/wafoe/projects/me/CXXEg-stage11-c4-verify/build-stage11-validation/20261007T092335811153Z-73363/debug
+34: Test timeout computed to be: 1500
+34: test_bad_numeric_input (__main__.AnalysisTests.test_bad_numeric_input) ... ok
+34: test_changed_comparison_conditions (__main__.AnalysisTests.test_changed_comparison_conditions) ... ok
+34: test_cli_missing_csv_preserves_existing_report (__main__.AnalysisTests.test_cli_missing_csv_preserves_existing_report) ... ok
+34: test_duplicate_or_single_kernel (__main__.AnalysisTests.test_duplicate_or_single_kernel) ... ok
+34: test_failure_not_success (__main__.AnalysisTests.test_failure_not_success) ... ok
+34: test_invalid_build_and_commit (__main__.AnalysisTests.test_invalid_build_and_commit) ... ok
+34: test_missing_raw_samples (__main__.AnalysisTests.test_missing_raw_samples) ... ok
+34: test_no_data_no_report (__main__.AnalysisTests.test_no_data_no_report) ... ok
+34: test_no_report_without_completed_run (__main__.AnalysisTests.test_no_report_without_completed_run) ... ok
+34: test_path_traversal (__main__.AnalysisTests.test_path_traversal) ... ok
+34: test_ratio_wrong_units (__main__.AnalysisTests.test_ratio_wrong_units) ... ok
+34: test_report_from_raw (__main__.AnalysisTests.test_report_from_raw) ... ok
+34: test_timing_raw_tamper (__main__.AnalysisTests.test_timing_raw_tamper) ... ok
+34: test_wrong_gflops (__main__.AnalysisTests.test_wrong_gflops) ... ok
+34: test_clean_and_dirty_source (__main__.ProvenanceTests.test_clean_and_dirty_source) ... ok
+34: test_header_stable (__main__.ProvenanceTests.test_header_stable) ... ok
+34: test_results_and_report_excluded (__main__.ProvenanceTests.test_results_and_report_excluded) ... ok
+34: test_untracked_source_included (__main__.ProvenanceTests.test_untracked_source_included) ... ok
+34: test_failed_environment_capture_preserved (__main__.ScriptFailureTests.test_failed_environment_capture_preserved) ... ok
+34: test_stale_binary_refused_before_benchmark (__main__.ScriptFailureTests.test_stale_binary_refused_before_benchmark) ... ok
+34: 
+34: ----------------------------------------------------------------------
+34: Ran 20 tests in 1.380s
+34: 
+34: OK
+34/35 Test #34: tools ............................   Passed    1.46 sec
+test 35
+      Start 35: cuda_gemm_tools
+
+35: Test command: /Users/wafoe/miniforge3/bin/python3.14 "/Users/wafoe/projects/me/CXXEg-stage11-c4-verify/tests/test_cuda_gemm_tools.py"
+35: Working Directory: /Users/wafoe/projects/me/CXXEg-stage11-c4-verify/build-stage11-validation/20261007T092335811153Z-73363/debug
+35: Test timeout computed to be: 1500
+35: .......
+35: ----------------------------------------------------------------------
+35: Ran 7 tests in 0.002s
+35: 
+35: OK
+35/35 Test #35: cuda_gemm_tools ..................   Passed    0.04 sec
+
+100% tests passed out of 35
+
+Label Time Summary:
+arena        =   1.48 sec*proc (4 tests)
+backend      =   3.34 sec*proc (7 tests)
+cpu          =  13.93 sec*proc (33 tests)
+graph        =   2.06 sec*proc (5 tests)
+operators    =   2.30 sec*proc (6 tests)
+planner      =   2.55 sec*proc (4 tests)
+scheduler    =   1.58 sec*proc (4 tests)
+tensor       =   0.96 sec*proc (3 tests)
+tools        =   0.72 sec*proc (3 tests)
+
+Total Test time (real) =  15.80 sec

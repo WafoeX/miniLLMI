@@ -1,0 +1,169 @@
+{
+  "schema_version": 1,
+  "timestamp": "2026-10-07T09:36:58.834968+00:00",
+  "status": "passed",
+  "cpu_only": true,
+  "scope": "CPU production build/untimed self-test/probe/refusal and CUDA-interface C++ host syntax; NO nvcc/GPU/link/timing acceptance",
+  "cuda_sdk_present": false,
+  "gpu_executed": false,
+  "latency_measured": false,
+  "commands": [
+    {
+      "name": "source-before",
+      "argv": [
+        "python3",
+        "tools/provenance.py",
+        "--root",
+        "/Users/wafoe/projects/me/CXXEg-stage11-c4-verify"
+      ],
+      "log": "source-before.log",
+      "exit_code": 0,
+      "expected_exit_code": 0
+    },
+    {
+      "name": "compiler-version",
+      "argv": [
+        "clang++",
+        "--version"
+      ],
+      "log": "compiler-version.log",
+      "exit_code": 0,
+      "expected_exit_code": 0
+    },
+    {
+      "name": "configure-production",
+      "argv": [
+        "cmake",
+        "-S",
+        "/Users/wafoe/projects/me/CXXEg-stage11-c4-verify",
+        "-B",
+        "/Users/wafoe/projects/me/CXXEg-stage11-c4-verify/build-stage11-c4-production",
+        "-DCMAKE_BUILD_TYPE=Release",
+        "-DENABLE_CUDA=OFF",
+        "-DBUILD_TESTING=OFF"
+      ],
+      "log": "configure-production.log",
+      "exit_code": 0,
+      "expected_exit_code": 0
+    },
+    {
+      "name": "build-production",
+      "argv": [
+        "cmake",
+        "--build",
+        "/Users/wafoe/projects/me/CXXEg-stage11-c4-verify/build-stage11-c4-production",
+        "--parallel",
+        "2"
+      ],
+      "log": "build-production.log",
+      "exit_code": 0,
+      "expected_exit_code": 0
+    },
+    {
+      "name": "self-test",
+      "argv": [
+        "/Users/wafoe/projects/me/CXXEg-stage11-c4-verify/build-stage11-c4-production/bench_scheduler",
+        "--self-test"
+      ],
+      "log": "self-test.log",
+      "exit_code": 0,
+      "expected_exit_code": 0
+    },
+    {
+      "name": "probe",
+      "argv": [
+        "/Users/wafoe/projects/me/CXXEg-stage11-c4-verify/build-stage11-c4-production/bench_scheduler",
+        "--probe"
+      ],
+      "log": "probe.log",
+      "exit_code": 0,
+      "expected_exit_code": 0
+    },
+    {
+      "name": "cpu-time-refusal",
+      "argv": [
+        "/Users/wafoe/projects/me/CXXEg-stage11-c4-verify/build-stage11-c4-production/bench_scheduler",
+        "--output",
+        "/Users/wafoe/projects/me/CXXEg/results/scheduler/stage11-c4-host-checks/20261007T092335811153Z-73363/forbidden-timing",
+        "--repeat",
+        "1",
+        "--order",
+        "manual,automatic"
+      ],
+      "log": "cpu-time-refusal.log",
+      "exit_code": 1,
+      "expected_exit_code": 1
+    },
+    {
+      "name": "syntax-cuda-benchmark",
+      "argv": [
+        "clang++",
+        "-std=c++17",
+        "-Wall",
+        "-Wextra",
+        "-Wpedantic",
+        "-Werror",
+        "-I/Users/wafoe/projects/me/CXXEg-stage11-c4-verify/include",
+        "-I/Users/wafoe/projects/me/CXXEg-stage11-c4-verify/build-stage11-validation/20261007T092335811153Z-73363/release/generated",
+        "-fsyntax-only",
+        "-DSCHEDULER_CUDA_BUILD=1",
+        "bench/bench_scheduler.cpp"
+      ],
+      "log": "syntax-cuda-benchmark.log",
+      "exit_code": 0,
+      "expected_exit_code": 0
+    },
+    {
+      "name": "syntax-cuda-scheduler-test",
+      "argv": [
+        "clang++",
+        "-std=c++17",
+        "-Wall",
+        "-Wextra",
+        "-Wpedantic",
+        "-Werror",
+        "-I/Users/wafoe/projects/me/CXXEg-stage11-c4-verify/include",
+        "-I/Users/wafoe/projects/me/CXXEg-stage11-c4-verify/build-stage11-validation/20261007T092335811153Z-73363/release/generated",
+        "-fsyntax-only",
+        "tests/test_cuda_scheduler.cpp"
+      ],
+      "log": "syntax-cuda-scheduler-test.log",
+      "exit_code": 0,
+      "expected_exit_code": 0
+    },
+    {
+      "name": "source-after",
+      "argv": [
+        "python3",
+        "tools/provenance.py",
+        "--root",
+        "/Users/wafoe/projects/me/CXXEg-stage11-c4-verify"
+      ],
+      "log": "source-after.log",
+      "exit_code": 0,
+      "expected_exit_code": 0
+    }
+  ],
+  "source_before": {
+    "commit": "1a331e694bbed7398c11f521c88b9102a1d340e7",
+    "source_digest": "67b6a59b874be57d6d1d06d7f0c3427f51ac664a5a5b2cc09d435e1e4aba5aaa",
+    "source_dirty": false
+  },
+  "source_after": {
+    "commit": "1a331e694bbed7398c11f521c88b9102a1d340e7",
+    "source_digest": "67b6a59b874be57d6d1d06d7f0c3427f51ac664a5a5b2cc09d435e1e4aba5aaa",
+    "source_dirty": false
+  },
+  "artifact_sha256": {
+    "build-production.log": "c16fb7d45b756dbab7d0387709e7f42758a2851956cbc5418cc69e2a8f22a768",
+    "compiler-version.log": "f6a41663474c412322e565ec1a1aa27bcb42151b98d527dc401b7d744b9a4237",
+    "configure-production.log": "3eb885fb30b55cd1523f0e8399ee9bb3105a88db0e82336598001567397e6f98",
+    "cpu-time-refusal.log": "348f114d5b2614bfd715aef75a8ebbe206ee203a4c23823fa1c7b2c18f6cebe9",
+    "probe.log": "97e768e3ee7d49c2da2b855822fc85f2083509928cd24274ba42b735fa0c76ef",
+    "self-test.log": "b1c23c9413a31a89a4f2d75d5f4586df7db64827b1fe0b9900cf098238720f1e",
+    "source-after.log": "04a7a8f4eaeb998c86ce98db98ae05f47a496a7af1514c2afdb7c44217d71fe2",
+    "source-before.log": "04a7a8f4eaeb998c86ce98db98ae05f47a496a7af1514c2afdb7c44217d71fe2",
+    "syntax-cuda-benchmark.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "syntax-cuda-scheduler-test.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  }
+}
