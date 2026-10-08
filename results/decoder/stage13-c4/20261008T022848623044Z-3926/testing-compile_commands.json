@@ -1,0 +1,410 @@
+[
+{
+  "directory": "/content/miniLLMI/build-stage13-integration/20261008T022848623044Z-3926/testing",
+  "command": "/usr/bin/c++  -I/content/miniLLMI/include -I/content/miniLLMI/build-stage13-integration/20261008T022848623044Z-3926/testing/generated -O3 -DNDEBUG -std=c++17 -Wall -Wextra -Wpedantic -o CMakeFiles/stage0_common.dir/src/common.cpp.o -c /content/miniLLMI/src/common.cpp",
+  "file": "/content/miniLLMI/src/common.cpp",
+  "output": "CMakeFiles/stage0_common.dir/src/common.cpp.o"
+},
+{
+  "directory": "/content/miniLLMI/build-stage13-integration/20261008T022848623044Z-3926/testing",
+  "command": "/usr/bin/c++ -DRUNTIME_TESTING=1 -I/content/miniLLMI/include -O3 -DNDEBUG -std=c++17 -Wall -Wextra -Wpedantic -o CMakeFiles/runtime.dir/src/runtime/storage.cpp.o -c /content/miniLLMI/src/runtime/storage.cpp",
+  "file": "/content/miniLLMI/src/runtime/storage.cpp",
+  "output": "CMakeFiles/runtime.dir/src/runtime/storage.cpp.o"
+},
+{
+  "directory": "/content/miniLLMI/build-stage13-integration/20261008T022848623044Z-3926/testing",
+  "command": "/usr/bin/c++ -DRUNTIME_TESTING=1 -I/content/miniLLMI/include -O3 -DNDEBUG -std=c++17 -Wall -Wextra -Wpedantic -o CMakeFiles/runtime.dir/src/runtime/tensor.cpp.o -c /content/miniLLMI/src/runtime/tensor.cpp",
+  "file": "/content/miniLLMI/src/runtime/tensor.cpp",
+  "output": "CMakeFiles/runtime.dir/src/runtime/tensor.cpp.o"
+},
+{
+  "directory": "/content/miniLLMI/build-stage13-integration/20261008T022848623044Z-3926/testing",
+  "command": "/usr/bin/c++ -DRUNTIME_TESTING=1 -I/content/miniLLMI/include -O3 -DNDEBUG -std=c++17 -Wall -Wextra -Wpedantic -o CMakeFiles/runtime.dir/src/runtime/copy.cpp.o -c /content/miniLLMI/src/runtime/copy.cpp",
+  "file": "/content/miniLLMI/src/runtime/copy.cpp",
+  "output": "CMakeFiles/runtime.dir/src/runtime/copy.cpp.o"
+},
+{
+  "directory": "/content/miniLLMI/build-stage13-integration/20261008T022848623044Z-3926/testing",
+  "command": "/usr/bin/c++ -DRUNTIME_TESTING=1 -I/content/miniLLMI/include -O3 -DNDEBUG -std=c++17 -Wall -Wextra -Wpedantic -o CMakeFiles/runtime.dir/src/runtime/operator.cpp.o -c /content/miniLLMI/src/runtime/operator.cpp",
+  "file": "/content/miniLLMI/src/runtime/operator.cpp",
+  "output": "CMakeFiles/runtime.dir/src/runtime/operator.cpp.o"
+},
+{
+  "directory": "/content/miniLLMI/build-stage13-integration/20261008T022848623044Z-3926/testing",
+  "command": "/usr/bin/c++ -DRUNTIME_TESTING=1 -I/content/miniLLMI/include -O3 -DNDEBUG -std=c++17 -Wall -Wextra -Wpedantic -o CMakeFiles/runtime.dir/src/runtime/shape_inference.cpp.o -c /content/miniLLMI/src/runtime/shape_inference.cpp",
+  "file": "/content/miniLLMI/src/runtime/shape_inference.cpp",
+  "output": "CMakeFiles/runtime.dir/src/runtime/shape_inference.cpp.o"
+},
+{
+  "directory": "/content/miniLLMI/build-stage13-integration/20261008T022848623044Z-3926/testing",
+  "command": "/usr/bin/c++ -DRUNTIME_TESTING=1 -I/content/miniLLMI/include -O3 -DNDEBUG -std=c++17 -Wall -Wextra -Wpedantic -o CMakeFiles/runtime.dir/src/runtime/reference.cpp.o -c /content/miniLLMI/src/runtime/reference.cpp",
+  "file": "/content/miniLLMI/src/runtime/reference.cpp",
+  "output": "CMakeFiles/runtime.dir/src/runtime/reference.cpp.o"
+},
+{
+  "directory": "/content/miniLLMI/build-stage13-integration/20261008T022848623044Z-3926/testing",
+  "command": "/usr/bin/c++ -DRUNTIME_TESTING=1 -I/content/miniLLMI/include -O3 -DNDEBUG -std=c++17 -Wall -Wextra -Wpedantic -o CMakeFiles/runtime.dir/src/runtime/layout.cpp.o -c /content/miniLLMI/src/runtime/layout.cpp",
+  "file": "/content/miniLLMI/src/runtime/layout.cpp",
+  "output": "CMakeFiles/runtime.dir/src/runtime/layout.cpp.o"
+},
+{
+  "directory": "/content/miniLLMI/build-stage13-integration/20261008T022848623044Z-3926/testing",
+  "command": "/usr/bin/c++ -DRUNTIME_TESTING=1 -I/content/miniLLMI/include -O3 -DNDEBUG -std=c++17 -Wall -Wextra -Wpedantic -o CMakeFiles/runtime.dir/src/runtime/graph.cpp.o -c /content/miniLLMI/src/runtime/graph.cpp",
+  "file": "/content/miniLLMI/src/runtime/graph.cpp",
+  "output": "CMakeFiles/runtime.dir/src/runtime/graph.cpp.o"
+},
+{
+  "directory": "/content/miniLLMI/build-stage13-integration/20261008T022848623044Z-3926/testing",
+  "command": "/usr/bin/c++ -DRUNTIME_TESTING=1 -I/content/miniLLMI/include -O3 -DNDEBUG -std=c++17 -Wall -Wextra -Wpedantic -o CMakeFiles/runtime.dir/src/runtime/graph_executor.cpp.o -c /content/miniLLMI/src/runtime/graph_executor.cpp",
+  "file": "/content/miniLLMI/src/runtime/graph_executor.cpp",
+  "output": "CMakeFiles/runtime.dir/src/runtime/graph_executor.cpp.o"
+},
+{
+  "directory": "/content/miniLLMI/build-stage13-integration/20261008T022848623044Z-3926/testing",
+  "command": "/usr/bin/c++ -DRUNTIME_TESTING=1 -I/content/miniLLMI/include -O3 -DNDEBUG -std=c++17 -Wall -Wextra -Wpedantic -o CMakeFiles/runtime.dir/src/runtime/graph_trace.cpp.o -c /content/miniLLMI/src/runtime/graph_trace.cpp",
+  "file": "/content/miniLLMI/src/runtime/graph_trace.cpp",
+  "output": "CMakeFiles/runtime.dir/src/runtime/graph_trace.cpp.o"
+},
+{
+  "directory": "/content/miniLLMI/build-stage13-integration/20261008T022848623044Z-3926/testing",
+  "command": "/usr/bin/c++ -DRUNTIME_TESTING=1 -I/content/miniLLMI/include -O3 -DNDEBUG -std=c++17 -Wall -Wextra -Wpedantic -o CMakeFiles/runtime.dir/src/runtime/arena.cpp.o -c /content/miniLLMI/src/runtime/arena.cpp",
+  "file": "/content/miniLLMI/src/runtime/arena.cpp",
+  "output": "CMakeFiles/runtime.dir/src/runtime/arena.cpp.o"
+},
+{
+  "directory": "/content/miniLLMI/build-stage13-integration/20261008T022848623044Z-3926/testing",
+  "command": "/usr/bin/c++ -DRUNTIME_TESTING=1 -I/content/miniLLMI/include -O3 -DNDEBUG -std=c++17 -Wall -Wextra -Wpedantic -o CMakeFiles/runtime.dir/src/runtime/allocation_provider.cpp.o -c /content/miniLLMI/src/runtime/allocation_provider.cpp",
+  "file": "/content/miniLLMI/src/runtime/allocation_provider.cpp",
+  "output": "CMakeFiles/runtime.dir/src/runtime/allocation_provider.cpp.o"
+},
+{
+  "directory": "/content/miniLLMI/build-stage13-integration/20261008T022848623044Z-3926/testing",
+  "command": "/usr/bin/c++ -DRUNTIME_TESTING=1 -I/content/miniLLMI/include -O3 -DNDEBUG -std=c++17 -Wall -Wextra -Wpedantic -o CMakeFiles/runtime.dir/src/runtime/memory_planner.cpp.o -c /content/miniLLMI/src/runtime/memory_planner.cpp",
+  "file": "/content/miniLLMI/src/runtime/memory_planner.cpp",
+  "output": "CMakeFiles/runtime.dir/src/runtime/memory_planner.cpp.o"
+},
+{
+  "directory": "/content/miniLLMI/build-stage13-integration/20261008T022848623044Z-3926/testing",
+  "command": "/usr/bin/c++ -DRUNTIME_TESTING=1 -I/content/miniLLMI/include -O3 -DNDEBUG -std=c++17 -Wall -Wextra -Wpedantic -o CMakeFiles/runtime.dir/src/runtime/planned_executor.cpp.o -c /content/miniLLMI/src/runtime/planned_executor.cpp",
+  "file": "/content/miniLLMI/src/runtime/planned_executor.cpp",
+  "output": "CMakeFiles/runtime.dir/src/runtime/planned_executor.cpp.o"
+},
+{
+  "directory": "/content/miniLLMI/build-stage13-integration/20261008T022848623044Z-3926/testing",
+  "command": "/usr/bin/c++ -DRUNTIME_TESTING=1 -I/content/miniLLMI/include -O3 -DNDEBUG -std=c++17 -Wall -Wextra -Wpedantic -o CMakeFiles/runtime.dir/src/runtime/cpu_backend.cpp.o -c /content/miniLLMI/src/runtime/cpu_backend.cpp",
+  "file": "/content/miniLLMI/src/runtime/cpu_backend.cpp",
+  "output": "CMakeFiles/runtime.dir/src/runtime/cpu_backend.cpp.o"
+},
+{
+  "directory": "/content/miniLLMI/build-stage13-integration/20261008T022848623044Z-3926/testing",
+  "command": "/usr/bin/c++ -DRUNTIME_TESTING=1 -I/content/miniLLMI/include -O3 -DNDEBUG -std=c++17 -Wall -Wextra -Wpedantic -o CMakeFiles/runtime.dir/src/runtime/cpu_scalar.cpp.o -c /content/miniLLMI/src/runtime/cpu_scalar.cpp",
+  "file": "/content/miniLLMI/src/runtime/cpu_scalar.cpp",
+  "output": "CMakeFiles/runtime.dir/src/runtime/cpu_scalar.cpp.o"
+},
+{
+  "directory": "/content/miniLLMI/build-stage13-integration/20261008T022848623044Z-3926/testing",
+  "command": "/usr/bin/c++ -DRUNTIME_TESTING=1 -I/content/miniLLMI/include -O3 -DNDEBUG -std=c++17 -Wall -Wextra -Wpedantic -o CMakeFiles/runtime.dir/src/runtime/cpu_optimized.cpp.o -c /content/miniLLMI/src/runtime/cpu_optimized.cpp",
+  "file": "/content/miniLLMI/src/runtime/cpu_optimized.cpp",
+  "output": "CMakeFiles/runtime.dir/src/runtime/cpu_optimized.cpp.o"
+},
+{
+  "directory": "/content/miniLLMI/build-stage13-integration/20261008T022848623044Z-3926/testing",
+  "command": "/usr/bin/c++ -DRUNTIME_TESTING=1 -I/content/miniLLMI/include -O3 -DNDEBUG -std=c++17 -Wall -Wextra -Wpedantic -o CMakeFiles/runtime.dir/src/runtime/thread_pool.cpp.o -c /content/miniLLMI/src/runtime/thread_pool.cpp",
+  "file": "/content/miniLLMI/src/runtime/thread_pool.cpp",
+  "output": "CMakeFiles/runtime.dir/src/runtime/thread_pool.cpp.o"
+},
+{
+  "directory": "/content/miniLLMI/build-stage13-integration/20261008T022848623044Z-3926/testing",
+  "command": "/usr/bin/c++ -DRUNTIME_TESTING=1 -I/content/miniLLMI/include -O3 -DNDEBUG -std=c++17 -Wall -Wextra -Wpedantic -o CMakeFiles/runtime.dir/src/runtime/scheduler.cpp.o -c /content/miniLLMI/src/runtime/scheduler.cpp",
+  "file": "/content/miniLLMI/src/runtime/scheduler.cpp",
+  "output": "CMakeFiles/runtime.dir/src/runtime/scheduler.cpp.o"
+},
+{
+  "directory": "/content/miniLLMI/build-stage13-integration/20261008T022848623044Z-3926/testing",
+  "command": "/usr/bin/c++ -DRUNTIME_TESTING=1 -I/content/miniLLMI/include -O3 -DNDEBUG -std=c++17 -Wall -Wextra -Wpedantic -o CMakeFiles/runtime.dir/src/runtime/transformer_ops.cpp.o -c /content/miniLLMI/src/runtime/transformer_ops.cpp",
+  "file": "/content/miniLLMI/src/runtime/transformer_ops.cpp",
+  "output": "CMakeFiles/runtime.dir/src/runtime/transformer_ops.cpp.o"
+},
+{
+  "directory": "/content/miniLLMI/build-stage13-integration/20261008T022848623044Z-3926/testing",
+  "command": "/usr/bin/c++ -DRUNTIME_TESTING=1 -I/content/miniLLMI/include -O3 -DNDEBUG -std=c++17 -Wall -Wextra -Wpedantic -o CMakeFiles/runtime.dir/src/runtime/attention.cpp.o -c /content/miniLLMI/src/runtime/attention.cpp",
+  "file": "/content/miniLLMI/src/runtime/attention.cpp",
+  "output": "CMakeFiles/runtime.dir/src/runtime/attention.cpp.o"
+},
+{
+  "directory": "/content/miniLLMI/build-stage13-integration/20261008T022848623044Z-3926/testing",
+  "command": "/usr/bin/c++ -DRUNTIME_TESTING=1 -I/content/miniLLMI/include -O3 -DNDEBUG -std=c++17 -Wall -Wextra -Wpedantic -o CMakeFiles/model.dir/src/model/config.cpp.o -c /content/miniLLMI/src/model/config.cpp",
+  "file": "/content/miniLLMI/src/model/config.cpp",
+  "output": "CMakeFiles/model.dir/src/model/config.cpp.o"
+},
+{
+  "directory": "/content/miniLLMI/build-stage13-integration/20261008T022848623044Z-3926/testing",
+  "command": "/usr/bin/c++ -DRUNTIME_TESTING=1 -I/content/miniLLMI/include -O3 -DNDEBUG -std=c++17 -Wall -Wextra -Wpedantic -o CMakeFiles/model.dir/src/model/decoder.cpp.o -c /content/miniLLMI/src/model/decoder.cpp",
+  "file": "/content/miniLLMI/src/model/decoder.cpp",
+  "output": "CMakeFiles/model.dir/src/model/decoder.cpp.o"
+},
+{
+  "directory": "/content/miniLLMI/build-stage13-integration/20261008T022848623044Z-3926/testing",
+  "command": "/usr/bin/c++ -DRUNTIME_TESTING=1 -I/content/miniLLMI/include -I/content/miniLLMI/build-stage13-integration/20261008T022848623044Z-3926/testing/generated -O3 -DNDEBUG -std=c++17 -Wall -Wextra -Wpedantic -o CMakeFiles/bench_allocator.dir/bench/bench_allocator.cpp.o -c /content/miniLLMI/bench/bench_allocator.cpp",
+  "file": "/content/miniLLMI/bench/bench_allocator.cpp",
+  "output": "CMakeFiles/bench_allocator.dir/bench/bench_allocator.cpp.o"
+},
+{
+  "directory": "/content/miniLLMI/build-stage13-integration/20261008T022848623044Z-3926/testing",
+  "command": "/usr/bin/c++ -DRUNTIME_TESTING=1 -I/content/miniLLMI/include -I/content/miniLLMI/build-stage13-integration/20261008T022848623044Z-3926/testing/generated -O3 -DNDEBUG -std=c++17 -Wall -Wextra -Wpedantic -o CMakeFiles/bench_planner.dir/bench/bench_planner.cpp.o -c /content/miniLLMI/bench/bench_planner.cpp",
+  "file": "/content/miniLLMI/bench/bench_planner.cpp",
+  "output": "CMakeFiles/bench_planner.dir/bench/bench_planner.cpp.o"
+},
+{
+  "directory": "/content/miniLLMI/build-stage13-integration/20261008T022848623044Z-3926/testing",
+  "command": "/usr/bin/c++ -DRUNTIME_TESTING=1 -I/content/miniLLMI/include -I/content/miniLLMI/build-stage13-integration/20261008T022848623044Z-3926/testing/generated -O3 -DNDEBUG -std=c++17 -Wall -Wextra -Wpedantic -o CMakeFiles/bench_cpu.dir/bench/bench_cpu.cpp.o -c /content/miniLLMI/bench/bench_cpu.cpp",
+  "file": "/content/miniLLMI/bench/bench_cpu.cpp",
+  "output": "CMakeFiles/bench_cpu.dir/bench/bench_cpu.cpp.o"
+},
+{
+  "directory": "/content/miniLLMI/build-stage13-integration/20261008T022848623044Z-3926/testing",
+  "command": "/usr/local/cuda/bin/nvcc -forward-unknown-to-host-compiler  --options-file CMakeFiles/stage0_cuda.dir/includes_CUDA.rsp -O3 -DNDEBUG -std=c++17 \"--generate-code=arch=compute_75,code=[compute_75,sm_75]\" -lineinfo -x cu -c /content/miniLLMI/backend/cuda/sgemm_v0_naive.cu -o CMakeFiles/stage0_cuda.dir/backend/cuda/sgemm_v0_naive.cu.o",
+  "file": "/content/miniLLMI/backend/cuda/sgemm_v0_naive.cu",
+  "output": "CMakeFiles/stage0_cuda.dir/backend/cuda/sgemm_v0_naive.cu.o"
+},
+{
+  "directory": "/content/miniLLMI/build-stage13-integration/20261008T022848623044Z-3926/testing",
+  "command": "/usr/local/cuda/bin/nvcc -forward-unknown-to-host-compiler  --options-file CMakeFiles/stage0_cuda.dir/includes_CUDA.rsp -O3 -DNDEBUG -std=c++17 \"--generate-code=arch=compute_75,code=[compute_75,sm_75]\" -lineinfo -x cu -c /content/miniLLMI/backend/cuda/sgemm_v1_tiled.cu -o CMakeFiles/stage0_cuda.dir/backend/cuda/sgemm_v1_tiled.cu.o",
+  "file": "/content/miniLLMI/backend/cuda/sgemm_v1_tiled.cu",
+  "output": "CMakeFiles/stage0_cuda.dir/backend/cuda/sgemm_v1_tiled.cu.o"
+},
+{
+  "directory": "/content/miniLLMI/build-stage13-integration/20261008T022848623044Z-3926/testing",
+  "command": "/usr/local/cuda/bin/nvcc -forward-unknown-to-host-compiler  --options-file CMakeFiles/stage0_cuda.dir/includes_CUDA.rsp -O3 -DNDEBUG -std=c++17 \"--generate-code=arch=compute_75,code=[compute_75,sm_75]\" -lineinfo -x cu -c /content/miniLLMI/backend/cuda/sgemm_registry.cu -o CMakeFiles/stage0_cuda.dir/backend/cuda/sgemm_registry.cu.o",
+  "file": "/content/miniLLMI/backend/cuda/sgemm_registry.cu",
+  "output": "CMakeFiles/stage0_cuda.dir/backend/cuda/sgemm_registry.cu.o"
+},
+{
+  "directory": "/content/miniLLMI/build-stage13-integration/20261008T022848623044Z-3926/testing",
+  "command": "/usr/local/cuda/bin/nvcc -forward-unknown-to-host-compiler  --options-file CMakeFiles/stage0_cuda.dir/includes_CUDA.rsp -O3 -DNDEBUG -std=c++17 \"--generate-code=arch=compute_75,code=[compute_75,sm_75]\" -lineinfo -x cu -c /content/miniLLMI/backend/cuda/cublas_gemm.cu -o CMakeFiles/stage0_cuda.dir/backend/cuda/cublas_gemm.cu.o",
+  "file": "/content/miniLLMI/backend/cuda/cublas_gemm.cu",
+  "output": "CMakeFiles/stage0_cuda.dir/backend/cuda/cublas_gemm.cu.o"
+},
+{
+  "directory": "/content/miniLLMI/build-stage13-integration/20261008T022848623044Z-3926/testing",
+  "command": "/usr/local/cuda/bin/nvcc -forward-unknown-to-host-compiler -DRUNTIME_TESTING=1 --options-file CMakeFiles/runtime_cuda.dir/includes_CUDA.rsp -O3 -DNDEBUG -std=c++17 \"--generate-code=arch=compute_75,code=[compute_75,sm_75]\" -lineinfo -x cu -c /content/miniLLMI/backend/cuda/cuda_backend.cu -o CMakeFiles/runtime_cuda.dir/backend/cuda/cuda_backend.cu.o",
+  "file": "/content/miniLLMI/backend/cuda/cuda_backend.cu",
+  "output": "CMakeFiles/runtime_cuda.dir/backend/cuda/cuda_backend.cu.o"
+},
+{
+  "directory": "/content/miniLLMI/build-stage13-integration/20261008T022848623044Z-3926/testing",
+  "command": "/usr/bin/c++ -DRUNTIME_TESTING=1 -DSCHEDULER_CUDA_BUILD=1 -I/content/miniLLMI/include -I/content/miniLLMI/build-stage13-integration/20261008T022848623044Z-3926/testing/generated -isystem /usr/local/cuda/targets/x86_64-linux/include -isystem /usr/local/cuda/targets/x86_64-linux/include/cccl -O3 -DNDEBUG -std=c++17 -Wall -Wextra -Wpedantic -o CMakeFiles/bench_scheduler.dir/bench/bench_scheduler.cpp.o -c /content/miniLLMI/bench/bench_scheduler.cpp",
+  "file": "/content/miniLLMI/bench/bench_scheduler.cpp",
+  "output": "CMakeFiles/bench_scheduler.dir/bench/bench_scheduler.cpp.o"
+},
+{
+  "directory": "/content/miniLLMI/build-stage13-integration/20261008T022848623044Z-3926/testing",
+  "command": "/usr/bin/c++ -DDECODER_CUDA_BUILD=1 -DRUNTIME_TESTING=1 -I/content/miniLLMI/include -I/content/miniLLMI/build-stage13-integration/20261008T022848623044Z-3926/testing/generated -isystem /usr/local/cuda/targets/x86_64-linux/include -isystem /usr/local/cuda/targets/x86_64-linux/include/cccl -O3 -DNDEBUG -std=c++17 -Wall -Wextra -Wpedantic -o CMakeFiles/bench_decoder.dir/bench/bench_decoder.cpp.o -c /content/miniLLMI/bench/bench_decoder.cpp",
+  "file": "/content/miniLLMI/bench/bench_decoder.cpp",
+  "output": "CMakeFiles/bench_decoder.dir/bench/bench_decoder.cpp.o"
+},
+{
+  "directory": "/content/miniLLMI/build-stage13-integration/20261008T022848623044Z-3926/testing",
+  "command": "/usr/bin/c++ -DRUNTIME_TESTING=1 -I/content/miniLLMI/include -O3 -DNDEBUG -std=c++17 -Wall -Wextra -Wpedantic -o CMakeFiles/test_decoder_config.dir/tests/test_decoder_config.cpp.o -c /content/miniLLMI/tests/test_decoder_config.cpp",
+  "file": "/content/miniLLMI/tests/test_decoder_config.cpp",
+  "output": "CMakeFiles/test_decoder_config.dir/tests/test_decoder_config.cpp.o"
+},
+{
+  "directory": "/content/miniLLMI/build-stage13-integration/20261008T022848623044Z-3926/testing",
+  "command": "/usr/bin/c++ -DRUNTIME_TESTING=1 -I/content/miniLLMI/include -O3 -DNDEBUG -std=c++17 -Wall -Wextra -Wpedantic -o CMakeFiles/test_decoder_block.dir/tests/test_decoder_block.cpp.o -c /content/miniLLMI/tests/test_decoder_block.cpp",
+  "file": "/content/miniLLMI/tests/test_decoder_block.cpp",
+  "output": "CMakeFiles/test_decoder_block.dir/tests/test_decoder_block.cpp.o"
+},
+{
+  "directory": "/content/miniLLMI/build-stage13-integration/20261008T022848623044Z-3926/testing",
+  "command": "/usr/bin/c++ -DRUNTIME_TESTING=1 -I/content/miniLLMI/include -O3 -DNDEBUG -std=c++17 -Wall -Wextra -Wpedantic -o CMakeFiles/test_decoder.dir/tests/test_decoder.cpp.o -c /content/miniLLMI/tests/test_decoder.cpp",
+  "file": "/content/miniLLMI/tests/test_decoder.cpp",
+  "output": "CMakeFiles/test_decoder.dir/tests/test_decoder.cpp.o"
+},
+{
+  "directory": "/content/miniLLMI/build-stage13-integration/20261008T022848623044Z-3926/testing",
+  "command": "/usr/bin/c++ -DRUNTIME_TESTING=1 -I/content/miniLLMI/include -O3 -DNDEBUG -std=c++17 -Wall -Wextra -Wpedantic -o CMakeFiles/test_scheduler.dir/tests/test_scheduler.cpp.o -c /content/miniLLMI/tests/test_scheduler.cpp",
+  "file": "/content/miniLLMI/tests/test_scheduler.cpp",
+  "output": "CMakeFiles/test_scheduler.dir/tests/test_scheduler.cpp.o"
+},
+{
+  "directory": "/content/miniLLMI/build-stage13-integration/20261008T022848623044Z-3926/testing",
+  "command": "/usr/bin/c++ -DRUNTIME_TESTING=1 -I/content/miniLLMI/include -O3 -DNDEBUG -std=c++17 -Wall -Wextra -Wpedantic -o CMakeFiles/test_cpu_transformer_contract.dir/tests/test_cpu_transformer_contract.cpp.o -c /content/miniLLMI/tests/test_cpu_transformer_contract.cpp",
+  "file": "/content/miniLLMI/tests/test_cpu_transformer_contract.cpp",
+  "output": "CMakeFiles/test_cpu_transformer_contract.dir/tests/test_cpu_transformer_contract.cpp.o"
+},
+{
+  "directory": "/content/miniLLMI/build-stage13-integration/20261008T022848623044Z-3926/testing",
+  "command": "/usr/bin/c++ -DRUNTIME_TESTING=1 -I/content/miniLLMI/include -O3 -DNDEBUG -std=c++17 -Wall -Wextra -Wpedantic -o CMakeFiles/test_transformer_ops.dir/tests/test_transformer_ops.cpp.o -c /content/miniLLMI/tests/test_transformer_ops.cpp",
+  "file": "/content/miniLLMI/tests/test_transformer_ops.cpp",
+  "output": "CMakeFiles/test_transformer_ops.dir/tests/test_transformer_ops.cpp.o"
+},
+{
+  "directory": "/content/miniLLMI/build-stage13-integration/20261008T022848623044Z-3926/testing",
+  "command": "/usr/bin/c++ -DRUNTIME_TESTING=1 -I/content/miniLLMI/include -O3 -DNDEBUG -std=c++17 -Wall -Wextra -Wpedantic -o CMakeFiles/test_cpu_scalar.dir/tests/test_cpu_scalar.cpp.o -c /content/miniLLMI/tests/test_cpu_scalar.cpp",
+  "file": "/content/miniLLMI/tests/test_cpu_scalar.cpp",
+  "output": "CMakeFiles/test_cpu_scalar.dir/tests/test_cpu_scalar.cpp.o"
+},
+{
+  "directory": "/content/miniLLMI/build-stage13-integration/20261008T022848623044Z-3926/testing",
+  "command": "/usr/bin/c++ -DRUNTIME_TESTING=1 -I/content/miniLLMI/include -O3 -DNDEBUG -std=c++17 -Wall -Wextra -Wpedantic -o CMakeFiles/test_thread_pool.dir/tests/test_thread_pool.cpp.o -c /content/miniLLMI/tests/test_thread_pool.cpp",
+  "file": "/content/miniLLMI/tests/test_thread_pool.cpp",
+  "output": "CMakeFiles/test_thread_pool.dir/tests/test_thread_pool.cpp.o"
+},
+{
+  "directory": "/content/miniLLMI/build-stage13-integration/20261008T022848623044Z-3926/testing",
+  "command": "/usr/bin/c++ -DCPU_BACKEND_FIXTURES=1 -DRUNTIME_TESTING=1 -I/content/miniLLMI/include -O3 -DNDEBUG -std=c++17 -Wall -Wextra -Wpedantic -o CMakeFiles/test_cpu_backend_fixtures.dir/tests/test_operator_fixtures.cpp.o -c /content/miniLLMI/tests/test_operator_fixtures.cpp",
+  "file": "/content/miniLLMI/tests/test_operator_fixtures.cpp",
+  "output": "CMakeFiles/test_cpu_backend_fixtures.dir/tests/test_operator_fixtures.cpp.o"
+},
+{
+  "directory": "/content/miniLLMI/build-stage13-integration/20261008T022848623044Z-3926/testing",
+  "command": "/usr/bin/c++ -DRUNTIME_TESTING=1 -I/content/miniLLMI/include -O3 -DNDEBUG -std=c++17 -Wall -Wextra -Wpedantic -o CMakeFiles/test_cpu_backend.dir/tests/test_cpu_backend.cpp.o -c /content/miniLLMI/tests/test_cpu_backend.cpp",
+  "file": "/content/miniLLMI/tests/test_cpu_backend.cpp",
+  "output": "CMakeFiles/test_cpu_backend.dir/tests/test_cpu_backend.cpp.o"
+},
+{
+  "directory": "/content/miniLLMI/build-stage13-integration/20261008T022848623044Z-3926/testing",
+  "command": "/usr/bin/c++ -DRUNTIME_TESTING=1 -I/content/miniLLMI/include -O3 -DNDEBUG -std=c++17 -Wall -Wextra -Wpedantic -o CMakeFiles/test_attention_graph.dir/tests/test_attention_graph.cpp.o -c /content/miniLLMI/tests/test_attention_graph.cpp",
+  "file": "/content/miniLLMI/tests/test_attention_graph.cpp",
+  "output": "CMakeFiles/test_attention_graph.dir/tests/test_attention_graph.cpp.o"
+},
+{
+  "directory": "/content/miniLLMI/build-stage13-integration/20261008T022848623044Z-3926/testing",
+  "command": "/usr/bin/c++ -DRUNTIME_TESTING=1 -I/content/miniLLMI/include -O3 -DNDEBUG -std=c++17 -Wall -Wextra -Wpedantic -o CMakeFiles/test_tensor.dir/tests/test_tensor.cpp.o -c /content/miniLLMI/tests/test_tensor.cpp",
+  "file": "/content/miniLLMI/tests/test_tensor.cpp",
+  "output": "CMakeFiles/test_tensor.dir/tests/test_tensor.cpp.o"
+},
+{
+  "directory": "/content/miniLLMI/build-stage13-integration/20261008T022848623044Z-3926/testing",
+  "command": "/usr/bin/c++ -DRUNTIME_TESTING=1 -I/content/miniLLMI/include -O3 -DNDEBUG -std=c++17 -Wall -Wextra -Wpedantic -o CMakeFiles/test_tensor_properties.dir/tests/test_tensor_properties.cpp.o -c /content/miniLLMI/tests/test_tensor_properties.cpp",
+  "file": "/content/miniLLMI/tests/test_tensor_properties.cpp",
+  "output": "CMakeFiles/test_tensor_properties.dir/tests/test_tensor_properties.cpp.o"
+},
+{
+  "directory": "/content/miniLLMI/build-stage13-integration/20261008T022848623044Z-3926/testing",
+  "command": "/usr/bin/c++ -DRUNTIME_TESTING=1 -I/content/miniLLMI/include -O3 -DNDEBUG -std=c++17 -Wall -Wextra -Wpedantic -o CMakeFiles/test_operator.dir/tests/test_operator.cpp.o -c /content/miniLLMI/tests/test_operator.cpp",
+  "file": "/content/miniLLMI/tests/test_operator.cpp",
+  "output": "CMakeFiles/test_operator.dir/tests/test_operator.cpp.o"
+},
+{
+  "directory": "/content/miniLLMI/build-stage13-integration/20261008T022848623044Z-3926/testing",
+  "command": "/usr/bin/c++ -DRUNTIME_TESTING=1 -I/content/miniLLMI/include -O3 -DNDEBUG -std=c++17 -Wall -Wextra -Wpedantic -o CMakeFiles/test_shape_inference.dir/tests/test_shape_inference.cpp.o -c /content/miniLLMI/tests/test_shape_inference.cpp",
+  "file": "/content/miniLLMI/tests/test_shape_inference.cpp",
+  "output": "CMakeFiles/test_shape_inference.dir/tests/test_shape_inference.cpp.o"
+},
+{
+  "directory": "/content/miniLLMI/build-stage13-integration/20261008T022848623044Z-3926/testing",
+  "command": "/usr/bin/c++ -DRUNTIME_TESTING=1 -I/content/miniLLMI/include -O3 -DNDEBUG -std=c++17 -Wall -Wextra -Wpedantic -o CMakeFiles/test_reference.dir/tests/test_reference.cpp.o -c /content/miniLLMI/tests/test_reference.cpp",
+  "file": "/content/miniLLMI/tests/test_reference.cpp",
+  "output": "CMakeFiles/test_reference.dir/tests/test_reference.cpp.o"
+},
+{
+  "directory": "/content/miniLLMI/build-stage13-integration/20261008T022848623044Z-3926/testing",
+  "command": "/usr/bin/c++ -DRUNTIME_TESTING=1 -I/content/miniLLMI/include -O3 -DNDEBUG -std=c++17 -Wall -Wextra -Wpedantic -o CMakeFiles/test_transformer_contracts.dir/tests/test_transformer_contracts.cpp.o -c /content/miniLLMI/tests/test_transformer_contracts.cpp",
+  "file": "/content/miniLLMI/tests/test_transformer_contracts.cpp",
+  "output": "CMakeFiles/test_transformer_contracts.dir/tests/test_transformer_contracts.cpp.o"
+},
+{
+  "directory": "/content/miniLLMI/build-stage13-integration/20261008T022848623044Z-3926/testing",
+  "command": "/usr/bin/c++ -DRUNTIME_TESTING=1 -I/content/miniLLMI/include -O3 -DNDEBUG -std=c++17 -Wall -Wextra -Wpedantic -o CMakeFiles/test_operator_fixtures.dir/tests/test_operator_fixtures.cpp.o -c /content/miniLLMI/tests/test_operator_fixtures.cpp",
+  "file": "/content/miniLLMI/tests/test_operator_fixtures.cpp",
+  "output": "CMakeFiles/test_operator_fixtures.dir/tests/test_operator_fixtures.cpp.o"
+},
+{
+  "directory": "/content/miniLLMI/build-stage13-integration/20261008T022848623044Z-3926/testing",
+  "command": "/usr/bin/c++ -DRUNTIME_TESTING=1 -I/content/miniLLMI/include -O3 -DNDEBUG -std=c++17 -Wall -Wextra -Wpedantic -o CMakeFiles/test_graph.dir/tests/test_graph.cpp.o -c /content/miniLLMI/tests/test_graph.cpp",
+  "file": "/content/miniLLMI/tests/test_graph.cpp",
+  "output": "CMakeFiles/test_graph.dir/tests/test_graph.cpp.o"
+},
+{
+  "directory": "/content/miniLLMI/build-stage13-integration/20261008T022848623044Z-3926/testing",
+  "command": "/usr/bin/c++ -DRUNTIME_TESTING=1 -I/content/miniLLMI/include -O3 -DNDEBUG -std=c++17 -Wall -Wextra -Wpedantic -o CMakeFiles/test_graph_executor.dir/tests/test_graph_executor.cpp.o -c /content/miniLLMI/tests/test_graph_executor.cpp",
+  "file": "/content/miniLLMI/tests/test_graph_executor.cpp",
+  "output": "CMakeFiles/test_graph_executor.dir/tests/test_graph_executor.cpp.o"
+},
+{
+  "directory": "/content/miniLLMI/build-stage13-integration/20261008T022848623044Z-3926/testing",
+  "command": "/usr/bin/c++ -DRUNTIME_TESTING=1 -I/content/miniLLMI/include -O3 -DNDEBUG -std=c++17 -Wall -Wextra -Wpedantic -o CMakeFiles/test_graph_fixtures.dir/tests/test_graph_fixtures.cpp.o -c /content/miniLLMI/tests/test_graph_fixtures.cpp",
+  "file": "/content/miniLLMI/tests/test_graph_fixtures.cpp",
+  "output": "CMakeFiles/test_graph_fixtures.dir/tests/test_graph_fixtures.cpp.o"
+},
+{
+  "directory": "/content/miniLLMI/build-stage13-integration/20261008T022848623044Z-3926/testing",
+  "command": "/usr/bin/c++ -DRUNTIME_TESTING=1 -I/content/miniLLMI/include -O3 -DNDEBUG -std=c++17 -Wall -Wextra -Wpedantic -o CMakeFiles/test_graph_trace.dir/tests/test_graph_trace.cpp.o -c /content/miniLLMI/tests/test_graph_trace.cpp",
+  "file": "/content/miniLLMI/tests/test_graph_trace.cpp",
+  "output": "CMakeFiles/test_graph_trace.dir/tests/test_graph_trace.cpp.o"
+},
+{
+  "directory": "/content/miniLLMI/build-stage13-integration/20261008T022848623044Z-3926/testing",
+  "command": "/usr/bin/c++ -DRUNTIME_TESTING=1 -I/content/miniLLMI/include -O3 -DNDEBUG -std=c++17 -Wall -Wextra -Wpedantic -o CMakeFiles/test_arena.dir/tests/test_arena.cpp.o -c /content/miniLLMI/tests/test_arena.cpp",
+  "file": "/content/miniLLMI/tests/test_arena.cpp",
+  "output": "CMakeFiles/test_arena.dir/tests/test_arena.cpp.o"
+},
+{
+  "directory": "/content/miniLLMI/build-stage13-integration/20261008T022848623044Z-3926/testing",
+  "command": "/usr/bin/c++ -DRUNTIME_TESTING=1 -I/content/miniLLMI/include -O3 -DNDEBUG -std=c++17 -Wall -Wextra -Wpedantic -o CMakeFiles/test_allocation_provider.dir/tests/test_allocation_provider.cpp.o -c /content/miniLLMI/tests/test_allocation_provider.cpp",
+  "file": "/content/miniLLMI/tests/test_allocation_provider.cpp",
+  "output": "CMakeFiles/test_allocation_provider.dir/tests/test_allocation_provider.cpp.o"
+},
+{
+  "directory": "/content/miniLLMI/build-stage13-integration/20261008T022848623044Z-3926/testing",
+  "command": "/usr/bin/c++ -DRUNTIME_TESTING=1 -I/content/miniLLMI/include -O3 -DNDEBUG -std=c++17 -Wall -Wextra -Wpedantic -o CMakeFiles/test_memory_planner.dir/tests/test_memory_planner.cpp.o -c /content/miniLLMI/tests/test_memory_planner.cpp",
+  "file": "/content/miniLLMI/tests/test_memory_planner.cpp",
+  "output": "CMakeFiles/test_memory_planner.dir/tests/test_memory_planner.cpp.o"
+},
+{
+  "directory": "/content/miniLLMI/build-stage13-integration/20261008T022848623044Z-3926/testing",
+  "command": "/usr/bin/c++ -DRUNTIME_TESTING=1 -I/content/miniLLMI/include -O3 -DNDEBUG -std=c++17 -Wall -Wextra -Wpedantic -o CMakeFiles/test_planned_executor.dir/tests/test_planned_executor.cpp.o -c /content/miniLLMI/tests/test_planned_executor.cpp",
+  "file": "/content/miniLLMI/tests/test_planned_executor.cpp",
+  "output": "CMakeFiles/test_planned_executor.dir/tests/test_planned_executor.cpp.o"
+},
+{
+  "directory": "/content/miniLLMI/build-stage13-integration/20261008T022848623044Z-3926/testing",
+  "command": "/usr/bin/c++  -I/content/miniLLMI/include -I/content/miniLLMI/build-stage13-integration/20261008T022848623044Z-3926/testing/generated -O3 -DNDEBUG -std=c++17 -Wall -Wextra -Wpedantic -o CMakeFiles/test_common.dir/tests/test_common.cpp.o -c /content/miniLLMI/tests/test_common.cpp",
+  "file": "/content/miniLLMI/tests/test_common.cpp",
+  "output": "CMakeFiles/test_common.dir/tests/test_common.cpp.o"
+},
+{
+  "directory": "/content/miniLLMI/build-stage13-integration/20261008T022848623044Z-3926/testing",
+  "command": "/usr/bin/c++  -I/content/miniLLMI/include -I/content/miniLLMI/build-stage13-integration/20261008T022848623044Z-3926/testing/generated -isystem /usr/local/cuda/targets/x86_64-linux/include -isystem /usr/local/cuda/targets/x86_64-linux/include/cccl -O3 -DNDEBUG -std=c++17 -Wall -Wextra -Wpedantic -o CMakeFiles/gpu_info.dir/bench/gpu_info.cpp.o -c /content/miniLLMI/bench/gpu_info.cpp",
+  "file": "/content/miniLLMI/bench/gpu_info.cpp",
+  "output": "CMakeFiles/gpu_info.dir/bench/gpu_info.cpp.o"
+},
+{
+  "directory": "/content/miniLLMI/build-stage13-integration/20261008T022848623044Z-3926/testing",
+  "command": "/usr/bin/c++ -DSTAGE0_CUDA_BUILD=1 -I/content/miniLLMI/include -I/content/miniLLMI/build-stage13-integration/20261008T022848623044Z-3926/testing/generated -isystem /usr/local/cuda/targets/x86_64-linux/include -isystem /usr/local/cuda/targets/x86_64-linux/include/cccl -O3 -DNDEBUG -std=c++17 -Wall -Wextra -Wpedantic -o CMakeFiles/bench_gemm.dir/bench/bench_gemm.cpp.o -c /content/miniLLMI/bench/bench_gemm.cpp",
+  "file": "/content/miniLLMI/bench/bench_gemm.cpp",
+  "output": "CMakeFiles/bench_gemm.dir/bench/bench_gemm.cpp.o"
+},
+{
+  "directory": "/content/miniLLMI/build-stage13-integration/20261008T022848623044Z-3926/testing",
+  "command": "/usr/bin/c++ -DSTAGE0_CUDA_BUILD=1 -I/content/miniLLMI/include -I/content/miniLLMI/build-stage13-integration/20261008T022848623044Z-3926/testing/generated -isystem /usr/local/cuda/targets/x86_64-linux/include -isystem /usr/local/cuda/targets/x86_64-linux/include/cccl -O3 -DNDEBUG -std=c++17 -o CMakeFiles/test_cuda_gemm.dir/tests/test_cuda_gemm.cpp.o -c /content/miniLLMI/tests/test_cuda_gemm.cpp",
+  "file": "/content/miniLLMI/tests/test_cuda_gemm.cpp",
+  "output": "CMakeFiles/test_cuda_gemm.dir/tests/test_cuda_gemm.cpp.o"
+},
+{
+  "directory": "/content/miniLLMI/build-stage13-integration/20261008T022848623044Z-3926/testing",
+  "command": "/usr/bin/c++ -DRUNTIME_TESTING=1 -I/content/miniLLMI/include -I/content/miniLLMI/build-stage13-integration/20261008T022848623044Z-3926/testing/generated -isystem /usr/local/cuda/targets/x86_64-linux/include -isystem /usr/local/cuda/targets/x86_64-linux/include/cccl -O3 -DNDEBUG -std=c++17 -Wall -Wextra -Wpedantic -o CMakeFiles/test_cuda_backend.dir/tests/test_cuda_backend.cpp.o -c /content/miniLLMI/tests/test_cuda_backend.cpp",
+  "file": "/content/miniLLMI/tests/test_cuda_backend.cpp",
+  "output": "CMakeFiles/test_cuda_backend.dir/tests/test_cuda_backend.cpp.o"
+},
+{
+  "directory": "/content/miniLLMI/build-stage13-integration/20261008T022848623044Z-3926/testing",
+  "command": "/usr/bin/c++ -DRUNTIME_TESTING=1 -I/content/miniLLMI/include -I/content/miniLLMI/build-stage13-integration/20261008T022848623044Z-3926/testing/generated -isystem /usr/local/cuda/targets/x86_64-linux/include -isystem /usr/local/cuda/targets/x86_64-linux/include/cccl -O3 -DNDEBUG -std=c++17 -Wall -Wextra -Wpedantic -o CMakeFiles/test_cuda_transformer_ops.dir/tests/test_cuda_transformer_ops.cpp.o -c /content/miniLLMI/tests/test_cuda_transformer_ops.cpp",
+  "file": "/content/miniLLMI/tests/test_cuda_transformer_ops.cpp",
+  "output": "CMakeFiles/test_cuda_transformer_ops.dir/tests/test_cuda_transformer_ops.cpp.o"
+},
+{
+  "directory": "/content/miniLLMI/build-stage13-integration/20261008T022848623044Z-3926/testing",
+  "command": "/usr/bin/c++ -DRUNTIME_TESTING=1 -I/content/miniLLMI/include -I/content/miniLLMI/build-stage13-integration/20261008T022848623044Z-3926/testing/generated -isystem /usr/local/cuda/targets/x86_64-linux/include -isystem /usr/local/cuda/targets/x86_64-linux/include/cccl -O3 -DNDEBUG -std=c++17 -Wall -Wextra -Wpedantic -o CMakeFiles/test_cuda_scheduler.dir/tests/test_cuda_scheduler.cpp.o -c /content/miniLLMI/tests/test_cuda_scheduler.cpp",
+  "file": "/content/miniLLMI/tests/test_cuda_scheduler.cpp",
+  "output": "CMakeFiles/test_cuda_scheduler.dir/tests/test_cuda_scheduler.cpp.o"
+},
+{
+  "directory": "/content/miniLLMI/build-stage13-integration/20261008T022848623044Z-3926/testing",
+  "command": "/usr/bin/c++ -DRUNTIME_TESTING=1 -I/content/miniLLMI/include -I/content/miniLLMI/build-stage13-integration/20261008T022848623044Z-3926/testing/generated -isystem /usr/local/cuda/targets/x86_64-linux/include -isystem /usr/local/cuda/targets/x86_64-linux/include/cccl -O3 -DNDEBUG -std=c++17 -Wall -Wextra -Wpedantic -o CMakeFiles/test_cuda_decoder.dir/tests/test_cuda_decoder.cpp.o -c /content/miniLLMI/tests/test_cuda_decoder.cpp",
+  "file": "/content/miniLLMI/tests/test_cuda_decoder.cpp",
+  "output": "CMakeFiles/test_cuda_decoder.dir/tests/test_cuda_decoder.cpp.o"
+}
+]
