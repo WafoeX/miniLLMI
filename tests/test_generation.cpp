@@ -41,6 +41,8 @@ int main(int argc, char** argv) {
         require(first.prompt_tokens == second.prompt_tokens && first.generated_tokens == second.generated_tokens &&
                     first.generated_tokens == baseline.generated_tokens,
                 "greedy generation must be deterministic and cache-equivalent");
+        require(first.generated_tokens == std::vector<std::int32_t>({73, 18, 3, 234}),
+                "frozen Stage 17 float generation fixture changed");
         require(first.generated_tokens.size() == 4 && first.final_logits && second.final_logits && baseline.final_logits,
                 "generation must retain a final greedy logit row");
         compare_logits(*first.final_logits, *second.final_logits);

@@ -19,11 +19,12 @@ def expect_error(binary, *args):
 
 
 def main():
-    if len(sys.argv) != 4:
-        raise SystemExit("usage: test_cli_tools.py <llm_cli> <converter> <legacy-weights>")
+    if len(sys.argv) != 5:
+        raise SystemExit("usage: test_cli_tools.py <llm_cli> <converter> <legacy-weights> <v1-model>")
     binary = str(Path(sys.argv[1]))
     converter = str(Path(sys.argv[2]))
     weights = str(Path(sys.argv[3]))
+    float_model = str(Path(sys.argv[4]))
     first = run(binary, "--model", "tiny.mllm", "--prompt", "hello", "--max-tokens", "7",
                 "--backend", "cpu", "--quant", "float", "--cache", "on", "--seed", "42", "--dry-run")
     assert first.returncode == 0, first.stderr
@@ -37,6 +38,11 @@ def main():
     assert second.returncode == 0 and second.stdout == first.stdout, second.stderr
     help_result = run(binary, "--help")
     assert help_result.returncode == 0 and "--backend cpu|mixed" in help_result.stdout, help_result.stdout
+    smoke = run(binary, "--model", float_model, "--prompt", "Stage17", "--max-tokens", "4",
+                "--backend", "cpu", "--quant", "float", "--cache", "on", "--seed", "0")
+    assert smoke.returncode == 0, smoke.stderr
+    smoke_records = [json.loads(line) for line in smoke.stdout.splitlines()]
+    assert smoke_records[-1]["generated_tokens"] == [73, 18, 3, 234], smoke_records
     expect_error(binary, "--model", "tiny.mllm", "--backend", "invalid", "--dry-run")
     expect_error(binary, "--model", "tiny.mllm", "--cache", "invalid", "--dry-run")
     expect_error(binary, "--model", "tiny.mllm", "--max-tokens", "0", "--dry-run")

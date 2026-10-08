@@ -111,7 +111,8 @@ if(BUILD_TESTING)
     target_compile_definitions(runtime PUBLIC RUNTIME_TESTING=1)
     add_test(NAME cli_tools COMMAND "${Python3_EXECUTABLE}" "${CMAKE_SOURCE_DIR}/tests/test_cli_tools.py"
         "$<TARGET_FILE:llm_cli>" "$<TARGET_FILE:convert_tiny_model>"
-        "${CMAKE_SOURCE_DIR}/tests/fixtures/operators-v1/tiny-weights-v1.bin")
+        "${CMAKE_SOURCE_DIR}/tests/fixtures/operators-v1/tiny-weights-v1.bin"
+        "${CMAKE_SOURCE_DIR}/tests/fixtures/model-v1/tiny-model-v1.mllm")
     set_tests_properties(cli_tools PROPERTIES LABELS "cpu;cli")
     add_executable(test_generation tests/test_generation.cpp)
     target_link_libraries(test_generation PRIVATE model)
