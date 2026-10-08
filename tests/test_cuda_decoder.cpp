@@ -40,14 +40,27 @@ int main(int argc, char** argv) {
             device_to_host = device_to_host || (copy.from == cuda.device() && copy.to == Device{});
         }
         require(host_to_device && device_to_host, "mixed decoder requires explicit copies in both directions");
+        std::size_t expected_copies = 0, expected_copy_bytes = 0;
+        for (const auto node : scheduled.graph->order()) {
+            const auto& descriptor = scheduled.graph->nodes().at(node).descriptor;
+            if (descriptor.code() != OpCode::COPY && descriptor.code() != OpCode::MATERIALIZE) continue;
+            const auto& source = scheduled.graph->tensors().at(descriptor.inputs()[0]);
+            if (runtime::numel(source.shape) == 0) continue;
+            ++expected_copies;
+            expected_copy_bytes += runtime::nbytes(source.shape, source.dtype);
+        }
+        require(expected_copies > scheduled.inserted_copies.size(),
+                "copy accounting includes graph materializations and explicit V boundaries");
         ScheduledAllocationProvider prepared(*scheduled.graph, scheduler);
         const auto result = execute_graph(*scheduled.graph, nullptr, &prepared, nullptr, &scheduler);
         require(result.ok(), result.status.message.c_str());
         require(result.outputs.at("logits").device() == Device{}, "mixed logits return to CPU");
-        require(result.counts.allocations == 0 && result.counts.frees == 0 &&
-                result.counts.copies == scheduled.inserted_copies.size() + static_cast<std::size_t>(config.layers) &&
-                result.counts.copy_bytes > 0,
-                "mixed decoder planned allocation/copy accounting");
+        if (result.counts.allocations != 0 || result.counts.frees != 0 ||
+            result.counts.copies != expected_copies || result.counts.copy_bytes != expected_copy_bytes)
+            throw std::runtime_error("mixed decoder accounting: allocations=" + std::to_string(result.counts.allocations) +
+                " frees=" + std::to_string(result.counts.frees) + " copies=" + std::to_string(result.counts.copies) +
+                "/" + std::to_string(expected_copies) + " copy_bytes=" + std::to_string(result.counts.copy_bytes) +
+                "/" + std::to_string(expected_copy_bytes));
         decoder_fixture::compare(result.outputs.at("logits"), expected, 2e-4, 2e-3);
         std::cout << "Stage 13 C4 mixed decoder: PASS logical_nodes=" << logical.graph.order().size()
                   << " scheduled_nodes=" << scheduled.graph->order().size()

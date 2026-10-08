@@ -47,9 +47,11 @@ inline void compare(const runtime::Tensor& actual, const runtime::Tensor& expect
     for (std::size_t index = 0; index < actual.numel(); ++index) {
         const auto value = actual.data<float>()[index];
         const auto reference = expected.data<float>()[index];
-        require(std::isfinite(value) && std::abs(static_cast<double>(value) - reference) <=
-                    atol + rtol * std::abs(reference),
-                "decoder output differs from independent fixture");
+        const auto tolerance = atol + rtol * std::abs(reference);
+        if (!std::isfinite(value) || std::abs(static_cast<double>(value) - reference) > tolerance)
+            throw std::runtime_error("decoder fixture mismatch at index " + std::to_string(index) +
+                ": actual=" + std::to_string(value) + " expected=" + std::to_string(reference) +
+                " tolerance=" + std::to_string(tolerance));
     }
 }
 
