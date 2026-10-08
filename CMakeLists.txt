@@ -66,6 +66,11 @@ add_library(runtime src/runtime/storage.cpp src/runtime/tensor.cpp src/runtime/c
 target_include_directories(runtime PUBLIC include)
 target_compile_options(runtime PRIVATE -Wall -Wextra -Wpedantic)
 
+add_library(model src/model/config.cpp)
+target_link_libraries(model PUBLIC runtime)
+target_include_directories(model PUBLIC include)
+target_compile_options(model PRIVATE -Wall -Wextra -Wpedantic)
+
 add_executable(bench_allocator bench/bench_allocator.cpp)
 target_link_libraries(bench_allocator PRIVATE runtime stage0_common)
 target_compile_options(bench_allocator PRIVATE -Wall -Wextra -Wpedantic)
@@ -84,6 +89,11 @@ target_compile_options(bench_scheduler PRIVATE -Wall -Wextra -Wpedantic)
 
 if(BUILD_TESTING)
     target_compile_definitions(runtime PUBLIC RUNTIME_TESTING=1)
+    add_executable(test_decoder_config tests/test_decoder_config.cpp)
+    target_link_libraries(test_decoder_config PRIVATE model)
+    target_compile_options(test_decoder_config PRIVATE -Wall -Wextra -Wpedantic)
+    add_test(NAME decoder_config COMMAND test_decoder_config "${CMAKE_SOURCE_DIR}/tests/fixtures/operators-v1/tiny-weights-v1.bin")
+    set_tests_properties(decoder_config PROPERTIES LABELS "cpu;decoder")
     add_test(NAME scheduler_benchmark_workloads COMMAND bench_scheduler --self-test)
     set_tests_properties(scheduler_benchmark_workloads PROPERTIES LABELS "cpu;scheduler")
     add_test(NAME scheduler_benchmark_tools COMMAND "${Python3_EXECUTABLE}" "${CMAKE_SOURCE_DIR}/tests/test_scheduler_benchmark_tools.py")
