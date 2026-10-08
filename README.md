@@ -1,8 +1,12 @@
-# mini-llm-runtime — Stage 12
+# mini-llm-runtime — Stage 13 implementation / T4 pending
 
-基于 C++17/CUDA 的推理引擎项目，**Stage 0–12 已通过各自必需验收项**，详见 [路线图](docs/roadmap.md)。已有统一 Tensor/shared Storage、backend-neutral 算子、冻结 DAG/顺序 executor、有界 trace、arena/生命周期内存规划、CPU backend/显式优化路径、CUDA storage/copy/GEMM、Nsight 对比及异构 scheduler。调度器支持确定性放置、显式 COPY 插入、同版本 fan-out 去重和逐设备规划，复用原 graph/executor/provider。
+基于 C++17/CUDA 的推理引擎项目，**Stage 0–12 已通过各自必需验收项**；Stage 13 的 C1–C3 与 C4 CPU 路径已在本地完成，必需的 clean T4 混合路径证据待 Colab 验收，因此 Stage 13 尚未关闭。详见 [路线图](docs/roadmap.md)。已有统一 Tensor/shared Storage、backend-neutral 算子、冻结 DAG/顺序 executor、有界 trace、arena/生命周期内存规划、CPU backend/显式优化路径、CUDA storage/copy/GEMM、Nsight 对比及异构 scheduler。
 
-默认保留 **FP64 CPU reference math、dynamic allocation 与 CUDA v0**；Stage 0 与冻结 CPU 基线不改写。Stage 12 已实现 RMSNorm、SwiGLU、稳定 causal Softmax、interleaved RoPE、Embedding 和由普通 graph 算子组成的 per-head attention。T4 混合路径仅将 projection MATMUL/COPY 放在 CUDA；其余 primitive 显式回到 CPU。没有模型执行、KV Cache、量化、性能或语言质量收益声明；Stage 13–19 尚未实现。
+默认保留 **FP64 CPU reference math、dynamic allocation 与 CUDA v0**；Stage 0 与冻结 CPU 基线不改写。Stage 13 新增配置/21 个命名参数绑定、91-node decoder block 与 185-node 两层 no-cache prefill/logits 图；所有 attention/MLP 中间量均走原 graph/planner/backend 层。没有 tokenizer/model-file loader、KV Cache、自回归循环、量化、性能收益或语言质量声明；Stage 14–19 尚未实现。
+
+## Stage 13 状态（C1–C3 与 C4 CPU 已完成，T4 C4 待验收）
+
+冻结 `[256,0,1,257]` logits 与独立 Python 标量 oracle 一致；动态与 planned CPU 输出一致，planned warmed execute 的中间 backing allocation 为 0。shape 改变必须显式重建/replan，同 shape 可在输出释放后复用。混合路径源码声明 21 个 learned projection 使用 CUDA hint，其余 primitive 通过 scheduler 显式回到 CPU；真实 T4 编译、COPY 计数和数值容差必须按 [Stage 13 Colab 步骤](docs/stage13_colab.md) 验收。参见 [decoder 契约](docs/decoder.md)、[临时验收报告](docs/stage13_report.md) 与 [Stage 13 任务书](docs/tasks/stage-13-decoder.md)。
 
 ## Stage 12 验收（C1–C5 完成）
 

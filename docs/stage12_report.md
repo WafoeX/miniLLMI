@@ -31,7 +31,8 @@ performance result, hidden CUDA transformer kernel, or language-quality claim.
 projection MATMUL, exactly two H2D inputs plus one D2H result transfer, and CPU
 Softmax/RMSNorm thereafter via the existing scheduler, graph executor, planner,
 Tensor and Storage layers. It does not claim CUDA coverage for the other
-primitives, nor introduce a model-level copy/kernel path.
+primitives, nor introduce a model-level copy/kernel path. Stage 13 now composes
+these primitives into a model graph without changing that Stage 12 claim.
 
 The retained T4 log has two successful passes: GPU-labelled tests
 `scheduler_benchmark_workloads`, `cuda_transformer_ops`, `cuda_scheduler`,
@@ -43,7 +44,8 @@ The retained T4 log has two successful passes: GPU-labelled tests
 Stage 12 is functional conformance only. No timing was recorded or implied;
 CUDA primitive coverage beyond projection MATMUL/COPY remains unsupported by
 design. The stable defaults remain FP64 CPU reference math, dynamic allocation
-and CUDA v0. Stage 13 remains the next unimplemented dependent Change.
+and CUDA v0. Stage 13 C1–C3 and its C4 CPU path are now implemented; the required
+clean T4 C4 result remains pending, so Stage 13 is not yet complete.
 
 See [the primitive task book](tasks/stage-12-transformer-ops.md),
 [operator contract](operators.md), [T4 procedure](stage12_colab.md), and
