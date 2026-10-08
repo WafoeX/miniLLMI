@@ -16,7 +16,8 @@ SOURCE_COMMIT=29b2d58ec087dddc9cde922c2a948233def9c07e
 sudo apt-get update -qq
 sudo apt-get install -y -qq cmake build-essential
 
-git clone git@github.com:WafoeX/miniLLMI.git
+# SSH-over-443 works on networks that block GitHub port 22.
+git clone ssh://git@ssh.github.com:443/WafoeX/miniLLMI.git
 cd miniLLMI
 git fetch origin feat/int8-stage16
 git checkout --detach "$SOURCE_COMMIT"
