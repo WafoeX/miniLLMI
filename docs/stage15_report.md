@@ -23,7 +23,7 @@ INT32 decoder input.
 The committed v1 artifact has 461,056 FP32 payload bytes and SHA-256
 `f91f89491735d324193295bb489f16ff6301186d957e04029c7a1402be729ee8`.
 
-## Local verification
+## Verification
 
 On macOS / AppleClang 21.0.0.21000334, CMake Release with CUDA disabled passed
 **48/48** CTests. The focused ASan+UBSan Debug build passed **3/3** Stage-15
@@ -31,6 +31,14 @@ labelled tests (`model_file`, `model_loader`, `tokenizer`). The loader test
 constructs a decoder graph from a loaded artifact, drops the `LoadedModel`, then
 runs a planned execution with zero intermediate backing allocations and compares
 frozen logits exactly within the existing Stage 13 tolerance.
+
+A clean Colab server replay tested source `e9991465258661d7d03888a42351fecb7409ce26`.
+Its direct-child evidence commit `dcdcc8e` preserves
+`results/loader/stage15-c3/20261008T095009Z-colab-stage15/stage15_ctest.log`:
+focused Release CTest **3/3** passes (`model_file`, `model_loader`,
+`tokenizer`) in `/content/miniLLMI/build-stage15-release`. The recorded
+`tested_commit.txt` exactly matches that evidence commit's parent; the result
+commit changes only this evidence directory.
 
 No GPU claim, timing metric, throughput result, or language-quality claim is
 made. The reproducible clone/build/test/push procedure is in
