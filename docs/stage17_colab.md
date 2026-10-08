@@ -12,7 +12,7 @@ child of that source.
 set -euo pipefail
 REPO=/content/miniLLMI
 SOURCE_BRANCH=feat/int8-stage16
-SOURCE_COMMIT=6005f94043c9dd4e19cb01f31ad235610680e3c1
+SOURCE_COMMIT=0c258548177eac8d8ae042d0fba402dbbdedcd65
 rm -rf "$REPO"
 # The server SSH key is used over port 443 for networks that block port 22.
 git clone --branch "$SOURCE_BRANCH" --single-branch \
@@ -59,7 +59,7 @@ comparison.
 ```bash
 set -euo pipefail
 REPO=/content/miniLLMI
-SOURCE_COMMIT=6005f94043c9dd4e19cb01f31ad235610680e3c1
+SOURCE_COMMIT=0c258548177eac8d8ae042d0fba402dbbdedcd65
 cd "$REPO"
 test "$(git rev-parse HEAD)" = "$SOURCE_COMMIT"
 test -z "$(git status --porcelain)"
@@ -119,7 +119,7 @@ a result branch too, state the failure, and do not call the stage accepted.
 ```bash
 set -euo pipefail
 REPO=/content/miniLLMI
-SOURCE_COMMIT=6005f94043c9dd4e19cb01f31ad235610680e3c1
+SOURCE_COMMIT=0c258548177eac8d8ae042d0fba402dbbdedcd65
 cd "$REPO"
 test "$(git rev-parse HEAD)" = "$SOURCE_COMMIT"
 test -z "$(git status --porcelain)"

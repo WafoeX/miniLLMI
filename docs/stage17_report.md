@@ -9,8 +9,8 @@ claim. The reproducible T4 procedure and result-push protocol are in
 ## Implementation source and scope
 
 The locally verified implementation source is
-`6005f94043c9dd4e19cb01f31ad235610680e3c1` (`test(cli): add tiny model
-generation regression`). It is on `feat/int8-stage16`, preserves the Stage 0 naive SGEMM
+`0c258548177eac8d8ae042d0fba402dbbdedcd65` (`bench(quant): add INT8 tradeoff
+suite`). It is on `feat/int8-stage16`, preserves the Stage 0 naive SGEMM
 baseline, and adds no alternate tensor, allocator, graph, or CUDA dispatch
 path.
 
