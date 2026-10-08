@@ -9,7 +9,7 @@ set -euo pipefail
 REPO=miniLLMI
 SOURCE_BRANCH=feat/kv-cache-stage14
 rm -rf "$REPO"
-git clone --branch "$SOURCE_BRANCH" --single-branch git@github.com:WafoeX/miniLLMI.git "$REPO"
+git clone --branch "$SOURCE_BRANCH" --single-branch ssh://git@ssh.github.com:443/WafoeX/miniLLMI.git "$REPO"
 cd "$REPO"
 git status --short                    # must print nothing
 SOURCE_COMMIT=$(git rev-parse HEAD)
