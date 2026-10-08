@@ -1,0 +1,21 @@
+Internal ctest changing into directory: /content/miniLLMI/build-stage16-t4
+Test project /content/miniLLMI/build-stage16-t4
+    Start  1: quantization
+1/4 Test  #1: quantization .....................   Passed    0.00 sec
+    Start  2: model_file
+2/4 Test  #2: model_file .......................   Passed    0.01 sec
+    Start  3: model_loader
+3/4 Test  #3: model_loader .....................   Passed    0.05 sec
+    Start 53: cuda_quantized_decoder
+4/4 Test #53: cuda_quantized_decoder ...........   Passed    0.52 sec
+
+100% tests passed, 0 tests failed out of 4
+
+Label Time Summary:
+cpu           =   0.07 sec*proc (3 tests)
+decoder       =   0.52 sec*proc (1 test)
+gpu           =   0.52 sec*proc (1 test)
+model_file    =   0.06 sec*proc (2 tests)
+quant         =   0.52 sec*proc (2 tests)
+
+Total Test time (real) =   0.59 sec
