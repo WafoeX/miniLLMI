@@ -1,0 +1,61 @@
+[  2%] Building CXX object CMakeFiles/runtime.dir/src/runtime/storage.cpp.o
+[  2%] Built target refresh_provenance
+[  4%] Building CXX object CMakeFiles/runtime.dir/src/runtime/tensor.cpp.o
+[  6%] Building CXX object CMakeFiles/stage0_common.dir/src/common.cpp.o
+[  8%] Building CXX object CMakeFiles/runtime.dir/src/runtime/copy.cpp.o
+[ 10%] Building CXX object CMakeFiles/runtime.dir/src/runtime/operator.cpp.o
+[ 12%] Linking CXX static library libstage0_common.a
+[ 12%] Built target stage0_common
+[ 14%] Building CXX object CMakeFiles/runtime.dir/src/runtime/shape_inference.cpp.o
+[ 16%] Building CXX object CMakeFiles/runtime.dir/src/runtime/reference.cpp.o
+[ 18%] Building CXX object CMakeFiles/runtime.dir/src/runtime/layout.cpp.o
+[ 20%] Building CXX object CMakeFiles/runtime.dir/src/runtime/graph.cpp.o
+[ 22%] Building CXX object CMakeFiles/runtime.dir/src/runtime/graph_executor.cpp.o
+[ 25%] Building CXX object CMakeFiles/runtime.dir/src/runtime/graph_trace.cpp.o
+[ 27%] Building CUDA object CMakeFiles/stage0_cuda.dir/backend/cuda/sgemm_v0_naive.cu.o
+[ 29%] Building CXX object CMakeFiles/runtime.dir/src/runtime/arena.cpp.o
+[ 31%] Building CXX object CMakeFiles/runtime.dir/src/runtime/allocation_provider.cpp.o
+[ 33%] Building CXX object CMakeFiles/runtime.dir/src/runtime/memory_planner.cpp.o
+[ 35%] Building CUDA object CMakeFiles/stage0_cuda.dir/backend/cuda/sgemm_v1_tiled.cu.o
+[ 37%] Building CXX object CMakeFiles/runtime.dir/src/runtime/planned_executor.cpp.o
+[ 39%] Building CXX object CMakeFiles/runtime.dir/src/runtime/cpu_backend.cpp.o
+[ 41%] Building CXX object CMakeFiles/runtime.dir/src/runtime/cpu_scalar.cpp.o
+[ 43%] Building CXX object CMakeFiles/runtime.dir/src/runtime/cpu_optimized.cpp.o
+[ 45%] Building CUDA object CMakeFiles/stage0_cuda.dir/backend/cuda/sgemm_registry.cu.o
+[ 47%] Building CXX object CMakeFiles/runtime.dir/src/runtime/thread_pool.cpp.o
+[ 50%] Building CXX object CMakeFiles/runtime.dir/src/runtime/scheduler.cpp.o
+[ 52%] Building CUDA object CMakeFiles/stage0_cuda.dir/backend/cuda/cublas_gemm.cu.o
+[ 54%] Building CXX object CMakeFiles/runtime.dir/src/runtime/transformer_ops.cpp.o
+[ 56%] Building CXX object CMakeFiles/runtime.dir/src/runtime/attention.cpp.o
+[ 58%] Linking CXX static library libstage0_cuda.a
+[ 58%] Built target stage0_cuda
+[ 60%] Building CXX object CMakeFiles/gpu_info.dir/bench/gpu_info.cpp.o
+[ 62%] Linking CXX static library libruntime.a
+[ 62%] Built target runtime
+[ 64%] Building CXX object CMakeFiles/bench_gemm.dir/bench/bench_gemm.cpp.o
+[ 66%] Linking CXX executable gpu_info
+[ 66%] Built target gpu_info
+[ 68%] Building CXX object CMakeFiles/model.dir/src/model/config.cpp.o
+[ 70%] Building CXX object CMakeFiles/model.dir/src/model/decoder.cpp.o
+[ 72%] Linking CXX static library libmodel.a
+[ 72%] Built target model
+[ 75%] Building CXX object CMakeFiles/bench_allocator.dir/bench/bench_allocator.cpp.o
+[ 77%] Linking CXX executable bench_gemm
+[ 77%] Built target bench_gemm
+[ 79%] Building CXX object CMakeFiles/bench_planner.dir/bench/bench_planner.cpp.o
+[ 81%] Linking CXX executable bench_allocator
+[ 81%] Built target bench_allocator
+[ 83%] Building CXX object CMakeFiles/bench_cpu.dir/bench/bench_cpu.cpp.o
+[ 85%] Linking CXX executable bench_planner
+[ 85%] Built target bench_planner
+[ 87%] Building CUDA object CMakeFiles/runtime_cuda.dir/backend/cuda/cuda_backend.cu.o
+[ 89%] Linking CXX executable bench_cpu
+[ 89%] Built target bench_cpu
+[ 91%] Linking CXX static library libruntime_cuda.a
+[ 91%] Built target runtime_cuda
+[ 93%] Building CXX object CMakeFiles/bench_scheduler.dir/bench/bench_scheduler.cpp.o
+[ 95%] Building CXX object CMakeFiles/bench_decoder.dir/bench/bench_decoder.cpp.o
+[ 97%] Linking CXX executable bench_decoder
+[ 97%] Built target bench_decoder
+[100%] Linking CXX executable bench_scheduler
+[100%] Built target bench_scheduler
