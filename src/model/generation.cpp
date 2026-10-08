@@ -9,6 +9,7 @@
 #endif
 
 #include <algorithm>
+#include <chrono>
 #include <cmath>
 #include <optional>
 #include <stdexcept>
@@ -173,6 +174,49 @@ GenerationResult generate_greedy(const LoadedModel& model, const std::string& pr
         add_counts(generated.total_counts, step.counts);
     }
     return generated;
+}
+
+TeacherForcedResult run_teacher_forced(const LoadedModel& model, const std::string& prompt,
+                                       const std::vector<std::int32_t>& continuation, GenerationOptions options) {
+    ByteTokenizer tokenizer(model.config(), model.vocabulary_version);
+    auto prompt_tokens = tokenizer.encode({prompt.begin(), prompt.end()});
+    if (prompt_tokens.empty()) throw std::invalid_argument("teacher-forced prompt is empty after tokenization");
+    if (prompt_tokens.size() + continuation.size() > static_cast<std::size_t>(model.config().max_seq))
+        throw std::out_of_range("prompt tokens plus teacher-forced continuation exceed model max_seq");
+
+    Runner runner(model, options);
+    std::vector<std::int32_t> full_tokens = prompt_tokens;
+    std::optional<KVCache> cache;
+    std::size_t cache_bytes = 0;
+    if (options.use_cache) {
+        cache.emplace(model.config());
+        cache_bytes = cache->persistent_bytes();
+    }
+
+    const auto prefill_begin = std::chrono::steady_clock::now();
+    auto step = runner.prefill(full_tokens, cache ? &*cache : nullptr);
+    const auto prefill_end = std::chrono::steady_clock::now();
+    (void)greedy_token(step.logits); // First-token latency includes the greedy logits reduction.
+    const auto first_token_end = std::chrono::steady_clock::now();
+    const auto milliseconds = [](auto begin, auto end) {
+        return std::chrono::duration<double, std::milli>(end - begin).count();
+    };
+
+    TeacherForcedResult result{std::move(prompt_tokens), step.logits, step.counts, step.counts,
+                                cache_bytes, 0.0, 0.0, {}};
+    result.prefill_ms = milliseconds(prefill_begin, prefill_end);
+    result.first_token_ms = milliseconds(prefill_begin, first_token_end);
+    result.decode_ms.reserve(continuation.size());
+    for (const auto token : continuation) {
+        const auto begin = std::chrono::steady_clock::now();
+        full_tokens.push_back(token);
+        step = cache ? runner.decode(token, *cache) : runner.prefill(full_tokens, nullptr);
+        const auto end = std::chrono::steady_clock::now();
+        result.decode_ms.push_back(milliseconds(begin, end));
+        result.final_logits = step.logits;
+        add_counts(result.total_counts, step.counts);
+    }
+    return result;
 }
 
 } // namespace model
