@@ -1,6 +1,6 @@
 # Stage 18 T4 reproduction, report generation, and result push
 
-Run this only after `v1.0-rc2` has been pushed. It is the complete C2/C3/C4
+Run this only after `v1.0-rc3` has been pushed. It is the complete C2/C3/C4
 procedure: a fresh T4 build/test matrix, all required final measurements, and a
 report generated from the captured raw files. Do not edit the checkout. Failed
 captures are evidence too: commit and push them, then report the failure instead
@@ -14,7 +14,7 @@ below also works when port 22 is blocked.
 ```bash
 set -euo pipefail
 REPO=/content/miniLLMI-stage18
-TAG=v1.0-rc2
+TAG=v1.0-rc3
 rm -rf "$REPO"
 git clone ssh://git@ssh.github.com:443/WafoeX/miniLLMI.git "$REPO"
 cd "$REPO"
@@ -45,9 +45,9 @@ no parameter search.
 set -euo pipefail
 cd /content/miniLLMI-stage18
 RUN_ID="$(date -u +%Y%m%dT%H%M%SZ)-colab-stage18"
-./scripts/run_stage18_evaluation.sh --tag v1.0-rc2 --run-id "$RUN_ID" --jobs 2 \
+./scripts/run_stage18_evaluation.sh --tag v1.0-rc3 --run-id "$RUN_ID" --jobs 2 \
   |& tee "/content/stage18-${RUN_ID}.console.log"
-RESULT_DIR="results/release/v1.0-rc2/${RUN_ID}"
+RESULT_DIR="results/release/v1.0-rc3/${RUN_ID}"
 test -f "$RESULT_DIR/stage18_report.md"
 test "$(cat "$RESULT_DIR/status.txt")" = passed
 sed -n '1,160p' "$RESULT_DIR/stage18_report.md"
@@ -63,18 +63,20 @@ claim and explicitly records optional skips.
 
 The evidence branch must be a **direct child** of the detached RC source, and
 its one commit must change only this unique result directory. Do not merge it
-into the feature branch or move `v1.0-rc2`.
+into the feature branch or move `v1.0-rc3`.
 
 ```bash
 set -euo pipefail
 cd /content/miniLLMI-stage18
-TAG=v1.0-rc2
+TAG=v1.0-rc3
 SOURCE_COMMIT=$(git rev-parse "$TAG^{commit}")
-RUN_ID="$(basename "$(find results/release/v1.0-rc2 -mindepth 1 -maxdepth 1 -type d | sort | tail -n1)")"
-RESULT_DIR="results/release/v1.0-rc2/${RUN_ID}"
+RUN_ID="$(basename "$(find results/release/v1.0-rc3 -mindepth 1 -maxdepth 1 -type d | sort | tail -n1)")"
+RESULT_DIR="results/release/v1.0-rc3/${RUN_ID}"
 test "$(git rev-parse HEAD)" = "$SOURCE_COMMIT"
 test "$(cat "$RESULT_DIR/tested_commit.txt")" = "$SOURCE_COMMIT"
-test "$(cat "$RESULT_DIR/status.txt")" = passed
+CAPTURE_STATUS=$(cat "$RESULT_DIR/status.txt")
+case "$CAPTURE_STATUS" in passed|failed) ;; *) printf 'invalid capture status: %s\n' "$CAPTURE_STATUS" >&2; exit 1;; esac
+if [[ "$CAPTURE_STATUS" == passed ]]; then test -f "$RESULT_DIR/stage18_report.md"; fi
 git diff --quiet
 git diff --cached --quiet
 while IFS= read -r status; do
@@ -87,14 +89,15 @@ git add "$RESULT_DIR"
 git diff --cached --name-only | while IFS= read -r path; do
   case "$path" in "$RESULT_DIR"/*) ;; *) printf 'unexpected staged path: %s\n' "$path" >&2; exit 1;; esac
 done
-git commit -m 'bench(release): record Stage 18 RC evaluation'
+git commit -m "test(release): record Stage 18 RC ${CAPTURE_STATUS} capture"
 git show --stat --oneline HEAD
 git push -u origin HEAD
 printf 'source_tag=%s\nsource_commit=%s\nresult_commit=%s\nresult_branch=%s\nresult_dir=%s\n' \
   "$TAG" "$SOURCE_COMMIT" "$(git rev-parse HEAD)" "$BRANCH" "$RESULT_DIR"
 ```
 
-Send back the five printed identifiers, full/GPU/focused CTest totals, and the
-complete generated `stage18_report.md` / `stage18_report.json`. I will verify
-that the result commit is a direct child of the tag, that only its result path
-changed, and replay the raw-data validators before marking Stage 18 accepted.
+Send back the five printed identifiers and full/GPU/focused CTest totals. For a
+`passed` capture, also send the generated `stage18_report.md` /
+`stage18_report.json`; I will replay the raw-data validators before marking
+Stage 18 accepted. For a `failed` capture, send the failure log and status
+instead; it is retained evidence, not an acceptance result.

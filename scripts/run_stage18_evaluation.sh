@@ -4,7 +4,7 @@ set -euo pipefail
 
 usage() {
   cat <<'EOF'
-usage: scripts/run_stage18_evaluation.sh [--tag v1.0-rc2] [--run-id ID] [--jobs N] [--profile-artifact-location URI]
+usage: scripts/run_stage18_evaluation.sh [--tag v1.0-rc3] [--run-id ID] [--jobs N] [--profile-artifact-location URI]
 
 Runs the required CPU/T4 functional matrix and final performance/memory suite,
 then generates a report solely by validating the captured raw artifacts. It
@@ -12,7 +12,7 @@ must be run on a single visible Tesla T4 from a clean RC checkout.
 EOF
 }
 
-TAG=v1.0-rc2
+TAG=v1.0-rc3
 RUN_ID="$(date -u +%Y%m%dT%H%M%SZ)-stage18"
 JOBS=2
 PROFILE_ARTIFACT_LOCATION=""
@@ -45,7 +45,7 @@ printf '%s\n' "$TAG" > "$RESULT_DIR/release_tag.txt"
 printf 'running\n' > "$RESULT_DIR/status.txt"
 
 die() { printf 'failed\n' > "$RESULT_DIR/status.txt"; echo "stage18: $*" >&2; exit 1; }
-trap 'status=$?; if (( status != 0 )); then printf "failed\n" > "$RESULT_DIR/status.txt"; fi' EXIT
+trap 'status=$?; if (( status != 0 )); then printf "failed\n" > "$RESULT_DIR/status.txt"; printf "stage18 capture retained: %s\n" "$RESULT_DIR" >&2; fi' EXIT
 run() {
   local label=$1; shift
   printf '+ %q ' "$@" | tee "$RESULT_DIR/${label}.command" >/dev/null
