@@ -376,6 +376,8 @@ if(BUILD_TESTING)
     add_test(NAME tools COMMAND "${Python3_EXECUTABLE}" "${CMAKE_SOURCE_DIR}/tests/test_tools.py")
     add_test(NAME cuda_gemm_tools COMMAND "${Python3_EXECUTABLE}" "${CMAKE_SOURCE_DIR}/tests/test_cuda_gemm_tools.py")
     set_tests_properties(cuda_gemm_tools PROPERTIES LABELS "cpu;tools")
+    add_test(NAME release_evidence_tools COMMAND "${Python3_EXECUTABLE}" "${CMAKE_SOURCE_DIR}/tests/test_stage18_evidence.py")
+    set_tests_properties(release_evidence_tools PROPERTIES LABELS "cpu;tools;release")
 endif()
 
 if(ENABLE_CUDA)
