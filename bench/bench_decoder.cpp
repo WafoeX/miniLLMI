@@ -68,8 +68,18 @@ double milliseconds(Clock::time_point begin, Clock::time_point end) {
     return std::chrono::duration<double, std::milli>(end - begin).count();
 }
 double median(std::vector<double> values) {
+    if (values.empty()) throw std::invalid_argument("median requires samples");
     std::sort(values.begin(), values.end());
-    return values[values.size() / 2];
+    const auto middle = values.size() / 2;
+    return values.size() % 2 ? values[middle] : (values[middle - 1] + values[middle]) / 2.0;
+}
+void json_samples(const std::vector<double>& values) {
+    std::cout << '[' << std::setprecision(17);
+    for (std::size_t index = 0; index < values.size(); ++index) {
+        if (index) std::cout << ',';
+        std::cout << values[index];
+    }
+    std::cout << ']';
 }
 #ifdef DECODER_CUDA_BUILD
 std::size_t capacity(const MemoryPlan& plan, Device device) {
@@ -141,7 +151,11 @@ void cpu_benchmark(const DecoderConfig& config, const ParameterTable& parameters
     std::cout << std::setprecision(17)
               << ",\"sequence_length\":4,\"warmups\":" << Warmups << ",\"samples\":" << Samples
               << ",\"prepare_ms\":" << milliseconds(prepare_begin, prepare_end)
-              << ",\"execute_median_ms\":" << median(execution_samples)
+              << ",\"execute_samples_ms\":";
+    json_samples(execution_samples);
+    std::cout << ",\"shape_change_end_to_end_samples_ms\":";
+    json_samples(shape_change_samples);
+    std::cout << ",\"execute_median_ms\":" << median(execution_samples)
               << ",\"shape_change_end_to_end_median_ms\":" << median(shape_change_samples)
               << ",\"nodes\":" << decoder.graph.order().size()
               << ",\"dynamic_allocations\":" << dynamic.counts.allocations
@@ -207,7 +221,11 @@ void mixed_benchmark(const DecoderConfig& config, const ParameterTable& paramete
     std::cout << std::setprecision(17)
               << ",\"sequence_length\":4,\"warmups\":" << Warmups << ",\"samples\":" << Samples
               << ",\"prepare_ms\":" << milliseconds(prepare_begin, prepare_end)
-              << ",\"execute_median_ms\":" << median(execution_samples)
+              << ",\"execute_samples_ms\":";
+    json_samples(execution_samples);
+    std::cout << ",\"shape_change_end_to_end_samples_ms\":";
+    json_samples(shape_change_samples);
+    std::cout << ",\"execute_median_ms\":" << median(execution_samples)
               << ",\"shape_change_end_to_end_median_ms\":" << median(shape_change_samples)
               << ",\"nodes\":" << scheduled.graph->order().size()
               << ",\"logical_nodes\":" << logical.graph.order().size()

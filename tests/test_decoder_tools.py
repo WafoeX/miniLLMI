@@ -25,7 +25,9 @@ class DecoderToolTests(unittest.TestCase):
             "peak_live_bytes": 4096, "cpu_capacity_bytes": 4096,
             "cuda_capacity_bytes": 0, "copies": 0, "copy_bytes": 0,
             "backend_dispatches": 185, "backend_switches": 0,
-            "prepare_ms": 1.0, "execute_median_ms": 2.0,
+            "prepare_ms": 1.0, "warmups": 3, "samples": 10,
+            "execute_samples_ms": [2.0] * 10, "execute_median_ms": 2.0,
+            "shape_change_end_to_end_samples_ms": [3.0] * 10,
             "shape_change_end_to_end_median_ms": 3.0,
         }
         if mode == "mixed":
@@ -52,6 +54,21 @@ class DecoderToolTests(unittest.TestCase):
         value["copies"] = 0
         with self.assertRaises(ValueError):
             MODULE.validate_benchmark(value, "mixed", source)
+
+    def test_rejects_missing_raw_samples_or_wrong_median(self):
+        source = {"commit": "abc", "source_digest": "digest", "source_dirty": False}
+        value = self.record()
+        value["execute_samples_ms"] = value["execute_samples_ms"][:-1]
+        with self.assertRaises(ValueError):
+            MODULE.validate_benchmark(value, "cpu", source)
+        value = self.record()
+        value["execute_median_ms"] = 2.5
+        with self.assertRaises(ValueError):
+            MODULE.validate_benchmark(value, "cpu", source)
+        value = self.record()
+        value["shape_change_end_to_end_samples_ms"][4] = float("inf")
+        with self.assertRaises(ValueError):
+            MODULE.validate_benchmark(value, "cpu", source)
 
 
 if __name__ == "__main__":

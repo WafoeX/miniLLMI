@@ -4,9 +4,11 @@ import argparse
 import datetime as dt
 import hashlib
 import json
+import math
 import os
 import platform
 import shutil
+import statistics
 import subprocess
 import sys
 from pathlib import Path
@@ -40,7 +42,8 @@ def validate_benchmark(value, mode, source):
     required = {"schema_version", "stage", "mode", "commit", "source_digest", "source_dirty",
                 "build_type", "testing", "cuda_enabled", "correctness", "nodes", "execute_allocations",
                 "peak_live_bytes", "cpu_capacity_bytes", "cuda_capacity_bytes", "copies", "copy_bytes",
-                "backend_dispatches", "backend_switches", "prepare_ms", "execute_median_ms",
+                "backend_dispatches", "backend_switches", "prepare_ms", "warmups", "samples",
+                "execute_samples_ms", "shape_change_end_to_end_samples_ms", "execute_median_ms",
                 "shape_change_end_to_end_median_ms"}
     missing = required - set(value)
     if missing:
@@ -55,6 +58,20 @@ def validate_benchmark(value, mode, source):
         raise ValueError("decoder benchmark build/correctness/allocation gate failed")
     if value["nodes"] <= 0 or value["prepare_ms"] <= 0 or value["execute_median_ms"] <= 0 or value["shape_change_end_to_end_median_ms"] <= 0:
         raise ValueError("decoder benchmark metrics must be positive")
+    if value["warmups"] != 3 or value["samples"] != 10:
+        raise ValueError("decoder benchmark protocol requires 3 warmups and 10 samples")
+    sample_fields = (("execute_samples_ms", "execute_median_ms"),
+                     ("shape_change_end_to_end_samples_ms", "shape_change_end_to_end_median_ms"))
+    for samples_field, median_field in sample_fields:
+        values = value[samples_field]
+        if not isinstance(values, list) or len(values) != value["samples"]:
+            raise ValueError(f"decoder benchmark {samples_field} count mismatch")
+        if any(isinstance(item, bool) or not isinstance(item, (int, float)) or
+               not math.isfinite(item) or item <= 0 for item in values):
+            raise ValueError(f"decoder benchmark {samples_field} contains invalid latency")
+        replayed = statistics.median(values)
+        if not math.isclose(value[median_field], replayed, rel_tol=1e-12, abs_tol=1e-12):
+            raise ValueError(f"decoder benchmark {median_field} does not match raw samples")
     if mode == "mixed":
         if value.get("cuda_projection_nodes") != 21 or value.get("inserted_copy_nodes", 0) <= 0:
             raise ValueError("mixed decoder CUDA projection/copy topology mismatch")
