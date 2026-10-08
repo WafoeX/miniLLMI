@@ -1,3 +1,7 @@
+#include "model/generation.hpp"
+#include "model/model_file.hpp"
+#include "model/tokenizer.hpp"
+
 #include <cstdint>
 #include <cstdlib>
 #include <exception>
@@ -31,8 +35,12 @@ std::string json_quote(const std::string& value) {
         case '\r': result += "\\r"; break;
         case '\t': result += "\\t"; break;
         default:
-            if (character < 0x20U) throw std::invalid_argument("control bytes are not supported in CLI strings");
-            result.push_back(static_cast<char>(character));
+            if (character < 0x20U) {
+                static constexpr char hex[] = "0123456789abcdef";
+                result += "\\u00";
+                result.push_back(hex[character >> 4U]);
+                result.push_back(hex[character & 0x0fU]);
+            } else result.push_back(static_cast<char>(character));
         }
     }
     result += '"';
@@ -129,14 +137,45 @@ void print_config(const CliConfig& config) {
               << ",\"seed\":" << config.seed
               << ",\"sampling\":\"greedy\"}" << '\n';
 }
+
+void print_tokens(const std::vector<std::int32_t>& tokens) {
+    std::cout << '[';
+    for (std::size_t index = 0; index < tokens.size(); ++index) {
+        if (index) std::cout << ',';
+        std::cout << tokens[index];
+    }
+    std::cout << ']';
+}
+
+void generate(const CliConfig& config) {
+    const auto metadata = model::inspect_model_file(config.model_path);
+    const auto expected_version = config.quant == QuantMode::Float ? model::MODEL_FILE_VERSION_V1 : model::MODEL_FILE_VERSION_V2;
+    if (metadata.format_version != expected_version)
+        throw std::invalid_argument("--quant does not match the model file format (float requires V1; int8 requires V2)");
+    const auto loaded = model::load_model_file(config.model_path);
+    const model::GenerationOptions options{
+        config.backend == BackendMode::Cpu ? model::GenerationBackend::CPU : model::GenerationBackend::Mixed,
+        config.cache, config.max_tokens};
+    const auto result = model::generate_greedy(loaded, config.prompt, options);
+    model::ByteTokenizer tokenizer(loaded.config(), loaded.vocabulary_version);
+    std::cout << "{\"status\":\"generated\",\"prompt_tokens\":";
+    print_tokens(result.prompt_tokens);
+    std::cout << ",\"generated_tokens\":";
+    print_tokens(result.generated_tokens);
+    std::cout << ",\"text\":" << json_quote(tokenizer.decode_for_display(result.generated_tokens))
+              << ",\"prefill_nodes\":" << result.prefill_counts.nodes_completed
+              << ",\"total_nodes\":" << result.total_counts.nodes_completed
+              << ",\"copies\":" << result.total_counts.copies
+              << ",\"copy_bytes\":" << result.total_counts.copy_bytes
+              << ",\"cache_persistent_bytes\":" << result.cache_persistent_bytes << "}" << '\n';
+}
 } // namespace
 
 int main(int argc, char** argv) {
     try {
         const auto config = parse_args(argc, argv);
         print_config(config);
-        if (!config.dry_run)
-            throw std::runtime_error("generation is unavailable until Stage 17-C2; use --dry-run for configuration validation");
+        if (!config.dry_run) generate(config);
         return 0;
     } catch (const std::exception& error) {
         std::cerr << "{\"status\":\"error\",\"message\":" << json_quote(error.what()) << "}" << '\n';

@@ -3,6 +3,7 @@
 import json
 import subprocess
 import sys
+import tempfile
 from pathlib import Path
 
 
@@ -18,9 +19,11 @@ def expect_error(binary, *args):
 
 
 def main():
-    if len(sys.argv) != 2:
-        raise SystemExit("usage: test_cli_tools.py <llm_cli>")
+    if len(sys.argv) != 4:
+        raise SystemExit("usage: test_cli_tools.py <llm_cli> <converter> <legacy-weights>")
     binary = str(Path(sys.argv[1]))
+    converter = str(Path(sys.argv[2]))
+    weights = str(Path(sys.argv[3]))
     first = run(binary, "--model", "tiny.mllm", "--prompt", "hello", "--max-tokens", "7",
                 "--backend", "cpu", "--quant", "float", "--cache", "on", "--seed", "42", "--dry-run")
     assert first.returncode == 0, first.stderr
@@ -39,6 +42,16 @@ def main():
     expect_error(binary, "--model", "tiny.mllm", "--max-tokens", "0", "--dry-run")
     expect_error(binary, "--model", "tiny.mllm", "--seed", "-1", "--dry-run")
     expect_error(binary, "--prompt", "missing-model", "--dry-run")
+    with tempfile.TemporaryDirectory() as directory:
+        int8_model = str(Path(directory) / "tiny-int8.mllm")
+        converted = subprocess.run([converter, weights, int8_model, "--int8"], text=True, capture_output=True, check=False)
+        assert converted.returncode == 0, converted.stderr
+        generated = run(binary, "--model", int8_model, "--prompt", "Stage17", "--max-tokens", "2",
+                        "--backend", "cpu", "--quant", "int8", "--cache", "on")
+        assert generated.returncode == 0, generated.stderr
+        records = [json.loads(line) for line in generated.stdout.splitlines()]
+        assert records[-1]["status"] == "generated" and len(records[-1]["generated_tokens"]) == 2, records
+        expect_error(binary, "--model", int8_model, "--prompt", "x", "--quant", "float")
 
 
 if __name__ == "__main__":
