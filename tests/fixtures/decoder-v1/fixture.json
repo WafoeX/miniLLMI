@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "model_contract_version": 1,
+  "generator": "scalar-python-explicit-fp32-v1",
+  "source_weights": "tests/fixtures/operators-v1/tiny-weights-v1.bin",
+  "source_weights_sha256": "72b86c70ff0f1388665bf70c336081e5769f2e56e59d578a5c007aef234b2604",
+  "token_ids": [
+    256,
+    0,
+    1,
+    257
+  ],
+  "block": 0,
+  "shape": [
+    4,
+    64
+  ],
+  "atol": 2e-06,
+  "rtol": 2e-05,
+  "artifacts": {
+    "block0-output.bin": "6a0d659304ca15d5a3dee7ef0b476d7e8bbb16f1d2b584927d682b3a9cc37a7b"
+  }
+}
