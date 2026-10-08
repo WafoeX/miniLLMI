@@ -398,6 +398,13 @@ if(ENABLE_CUDA)
             "${CMAKE_SOURCE_DIR}/tests/fixtures/operators-v1/tiny-weights-v1.bin"
             "${CMAKE_SOURCE_DIR}/tests/fixtures/decoder-v1/logits.bin")
         set_tests_properties(cuda_decoder PROPERTIES LABELS "gpu;decoder")
+        add_executable(test_cuda_quantized_decoder tests/test_cuda_quantized_decoder.cpp)
+        target_link_libraries(test_cuda_quantized_decoder PRIVATE model runtime_cuda)
+        target_compile_options(test_cuda_quantized_decoder PRIVATE -Wall -Wextra -Wpedantic)
+        add_test(NAME cuda_quantized_decoder COMMAND test_cuda_quantized_decoder
+            "${CMAKE_SOURCE_DIR}/tests/fixtures/operators-v1/tiny-weights-v1.bin"
+            "${CMAKE_SOURCE_DIR}/tests/fixtures/decoder-v1/logits.bin")
+        set_tests_properties(cuda_quantized_decoder PROPERTIES LABELS "gpu;decoder;quant")
         add_executable(test_cuda_kv_decoder tests/test_cuda_kv_decoder.cpp)
         target_link_libraries(test_cuda_kv_decoder PRIVATE model runtime_cuda)
         target_compile_options(test_cuda_kv_decoder PRIVATE -Wall -Wextra -Wpedantic)
