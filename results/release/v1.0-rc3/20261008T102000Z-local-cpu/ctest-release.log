@@ -1,0 +1,12 @@
+Test project /tmp/miniLLMI-stage18-rc3/build-stage18-local
+    Start 54: release_evidence_tools
+1/1 Test #54: release_evidence_tools ...........   Passed    0.04 sec
+
+100% tests passed out of 1
+
+Label Time Summary:
+cpu        =   0.04 sec*proc (1 test)
+release    =   0.04 sec*proc (1 test)
+tools      =   0.04 sec*proc (1 test)
+
+Total Test time (real) =   0.04 sec
