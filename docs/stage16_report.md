@@ -1,10 +1,9 @@
 # Stage 16 acceptance — INT8 weight-only
 
-**Status:** C1–C3 are locally accepted pending the requested clean T4 replay.
-C4 is **not started** because its declared dependency, Stage 17-C2 (CLI INT8
-mode), does not yet exist. Consequently Stage 16 as a whole is not closed and
-this report makes no throughput, GPU-performance, or text-quality claim. C5 is
-`skipped_optional`.
+**Status:** required C1–C3 are T4-accepted. C4 is **not started** because
+its declared dependency, Stage 17-C2 (CLI INT8 mode), does not yet exist.
+Consequently Stage 16 as a whole is not closed and this report makes no
+throughput or text-quality claim. C5 is `skipped_optional`.
 
 ## Source and scope
 
@@ -14,9 +13,9 @@ change `sgemm_v0_naive`, model layering, or float-default behavior.
 
 | Change | Status | Evidence |
 |---|---|---|
-| C1 per-channel quantizer | local pass | `quantization`: W[in,out], output axis 1, ties-to-even, clamp, all-zero scales=1, nonfinite/invalid metadata rejection, element error bound |
-| C2 INT8 container metadata | local pass | V2 records explicit INT8/scales/checksum descriptors; strict loader inspection rejects bad V2 checksum and invalid shape/layout metadata |
-| C3 prepare dequant path | local pass; T4 replay pending | explicit persistent FP32 `prepare_dequant` `Tensor` feeds unchanged MATMUL backend; CPU direct MATMUL and tiny-model logits meet frozen error limits; T4 test target is `cuda_quantized_decoder` |
+| C1 per-channel quantizer | pass | `quantization`: W[in,out], output axis 1, ties-to-even, clamp, all-zero scales=1, nonfinite/invalid metadata rejection, element error bound |
+| C2 INT8 container metadata | pass | V2 records explicit INT8/scales/checksum descriptors; strict loader inspection rejects bad V2 checksum and invalid shape/layout metadata |
+| C3 prepare dequant path | pass | explicit persistent FP32 `prepare_dequant` `Tensor` feeds unchanged MATMUL backend; CPU direct MATMUL and tiny-model logits meet frozen error limits; clean T4 mixed test passes |
 | C4 benchmark/quality suite | blocked | requires Stage 17-C2; no benchmark or performance metric was run |
 | C5 fused/INT4 | `skipped_optional` | stable non-fused path retained; no C4 bottleneck data exists |
 
@@ -56,6 +55,23 @@ against `1e-2 + 1e-2*abs(reference)`, and all tiny-model frozen logits against
 the same bound. Execute-time intermediate backing allocations remain zero; the
 prepare-dequant allocation happens before graph preparation/execution.
 
-The local machine has no CUDA toolkit, so it cannot compile/run the new T4
-mixed-path target. The exact clean-server procedure and result-branch protocol
-are in [the Stage 16 Colab guide](stage16_colab.md).
+## T4 acceptance evidence
+
+Clean-source evidence commit [`38af605`](../results/quant/stage16-c3/20261008T104029Z-colab-stage16/)
+is the direct child of tested source `29b2d58ec087dddc9cde922c2a948233def9c07e`
+and changes only its eight result files. `tested_commit.txt` names that source
+exactly and `source_status.txt` is empty.
+
+On Tesla T4 (CC 7.5), driver 580.82.07 / CUDA 13.0 / nvcc 13.0.88, GNU 13.3.0,
+a clean Release CUDA build passed the focused Stage 16 suite **4/4**
+(`quantization`, `model_file`, `model_loader`, `cuda_quantized_decoder`) and
+the GPU-labelled regression suite **8/8**. The mixed C3 test runs the V2 model
+through the ordinary scheduler/backend route: all 21 learned projections are
+placed on CUDA, explicit copies remain graph-visible, prepared execute has zero
+intermediate backing allocations, and all returned logits satisfy the frozen
+`1e-2 + 1e-2*abs(FP32 reference)` bound. Raw configure/build/test/device logs
+are retained in that result directory.
+
+No benchmark was run and no INT8 throughput/resident-memory reduction is
+claimed. The replay/push protocol, now with source-identity checks for
+independent Colab cells, is in [the Stage 16 Colab guide](stage16_colab.md).
