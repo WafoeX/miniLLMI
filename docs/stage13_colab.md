@@ -8,8 +8,11 @@ The preserved first attempt (`710e3df`, run
 `20261008T022848623044Z-3926`) passed 46/47 tests and exposed a noncontiguous V
 alias transfer; it must not be deleted or relabelled. The source branch now
 contains the explicit contiguous V projection boundary and a metadata-only
-scheduler regression. Retry from a fresh clone of the latest source branch,
-not from the failed result branch.
+scheduler regression. The second preserved attempt (`d97d107`, run
+`20261008T024029021362Z-9005`) reached mixed execution and exposed an incomplete
+test-side copy-count expectation; the test now derives exact COPY/MATERIALIZE
+counts and bytes from the rewritten graph. Retry from a fresh clone of the
+latest source branch, not from either failed result branch.
 
 ## Clone, test, capture and push
 
@@ -55,7 +58,9 @@ import json, sys
 print(json.load(open(sys.argv[1]))["status"])
 PY
 )
-git switch -c "test/stage13-t4-${RESULT_STATUS}"
+RESULT_RUN=$(basename "$RESULT_DIR")
+RESULT_BRANCH="test/stage13-t4-${RESULT_STATUS}-${RESULT_RUN}"
+git switch -c "$RESULT_BRANCH"
 git add "$RESULT_DIR"
 git commit -m "test(model): record Stage 13 T4 ${RESULT_STATUS} integration"
 git push -u origin HEAD

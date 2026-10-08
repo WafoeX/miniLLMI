@@ -65,6 +65,26 @@ No backend rule, hidden copy, fixture value or tolerance was changed. After the
 fix, full local Release remains 42/42, decoder ASan+UBSan remains 5/5, and active
 changed-path diagnostics are clean.
 
+The second clean T4 capture is retained in result commit
+`d97d1076f3a0e81ee92a571190455ae2582b3d07`, directory
+`results/decoder/stage13-c4/20261008T024029021362Z-9005`. Its parent is corrected
+source `621ebfc17700dbf5ee2851dad38ab5de6024f39e`; source before/after are clean
+and identical with digest `e440d3b9096c362c4e5626ddfbd59719411c82dfad4fa59812fb676cdd10b5ee`.
+Both builds again passed, all 13 retained hashes match, and 46/47 tests passed.
+`cuda_decoder` advanced through rewrite, prepare and mixed execution, then failed
+only its test-side copy-counter assertion. The test had compared executor
+`copies` against scheduler-inserted transfer count plus V boundaries, omitting
+ordinary graph-visible `MATERIALIZE` operations that the executor contract also
+counts as copies.
+
+Commit `8e370f9` replaces that incomplete expectation with an independent walk of
+the rewritten graph: every nonempty COPY/MATERIALIZE contributes one copy and
+its exact source tensor bytes. Runtime counters must match both totals exactly;
+failure diagnostics now print actual/expected allocation, copy and byte counts.
+Fixture mismatches similarly report index, values and tolerance. Runtime/model
+behavior is unchanged. The result-branch command now includes the unique run ID
+to prevent a later failed retry from colliding with an already-pushed branch.
+
 ## Pending T4 gate
 
 Run the clean procedure in [stage13_colab.md](stage13_colab.md). Acceptance

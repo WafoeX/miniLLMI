@@ -6,7 +6,7 @@
 
 ## Stage 13 状态（C1–C3 与 C4 CPU 已完成，T4 C4 待验收）
 
-冻结 `[256,0,1,257]` logits 与独立 Python 标量 oracle 一致；动态与 planned CPU 输出一致，planned warmed execute 的中间 backing allocation 为 0。shape 改变必须显式重建/replan，同 shape 可在输出释放后复用。混合路径源码声明 21 个 learned projection 使用 CUDA hint，其余 primitive 通过 scheduler 显式回到 CPU；首次 T4 运行保留了 46/47 的非连续 V alias 传输失败，现已用 graph-visible contiguous V COPY 边界修复并增加本地 metadata scheduler regression。新的 clean T4 编译、COPY 计数和数值容差仍须按 [Stage 13 Colab 步骤](docs/stage13_colab.md) 验收。参见 [decoder 契约](docs/decoder.md)、[临时验收报告](docs/stage13_report.md) 与 [Stage 13 任务书](docs/tasks/stage-13-decoder.md)。
+冻结 `[256,0,1,257]` logits 与独立 Python 标量 oracle 一致；动态与 planned CPU 输出一致，planned warmed execute 的中间 backing allocation 为 0。shape 改变必须显式重建/replan，同 shape 可在输出释放后复用。混合路径源码声明 21 个 learned projection 使用 CUDA hint，其余 primitive 通过 scheduler 显式回到 CPU；首次 T4 运行保留了 46/47 的非连续 V alias 传输失败，现已用 graph-visible contiguous V COPY 边界修复并增加本地 metadata scheduler regression；第二次 46/47 已完成 mixed execution，仅暴露测试端遗漏 MATERIALIZE 的 copy-count 期望，现改为从重写图精确推导次数与字节数。新的 clean T4 编译、COPY 计数和数值容差仍须按 [Stage 13 Colab 步骤](docs/stage13_colab.md) 验收。参见 [decoder 契约](docs/decoder.md)、[临时验收报告](docs/stage13_report.md) 与 [Stage 13 任务书](docs/tasks/stage-13-decoder.md)。
 
 ## Stage 12 验收（C1–C5 完成）
 
