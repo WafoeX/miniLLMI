@@ -38,7 +38,13 @@ mkdir -p "$RESULT_DIR"
 set +e
 build-stage14-prod/bench_kv_cache --weights tests/fixtures/operators-v1/tiny-weights-v1.bin \
   | tee "$RESULT_DIR/kv_cache.jsonl"
-BENCH_STATUS=${PIPESTATUS[0]}
+CPU_STATUS=${PIPESTATUS[0]}
+# Mixed timing is diagnostic only (no speed gate), but records the actual
+# scheduler/copy path at context 512 with 3 warmups and 10 raw samples.
+build-stage14-prod/bench_kv_cache --weights tests/fixtures/operators-v1/tiny-weights-v1.bin --mode mixed \
+  | tee "$RESULT_DIR/kv_cache_mixed.jsonl"
+MIXED_STATUS=${PIPESTATUS[0]}
+BENCH_STATUS=$(( CPU_STATUS || MIXED_STATUS ))
 set -e
 python3 - "$RESULT_DIR/kv_cache.jsonl" <<'PY' | tee "$RESULT_DIR/summary.txt"
 import json, statistics, sys
@@ -68,7 +74,6 @@ exit "$BENCH_STATUS"
 ```
 
 Send back the source commit, result commit/branch, result directory, full CTest
-counts and the context-512 paired ratios. `cuda_kv_decoder` validates mixed
-scheduler/copy correctness. The current benchmark emits the mandatory CPU
-paired gate; mixed timing remains a required T4 evidence item to add to the
-returned capture rather than a fabricated local claim.
+counts and the context-512 paired ratios. `cuda_kv_decoder` validates mixed scheduler/copy correctness; the production
+mixed benchmark records its separate raw timing/copy evidence without making a
+mixed speedup claim.

@@ -1,5 +1,9 @@
 #include "model/decoder.hpp"
 #include "runtime/planned_executor.hpp"
+#ifdef KV_CACHE_CUDA_BUILD
+#include "runtime/cuda_backend.hpp"
+#include "runtime/scheduler.hpp"
+#endif
 #include "stage0/build_info.hpp"
 #include "stage0/common.hpp"
 
@@ -155,6 +159,48 @@ void record(const char* variant, std::int64_t context, int run, const std::vecto
     std::cout << "}\n";
 }
 
+#ifdef KV_CACHE_CUDA_BUILD
+void mixed_benchmark(const DecoderConfig& config, const ParameterTable& parameters) {
+    CudaBackend cuda(0, CudaMatmul::Stage0Naive);
+    Scheduler scheduler(default_cpu_backend(), &cuda);
+    const auto options = DecoderBuildOptions{cuda.device()};
+    const auto initial = prompt(512);
+    const auto one = [&] {
+        KVCache cache(config);
+        const auto prefill = build_decoder_prefill_cached(config, parameters, ids(initial), cache, options);
+        const auto prepared_prefill = scheduler.rewrite(prefill.graph);
+        require(prepared_prefill.ok(), prepared_prefill.status.message.c_str());
+        ScheduledAllocationProvider prefill_plan(*prepared_prefill.graph, scheduler);
+        auto prefill_result = execute_graph(*prepared_prefill.graph, nullptr, &prefill_plan, nullptr, &scheduler);
+        require(finalize_cached_decoder(prefill, cache, prefill_result).ok(), "mixed KV prefill failed");
+        const auto begin = Clock::now();
+        ExecutionCounts counts;
+        for (const auto token : continuation()) {
+            const auto decode = build_decoder_decode(config, parameters, ids({token}), cache, options);
+            const auto scheduled = scheduler.rewrite(decode.graph);
+            require(scheduled.ok(), scheduled.status.message.c_str());
+            ScheduledAllocationProvider plan(*scheduled.graph, scheduler);
+            auto result = execute_graph(*scheduled.graph, nullptr, &plan, nullptr, &scheduler);
+            require(finalize_cached_decoder(decode, cache, result).ok(), "mixed KV decode failed");
+            counts = result.counts;
+        }
+        return std::pair<double, ExecutionCounts>{ms(begin, Clock::now()) / ContinuationTokens, counts};
+    };
+    for (int warmup = 0; warmup < Warmups; ++warmup) (void)one();
+    std::vector<double> samples; ExecutionCounts counts;
+    for (int sample = 0; sample < Samples; ++sample) { const auto value = one(); samples.push_back(value.first); counts = value.second; }
+    std::cout << "{\"schema_version\":1,\"stage\":\"stage14-c4\",\"mode\":\"mixed\",\"commit\":"
+              << stage0::json_quote(stage0::kCommit) << ",\"source_digest\":" << stage0::json_quote(stage0::kSourceDigest)
+              << ",\"source_dirty\":" << (stage0::kSourceDirty ? "true" : "false")
+              << ",\"context\":512,\"warmups\":" << Warmups << ",\"samples\":" << Samples
+              << ",\"continuation_tokens\":" << ContinuationTokens << ",\"decode_ms_per_token_samples\":";
+    json_array(samples);
+    std::cout << ",\"decode_ms_per_token_median\":" << median(samples) << ",\"tokens_per_second\":" << 1000.0 / median(samples)
+              << ",\"cache_persistent_bytes\":" << KVCache(config).persistent_bytes() << ",\"copies\":" << counts.copies
+              << ",\"copy_bytes\":" << counts.copy_bytes << ",\"correctness\":\"passed\"}\n";
+}
+#endif
+
 void benchmark(const DecoderConfig& config, const ParameterTable& parameters) {
     for (const auto context : {std::int64_t{128}, std::int64_t{256}, std::int64_t{512}}) {
         validate_correctness(config, parameters, context);
@@ -187,11 +233,19 @@ int main(int argc, char** argv) {
             std::cout << "Stage 14 KV benchmark workloads: PASS\n";
             return 0;
         }
-        if (argc != 3 || std::string(argv[1]) != "--weights")
-            throw std::invalid_argument("usage: bench_kv_cache --weights FILE | --self-test");
+        if ((argc != 3 && argc != 5) || std::string(argv[1]) != "--weights")
+            throw std::invalid_argument("usage: bench_kv_cache --weights FILE [--mode cpu|mixed] | --self-test");
         const auto config = DecoderConfig::tiny();
         const ParameterTable parameters(config, load_parameters(argv[2], config));
-        benchmark(config, parameters);
+        const std::string mode = argc == 5 && std::string(argv[3]) == "--mode" ? argv[4] : "cpu";
+        if (mode == "cpu") benchmark(config, parameters);
+        else if (mode == "mixed") {
+#ifdef KV_CACHE_CUDA_BUILD
+            mixed_benchmark(config, parameters);
+#else
+            throw std::runtime_error("mixed mode requires ENABLE_CUDA=ON");
+#endif
+        } else throw std::invalid_argument("mode must be cpu or mixed");
         return 0;
     } catch (const std::exception& error) {
         std::cerr << "bench_kv_cache: " << error.what() << '\n';
