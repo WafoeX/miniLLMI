@@ -1,9 +1,10 @@
 # Stage 16 acceptance — INT8 weight-only
 
-**Status:** required C1–C3 are T4-accepted. C4 is **not started** because
-its declared dependency, Stage 17-C2 (CLI INT8 mode), does not yet exist.
-Consequently Stage 16 as a whole is not closed and this report makes no
-throughput or text-quality claim. C5 is `skipped_optional`.
+**Status:** required C1–C3 are T4-accepted. C4 is implemented and locally
+verified now that Stage 17-C2 provides float/INT8 CLI generation, but its
+required clean T4 evidence is pending. Consequently Stage 16 as a whole is
+not closed and this report makes no throughput or text-quality claim. C5 is
+`skipped_optional`.
 
 ## Source and scope
 
@@ -16,7 +17,7 @@ change `sgemm_v0_naive`, model layering, or float-default behavior.
 | C1 per-channel quantizer | pass | `quantization`: W[in,out], output axis 1, ties-to-even, clamp, all-zero scales=1, nonfinite/invalid metadata rejection, element error bound |
 | C2 INT8 container metadata | pass | V2 records explicit INT8/scales/checksum descriptors; strict loader inspection rejects bad V2 checksum and invalid shape/layout metadata |
 | C3 prepare dequant path | pass | explicit persistent FP32 `prepare_dequant` `Tensor` feeds unchanged MATMUL backend; CPU direct MATMUL and tiny-model logits meet frozen error limits; clean T4 mixed test passes |
-| C4 benchmark/quality suite | blocked | requires Stage 17-C2; no benchmark or performance metric was run |
+| C4 benchmark/quality suite | local implementation pass; T4 pending | `bench_quantization` checks V1/V2 artifact/resident/dequant accounting and frozen teacher-forced logit errors; `bench_inference` retains separate raw CPU/mixed cache/dtype timing rows. The clean T4 capture procedure is [Stage 17 / C4 guide](stage17_colab.md). |
 | C5 fused/INT4 | `skipped_optional` | stable non-fused path retained; no C4 bottleneck data exists |
 
 ## Representation and accounting
@@ -72,6 +73,7 @@ intermediate backing allocations, and all returned logits satisfy the frozen
 `1e-2 + 1e-2*abs(FP32 reference)` bound. Raw configure/build/test/device logs
 are retained in that result directory.
 
-No benchmark was run and no INT8 throughput/resident-memory reduction is
-claimed. The replay/push protocol, now with source-identity checks for
-independent Colab cells, is in [the Stage 16 Colab guide](stage16_colab.md).
+No T4 benchmark has yet been run and no INT8 throughput/resident-memory
+reduction is claimed. The original C1–C3 replay procedure remains in
+[the Stage 16 Colab guide](stage16_colab.md); the combined Stage 17/C4
+measurement and result-push protocol is [the Stage 17 Colab guide](stage17_colab.md).
