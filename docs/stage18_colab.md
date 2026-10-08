@@ -1,6 +1,6 @@
 # Stage 18 T4 reproduction, report generation, and result push
 
-Run this only after `v1.0-rc1` has been pushed. It is the complete C2/C3/C4
+Run this only after `v1.0-rc2` has been pushed. It is the complete C2/C3/C4
 procedure: a fresh T4 build/test matrix, all required final measurements, and a
 report generated from the captured raw files. Do not edit the checkout. Failed
 captures are evidence too: commit and push them, then report the failure instead
@@ -14,7 +14,7 @@ below also works when port 22 is blocked.
 ```bash
 set -euo pipefail
 REPO=/content/miniLLMI-stage18
-TAG=v1.0-rc1
+TAG=v1.0-rc2
 rm -rf "$REPO"
 git clone ssh://git@ssh.github.com:443/WafoeX/miniLLMI.git "$REPO"
 cd "$REPO"
@@ -45,9 +45,9 @@ no parameter search.
 set -euo pipefail
 cd /content/miniLLMI-stage18
 RUN_ID="$(date -u +%Y%m%dT%H%M%SZ)-colab-stage18"
-./scripts/run_stage18_evaluation.sh --tag v1.0-rc1 --run-id "$RUN_ID" --jobs 2 \
+./scripts/run_stage18_evaluation.sh --tag v1.0-rc2 --run-id "$RUN_ID" --jobs 2 \
   |& tee "/content/stage18-${RUN_ID}.console.log"
-RESULT_DIR="results/release/v1.0-rc1/${RUN_ID}"
+RESULT_DIR="results/release/v1.0-rc2/${RUN_ID}"
 test -f "$RESULT_DIR/stage18_report.md"
 test "$(cat "$RESULT_DIR/status.txt")" = passed
 sed -n '1,160p' "$RESULT_DIR/stage18_report.md"
@@ -63,15 +63,15 @@ claim and explicitly records optional skips.
 
 The evidence branch must be a **direct child** of the detached RC source, and
 its one commit must change only this unique result directory. Do not merge it
-into the feature branch or move `v1.0-rc1`.
+into the feature branch or move `v1.0-rc2`.
 
 ```bash
 set -euo pipefail
 cd /content/miniLLMI-stage18
-TAG=v1.0-rc1
+TAG=v1.0-rc2
 SOURCE_COMMIT=$(git rev-parse "$TAG^{commit}")
-RUN_ID="$(basename "$(find results/release/v1.0-rc1 -mindepth 1 -maxdepth 1 -type d | sort | tail -n1)")"
-RESULT_DIR="results/release/v1.0-rc1/${RUN_ID}"
+RUN_ID="$(basename "$(find results/release/v1.0-rc2 -mindepth 1 -maxdepth 1 -type d | sort | tail -n1)")"
+RESULT_DIR="results/release/v1.0-rc2/${RUN_ID}"
 test "$(git rev-parse HEAD)" = "$SOURCE_COMMIT"
 test "$(cat "$RESULT_DIR/tested_commit.txt")" = "$SOURCE_COMMIT"
 test "$(cat "$RESULT_DIR/status.txt")" = passed

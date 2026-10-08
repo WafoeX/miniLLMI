@@ -4,7 +4,7 @@ set -euo pipefail
 
 usage() {
   cat <<'EOF'
-usage: scripts/run_stage18_evaluation.sh [--tag v1.0-rc1] [--run-id ID] [--jobs N] [--profile-artifact-location URI]
+usage: scripts/run_stage18_evaluation.sh [--tag v1.0-rc2] [--run-id ID] [--jobs N] [--profile-artifact-location URI]
 
 Runs the required CPU/T4 functional matrix and final performance/memory suite,
 then generates a report solely by validating the captured raw artifacts. It
@@ -12,7 +12,7 @@ must be run on a single visible Tesla T4 from a clean RC checkout.
 EOF
 }
 
-TAG=v1.0-rc1
+TAG=v1.0-rc2
 RUN_ID="$(date -u +%Y%m%dT%H%M%SZ)-stage18"
 JOBS=2
 PROFILE_ARTIFACT_LOCATION=""
@@ -149,6 +149,6 @@ STAGE9=$STAGE9
 STAGE10=$STAGE10
 STAGE11=$STAGE11
 EOF
-find "$RESULT_DIR" -type f -print0 | sort -z | xargs -0 sha256sum > "$RESULT_DIR/artifact_sha256.txt"
 printf 'passed\n' > "$RESULT_DIR/status.txt"
+find "$RESULT_DIR" -type f ! -name artifact_sha256.txt -print0 | sort -z | xargs -0 sha256sum > "$RESULT_DIR/artifact_sha256.txt"
 printf 'Stage 18 evidence complete: %s\n' "$RESULT_DIR"
