@@ -26,8 +26,11 @@ int main(int argc, char** argv) {
         const auto scheduled = scheduler.rewrite(logical.graph);
         require(scheduled.ok(), scheduled.status.message.c_str());
         std::size_t cuda_placements = 0;
-        for (const auto& item : scheduled.placements)
-            if (item.second.device == cuda.device()) ++cuda_placements;
+        for (const auto& item : scheduled.placements) {
+            const auto& descriptor = logical.graph.nodes().at(item.first).descriptor;
+            if (descriptor.code() == OpCode::MATMUL && descriptor.backend_hint() &&
+                item.second.device == cuda.device()) ++cuda_placements;
+        }
         require(cuda_placements == logical.projection_nodes && cuda_placements == 21,
                 "all learned projections are placed on CUDA");
         require(!scheduled.inserted_copies.empty(), "mixed decoder must expose scheduler copies");
@@ -42,7 +45,8 @@ int main(int argc, char** argv) {
         require(result.ok(), result.status.message.c_str());
         require(result.outputs.at("logits").device() == Device{}, "mixed logits return to CPU");
         require(result.counts.allocations == 0 && result.counts.frees == 0 &&
-                result.counts.copies == scheduled.inserted_copies.size() && result.counts.copy_bytes > 0,
+                result.counts.copies == scheduled.inserted_copies.size() + static_cast<std::size_t>(config.layers) &&
+                result.counts.copy_bytes > 0,
                 "mixed decoder planned allocation/copy accounting");
         decoder_fixture::compare(result.outputs.at("logits"), expected, 2e-4, 2e-3);
         std::cout << "Stage 13 C4 mixed decoder: PASS logical_nodes=" << logical.graph.order().size()

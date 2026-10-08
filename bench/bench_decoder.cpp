@@ -165,7 +165,11 @@ void mixed_benchmark(const DecoderConfig& config, const ParameterTable& paramete
     ScheduledAllocationProvider prepared(*scheduled.graph, scheduler);
     const auto prepare_end = Clock::now();
     std::size_t cuda_placements = 0;
-    for (const auto& item : scheduled.placements) if (item.second.device == cuda.device()) ++cuda_placements;
+    for (const auto& item : scheduled.placements) {
+        const auto& descriptor = logical.graph.nodes().at(item.first).descriptor;
+        if (descriptor.code() == OpCode::MATMUL && descriptor.backend_hint() &&
+            item.second.device == cuda.device()) ++cuda_placements;
+    }
     require(cuda_placements == logical.projection_nodes && cuda_placements == 21,
             "every learned projection must execute on CUDA");
     require(!scheduled.inserted_copies.empty(), "mixed decoder requires explicit scheduler copies");

@@ -88,7 +88,15 @@ BlockBuildResult build_decoder_block(Graph& graph, const DecoderConfig& config,
     const auto normalized = build.op(hidden_shape, OpCode::RMSNORM, {input, attn_norm_weight}, NormAttrs{config.rms_epsilon});
     const auto q = build.op(hidden_shape, OpCode::MATMUL, {normalized, q_weight}, {}, true);
     const auto k = build.op(hidden_shape, OpCode::MATMUL, {normalized, k_weight}, {}, true);
-    const auto v = build.op(hidden_shape, OpCode::MATMUL, {normalized, v_weight}, {}, true);
+    const auto v_projection = build.op(hidden_shape, OpCode::MATMUL, {normalized, v_weight}, {}, true);
+    // V is sliced before its first CPU primitive. In a mixed graph, copying the
+    // full contiguous projection to CPU here prevents a later D2H transfer from
+    // targeting a noncontiguous [T,1,D] CUDA alias. The COPY remains explicit
+    // and graph-visible; the CPU-only graph needs no redundant boundary copy.
+    auto v = v_projection;
+    if (options.projection_device.type() == DeviceType::CUDA)
+        v = build.op(hidden_shape, OpCode::COPY, {v_projection},
+                     CopyAttrs{CopyOverlap::RejectExceptExactSelf, Device{}});
     const auto q_heads = build.op(heads_shape, OpCode::RESHAPE, {q}, ReshapeAttrs{heads_shape});
     const auto k_heads = build.op(heads_shape, OpCode::RESHAPE, {k}, ReshapeAttrs{heads_shape});
     const auto v_heads = build.op(heads_shape, OpCode::RESHAPE, {v}, ReshapeAttrs{heads_shape});

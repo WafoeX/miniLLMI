@@ -1,6 +1,7 @@
 #include "decoder_fixture.hpp"
 #include "model/decoder.hpp"
 #include "runtime/planned_executor.hpp"
+#include "runtime/scheduler.hpp"
 
 #include <iostream>
 #include <stdexcept>
@@ -11,6 +12,30 @@ using namespace runtime;
 using namespace model;
 using decoder_fixture::require;
 void success(const Status& status) { if (!status.ok()) throw std::runtime_error(status.message); }
+
+class MetadataCudaBackend final : public Backend {
+public:
+    const char* name() const noexcept override { return "metadata-cuda"; }
+    Device device() const noexcept override { return Device(DeviceType::CUDA, 0); }
+    Status capability(OpCode code, Device requested, DType dtype) const override {
+        if (requested != device()) return Status::failure(StatusCode::DeviceMismatch, "metadata CUDA device mismatch");
+        if (dtype != DType::FP32) return Status::failure(StatusCode::DTypeMismatch, "metadata CUDA requires FP32");
+        if (code == OpCode::COPY || code == OpCode::MATMUL) return Status::success();
+        return Status::failure(StatusCode::Unsupported, "metadata CUDA operator unsupported");
+    }
+    BackendBuffer allocate(Shape, DType, Device) const override {
+        return {Status::failure(StatusCode::Unsupported, "metadata CUDA does not allocate"), std::nullopt};
+    }
+    Status copy(const Tensor&, Tensor&) const override {
+        return Status::failure(StatusCode::Unsupported, "metadata CUDA does not execute");
+    }
+    BackendPreparation prepare(const OpDesc&, const TensorInputs&, const Tensor&) const override {
+        return {Status::failure(StatusCode::Unsupported, "metadata CUDA does not prepare"), 0};
+    }
+    Status execute(const OpDesc&, const TensorInputs&, Tensor&, Workspace) const override {
+        return Status::failure(StatusCode::Unsupported, "metadata CUDA does not execute");
+    }
+};
 }
 
 int main(int argc, char** argv) {
@@ -23,6 +48,28 @@ int main(int argc, char** argv) {
         const auto decoder = build_decoder_prefill(config, parameters, ids);
         require(decoder.sequence_length == 4 && decoder.graph.order().size() == 185, "full decoder topology");
         require(decoder.graph.inputs().size() == 24 && decoder.projection_nodes == 21, "full decoder bindings/projections");
+
+        MetadataCudaBackend metadata_cuda;
+        Scheduler metadata_scheduler(default_cpu_backend(), &metadata_cuda);
+        const auto mixed_logical = build_decoder_prefill(config, parameters, ids, {metadata_cuda.device()});
+        require(mixed_logical.graph.order().size() == 187, "mixed graph includes explicit V projection boundaries");
+        std::size_t explicit_projection_copies = 0;
+        for (const auto& item : mixed_logical.graph.nodes()) {
+            const auto& descriptor = item.second.descriptor;
+            if (descriptor.code() == OpCode::COPY && descriptor.inputs().size() == 1) ++explicit_projection_copies;
+        }
+        require(explicit_projection_copies == static_cast<std::size_t>(config.layers),
+                "each mixed layer explicitly returns contiguous V projection to CPU before views");
+        const auto metadata_rewrite = metadata_scheduler.rewrite(mixed_logical.graph);
+        require(metadata_rewrite.ok(), metadata_rewrite.status.message.c_str());
+        std::size_t metadata_cuda_placements = 0;
+        for (const auto& item : metadata_rewrite.placements) {
+            const auto& descriptor = mixed_logical.graph.nodes().at(item.first).descriptor;
+            if (descriptor.code() == OpCode::MATMUL && descriptor.backend_hint() &&
+                item.second.device == metadata_cuda.device()) ++metadata_cuda_placements;
+        }
+        require(metadata_cuda_placements == 21 && !metadata_rewrite.inserted_copies.empty(),
+                "metadata-only mixed rewrite validates contiguous CUDA transfer boundaries");
 
         const auto dynamic = execute_graph(decoder.graph);
         require(dynamic.ok(), dynamic.status.message.c_str());
