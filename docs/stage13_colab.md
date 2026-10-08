@@ -4,6 +4,13 @@ Stage 13 C4 requires a clean T4 run because local CPU acceptance cannot validate
 CUDA compilation, placement or transfers. The capture is correctness, memory
 and diagnostic latency evidence—not a speedup or language-quality claim.
 
+The preserved first attempt (`710e3df`, run
+`20261008T022848623044Z-3926`) passed 46/47 tests and exposed a noncontiguous V
+alias transfer; it must not be deleted or relabelled. The source branch now
+contains the explicit contiguous V projection boundary and a metadata-only
+scheduler regression. Retry from a fresh clone of the latest source branch,
+not from the failed result branch.
+
 ## Clone, test, capture and push
 
 The server already has an SSH key, so use the SSH remote directly. Replace only

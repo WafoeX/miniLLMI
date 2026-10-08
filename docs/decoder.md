@@ -41,7 +41,11 @@ Learned rank-2 projections carry a placement hint. CPU execution uses the
 stable FP64-accumulating reference backend. On T4, the Stage 11 scheduler places
 exactly 21 learned projections on CUDA v0 and inserts explicit transfers around
 CPU-only Embedding, RMSNorm, RoPE, Softmax, SwiGLU and ordinary attention
-operations. Model code never calls a backend, CUDA API or copy routine.
+operations. Because V is reshaped/narrowed before its first CPU primitive, each
+mixed block declares a one-input COPY of the full contiguous V projection back
+to CPU before those aliases; this prevents an unsupported noncontiguous CUDA
+D2H transfer and remains visible to graph/copy accounting. Model code never
+calls a backend, CUDA API or copy routine.
 
 The dynamic executor remains the default baseline. Explicit
 `PlannedAllocationProvider`/`ScheduledAllocationProvider` preparation owns

@@ -42,6 +42,29 @@ Local CPU results do not validate CUDA source compilation, T4 placement,
 transfers or mixed numerical tolerance. The original untracked local
 `AGENTS.md` is excluded from commits and left untouched.
 
+## Preserved first T4 failure and correction
+
+The first clean T4 capture is retained in result commit
+`710e3dfd372d64544b1f526a5425cc8c68941d10`, directory
+`results/decoder/stage13-c4/20261008T022848623044Z-3926`. Its sole parent is the
+tested source `a757482ca60f1b5d71018ea324cde6c92fecf62f`; source before/after are clean and
+identical with digest `3f24cb93eb31a1482b45b86b6775f4aad509ca337634e933e9c7f9c19fed3041`.
+Tesla T4 CC 7.5/CUDA 13.0 configure and both testing/production builds passed.
+The full suite passed 46/47; only `cuda_decoder` failed before execution with
+`CUDA requires contiguous FP32 bindings; MATERIALIZE must be explicit`.
+All 13 retained artifact hashes independently match the manifest.
+
+Root cause: the CUDA V projection was reshaped and narrowed before its first CPU
+primitive. The later scheduler transfer therefore targeted a noncontiguous
+`[T,1,D]` CUDA alias, while the CUDA COPY contract intentionally accepts only
+contiguous FP32 bindings. Commit `c17d5a6` adds one graph-visible COPY per mixed
+block, returning the full contiguous V projection to CPU before any view. It
+also adds a CPU-only metadata CUDA backend regression that performs the complete
+scheduler rewrite, so this layout class now fails locally without a CUDA SDK.
+No backend rule, hidden copy, fixture value or tolerance was changed. After the
+fix, full local Release remains 42/42, decoder ASan+UBSan remains 5/5, and active
+changed-path diagnostics are clean.
+
 ## Pending T4 gate
 
 Run the clean procedure in [stage13_colab.md](stage13_colab.md). Acceptance
