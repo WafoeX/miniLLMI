@@ -122,17 +122,27 @@ REPO=/content/miniLLMI
 SOURCE_COMMIT=0c258548177eac8d8ae042d0fba402dbbdedcd65
 cd "$REPO"
 test "$(git rev-parse HEAD)" = "$SOURCE_COMMIT"
-test -z "$(git status --porcelain)"
 # Reuse the RUN_ID printed above, or discover its one directory explicitly.
 RUN_ID="$(basename "$(find results/inference/stage17-c3 -mindepth 1 -maxdepth 1 -type d | sort | tail -n1)")"
 RESULT_DIR="results/inference/stage17-c3/${RUN_ID}"
 test -f "$RESULT_DIR/tested_commit.txt"
 test "$(cat "$RESULT_DIR/tested_commit.txt")" = "$SOURCE_COMMIT"
+# The result directory is intentionally untracked now. Reject any tracked
+# modification or untracked path outside it, rather than requiring a clean tree.
+git diff --quiet
+git diff --cached --quiet
+while IFS= read -r status; do
+  path="${status:3}"
+  case "$path" in "$RESULT_DIR"/*) ;; *) printf 'unexpected worktree path: %s\n' "$status" >&2; exit 1;; esac
+done < <(git status --porcelain --untracked-files=all)
 git switch -c "results/stage17-stage16-c4-${RUN_ID}" "$SOURCE_COMMIT"
 git add "$RESULT_DIR"
+git diff --cached --name-only | while IFS= read -r path; do
+  case "$path" in "$RESULT_DIR"/*) ;; *) printf 'unexpected staged path: %s\n' "$path" >&2; exit 1;; esac
+done
 git commit -m 'test(inference): record Stage 17 and Stage 16 C4 T4 capture'
 git show --stat --oneline HEAD
-git push -u origin HEAD
+git push -u ssh://git@ssh.github.com:443/WafoeX/miniLLMI.git HEAD
 printf 'result_commit=%s\nresult_branch=%s\nresult_dir=%s\n' \
   "$(git rev-parse HEAD)" "$(git branch --show-current)" "$RESULT_DIR"
 ```
