@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Generate the independent Stage 13 decoder-block reference fixture.
+"""Generate independent Stage 13 decoder-block and full-logits fixtures.
 
 The implementation deliberately uses scalar Python and explicit IEEE-754 FP32
 rounding at every C++ FP32 write. It does not call the C++ runtime or NumPy.
@@ -162,9 +162,14 @@ def main():
     hidden = [weights["token_embedding"][1][token * HIDDEN + channel]
               for token in TOKENS for channel in range(HIDDEN)]
     block0 = block(hidden, 0, weights, len(TOKENS))
+    block1 = block(block0, 1, weights, len(TOKENS))
+    normalized = rmsnorm(block1, len(TOKENS), HIDDEN, weights["final_norm"][1])
+    logits = matmul(normalized, len(TOKENS), HIDDEN, weights["lm_head"][1], VOCAB)
     args.output.mkdir(parents=True, exist_ok=True)
     block_path = args.output / "block0-output.bin"
+    logits_path = args.output / "logits.bin"
     write_floats(block_path, block0)
+    write_floats(logits_path, logits)
     metadata = {
         "schema_version": 1,
         "model_contract_version": 1,
@@ -172,11 +177,14 @@ def main():
         "source_weights": str(args.weights.relative_to(ROOT)),
         "source_weights_sha256": hashlib.sha256(args.weights.read_bytes()).hexdigest(),
         "token_ids": TOKENS,
-        "block": 0,
-        "shape": [len(TOKENS), HIDDEN],
-        "atol": 2e-6,
-        "rtol": 2e-5,
-        "artifacts": {block_path.name: hashlib.sha256(block_path.read_bytes()).hexdigest()},
+        "block_fixture": {"layer": 0, "shape": [len(TOKENS), HIDDEN]},
+        "logits_fixture": {"shape": [len(TOKENS), VOCAB]},
+        "cpu_tolerance": {"atol": 2e-6, "rtol": 2e-5},
+        "mixed_tolerance": {"atol": 2e-4, "rtol": 2e-3},
+        "artifacts": {
+            block_path.name: hashlib.sha256(block_path.read_bytes()).hexdigest(),
+            logits_path.name: hashlib.sha256(logits_path.read_bytes()).hexdigest(),
+        },
     }
     (args.output / "fixture.json").write_text(json.dumps(metadata, indent=2) + "\n")
     print(args.output)

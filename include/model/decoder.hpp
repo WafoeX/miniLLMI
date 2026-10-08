@@ -37,4 +37,19 @@ BlockBuildResult build_decoder_block(runtime::Graph& graph,
                                      GraphCursor& cursor,
                                      DecoderBuildOptions options = {});
 
+struct DecoderGraph {
+    runtime::Graph graph;
+    std::int64_t sequence_length = 0;
+    runtime::TensorId logits = runtime::INVALID_TENSOR_ID;
+    std::size_t projection_nodes = 0;
+};
+
+// Builds and freezes a shape-specific no-cache prefill graph. The caller must
+// build again and prepare a new allocation provider when sequence length changes.
+// Repeated execution of this graph may reuse one provider after outputs release.
+DecoderGraph build_decoder_prefill(const DecoderConfig& config,
+                                   const ParameterTable& parameters,
+                                   runtime::Tensor token_ids,
+                                   DecoderBuildOptions options = {});
+
 } // namespace model

@@ -87,6 +87,10 @@ add_executable(bench_scheduler bench/bench_scheduler.cpp)
 target_link_libraries(bench_scheduler PRIVATE runtime stage0_common)
 target_compile_options(bench_scheduler PRIVATE -Wall -Wextra -Wpedantic)
 
+add_executable(bench_decoder bench/bench_decoder.cpp)
+target_link_libraries(bench_decoder PRIVATE model stage0_common)
+target_compile_options(bench_decoder PRIVATE -Wall -Wextra -Wpedantic)
+
 if(BUILD_TESTING)
     target_compile_definitions(runtime PUBLIC RUNTIME_TESTING=1)
     add_executable(test_decoder_config tests/test_decoder_config.cpp)
@@ -101,6 +105,17 @@ if(BUILD_TESTING)
         "${CMAKE_SOURCE_DIR}/tests/fixtures/operators-v1/tiny-weights-v1.bin"
         "${CMAKE_SOURCE_DIR}/tests/fixtures/decoder-v1/block0-output.bin")
     set_tests_properties(decoder_block PROPERTIES LABELS "cpu;decoder")
+    add_executable(test_decoder tests/test_decoder.cpp)
+    target_link_libraries(test_decoder PRIVATE model)
+    target_compile_options(test_decoder PRIVATE -Wall -Wextra -Wpedantic)
+    add_test(NAME decoder COMMAND test_decoder
+        "${CMAKE_SOURCE_DIR}/tests/fixtures/operators-v1/tiny-weights-v1.bin"
+        "${CMAKE_SOURCE_DIR}/tests/fixtures/decoder-v1/logits.bin")
+    set_tests_properties(decoder PROPERTIES LABELS "cpu;decoder")
+    add_test(NAME decoder_benchmark_workloads COMMAND bench_decoder
+        --weights "${CMAKE_SOURCE_DIR}/tests/fixtures/operators-v1/tiny-weights-v1.bin"
+        --expected "${CMAKE_SOURCE_DIR}/tests/fixtures/decoder-v1/logits.bin")
+    set_tests_properties(decoder_benchmark_workloads PROPERTIES LABELS "cpu;decoder")
     add_test(NAME scheduler_benchmark_workloads COMMAND bench_scheduler --self-test)
     set_tests_properties(scheduler_benchmark_workloads PROPERTIES LABELS "cpu;scheduler")
     add_test(NAME scheduler_benchmark_tools COMMAND "${Python3_EXECUTABLE}" "${CMAKE_SOURCE_DIR}/tests/test_scheduler_benchmark_tools.py")

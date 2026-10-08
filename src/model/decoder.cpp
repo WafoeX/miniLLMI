@@ -59,7 +59,7 @@ BlockBuildResult build_decoder_block(Graph& graph, const DecoderConfig& config,
     const auto found = graph.tensors().find(input);
     if (found == graph.tensors().end() || found->second.shape != Shape({sequence_length, config.hidden}) ||
         found->second.dtype != DType::FP32 || found->second.device != Device{} ||
-        !found->second.external || !found->second.external->is_contiguous())
+        (found->second.external && !found->second.external->is_contiguous()))
         throw std::invalid_argument("decoder block input must be contiguous logical CPU FP32 [sequence,hidden]");
 
     BlockBuilder build(graph, cursor, options);
@@ -133,6 +133,44 @@ BlockBuildResult build_decoder_block(Graph& graph, const DecoderConfig& config,
     const auto down = build.op(hidden_shape, OpCode::MATMUL, {activated, down_weight}, {}, true);
     const auto output = build.op(hidden_shape, OpCode::ADD, {attention_residual, down});
     return {output, first_node, static_cast<std::size_t>(cursor.next_node - first_node)};
+}
+
+DecoderGraph build_decoder_prefill(const DecoderConfig& config, const ParameterTable& parameters,
+                                   Tensor token_ids, DecoderBuildOptions options) {
+    const auto valid = config.validate();
+    if (!valid.ok()) throw std::invalid_argument(valid.message);
+    if (token_ids.dtype() != DType::INT32 || token_ids.device() != Device{} ||
+        token_ids.shape().rank() != 1 || !token_ids.is_contiguous())
+        throw std::invalid_argument("decoder token IDs must be contiguous CPU INT32 [sequence]");
+    const auto sequence_length = token_ids.shape()[0];
+    if (sequence_length <= 0 || sequence_length > config.max_seq)
+        throw std::out_of_range("decoder sequence length is outside (0,max_seq]");
+
+    DecoderGraph result;
+    result.sequence_length = sequence_length;
+    GraphCursor cursor;
+    BlockBuilder build(result.graph, cursor, options);
+    const auto ids = build.input("token_ids", token_ids);
+    const auto embedding_weight = build.input("token_embedding", parameters.at("token_embedding"));
+    auto hidden = build.op({sequence_length, config.hidden}, OpCode::EMBEDDING, {ids, embedding_weight});
+    for (std::int64_t layer = 0; layer < config.layers; ++layer) {
+        const auto block = build_decoder_block(result.graph, config, parameters, layer,
+                                               sequence_length, hidden, cursor, options);
+        hidden = block.output;
+    }
+    const auto final_norm_weight = build.input("final_norm", parameters.at("final_norm"));
+    const auto lm_head = build.input("lm_head", parameters.at("lm_head"));
+    const auto normalized = build.op({sequence_length, config.hidden}, OpCode::RMSNORM,
+                                     {hidden, final_norm_weight}, NormAttrs{config.rms_epsilon});
+    result.logits = build.op({sequence_length, config.vocab}, OpCode::MATMUL,
+                             {normalized, lm_head}, {}, true);
+    result.graph.add_output("logits", result.logits);
+    const auto frozen = result.graph.freeze();
+    if (!frozen.ok()) throw std::invalid_argument(frozen.message);
+    for (const auto& item : result.graph.nodes())
+        if (item.second.descriptor.code() == OpCode::MATMUL && item.second.descriptor.backend_hint())
+            ++result.projection_nodes;
+    return result;
 }
 
 } // namespace model

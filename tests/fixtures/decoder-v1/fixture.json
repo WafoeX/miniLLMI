@@ -10,14 +10,29 @@
     1,
     257
   ],
-  "block": 0,
-  "shape": [
-    4,
-    64
-  ],
-  "atol": 2e-06,
-  "rtol": 2e-05,
+  "block_fixture": {
+    "layer": 0,
+    "shape": [
+      4,
+      64
+    ]
+  },
+  "logits_fixture": {
+    "shape": [
+      4,
+      258
+    ]
+  },
+  "cpu_tolerance": {
+    "atol": 2e-06,
+    "rtol": 2e-05
+  },
+  "mixed_tolerance": {
+    "atol": 0.0002,
+    "rtol": 0.002
+  },
   "artifacts": {
-    "block0-output.bin": "6a0d659304ca15d5a3dee7ef0b476d7e8bbb16f1d2b584927d682b3a9cc37a7b"
+    "block0-output.bin": "6a0d659304ca15d5a3dee7ef0b476d7e8bbb16f1d2b584927d682b3a9cc37a7b",
+    "logits.bin": "40ceae20743fc9b7b96977ad6466f3fa9bcd6c96b967caea452e7e7751be920e"
   }
 }
