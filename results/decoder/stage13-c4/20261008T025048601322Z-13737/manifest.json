@@ -1,0 +1,288 @@
+{
+  "schema_version": 1,
+  "stage": "stage13-c4",
+  "run_id": "20261008T025048601322Z-13737",
+  "timestamp": "2026-10-08T02:50:48.601716+00:00",
+  "status": "passed",
+  "platform": "Linux-6.6.122+-x86_64-with-glibc2.39",
+  "python": "3.13.15 (main, Aug  6 2026, 11:06:22) [GCC 13.3.0]",
+  "source_before": {
+    "commit": "5a202a2d574379f03eb32fbab677bdb7223550c9",
+    "source_digest": "73632093aebfa5bedaa1d60d7063a1a3c0ebfcd8b5f1d35acbef39445318bcd4",
+    "source_dirty": false
+  },
+  "fixture": {
+    "model_contract_version": 1,
+    "generator": "scalar-python-explicit-fp32-v1",
+    "token_ids": [
+      256,
+      0,
+      1,
+      257
+    ],
+    "weights_sha256": "72b86c70ff0f1388665bf70c336081e5769f2e56e59d578a5c007aef234b2604",
+    "logits_sha256": "40ceae20743fc9b7b96977ad6466f3fa9bcd6c96b967caea452e7e7751be920e"
+  },
+  "scope": "deterministic tiny decoder CPU and T4 mixed-path conformance; latency diagnostic only",
+  "commands": [
+    {
+      "name": "gpu-query",
+      "argv": [
+        "nvidia-smi",
+        "--query-gpu=name,compute_cap,driver_version,memory.total",
+        "--format=csv,noheader,nounits"
+      ],
+      "log": "gpu-query.log",
+      "exit_code": 0
+    },
+    {
+      "name": "gpu-info",
+      "argv": [
+        "nvidia-smi",
+        "-q"
+      ],
+      "log": "gpu-info.log",
+      "exit_code": 0
+    },
+    {
+      "name": "nvcc-version",
+      "argv": [
+        "nvcc",
+        "--version"
+      ],
+      "log": "nvcc-version.log",
+      "exit_code": 0
+    },
+    {
+      "name": "cmake-version",
+      "argv": [
+        "cmake",
+        "--version"
+      ],
+      "log": "cmake-version.log",
+      "exit_code": 0
+    },
+    {
+      "name": "configure-testing",
+      "argv": [
+        "cmake",
+        "-S",
+        "/content/miniLLMI/miniLLMI",
+        "-B",
+        "/content/miniLLMI/miniLLMI/build-stage13-integration/20261008T025048601322Z-13737/testing",
+        "-DCMAKE_BUILD_TYPE=Release",
+        "-DENABLE_CUDA=ON",
+        "-DCMAKE_CUDA_ARCHITECTURES=75",
+        "-DBUILD_TESTING=ON",
+        "-DCMAKE_EXPORT_COMPILE_COMMANDS=ON"
+      ],
+      "log": "configure-testing.log",
+      "exit_code": 0
+    },
+    {
+      "name": "build-testing",
+      "argv": [
+        "cmake",
+        "--build",
+        "/content/miniLLMI/miniLLMI/build-stage13-integration/20261008T025048601322Z-13737/testing",
+        "--parallel",
+        "2"
+      ],
+      "log": "build-testing.log",
+      "exit_code": 0
+    },
+    {
+      "name": "configure-production",
+      "argv": [
+        "cmake",
+        "-S",
+        "/content/miniLLMI/miniLLMI",
+        "-B",
+        "/content/miniLLMI/miniLLMI/build-stage13-integration/20261008T025048601322Z-13737/production",
+        "-DCMAKE_BUILD_TYPE=Release",
+        "-DENABLE_CUDA=ON",
+        "-DCMAKE_CUDA_ARCHITECTURES=75",
+        "-DBUILD_TESTING=OFF",
+        "-DCMAKE_EXPORT_COMPILE_COMMANDS=ON"
+      ],
+      "log": "configure-production.log",
+      "exit_code": 0
+    },
+    {
+      "name": "build-production",
+      "argv": [
+        "cmake",
+        "--build",
+        "/content/miniLLMI/miniLLMI/build-stage13-integration/20261008T025048601322Z-13737/production",
+        "--parallel",
+        "2"
+      ],
+      "log": "build-production.log",
+      "exit_code": 0
+    },
+    {
+      "name": "ctest-all",
+      "argv": [
+        "ctest",
+        "--test-dir",
+        "/content/miniLLMI/miniLLMI/build-stage13-integration/20261008T025048601322Z-13737/testing",
+        "--output-on-failure"
+      ],
+      "log": "ctest-all.log",
+      "exit_code": 0
+    },
+    {
+      "name": "ctest-gpu",
+      "argv": [
+        "ctest",
+        "--test-dir",
+        "/content/miniLLMI/miniLLMI/build-stage13-integration/20261008T025048601322Z-13737/testing",
+        "--output-on-failure",
+        "-L",
+        "gpu"
+      ],
+      "log": "ctest-gpu.log",
+      "exit_code": 0
+    },
+    {
+      "name": "ctest-decoder",
+      "argv": [
+        "ctest",
+        "--test-dir",
+        "/content/miniLLMI/miniLLMI/build-stage13-integration/20261008T025048601322Z-13737/testing",
+        "--output-on-failure",
+        "-L",
+        "decoder"
+      ],
+      "log": "ctest-decoder.log",
+      "exit_code": 0
+    },
+    {
+      "name": "decoder-cpu",
+      "argv": [
+        "/content/miniLLMI/miniLLMI/build-stage13-integration/20261008T025048601322Z-13737/production/bench_decoder",
+        "--weights",
+        "/content/miniLLMI/miniLLMI/tests/fixtures/operators-v1/tiny-weights-v1.bin",
+        "--expected",
+        "/content/miniLLMI/miniLLMI/tests/fixtures/decoder-v1/logits.bin",
+        "--mode",
+        "cpu"
+      ],
+      "log": "decoder-cpu.log",
+      "exit_code": 0
+    },
+    {
+      "name": "decoder-mixed",
+      "argv": [
+        "/content/miniLLMI/miniLLMI/build-stage13-integration/20261008T025048601322Z-13737/production/bench_decoder",
+        "--weights",
+        "/content/miniLLMI/miniLLMI/tests/fixtures/operators-v1/tiny-weights-v1.bin",
+        "--expected",
+        "/content/miniLLMI/miniLLMI/tests/fixtures/decoder-v1/logits.bin",
+        "--mode",
+        "mixed"
+      ],
+      "log": "decoder-mixed.log",
+      "exit_code": 0
+    }
+  ],
+  "build_directory": "/content/miniLLMI/miniLLMI/build-stage13-integration/20261008T025048601322Z-13737",
+  "gpu": {
+    "name": "Tesla T4",
+    "compute_capability": "7.5",
+    "driver": "580.82.07",
+    "memory_mib": "15360"
+  },
+  "metrics": {
+    "cpu": {
+      "schema_version": 1,
+      "stage": "stage13-c4",
+      "mode": "cpu",
+      "commit": "5a202a2d574379f03eb32fbab677bdb7223550c9",
+      "source_digest": "73632093aebfa5bedaa1d60d7063a1a3c0ebfcd8b5f1d35acbef39445318bcd4",
+      "source_dirty": false,
+      "build_type": "Release",
+      "compiler": "GNU 13.3.0",
+      "cuda_compiler": "NVIDIA 13.0.88",
+      "cuda_architecture": "75",
+      "testing": false,
+      "cuda_enabled": true,
+      "sequence_length": 4,
+      "warmups": 3,
+      "samples": 10,
+      "prepare_ms": 9.428601,
+      "execute_median_ms": 2.661411,
+      "shape_change_end_to_end_median_ms": 12.266259,
+      "nodes": 185,
+      "dynamic_allocations": 115,
+      "execute_allocations": 0,
+      "peak_live_bytes": 11520,
+      "cpu_capacity_bytes": 12288,
+      "cuda_capacity_bytes": 0,
+      "copies": 0,
+      "copy_bytes": 0,
+      "backend_dispatches": 185,
+      "backend_switches": 0,
+      "correctness": "passed"
+    },
+    "mixed": {
+      "schema_version": 1,
+      "stage": "stage13-c4",
+      "mode": "mixed",
+      "commit": "5a202a2d574379f03eb32fbab677bdb7223550c9",
+      "source_digest": "73632093aebfa5bedaa1d60d7063a1a3c0ebfcd8b5f1d35acbef39445318bcd4",
+      "source_dirty": false,
+      "build_type": "Release",
+      "compiler": "GNU 13.3.0",
+      "cuda_compiler": "NVIDIA 13.0.88",
+      "cuda_architecture": "75",
+      "testing": false,
+      "cuda_enabled": true,
+      "sequence_length": 4,
+      "warmups": 3,
+      "samples": 10,
+      "prepare_ms": 31.964941,
+      "execute_median_ms": 3.979601,
+      "shape_change_end_to_end_median_ms": 34.778396,
+      "nodes": 242,
+      "logical_nodes": 187,
+      "cuda_projection_nodes": 21,
+      "inserted_copy_nodes": 55,
+      "dynamic_allocations": null,
+      "execute_allocations": 0,
+      "peak_live_bytes": 71200,
+      "cpu_capacity_bytes": 9216,
+      "cuda_capacity_bytes": 71232,
+      "copies": 97,
+      "copy_bytes": 474656,
+      "backend_dispatches": 172,
+      "backend_switches": 41,
+      "correctness": "passed"
+    }
+  },
+  "source_after": {
+    "commit": "5a202a2d574379f03eb32fbab677bdb7223550c9",
+    "source_digest": "73632093aebfa5bedaa1d60d7063a1a3c0ebfcd8b5f1d35acbef39445318bcd4",
+    "source_dirty": false
+  },
+  "artifact_sha256": {
+    "build-production.log": "319bf0acc7baf83a8b0890d109d09cc15e4e4e5a76424b447e98fd99013324c6",
+    "build-testing.log": "4b23994a57bf3dccba9661dcfcdc559f2baf97498d80cc2371d6e35553f679a7",
+    "cmake-version.log": "246a2f1394c1f89d947b498ec32196bac864589d0a4aa532c7990a6e011e9fa8",
+    "configure-production.log": "89618aa7e88def3866f0b99210310db996e7a1970e59125faf12784a266052f6",
+    "configure-testing.log": "62c07809479a7f58f7ac46bc36ffe7d958fe75d21b32c396f20ed3fda3d4f5b7",
+    "ctest-all.log": "68f3fc5271f554ac1c75fcc1bfcafbe39fe1f8d24f9257a8121d2204ddd48d4d",
+    "ctest-decoder.log": "e853fb8e7973c73ae623feb99e752a9f42b3ce15992b621eebd7196e73cb9394",
+    "ctest-gpu.log": "25a442e55458e32caabb8a2ec1b953046b9ee1c5d2bc9a4f6ea7955064549e70",
+    "decoder-cpu.log": "03b1ee716c6217856065678c1e0815026d0291d8ebf14713a0b0fdf633bc755e",
+    "decoder-mixed.log": "652ae668f78291c5afa6cccce0b49db7588fe881c47c0481662c52830ba4f452",
+    "gpu-info.log": "fe6bfbdb6071f5236c766d8b7bfa8a74bafb080f4a1252bcf0776f031e86faaf",
+    "gpu-query.log": "b42d04f9c05e3aeb9dbfbf40e71f68d17566e80b3dea48478f444a9d36ef7d0a",
+    "metrics.json": "047332408881bbd3ee360f1fce2b625838c891f8491c7e394d5e100868d67b7e",
+    "nvcc-version.log": "fc7ce0c80d28ed925fd490dc4e3915ce620fcf115f965189688c6f049243aad5",
+    "production-CMakeCache.txt": "03772ea238bf72f38278ee3c04bc86fffd8c266ead89b2b64f9ec13d781ba736",
+    "production-compile_commands.json": "f085afad0e5c58a92dc932226f1c849eaadc550a653e88b03b90ff03fe282303",
+    "testing-CMakeCache.txt": "9dc4118880d80fbc27ecef55f05a035e346c7aef2ba28951652fafcb236e14dd",
+    "testing-compile_commands.json": "0c5417c8b18610eb75a8eafdca1ec1aba34da45192820995fa0c843daffa9b4d"
+  }
+}
