@@ -16,14 +16,18 @@ SOURCE_COMMIT=29b2d58ec087dddc9cde922c2a948233def9c07e
 sudo apt-get update -qq
 sudo apt-get install -y -qq cmake build-essential
 
+# Keep all variables in this same %%bash cell; Colab does not persist them.
+set -euo pipefail
 # SSH-over-443 works on networks that block GitHub port 22.
 REPO=/content/miniLLMI
+SOURCE_COMMIT=29b2d58ec087dddc9cde922c2a948233def9c07e
 git clone ssh://git@ssh.github.com:443/WafoeX/miniLLMI.git "$REPO"
 cd "$REPO"
 git fetch origin feat/int8-stage16
+git cat-file -e "${SOURCE_COMMIT}^{commit}"
 git checkout --detach "$SOURCE_COMMIT"
-git status --short                 # must be empty
-git rev-parse HEAD                 # must equal $SOURCE_COMMIT
+test -z "$(git status --porcelain)"
+test "$(git rev-parse HEAD)" = "$SOURCE_COMMIT"
 nvidia-smi
 nvcc --version
 
@@ -35,8 +39,12 @@ cmake --build "$REPO/build-stage16-t4" -j"$(nproc)"
 ## Required tests
 
 ```bash
-# Define this in every independent %%bash cell; Colab does not retain `cd`.
+# Define and verify these in every independent %%bash cell.
+set -euo pipefail
 REPO=/content/miniLLMI
+SOURCE_COMMIT=29b2d58ec087dddc9cde922c2a948233def9c07e
+cd "$REPO"
+test "$(git rev-parse HEAD)" = "$SOURCE_COMMIT"
 ctest --test-dir "$REPO/build-stage16-t4" --output-on-failure \
   -R '^(quantization|model_file|model_loader|cuda_quantized_decoder)$'
 ctest --test-dir "$REPO/build-stage16-t4" --output-on-failure -L gpu
@@ -56,15 +64,24 @@ commit is a direct child of the tested source and changes only one unique result
 directory.
 
 ```bash
+# This is one self-contained cell: it fails before committing on a bad source
+# or failed test, and its result commit is a direct child of SOURCE_COMMIT.
+set -euo pipefail
 REPO=/content/miniLLMI
+SOURCE_COMMIT=29b2d58ec087dddc9cde922c2a948233def9c07e
 cd "$REPO"
+git fetch origin feat/int8-stage16
+git cat-file -e "${SOURCE_COMMIT}^{commit}"
+git checkout --detach "$SOURCE_COMMIT"
+test -z "$(git status --porcelain)"
+test "$(git rev-parse HEAD)" = "$SOURCE_COMMIT"
 RUN_ID="$(date -u +%Y%m%dT%H%M%SZ)-colab-stage16"
 git switch -c "results/stage16-c3-${RUN_ID}" "$SOURCE_COMMIT"
 RESULT_DIR="results/quant/stage16-c3/${RUN_ID}"
 mkdir -p "$RESULT_DIR"
 
 printf '%s\n' "$SOURCE_COMMIT" > "$RESULT_DIR/tested_commit.txt"
-git status --short > "$RESULT_DIR/source_status.txt"
+printf '\n' > "$RESULT_DIR/source_status.txt"
 nvidia-smi > "$RESULT_DIR/nvidia-smi.txt"
 nvcc --version > "$RESULT_DIR/nvcc-version.txt"
 cmake -S "$REPO" -B "$REPO/build-stage16-t4" -G 'Unix Makefiles' \
