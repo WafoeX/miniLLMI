@@ -1,8 +1,12 @@
-# mini-llm-runtime — Stage 13 accepted
+# mini-llm-runtime — Stage 15 accepted
 
-基于 C++17/CUDA 的推理引擎项目，**Stage 0–13 已通过各自必需验收项**。Stage 13 的 clean T4 C4 capture 保留完整 raw timing samples，已独立复核 source provenance、制品哈希、测试、构建隔离、fixture 和运行时计数；详见 [路线图](docs/roadmap.md)。已有统一 Tensor/shared Storage、backend-neutral 算子、冻结 DAG/顺序 executor、有界 trace、arena/生命周期内存规划、CPU backend/显式优化路径、CUDA storage/copy/GEMM、Nsight 对比及异构 scheduler。
+基于 C++17/CUDA 的推理引擎项目，**Stage 0–15 已通过各自必需验收项**。Stage 13 的 clean T4 C4 capture 保留完整 raw timing samples，已独立复核 source provenance、制品哈希、测试、构建隔离、fixture 和运行时计数；详见 [路线图](docs/roadmap.md)。已有统一 Tensor/shared Storage、backend-neutral 算子、冻结 DAG/顺序 executor、有界 trace、arena/生命周期内存规划、CPU backend/显式优化路径、CUDA storage/copy/GEMM、Nsight 对比及异构 scheduler。
 
-默认保留 **FP64 CPU reference math、dynamic allocation 与 CUDA v0**；Stage 0 与冻结 CPU 基线不改写。Stage 13 新增配置/21 个命名参数绑定、91-node decoder block 与 185-node 两层 no-cache prefill/logits 图；所有 attention/MLP 中间量均走原 graph/planner/backend 层。没有 tokenizer/model-file loader、KV Cache、自回归循环、量化、性能收益或语言质量声明；Stage 14–19 尚未实现。
+默认保留 **FP64 CPU reference math、dynamic allocation 与 CUDA v0**；Stage 0 与冻结 CPU 基线不改写。Stage 13 新增配置/21 个命名参数绑定、91-node decoder block 与 185-node 两层 no-cache prefill/logits 图；所有 attention/MLP 中间量均走原 graph/planner/backend 层。Stage 14 增加持久 KV cache；Stage 15 增加严格版本化模型容器、离线 fixture converter 和固定 byte tokenizer。没有自回归循环、量化、性能收益或语言质量声明；Stage 16–19 尚未实现。
+
+## Stage 15 验收（C1–C3 完成；C4 可选跳过）
+
+Stage 15 的严格 little-endian `MLLMRTF\0` v1 模型文件会在分配前检查 metadata、范围、canonical tensor schema、payload overlap/gap 和预算；加载后使用现有 `ParameterTable`/`Tensor`，不引入第二套运行时。提交的 21-tensor fixture 可 round-trip 回到 Stage 13 frozen logits。byte tokenizer 固定为 0..255 byte、BOS=256、EOS=257，保留任意 bytes；无效 UTF-8 仅在显示时替换。Release CPU **48/48** CTests 和 focused ASan+UBSan **3/3** 通过；本阶段没有 GPU 或性能 gate。详见 [model-file contract](docs/model_file.md)、[tokenizer contract](docs/tokenizer.md)、[Stage 15 report](docs/stage15_report.md) 与 [server procedure](docs/stage15_colab.md)。
 
 ## Stage 13 验收（C1–C4 完成）
 
