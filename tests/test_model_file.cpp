@@ -1,4 +1,5 @@
 #include "model/model_file.hpp"
+#include "model/quantization.hpp"
 
 #include <array>
 #include <cstdint>
@@ -6,6 +7,7 @@
 #include <filesystem>
 #include <fstream>
 #include <iostream>
+#include <map>
 #include <stdexcept>
 #include <string>
 #include <vector>
@@ -93,6 +95,63 @@ void require_rejected(Action&& action, const char* message) {
     }
     throw std::runtime_error(message);
 }
+
+ParameterTable deterministic_parameters(const DecoderConfig& config) {
+    std::map<std::string, runtime::Tensor> tensors;
+    for (const auto& spec : parameter_specs(config)) {
+        auto tensor = runtime::Tensor::allocate_cpu(spec.shape);
+        for (std::size_t index = 0; index < tensor.numel(); ++index)
+            tensor.data<float>()[index] = static_cast<float>(static_cast<int>(index % 29) - 14) / 29.F;
+        tensors.emplace(spec.name, std::move(tensor));
+    }
+    return ParameterTable(config, std::move(tensors));
+}
+
+void test_v2_quantized_container(const std::filesystem::path& root) {
+    const auto path = root / "quantized-v2.mllm";
+    const auto parameters = deterministic_parameters(DecoderConfig::tiny());
+    write_quantized_model_file(path.string(), parameters);
+    const auto metadata = inspect_model_file(path.string());
+    require(metadata.format_version == MODEL_FILE_VERSION_V2, "V2 format version");
+    std::size_t eligible_fp32_bytes = 0;
+    std::size_t quantized_payload_bytes = 0;
+    std::size_t quantized_count = 0;
+    for (const auto& descriptor : metadata.tensors) {
+        const auto spec = ParameterSpec{descriptor.name, descriptor.shape};
+        if (is_weight_only_int8_eligible(spec)) {
+            require(descriptor.dtype == runtime::DType::INT8 && descriptor.quantization &&
+                        descriptor.quantization->version == INT8_QUANTIZATION_VERSION &&
+                        descriptor.quantization->output_axis == 1 &&
+                        descriptor.quantization->scales_dtype == runtime::DType::FP32 &&
+                        descriptor.quantization->scales_shape == runtime::Shape({descriptor.shape[1]}),
+                    "eligible V2 INT8 descriptor");
+            eligible_fp32_bytes += runtime::nbytes(descriptor.shape, runtime::DType::FP32);
+            quantized_payload_bytes += descriptor.nbytes + descriptor.quantization->scales_nbytes;
+            ++quantized_count;
+        } else {
+            require(descriptor.dtype == runtime::DType::FP32 && !descriptor.quantization,
+                    "ineligible tensor must remain FP32");
+        }
+    }
+    require(quantized_count != 0 && quantized_payload_bytes * 100 <= eligible_fp32_bytes * 35,
+            "INT8 plus scale payload compression gate");
+
+    const auto corrupted = root / "quantized-corrupt.mllm";
+    std::filesystem::copy_file(path, corrupted, std::filesystem::copy_options::overwrite_existing);
+    const auto first_quantized = std::find_if(metadata.tensors.begin(), metadata.tensors.end(),
+        [](const ModelTensorMetadata& descriptor) { return descriptor.quantization.has_value(); });
+    require(first_quantized != metadata.tensors.end(), "V2 needs at least one quantized tensor");
+    {
+        std::fstream output(corrupted, std::ios::binary | std::ios::in | std::ios::out);
+        output.seekg(static_cast<std::streamoff>(first_quantized->offset_bytes));
+        char value = 0;
+        output.read(&value, 1);
+        output.seekp(static_cast<std::streamoff>(first_quantized->offset_bytes));
+        value ^= 1;
+        output.write(&value, 1);
+    }
+    require_rejected([&] { (void)inspect_model_file(corrupted.string()); }, "V2 checksum mismatch accepted");
+}
 } // namespace
 
 int main() {
@@ -104,9 +163,11 @@ int main() {
         const auto metadata = inspect_model_file(valid.string());
         require(metadata.config.vocab == 258 && metadata.vocabulary_version == BYTE_VOCABULARY_VERSION,
                 "valid header metadata");
-        require(metadata.tensors.size() == parameter_specs(metadata.config).size() &&
+        require(metadata.format_version == MODEL_FILE_VERSION_V1 &&
+                    metadata.tensors.size() == parameter_specs(metadata.config).size() &&
                     metadata.payload_bytes == parameter_bytes(metadata.config),
                 "valid canonical tensor metadata");
+        test_v2_quantized_container(root);
 
         const auto truncated = root / "truncated.mllm";
         write_container(truncated);
@@ -133,7 +194,7 @@ int main() {
         require_rejected([&] { (void)inspect_model_file(valid.string(), {1024}); }, "allocation budget ignored");
 
         std::filesystem::remove_all(root);
-        std::cout << "Stage 15 C1 versioned model-file validation: PASS\n";
+        std::cout << "Stage 15 C1 and Stage 16 C2 versioned model-file validation: PASS\n";
         return 0;
     } catch (const std::exception& error) {
         std::filesystem::remove_all(root);
