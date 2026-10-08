@@ -1,0 +1,7 @@
+[  0%] Built target refresh_provenance
+[ 15%] Built target stage0_common
+[ 30%] Built target test_common
+[ 53%] Built target stage0_cuda
+[ 69%] Built target gpu_info
+[ 84%] Built target bench_gemm
+[100%] Built target test_cuda_gemm
