@@ -4,7 +4,7 @@ set -euo pipefail
 
 usage() {
   cat <<'EOF'
-usage: scripts/run_stage18_evaluation.sh [--tag v1.0-rc3] [--run-id ID] [--jobs N] [--profile-artifact-location URI]
+usage: scripts/run_stage18_evaluation.sh [--tag v1.0-rc4] [--run-id ID] [--jobs N] [--profile-artifact-location URI]
 
 Runs the required CPU/T4 functional matrix and final performance/memory suite,
 then generates a report solely by validating the captured raw artifacts. It
@@ -12,7 +12,7 @@ must be run on a single visible Tesla T4 from a clean RC checkout.
 EOF
 }
 
-TAG=v1.0-rc3
+TAG=v1.0-rc4
 RUN_ID="$(date -u +%Y%m%dT%H%M%SZ)-stage18"
 JOBS=2
 PROFILE_ARTIFACT_LOCATION=""

@@ -182,7 +182,7 @@ class SchedulerBenchmarkTools(unittest.TestCase):
             with self.assertRaises(ValueError):
                 analyzer.analyze(root, {**SOURCE, "source_dirty": True})
 
-    def mock_capture(self, fail=None, changed=False, gpu="Tesla T4, 7.5, mock-driver, 15360\n", cpu_probe=False, modern_ctest=False, late_change=False):
+    def mock_capture(self, fail=None, changed=False, gpu="Tesla T4, 7.5, mock-driver, 15360\n", cpu_probe=False, modern_ctest=False, ctest_count=38, late_change=False):
         with tempfile.TemporaryDirectory() as temp:
             root = Path(temp)
             def run(argv, cwd, stdout, stderr, check):
@@ -195,7 +195,7 @@ class SchedulerBenchmarkTools(unittest.TestCase):
                         data["cuda_enabled"] = False
                     stdout.write(json.dumps(data))
                 elif label == "ctest":
-                    stdout.write("100% tests passed out of 38\n" if modern_ctest else "100% tests passed, 0 tests failed out of 38\n")
+                    stdout.write(f"100% tests passed out of {ctest_count}\n" if modern_ctest else f"100% tests passed, 0 tests failed out of {ctest_count}\n")
                 else:
                     stdout.write("mock C4 command, not real evidence\n")
                 if label.startswith("configure-"):
@@ -221,12 +221,16 @@ class SchedulerBenchmarkTools(unittest.TestCase):
             for name, sha in manifest["artifact_sha256"].items():
                 self.assertEqual(hashlib.sha256((path.parent / name).read_bytes()).hexdigest(), sha)
             if manifest["status"] == "passed":
-                self.assertEqual(analyzer.verify(path.parent)["correctness"], "passed")
-                first = next(iter(manifest["artifact_sha256"]))
-                manifest["artifact_sha256"].pop(first)
-                dump(path, manifest)
-                with self.assertRaises(ValueError):
-                    analyzer.verify(path.parent)
+                if ctest_count < 38:
+                    with self.assertRaises(ValueError):
+                        analyzer.verify(path.parent)
+                else:
+                    self.assertEqual(analyzer.verify(path.parent)["correctness"], "passed")
+                    first = next(iter(manifest["artifact_sha256"]))
+                    manifest["artifact_sha256"].pop(first)
+                    dump(path, manifest)
+                    with self.assertRaises(ValueError):
+                        analyzer.verify(path.parent)
             return manifest
 
     def test_runner_success(self):
@@ -234,6 +238,8 @@ class SchedulerBenchmarkTools(unittest.TestCase):
         self.assertEqual(len(manifest["commands"]), 14)
         self.assertEqual(manifest["status"], "passed")
         self.assertEqual(self.mock_capture(modern_ctest=True)["status"], "passed")
+        self.assertEqual(self.mock_capture(modern_ctest=True, ctest_count=60)["status"], "passed")
+        self.assertEqual(self.mock_capture(ctest_count=37)["status"], "passed")
 
     def test_runner_failures_retained(self):
         for label in ("build-testing", "ctest", "probe", "paired-2"):

@@ -238,8 +238,16 @@ def verify(directory):
     if set(manifest["artifact_sha256"]) != files:
         raise ValueError("incomplete artifact hash coverage")
     required = {name + ".log" for name in COMMANDS} | {"testing-CMakeCache.txt", "production-CMakeCache.txt", "testing-compile_commands.json", "production-compile_commands.json", "analysis.json", "scheduler.csv", "report.md"}
-    if not required <= files or not re.search(r"100% tests passed(?:, 0 tests failed)? out of 38(?:\D|$)", (directory / "ctest.log").read_text()):
-        raise ValueError("missing build metadata or full fresh 38-test suite")
+    ctest = re.search(r"100% tests passed(?:, 0 tests failed)? out of ([1-9][0-9]*)(?:\D|$)",
+                      (directory / "ctest.log").read_text())
+    if not required <= files or ctest is None:
+        raise ValueError("missing build metadata or full fresh CTest suite")
+    try:
+        ctest_count = int(ctest.group(1))
+    except (TypeError, ValueError) as error:
+        raise ValueError("invalid CTest count") from error
+    if ctest_count < 38:
+        raise ValueError("missing build metadata or full fresh CTest suite")
     for name, sha in manifest["artifact_sha256"].items():
         if hashlib.sha256((directory / name).read_bytes()).hexdigest() != sha:
             raise ValueError("artifact hash mismatch: " + name)

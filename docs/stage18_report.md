@@ -2,19 +2,19 @@
 
 **Status: C1 frozen; C2–C4 await the required clean Tesla T4 capture.** This
 page is the release contract, not a performance-result substitution. The
-annotated source tag `v1.0-rc3` is immutable; resolve its exact source identity
-with `git rev-parse v1.0-rc3^{commit}` and its tree digest with
+annotated source tag `v1.0-rc4` is immutable; resolve its exact source identity
+with `git rev-parse v1.0-rc4^{commit}` and its tree digest with
 `python3 tools/provenance.py --root .` in a clean checkout.
 
 ## C1 — frozen contract
 
-The `v1.0-rc3` tagged source contains only the stable runtime path and the release
+The `v1.0-rc4` tagged source contains only the stable runtime path and the release
 orchestration/validator. It retains the Stage 0 naive SGEMM, FP64 CPU reference
 math, dynamic allocation default, CUDA V0 default, and ordinary graph →
 scheduler → backend execution. The new release runner does not create an
 alternate tensor, allocator, scheduler, model, or CUDA dispatch path.
 
-`v1.0-rc3` has these immutable controls:
+`v1.0-rc4` has these immutable controls:
 
 | Area | Required control |
 |---|---|
@@ -41,8 +41,8 @@ artifacts; performance numbers must never be typed into a report by hand.
 GPU-backed functional validation and final performance claims require the T4;
 local CPU results are not a substitute. Run the exact procedure in
 [the Stage 18 Colab guide](stage18_colab.md). The resulting branch must be a
-direct child of `v1.0-rc3` and change only its unique
-`results/release/v1.0-rc3/<run-id>/` directory. Preserve a failing capture as
+direct child of `v1.0-rc4` and change only its unique
+`results/release/v1.0-rc4/<run-id>/` directory. Preserve a failing capture as
 well; any failed/inconclusive required gate blocks release completion.
 
 ## Declared optional skips
