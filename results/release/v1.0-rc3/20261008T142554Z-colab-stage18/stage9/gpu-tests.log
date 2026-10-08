@@ -1,0 +1,31 @@
+Internal ctest changing into directory: /content/miniLLMI-stage18/build-cuda-stage9/20261008T144209995859Z-15134
+Test project /content/miniLLMI-stage18/build-cuda-stage9/20261008T144209995859Z-15134
+    Start 17: scheduler_benchmark_workloads
+1/8 Test #17: scheduler_benchmark_workloads ....   Passed    0.48 sec
+    Start 55: cuda_transformer_ops
+2/8 Test #55: cuda_transformer_ops .............   Passed    0.38 sec
+    Start 56: cuda_scheduler
+3/8 Test #56: cuda_scheduler ...................   Passed    0.39 sec
+    Start 57: cuda_decoder
+4/8 Test #57: cuda_decoder .....................   Passed    0.43 sec
+    Start 58: cuda_quantized_decoder
+5/8 Test #58: cuda_quantized_decoder ...........   Passed    0.42 sec
+    Start 59: cuda_kv_decoder
+6/8 Test #59: cuda_kv_decoder ..................   Passed    0.46 sec
+    Start 60: cuda_backend
+7/8 Test #60: cuda_backend .....................   Passed    0.36 sec
+    Start 61: cuda_gemm
+8/8 Test #61: cuda_gemm ........................   Passed    0.39 sec
+
+100% tests passed, 0 tests failed out of 8
+
+Label Time Summary:
+backend        =   0.36 sec*proc (1 test)
+decoder        =   1.32 sec*proc (3 tests)
+gpu            =   3.32 sec*proc (8 tests)
+kv             =   0.46 sec*proc (1 test)
+quant          =   0.42 sec*proc (1 test)
+scheduler      =   0.87 sec*proc (2 tests)
+transformer    =   0.38 sec*proc (1 test)
+
+Total Test time (real) =   3.33 sec

@@ -1,0 +1,2 @@
+/usr/bin/ar qc libruntime_cuda.a CMakeFiles/runtime_cuda.dir/backend/cuda/cuda_backend.cu.o
+/usr/bin/ranlib libruntime_cuda.a

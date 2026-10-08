@@ -1,0 +1,15 @@
+[gpu-query] nvidia-smi --query-gpu=name,compute_cap,driver_version,memory.total --format=csv,noheader,nounits
+[gpu-info] nvidia-smi -q
+[nvcc-version] nvcc --version
+[cmake-version] cmake --version
+[configure-testing] cmake -S /content/miniLLMI-stage18 -B /content/miniLLMI-stage18/build-stage11-benchmark/20261008T152318382193Z-29601/testing -DCMAKE_BUILD_TYPE=Release -DENABLE_CUDA=ON -DCMAKE_CUDA_ARCHITECTURES=75 -DCMAKE_EXPORT_COMPILE_COMMANDS=ON -DBUILD_TESTING=ON
+[build-testing] cmake --build /content/miniLLMI-stage18/build-stage11-benchmark/20261008T152318382193Z-29601/testing --parallel 2
+[ctest] ctest --test-dir /content/miniLLMI-stage18/build-stage11-benchmark/20261008T152318382193Z-29601/testing --output-on-failure
+[configure-production] cmake -S /content/miniLLMI-stage18 -B /content/miniLLMI-stage18/build-stage11-benchmark/20261008T152318382193Z-29601/production -DCMAKE_BUILD_TYPE=Release -DENABLE_CUDA=ON -DCMAKE_CUDA_ARCHITECTURES=75 -DCMAKE_EXPORT_COMPILE_COMMANDS=ON -DBUILD_TESTING=OFF
+[build-production] cmake --build /content/miniLLMI-stage18/build-stage11-benchmark/20261008T152318382193Z-29601/production --parallel 2
+[probe] /content/miniLLMI-stage18/build-stage11-benchmark/20261008T152318382193Z-29601/production/bench_scheduler --probe
+[self-test] /content/miniLLMI-stage18/build-stage11-benchmark/20261008T152318382193Z-29601/production/bench_scheduler --self-test
+[paired-1] /content/miniLLMI-stage18/build-stage11-benchmark/20261008T152318382193Z-29601/production/bench_scheduler --output /content/miniLLMI-stage18/results/scheduler/stage11-c4/20261008T152318382193Z-29601/repeat-1 --repeat 1 --order manual,automatic
+[paired-2] /content/miniLLMI-stage18/build-stage11-benchmark/20261008T152318382193Z-29601/production/bench_scheduler --output /content/miniLLMI-stage18/results/scheduler/stage11-c4/20261008T152318382193Z-29601/repeat-2 --repeat 2 --order automatic,manual
+[paired-3] /content/miniLLMI-stage18/build-stage11-benchmark/20261008T152318382193Z-29601/production/bench_scheduler --output /content/miniLLMI-stage18/results/scheduler/stage11-c4/20261008T152318382193Z-29601/repeat-3 --repeat 3 --order manual,automatic
+result directory: /content/miniLLMI-stage18/results/scheduler/stage11-c4/20261008T152318382193Z-29601

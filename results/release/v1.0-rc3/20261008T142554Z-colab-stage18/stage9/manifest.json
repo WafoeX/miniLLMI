@@ -1,0 +1,358 @@
+{
+  "schema_version": 1,
+  "scope": "Stage 9 T4 paired v0/v1 tiled/cuBLAS correctness and performance; no Nsight claim",
+  "run_id": "20261008T144209995859Z-15134",
+  "timestamp": "2026-10-08T14:42:09.995859+00:00",
+  "source": {
+    "commit": "3ab74f4ecf451ac6c2c083b5c7d5b8f625792172",
+    "source_digest": "067bb4d80b393b8ed3245f352dd36203d4abf30b7d7fecb1661f3e18efae1c33",
+    "source_dirty": false
+  },
+  "host": "d13f53f2c06e",
+  "platform": "Linux-6.6.122+-x86_64-with-glibc2.39",
+  "machine": "x86_64",
+  "configuration": {
+    "sizes": [
+      512,
+      1024,
+      2048,
+      4096
+    ],
+    "warmup": 10,
+    "iterations": 50,
+    "seed": 42,
+    "atol": 0.001,
+    "rtol": 0.001,
+    "orders": [
+      "v0,v1,cublas",
+      "v1,v0,cublas",
+      "v0,v1,cublas"
+    ],
+    "candidate": "sgemm_v1_tiled",
+    "baseline": "sgemm_v0_naive",
+    "cpu_reference": "single-thread-fp64-ijk",
+    "reference_cache": "fresh-per-run; reused only across paired repetitions"
+  },
+  "commands": [
+    {
+      "label": "nvidia-smi-before",
+      "argv": [
+        "nvidia-smi",
+        "--query-gpu=name,uuid,compute_cap",
+        "--format=csv,noheader"
+      ],
+      "log": "nvidia-smi-before.log",
+      "exit_code": 0
+    },
+    {
+      "label": "nvcc-version",
+      "argv": [
+        "nvcc",
+        "--version"
+      ],
+      "log": "nvcc-version.log",
+      "exit_code": 0
+    },
+    {
+      "label": "configure",
+      "argv": [
+        "cmake",
+        "-S",
+        "/content/miniLLMI-stage18",
+        "-B",
+        "/content/miniLLMI-stage18/build-cuda-stage9/20261008T144209995859Z-15134",
+        "-DCMAKE_BUILD_TYPE=Release",
+        "-DENABLE_CUDA=ON",
+        "-DCMAKE_CUDA_ARCHITECTURES=75",
+        "-DBUILD_TESTING=ON"
+      ],
+      "log": "configure.log",
+      "exit_code": 0
+    },
+    {
+      "label": "build",
+      "argv": [
+        "cmake",
+        "--build",
+        "/content/miniLLMI-stage18/build-cuda-stage9/20261008T144209995859Z-15134",
+        "--parallel",
+        "2"
+      ],
+      "log": "build.log",
+      "exit_code": 0
+    },
+    {
+      "label": "gpu-tests",
+      "argv": [
+        "ctest",
+        "--test-dir",
+        "/content/miniLLMI-stage18/build-cuda-stage9/20261008T144209995859Z-15134",
+        "--output-on-failure",
+        "-L",
+        "gpu"
+      ],
+      "log": "gpu-tests.log",
+      "exit_code": 0
+    },
+    {
+      "label": "gpu-info",
+      "argv": [
+        "/content/miniLLMI-stage18/build-cuda-stage9/20261008T144209995859Z-15134/gpu_info"
+      ],
+      "log": "gpu-info.log",
+      "exit_code": 0
+    },
+    {
+      "label": "benchmark-0",
+      "argv": [
+        "/content/miniLLMI-stage18/build-cuda-stage9/20261008T144209995859Z-15134/bench_gemm",
+        "--experiment",
+        "stage9",
+        "--kernel",
+        "all",
+        "--order",
+        "v0,v1,cublas",
+        "--sizes",
+        "512,1024,2048,4096",
+        "--warmup",
+        "10",
+        "--iterations",
+        "50",
+        "--seed",
+        "42",
+        "--atol",
+        "0.001",
+        "--rtol",
+        "0.001",
+        "--run-id",
+        "20261008T144209995859Z-15134-r0",
+        "--raw-dir",
+        "/content/miniLLMI-stage18/results/gemm/stage9/20261008T144209995859Z-15134/raw/repeat-0",
+        "--csv",
+        "/content/miniLLMI-stage18/results/gemm/stage9/20261008T144209995859Z-15134/repeat-0.csv",
+        "--reference-cache-dir",
+        "/content/miniLLMI-stage18/results/gemm/stage9/20261008T144209995859Z-15134/reference-cache"
+      ],
+      "log": "benchmark-0.log",
+      "exit_code": 0
+    },
+    {
+      "label": "benchmark-1",
+      "argv": [
+        "/content/miniLLMI-stage18/build-cuda-stage9/20261008T144209995859Z-15134/bench_gemm",
+        "--experiment",
+        "stage9",
+        "--kernel",
+        "all",
+        "--order",
+        "v1,v0,cublas",
+        "--sizes",
+        "512,1024,2048,4096",
+        "--warmup",
+        "10",
+        "--iterations",
+        "50",
+        "--seed",
+        "42",
+        "--atol",
+        "0.001",
+        "--rtol",
+        "0.001",
+        "--run-id",
+        "20261008T144209995859Z-15134-r1",
+        "--raw-dir",
+        "/content/miniLLMI-stage18/results/gemm/stage9/20261008T144209995859Z-15134/raw/repeat-1",
+        "--csv",
+        "/content/miniLLMI-stage18/results/gemm/stage9/20261008T144209995859Z-15134/repeat-1.csv",
+        "--reference-cache-dir",
+        "/content/miniLLMI-stage18/results/gemm/stage9/20261008T144209995859Z-15134/reference-cache"
+      ],
+      "log": "benchmark-1.log",
+      "exit_code": 0
+    },
+    {
+      "label": "benchmark-2",
+      "argv": [
+        "/content/miniLLMI-stage18/build-cuda-stage9/20261008T144209995859Z-15134/bench_gemm",
+        "--experiment",
+        "stage9",
+        "--kernel",
+        "all",
+        "--order",
+        "v0,v1,cublas",
+        "--sizes",
+        "512,1024,2048,4096",
+        "--warmup",
+        "10",
+        "--iterations",
+        "50",
+        "--seed",
+        "42",
+        "--atol",
+        "0.001",
+        "--rtol",
+        "0.001",
+        "--run-id",
+        "20261008T144209995859Z-15134-r2",
+        "--raw-dir",
+        "/content/miniLLMI-stage18/results/gemm/stage9/20261008T144209995859Z-15134/raw/repeat-2",
+        "--csv",
+        "/content/miniLLMI-stage18/results/gemm/stage9/20261008T144209995859Z-15134/repeat-2.csv",
+        "--reference-cache-dir",
+        "/content/miniLLMI-stage18/results/gemm/stage9/20261008T144209995859Z-15134/reference-cache"
+      ],
+      "log": "benchmark-2.log",
+      "exit_code": 0
+    },
+    {
+      "label": "nvidia-smi-after",
+      "argv": [
+        "nvidia-smi",
+        "--query-gpu=name,uuid,compute_cap",
+        "--format=csv,noheader"
+      ],
+      "log": "nvidia-smi-after.log",
+      "exit_code": 0
+    },
+    {
+      "label": "analyze",
+      "argv": [
+        "/usr/bin/python3",
+        "/content/miniLLMI-stage18/tools/analyze_cuda_gemm.py",
+        "/content/miniLLMI-stage18/results/gemm/stage9/20261008T144209995859Z-15134"
+      ],
+      "log": "analyze.log",
+      "exit_code": 0
+    }
+  ],
+  "measurements": [
+    {
+      "repeat": 0,
+      "order": "v0,v1,cublas",
+      "raw_dir": "raw/repeat-0",
+      "csv": "repeat-0.csv",
+      "run_id": "20261008T144209995859Z-15134-r0"
+    },
+    {
+      "repeat": 1,
+      "order": "v1,v0,cublas",
+      "raw_dir": "raw/repeat-1",
+      "csv": "repeat-1.csv",
+      "run_id": "20261008T144209995859Z-15134-r1"
+    },
+    {
+      "repeat": 2,
+      "order": "v0,v1,cublas",
+      "raw_dir": "raw/repeat-2",
+      "csv": "repeat-2.csv",
+      "run_id": "20261008T144209995859Z-15134-r2"
+    }
+  ],
+  "status": "passed",
+  "gpu_name": "Tesla T4",
+  "reference_cache": {
+    "path": "reference-cache",
+    "files": [
+      "reference-cache/1024x1024x1024-seed42-67c6933e2adeaecc.f32",
+      "reference-cache/2048x2048x2048-seed42-451256a4b3d1d959.f32",
+      "reference-cache/4096x4096x4096-seed42-a92f5e0931254f02.f32",
+      "reference-cache/512x512x512-seed42-3760d84e5a172613.f32"
+    ]
+  },
+  "source_after": {
+    "commit": "3ab74f4ecf451ac6c2c083b5c7d5b8f625792172",
+    "source_digest": "067bb4d80b393b8ed3245f352dd36203d4abf30b7d7fecb1661f3e18efae1c33",
+    "source_dirty": false
+  },
+  "artifact_sha256": {
+    "repeat-0.csv": "1c042bb17d4227af30abfa16db97dc25aed8af4c18f0fbf0b0572681578fabba",
+    "build.log": "52900bb28dfb2662ec6758cc7efb4328ccf06f921a7e15a6cc30bb8e3e1659ac",
+    "benchmark-1.log": "24f874957dae9c72f92fed6ba3793baa42ed949e969eca5da1ea0414fdecb2a9",
+    "nvidia-smi-before.log": "8900eb1391bf6e2a574ffd3b28a258b48b75012d866245dc366e6f9a9d223d7b",
+    "repeat-1.csv": "06716874a71211c9d73540261ac16da450131a943578327a52f3c04895e1cac2",
+    "gpu-tests.log": "9cf085a2fc38129eef21737df98c7ceee7fcf7719e1a58bd51810f95bfccad55",
+    "benchmark-0.log": "2ee39880f64ee27413e5820877691f4d25485b848f4f05c0a780e1d73d9ca47a",
+    "nvidia-smi-after.log": "8900eb1391bf6e2a574ffd3b28a258b48b75012d866245dc366e6f9a9d223d7b",
+    "nvcc-version.log": "fc7ce0c80d28ed925fd490dc4e3915ce620fcf115f965189688c6f049243aad5",
+    "analysis.json": "efe9b7fbdcf3ad99d41a09b6f1eb85a5bfd37076bbd5a1229c4819720c78afb8",
+    "repeat-2.csv": "0e53adc82f019924d5c938f46142106229a75d17bf37f3fb38f82ecad5970f2f",
+    "configure.log": "e3ab27e310be7d4aae3c3af2f04178c7d61474289701994a146f332b612cf6a4",
+    "gpu-info.log": "dac52326dd0980c28e8f5e03d64fd62cab8795ce07c60f98025cf9416ca157f3",
+    "summary.md": "f04c8d45acb28f0941f863511b55e900024ed8c787c8025fbb10d41c922bbf00",
+    "benchmark-2.log": "f0e101c641f98f37ebd45252f567fdc70cc14426079e448ebc573776d7a11923",
+    "analyze.log": "26a8ba2b04f2ef9095f317a5767e4341dae51b452afcbadcd3be754f3e6efebb",
+    "reference-cache/2048x2048x2048-seed42-451256a4b3d1d959.f32": "bc7aea84a79b35494ac1b337c875c150cdb0bbec39bb8c762527f89b04217e9a",
+    "reference-cache/1024x1024x1024-seed42-67c6933e2adeaecc.f32": "326ec877001230cf81c4252d6327cbf257b72e0481b71d1006b92436e3826921",
+    "reference-cache/512x512x512-seed42-3760d84e5a172613.f32": "ec6577ec84044e08373ef80d5af86bcc1f3909c219db5fae8b43e0365c109fbd",
+    "reference-cache/4096x4096x4096-seed42-a92f5e0931254f02.f32": "cf2bfa2887b18f59ab2d964c8fe8a8db86cf4f70531c5ee9360a9d65bbf31f76",
+    "raw/repeat-0/completed.txt": "1394286334639fac5ce7e8601a27a5f227072dd48a0e5813a78d38c8206d952d",
+    "raw/repeat-0/build_info.json": "94ba0fa397fd24371ccf0d94ee2e1b2cb3245b134a7231bcbffc6feb0bdeb53f",
+    "raw/repeat-0/argv.txt": "3432102656267abac0a74084a31af93e5a2a1a15b4966523501b5867f66bd2f9",
+    "raw/repeat-2/completed.txt": "1394286334639fac5ce7e8601a27a5f227072dd48a0e5813a78d38c8206d952d",
+    "raw/repeat-2/build_info.json": "94ba0fa397fd24371ccf0d94ee2e1b2cb3245b134a7231bcbffc6feb0bdeb53f",
+    "raw/repeat-2/argv.txt": "fc63965532a161aa39f7684d1fd66041b38fa76f4c464274b70ab6ab35398502",
+    "raw/repeat-1/completed.txt": "1394286334639fac5ce7e8601a27a5f227072dd48a0e5813a78d38c8206d952d",
+    "raw/repeat-1/build_info.json": "94ba0fa397fd24371ccf0d94ee2e1b2cb3245b134a7231bcbffc6feb0bdeb53f",
+    "raw/repeat-1/argv.txt": "adaa6b35d21cd2a80cee3c7ae2765f899b6cbc01584fddbf511d5373d29c281b",
+    "raw/repeat-1/512x512x512/sgemm_v0_naive_samples.csv": "9ac2d13820597a194a1540569df213813dee11400acc00c03ff386cd9c7337a9",
+    "raw/repeat-1/512x512x512/summary.csv": "dee2f5cd6f9c648bdcb36b57034b46de18d35babbfefb1e26980f9dc2c7afc52",
+    "raw/repeat-1/512x512x512/correctness.csv": "3959f5231ccc71c2851cd6a3fd51e47696ad797e55b4aa9237c5c788bcd8f3e5",
+    "raw/repeat-1/512x512x512/cublas_samples.csv": "2f36543ac7bb112b01c3e6b9dfd398db188b73357856be5c95f42b93429e5247",
+    "raw/repeat-1/512x512x512/sgemm_v1_tiled_samples.csv": "c6afc39043e63af9054793c7dfcce7f177ebb561da9420595b1b24ecbe39fd0c",
+    "raw/repeat-1/2048x2048x2048/sgemm_v0_naive_samples.csv": "3b3a630b48df2d762f93567bc189665fd41c63cdf568dc11f141188c474aba1a",
+    "raw/repeat-1/2048x2048x2048/summary.csv": "57cd92777fdf7fdd59f76c31356937c184dde4332d7f47975355a70b83e196a2",
+    "raw/repeat-1/2048x2048x2048/correctness.csv": "92188fe0b3ef754eff2705cb4fde526bec12659895262cad76a4199fb6844f6b",
+    "raw/repeat-1/2048x2048x2048/cublas_samples.csv": "668133b69cad4a45978f78495161d973da8f53f74eb704b0382654bc04395eef",
+    "raw/repeat-1/2048x2048x2048/sgemm_v1_tiled_samples.csv": "bb8b1b45d8c06e00debbd2d379f0eb0846a7e0a15bad1a94eda4698e4dc0437e",
+    "raw/repeat-1/4096x4096x4096/sgemm_v0_naive_samples.csv": "a8e0997d16b567a848a640c29c2488a2ff3a3ad5d43a076f929ccb7141f05ab3",
+    "raw/repeat-1/4096x4096x4096/summary.csv": "c385d56ccadcb01329fac21c962b2a301192311c0340f7d70c154308fc321f88",
+    "raw/repeat-1/4096x4096x4096/correctness.csv": "a1b69f0d3412fcbf6758401037d4dd6405cca38f64af042c8e1ac1342216e8ab",
+    "raw/repeat-1/4096x4096x4096/cublas_samples.csv": "aa86eb499754532667dcfa6b898f48cd44d7c36c346e78f3e15ef39aab568c66",
+    "raw/repeat-1/4096x4096x4096/sgemm_v1_tiled_samples.csv": "4f21b5fd075de9ff7402d015dd61891ef9471c5c8831ae038b3011fa6669355d",
+    "raw/repeat-1/1024x1024x1024/sgemm_v0_naive_samples.csv": "e13246970a8f2fb3f226f84a0647f92f4c2f01b3f982d88b996b2d3d96410122",
+    "raw/repeat-1/1024x1024x1024/summary.csv": "555356ed5fa37a27f1148c8638badd6c68158b8f84eaff006e193981d5484714",
+    "raw/repeat-1/1024x1024x1024/correctness.csv": "039b64c1b30f72f896a1d9a8c3ec9099534fb16161b0570a2f2a1467b3bdb80e",
+    "raw/repeat-1/1024x1024x1024/cublas_samples.csv": "074b23031db01f96044980d2f4604ed98619509ba6dc2d6062e4a15550a1bf13",
+    "raw/repeat-1/1024x1024x1024/sgemm_v1_tiled_samples.csv": "cfd357d21bdcb55221199044772ad053b078d4b5fc18fdaeab6d2938e6ac89af",
+    "raw/repeat-2/512x512x512/sgemm_v0_naive_samples.csv": "8b85e214c629a5b3946ad7b66beca2f6a6818dc6f3ac0edaf77381c0178cfda8",
+    "raw/repeat-2/512x512x512/summary.csv": "74606755bff681ebb58b07c769239c3c8a6bcfa2ce85939fb5a67e3f3bf16113",
+    "raw/repeat-2/512x512x512/correctness.csv": "e9f409853e1c1ff4701b1208d5d0aae0591d521b42058e1f6a27a7491414bb24",
+    "raw/repeat-2/512x512x512/cublas_samples.csv": "c16a387fb5b06a7a1ada50ab88518452377997667225bf2815a3b40657a14361",
+    "raw/repeat-2/512x512x512/sgemm_v1_tiled_samples.csv": "3904510ffd2d297185bd314dd637bcd0568dfce5b39a415203b24cd4b82cac06",
+    "raw/repeat-2/2048x2048x2048/sgemm_v0_naive_samples.csv": "0ba236ee4217e5924f3fe69175afb97cab3be7a1c4eb47f4bd5d49fadb9153d5",
+    "raw/repeat-2/2048x2048x2048/summary.csv": "1bde75dd544df1c5563f88ba9ef2a24553bd495b61a8fe188e1fb8387d8af656",
+    "raw/repeat-2/2048x2048x2048/correctness.csv": "52f2b37b4285a3709cda82a2a17fcf86e4f329e983759243adb3094e54f021ad",
+    "raw/repeat-2/2048x2048x2048/cublas_samples.csv": "e0e7d8fcfd0438c720b2de3df7f5cdfdfbb5fe3225bce61885e8d841217865d3",
+    "raw/repeat-2/2048x2048x2048/sgemm_v1_tiled_samples.csv": "9dbd373dc6c1f38b1226b4e9cca07d49ead0c0ec49a8422a95f05564864b2b27",
+    "raw/repeat-2/4096x4096x4096/sgemm_v0_naive_samples.csv": "8a6166b0de2f3a091717bec3f22ac21881d64e42525fb93c52ede3cd8931dae2",
+    "raw/repeat-2/4096x4096x4096/summary.csv": "e40478ee28010ccc7731706f3f4e1a84f5d49ca41426888844afea7f0297e5ae",
+    "raw/repeat-2/4096x4096x4096/correctness.csv": "0cc0ab55ae89c62350da76b12672c1ffdc711df46be108ea869cd1cabb9f378f",
+    "raw/repeat-2/4096x4096x4096/cublas_samples.csv": "c5ccbf118fb9783410cb57abe3a4045543692907c5ce47c0a880319e68f9e7db",
+    "raw/repeat-2/4096x4096x4096/sgemm_v1_tiled_samples.csv": "7ad326e959fa85cd67f0ce4d8ab5274b353e90ae3c259363403705cf0739d648",
+    "raw/repeat-2/1024x1024x1024/sgemm_v0_naive_samples.csv": "c208ddd16612363c6de60ba712046f5e425deac40e0a515c99660550687bb473",
+    "raw/repeat-2/1024x1024x1024/summary.csv": "286eecfda2d0089a05048fbd217859571f2b39e018b7ac6623924d1a0e587a71",
+    "raw/repeat-2/1024x1024x1024/correctness.csv": "ffc894dc10a6e2bcdc2015a9c6723f763abe2dfe502c2c828e14459effc9b320",
+    "raw/repeat-2/1024x1024x1024/cublas_samples.csv": "c9a20918bbc869dc40c4a2ddde8c56fcb24d8ea6aacef3d0783b4afa109b2d19",
+    "raw/repeat-2/1024x1024x1024/sgemm_v1_tiled_samples.csv": "92b86cafa4e5937fa0c3bc74a9fcd6386a1c5d5732d287f7d2a1f67f0a5519f3",
+    "raw/repeat-0/512x512x512/sgemm_v0_naive_samples.csv": "4c5b751609930cd17101508f4c741ca28fba87bbe5d90939f0511a1d5eb1419a",
+    "raw/repeat-0/512x512x512/summary.csv": "e7a1410d00e6c37a8230250a4f1e7fc057ea0f6205df1de868f484b03b546754",
+    "raw/repeat-0/512x512x512/correctness.csv": "3ef57a5cdd9fafe6401b801c347f6245161accd725df572b87f720fd6bb90edf",
+    "raw/repeat-0/512x512x512/cublas_samples.csv": "9cda76edebec07d985f0d309479c84c8887131d1a98fbf442956b6f91beb1dce",
+    "raw/repeat-0/512x512x512/sgemm_v1_tiled_samples.csv": "487507e3494a220ac85f049baa919408b43aaef020981ff58d9046df308d2422",
+    "raw/repeat-0/2048x2048x2048/sgemm_v0_naive_samples.csv": "4cb7c42becf8f221d3126edeb5b4b0bfa9460eced3f0f7dbadacb3e645a8037b",
+    "raw/repeat-0/2048x2048x2048/summary.csv": "5ceec4154591cb41b6e34bb9d346232cc3d631c82a1c11bd7644be0ebe50fb5a",
+    "raw/repeat-0/2048x2048x2048/correctness.csv": "eb4a80bee473843a93f8f41cda315e98044847c48387848775c45434e723877d",
+    "raw/repeat-0/2048x2048x2048/cublas_samples.csv": "65586fb86bb1d415367ebd086bbd67ce11de0087c3bc821362242bc636c4cc70",
+    "raw/repeat-0/2048x2048x2048/sgemm_v1_tiled_samples.csv": "8a905ddaf722189d2c722c920ecfdae4019b82c23259a50d6b38b3018c6d8f91",
+    "raw/repeat-0/4096x4096x4096/sgemm_v0_naive_samples.csv": "3562f99f70826378aeb011e7d6ccc3b5fea2f1ada332e8683015e524007fc8cc",
+    "raw/repeat-0/4096x4096x4096/summary.csv": "2f1d1d01f3b703c3e0c5b71d44168b5152f796510039b30713b2cbcba5f1b9ba",
+    "raw/repeat-0/4096x4096x4096/correctness.csv": "ea8e63e13a2854974cfaf10c43ba33acac7de0a1fec105d36bb6d933b848a597",
+    "raw/repeat-0/4096x4096x4096/cublas_samples.csv": "45b4103b2033b70da43bfa5da7a1bf5e6fd360cb188824c4826e27b2f04c1356",
+    "raw/repeat-0/4096x4096x4096/sgemm_v1_tiled_samples.csv": "02a0a0fb6a2255413384997e735eb9dbdcee43f087d634313a24ce8d29499334",
+    "raw/repeat-0/1024x1024x1024/sgemm_v0_naive_samples.csv": "6ede19bd8dd0f7fd22d297c95e81f580925ec0c0d4cab4992649f03f38e30068",
+    "raw/repeat-0/1024x1024x1024/summary.csv": "3a93a6b82786249bc82d513105f5012e443cfb9ee246a6855dd22b8c1151ae77",
+    "raw/repeat-0/1024x1024x1024/correctness.csv": "a2508aeeb15c95f77fe71019f653291b71af60acd645d7efa42a1385fd49e28d",
+    "raw/repeat-0/1024x1024x1024/cublas_samples.csv": "03262e7a1782dd88e19ca4e16a1d2e77dd60ba2d588a81419dc67d2ed9cf921d",
+    "raw/repeat-0/1024x1024x1024/sgemm_v1_tiled_samples.csv": "921bb12e72ab54f3915ae31df8e80734952b50737f7483c972a8d7447ac374d6"
+  }
+}

@@ -1,0 +1,28 @@
+CPU planner evidence: /content/miniLLMI-stage18/results/release/v1.0-rc3/20261008T142554Z-colab-stage18/planner/20261008T143041269281Z-8505
+cmake-version: exit=0
+tests-configure: exit=0
+tests-build: exit=0
+ctest: exit=0
+production-configure: exit=0
+production-build: exit=0
+binary-probe: exit=0
+production-correctness: exit=0
+pair-0-chain-dynamic: exit=0
+pair-0-chain-no_reuse: exit=0
+pair-0-chain-reuse: exit=0
+pair-0-diamond-dynamic: exit=0
+pair-0-diamond-no_reuse: exit=0
+pair-0-diamond-reuse: exit=0
+pair-1-chain-reuse: exit=0
+pair-1-chain-no_reuse: exit=0
+pair-1-chain-dynamic: exit=0
+pair-1-diamond-reuse: exit=0
+pair-1-diamond-no_reuse: exit=0
+pair-1-diamond-dynamic: exit=0
+pair-2-chain-dynamic: exit=0
+pair-2-chain-no_reuse: exit=0
+pair-2-chain-reuse: exit=0
+pair-2-diamond-dynamic: exit=0
+pair-2-diamond-no_reuse: exit=0
+pair-2-diamond-reuse: exit=0
+CPU planner memory gate: PASS (no latency benefit gate)

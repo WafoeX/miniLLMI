@@ -1,0 +1,278 @@
+[
+{
+  "directory": "/content/miniLLMI-stage18/build-stage11-benchmark/20261008T152318382193Z-29601/production",
+  "command": "/usr/bin/c++  -I/content/miniLLMI-stage18/include -I/content/miniLLMI-stage18/build-stage11-benchmark/20261008T152318382193Z-29601/production/generated -O3 -DNDEBUG -std=c++17 -Wall -Wextra -Wpedantic -o CMakeFiles/stage0_common.dir/src/common.cpp.o -c /content/miniLLMI-stage18/src/common.cpp",
+  "file": "/content/miniLLMI-stage18/src/common.cpp",
+  "output": "CMakeFiles/stage0_common.dir/src/common.cpp.o"
+},
+{
+  "directory": "/content/miniLLMI-stage18/build-stage11-benchmark/20261008T152318382193Z-29601/production",
+  "command": "/usr/bin/c++  -I/content/miniLLMI-stage18/include -O3 -DNDEBUG -std=c++17 -Wall -Wextra -Wpedantic -o CMakeFiles/runtime.dir/src/runtime/storage.cpp.o -c /content/miniLLMI-stage18/src/runtime/storage.cpp",
+  "file": "/content/miniLLMI-stage18/src/runtime/storage.cpp",
+  "output": "CMakeFiles/runtime.dir/src/runtime/storage.cpp.o"
+},
+{
+  "directory": "/content/miniLLMI-stage18/build-stage11-benchmark/20261008T152318382193Z-29601/production",
+  "command": "/usr/bin/c++  -I/content/miniLLMI-stage18/include -O3 -DNDEBUG -std=c++17 -Wall -Wextra -Wpedantic -o CMakeFiles/runtime.dir/src/runtime/tensor.cpp.o -c /content/miniLLMI-stage18/src/runtime/tensor.cpp",
+  "file": "/content/miniLLMI-stage18/src/runtime/tensor.cpp",
+  "output": "CMakeFiles/runtime.dir/src/runtime/tensor.cpp.o"
+},
+{
+  "directory": "/content/miniLLMI-stage18/build-stage11-benchmark/20261008T152318382193Z-29601/production",
+  "command": "/usr/bin/c++  -I/content/miniLLMI-stage18/include -O3 -DNDEBUG -std=c++17 -Wall -Wextra -Wpedantic -o CMakeFiles/runtime.dir/src/runtime/copy.cpp.o -c /content/miniLLMI-stage18/src/runtime/copy.cpp",
+  "file": "/content/miniLLMI-stage18/src/runtime/copy.cpp",
+  "output": "CMakeFiles/runtime.dir/src/runtime/copy.cpp.o"
+},
+{
+  "directory": "/content/miniLLMI-stage18/build-stage11-benchmark/20261008T152318382193Z-29601/production",
+  "command": "/usr/bin/c++  -I/content/miniLLMI-stage18/include -O3 -DNDEBUG -std=c++17 -Wall -Wextra -Wpedantic -o CMakeFiles/runtime.dir/src/runtime/operator.cpp.o -c /content/miniLLMI-stage18/src/runtime/operator.cpp",
+  "file": "/content/miniLLMI-stage18/src/runtime/operator.cpp",
+  "output": "CMakeFiles/runtime.dir/src/runtime/operator.cpp.o"
+},
+{
+  "directory": "/content/miniLLMI-stage18/build-stage11-benchmark/20261008T152318382193Z-29601/production",
+  "command": "/usr/bin/c++  -I/content/miniLLMI-stage18/include -O3 -DNDEBUG -std=c++17 -Wall -Wextra -Wpedantic -o CMakeFiles/runtime.dir/src/runtime/shape_inference.cpp.o -c /content/miniLLMI-stage18/src/runtime/shape_inference.cpp",
+  "file": "/content/miniLLMI-stage18/src/runtime/shape_inference.cpp",
+  "output": "CMakeFiles/runtime.dir/src/runtime/shape_inference.cpp.o"
+},
+{
+  "directory": "/content/miniLLMI-stage18/build-stage11-benchmark/20261008T152318382193Z-29601/production",
+  "command": "/usr/bin/c++  -I/content/miniLLMI-stage18/include -O3 -DNDEBUG -std=c++17 -Wall -Wextra -Wpedantic -o CMakeFiles/runtime.dir/src/runtime/reference.cpp.o -c /content/miniLLMI-stage18/src/runtime/reference.cpp",
+  "file": "/content/miniLLMI-stage18/src/runtime/reference.cpp",
+  "output": "CMakeFiles/runtime.dir/src/runtime/reference.cpp.o"
+},
+{
+  "directory": "/content/miniLLMI-stage18/build-stage11-benchmark/20261008T152318382193Z-29601/production",
+  "command": "/usr/bin/c++  -I/content/miniLLMI-stage18/include -O3 -DNDEBUG -std=c++17 -Wall -Wextra -Wpedantic -o CMakeFiles/runtime.dir/src/runtime/layout.cpp.o -c /content/miniLLMI-stage18/src/runtime/layout.cpp",
+  "file": "/content/miniLLMI-stage18/src/runtime/layout.cpp",
+  "output": "CMakeFiles/runtime.dir/src/runtime/layout.cpp.o"
+},
+{
+  "directory": "/content/miniLLMI-stage18/build-stage11-benchmark/20261008T152318382193Z-29601/production",
+  "command": "/usr/bin/c++  -I/content/miniLLMI-stage18/include -O3 -DNDEBUG -std=c++17 -Wall -Wextra -Wpedantic -o CMakeFiles/runtime.dir/src/runtime/graph.cpp.o -c /content/miniLLMI-stage18/src/runtime/graph.cpp",
+  "file": "/content/miniLLMI-stage18/src/runtime/graph.cpp",
+  "output": "CMakeFiles/runtime.dir/src/runtime/graph.cpp.o"
+},
+{
+  "directory": "/content/miniLLMI-stage18/build-stage11-benchmark/20261008T152318382193Z-29601/production",
+  "command": "/usr/bin/c++  -I/content/miniLLMI-stage18/include -O3 -DNDEBUG -std=c++17 -Wall -Wextra -Wpedantic -o CMakeFiles/runtime.dir/src/runtime/graph_executor.cpp.o -c /content/miniLLMI-stage18/src/runtime/graph_executor.cpp",
+  "file": "/content/miniLLMI-stage18/src/runtime/graph_executor.cpp",
+  "output": "CMakeFiles/runtime.dir/src/runtime/graph_executor.cpp.o"
+},
+{
+  "directory": "/content/miniLLMI-stage18/build-stage11-benchmark/20261008T152318382193Z-29601/production",
+  "command": "/usr/bin/c++  -I/content/miniLLMI-stage18/include -O3 -DNDEBUG -std=c++17 -Wall -Wextra -Wpedantic -o CMakeFiles/runtime.dir/src/runtime/graph_trace.cpp.o -c /content/miniLLMI-stage18/src/runtime/graph_trace.cpp",
+  "file": "/content/miniLLMI-stage18/src/runtime/graph_trace.cpp",
+  "output": "CMakeFiles/runtime.dir/src/runtime/graph_trace.cpp.o"
+},
+{
+  "directory": "/content/miniLLMI-stage18/build-stage11-benchmark/20261008T152318382193Z-29601/production",
+  "command": "/usr/bin/c++  -I/content/miniLLMI-stage18/include -O3 -DNDEBUG -std=c++17 -Wall -Wextra -Wpedantic -o CMakeFiles/runtime.dir/src/runtime/arena.cpp.o -c /content/miniLLMI-stage18/src/runtime/arena.cpp",
+  "file": "/content/miniLLMI-stage18/src/runtime/arena.cpp",
+  "output": "CMakeFiles/runtime.dir/src/runtime/arena.cpp.o"
+},
+{
+  "directory": "/content/miniLLMI-stage18/build-stage11-benchmark/20261008T152318382193Z-29601/production",
+  "command": "/usr/bin/c++  -I/content/miniLLMI-stage18/include -O3 -DNDEBUG -std=c++17 -Wall -Wextra -Wpedantic -o CMakeFiles/runtime.dir/src/runtime/allocation_provider.cpp.o -c /content/miniLLMI-stage18/src/runtime/allocation_provider.cpp",
+  "file": "/content/miniLLMI-stage18/src/runtime/allocation_provider.cpp",
+  "output": "CMakeFiles/runtime.dir/src/runtime/allocation_provider.cpp.o"
+},
+{
+  "directory": "/content/miniLLMI-stage18/build-stage11-benchmark/20261008T152318382193Z-29601/production",
+  "command": "/usr/bin/c++  -I/content/miniLLMI-stage18/include -O3 -DNDEBUG -std=c++17 -Wall -Wextra -Wpedantic -o CMakeFiles/runtime.dir/src/runtime/memory_planner.cpp.o -c /content/miniLLMI-stage18/src/runtime/memory_planner.cpp",
+  "file": "/content/miniLLMI-stage18/src/runtime/memory_planner.cpp",
+  "output": "CMakeFiles/runtime.dir/src/runtime/memory_planner.cpp.o"
+},
+{
+  "directory": "/content/miniLLMI-stage18/build-stage11-benchmark/20261008T152318382193Z-29601/production",
+  "command": "/usr/bin/c++  -I/content/miniLLMI-stage18/include -O3 -DNDEBUG -std=c++17 -Wall -Wextra -Wpedantic -o CMakeFiles/runtime.dir/src/runtime/planned_executor.cpp.o -c /content/miniLLMI-stage18/src/runtime/planned_executor.cpp",
+  "file": "/content/miniLLMI-stage18/src/runtime/planned_executor.cpp",
+  "output": "CMakeFiles/runtime.dir/src/runtime/planned_executor.cpp.o"
+},
+{
+  "directory": "/content/miniLLMI-stage18/build-stage11-benchmark/20261008T152318382193Z-29601/production",
+  "command": "/usr/bin/c++  -I/content/miniLLMI-stage18/include -O3 -DNDEBUG -std=c++17 -Wall -Wextra -Wpedantic -o CMakeFiles/runtime.dir/src/runtime/cpu_backend.cpp.o -c /content/miniLLMI-stage18/src/runtime/cpu_backend.cpp",
+  "file": "/content/miniLLMI-stage18/src/runtime/cpu_backend.cpp",
+  "output": "CMakeFiles/runtime.dir/src/runtime/cpu_backend.cpp.o"
+},
+{
+  "directory": "/content/miniLLMI-stage18/build-stage11-benchmark/20261008T152318382193Z-29601/production",
+  "command": "/usr/bin/c++  -I/content/miniLLMI-stage18/include -O3 -DNDEBUG -std=c++17 -Wall -Wextra -Wpedantic -o CMakeFiles/runtime.dir/src/runtime/cpu_scalar.cpp.o -c /content/miniLLMI-stage18/src/runtime/cpu_scalar.cpp",
+  "file": "/content/miniLLMI-stage18/src/runtime/cpu_scalar.cpp",
+  "output": "CMakeFiles/runtime.dir/src/runtime/cpu_scalar.cpp.o"
+},
+{
+  "directory": "/content/miniLLMI-stage18/build-stage11-benchmark/20261008T152318382193Z-29601/production",
+  "command": "/usr/bin/c++  -I/content/miniLLMI-stage18/include -O3 -DNDEBUG -std=c++17 -Wall -Wextra -Wpedantic -o CMakeFiles/runtime.dir/src/runtime/cpu_optimized.cpp.o -c /content/miniLLMI-stage18/src/runtime/cpu_optimized.cpp",
+  "file": "/content/miniLLMI-stage18/src/runtime/cpu_optimized.cpp",
+  "output": "CMakeFiles/runtime.dir/src/runtime/cpu_optimized.cpp.o"
+},
+{
+  "directory": "/content/miniLLMI-stage18/build-stage11-benchmark/20261008T152318382193Z-29601/production",
+  "command": "/usr/bin/c++  -I/content/miniLLMI-stage18/include -O3 -DNDEBUG -std=c++17 -Wall -Wextra -Wpedantic -o CMakeFiles/runtime.dir/src/runtime/thread_pool.cpp.o -c /content/miniLLMI-stage18/src/runtime/thread_pool.cpp",
+  "file": "/content/miniLLMI-stage18/src/runtime/thread_pool.cpp",
+  "output": "CMakeFiles/runtime.dir/src/runtime/thread_pool.cpp.o"
+},
+{
+  "directory": "/content/miniLLMI-stage18/build-stage11-benchmark/20261008T152318382193Z-29601/production",
+  "command": "/usr/bin/c++  -I/content/miniLLMI-stage18/include -O3 -DNDEBUG -std=c++17 -Wall -Wextra -Wpedantic -o CMakeFiles/runtime.dir/src/runtime/scheduler.cpp.o -c /content/miniLLMI-stage18/src/runtime/scheduler.cpp",
+  "file": "/content/miniLLMI-stage18/src/runtime/scheduler.cpp",
+  "output": "CMakeFiles/runtime.dir/src/runtime/scheduler.cpp.o"
+},
+{
+  "directory": "/content/miniLLMI-stage18/build-stage11-benchmark/20261008T152318382193Z-29601/production",
+  "command": "/usr/bin/c++  -I/content/miniLLMI-stage18/include -O3 -DNDEBUG -std=c++17 -Wall -Wextra -Wpedantic -o CMakeFiles/runtime.dir/src/runtime/transformer_ops.cpp.o -c /content/miniLLMI-stage18/src/runtime/transformer_ops.cpp",
+  "file": "/content/miniLLMI-stage18/src/runtime/transformer_ops.cpp",
+  "output": "CMakeFiles/runtime.dir/src/runtime/transformer_ops.cpp.o"
+},
+{
+  "directory": "/content/miniLLMI-stage18/build-stage11-benchmark/20261008T152318382193Z-29601/production",
+  "command": "/usr/bin/c++  -I/content/miniLLMI-stage18/include -O3 -DNDEBUG -std=c++17 -Wall -Wextra -Wpedantic -o CMakeFiles/runtime.dir/src/runtime/attention.cpp.o -c /content/miniLLMI-stage18/src/runtime/attention.cpp",
+  "file": "/content/miniLLMI-stage18/src/runtime/attention.cpp",
+  "output": "CMakeFiles/runtime.dir/src/runtime/attention.cpp.o"
+},
+{
+  "directory": "/content/miniLLMI-stage18/build-stage11-benchmark/20261008T152318382193Z-29601/production",
+  "command": "/usr/local/cuda/bin/nvcc -forward-unknown-to-host-compiler  --options-file CMakeFiles/stage0_cuda.dir/includes_CUDA.rsp -O3 -DNDEBUG -std=c++17 \"--generate-code=arch=compute_75,code=[compute_75,sm_75]\" -lineinfo -x cu -c /content/miniLLMI-stage18/backend/cuda/sgemm_v0_naive.cu -o CMakeFiles/stage0_cuda.dir/backend/cuda/sgemm_v0_naive.cu.o",
+  "file": "/content/miniLLMI-stage18/backend/cuda/sgemm_v0_naive.cu",
+  "output": "CMakeFiles/stage0_cuda.dir/backend/cuda/sgemm_v0_naive.cu.o"
+},
+{
+  "directory": "/content/miniLLMI-stage18/build-stage11-benchmark/20261008T152318382193Z-29601/production",
+  "command": "/usr/local/cuda/bin/nvcc -forward-unknown-to-host-compiler  --options-file CMakeFiles/stage0_cuda.dir/includes_CUDA.rsp -O3 -DNDEBUG -std=c++17 \"--generate-code=arch=compute_75,code=[compute_75,sm_75]\" -lineinfo -x cu -c /content/miniLLMI-stage18/backend/cuda/sgemm_v1_tiled.cu -o CMakeFiles/stage0_cuda.dir/backend/cuda/sgemm_v1_tiled.cu.o",
+  "file": "/content/miniLLMI-stage18/backend/cuda/sgemm_v1_tiled.cu",
+  "output": "CMakeFiles/stage0_cuda.dir/backend/cuda/sgemm_v1_tiled.cu.o"
+},
+{
+  "directory": "/content/miniLLMI-stage18/build-stage11-benchmark/20261008T152318382193Z-29601/production",
+  "command": "/usr/local/cuda/bin/nvcc -forward-unknown-to-host-compiler  --options-file CMakeFiles/stage0_cuda.dir/includes_CUDA.rsp -O3 -DNDEBUG -std=c++17 \"--generate-code=arch=compute_75,code=[compute_75,sm_75]\" -lineinfo -x cu -c /content/miniLLMI-stage18/backend/cuda/sgemm_registry.cu -o CMakeFiles/stage0_cuda.dir/backend/cuda/sgemm_registry.cu.o",
+  "file": "/content/miniLLMI-stage18/backend/cuda/sgemm_registry.cu",
+  "output": "CMakeFiles/stage0_cuda.dir/backend/cuda/sgemm_registry.cu.o"
+},
+{
+  "directory": "/content/miniLLMI-stage18/build-stage11-benchmark/20261008T152318382193Z-29601/production",
+  "command": "/usr/local/cuda/bin/nvcc -forward-unknown-to-host-compiler  --options-file CMakeFiles/stage0_cuda.dir/includes_CUDA.rsp -O3 -DNDEBUG -std=c++17 \"--generate-code=arch=compute_75,code=[compute_75,sm_75]\" -lineinfo -x cu -c /content/miniLLMI-stage18/backend/cuda/cublas_gemm.cu -o CMakeFiles/stage0_cuda.dir/backend/cuda/cublas_gemm.cu.o",
+  "file": "/content/miniLLMI-stage18/backend/cuda/cublas_gemm.cu",
+  "output": "CMakeFiles/stage0_cuda.dir/backend/cuda/cublas_gemm.cu.o"
+},
+{
+  "directory": "/content/miniLLMI-stage18/build-stage11-benchmark/20261008T152318382193Z-29601/production",
+  "command": "/usr/local/cuda/bin/nvcc -forward-unknown-to-host-compiler  --options-file CMakeFiles/runtime_cuda.dir/includes_CUDA.rsp -O3 -DNDEBUG -std=c++17 \"--generate-code=arch=compute_75,code=[compute_75,sm_75]\" -lineinfo -x cu -c /content/miniLLMI-stage18/backend/cuda/cuda_backend.cu -o CMakeFiles/runtime_cuda.dir/backend/cuda/cuda_backend.cu.o",
+  "file": "/content/miniLLMI-stage18/backend/cuda/cuda_backend.cu",
+  "output": "CMakeFiles/runtime_cuda.dir/backend/cuda/cuda_backend.cu.o"
+},
+{
+  "directory": "/content/miniLLMI-stage18/build-stage11-benchmark/20261008T152318382193Z-29601/production",
+  "command": "/usr/bin/c++ -DMODEL_CUDA_BUILD=1 -I/content/miniLLMI-stage18/include -I/content/miniLLMI-stage18/build-stage11-benchmark/20261008T152318382193Z-29601/production/generated -isystem /usr/local/cuda/targets/x86_64-linux/include -isystem /usr/local/cuda/targets/x86_64-linux/include/cccl -O3 -DNDEBUG -std=c++17 -Wall -Wextra -Wpedantic -o CMakeFiles/model.dir/src/model/config.cpp.o -c /content/miniLLMI-stage18/src/model/config.cpp",
+  "file": "/content/miniLLMI-stage18/src/model/config.cpp",
+  "output": "CMakeFiles/model.dir/src/model/config.cpp.o"
+},
+{
+  "directory": "/content/miniLLMI-stage18/build-stage11-benchmark/20261008T152318382193Z-29601/production",
+  "command": "/usr/bin/c++ -DMODEL_CUDA_BUILD=1 -I/content/miniLLMI-stage18/include -I/content/miniLLMI-stage18/build-stage11-benchmark/20261008T152318382193Z-29601/production/generated -isystem /usr/local/cuda/targets/x86_64-linux/include -isystem /usr/local/cuda/targets/x86_64-linux/include/cccl -O3 -DNDEBUG -std=c++17 -Wall -Wextra -Wpedantic -o CMakeFiles/model.dir/src/model/model_file.cpp.o -c /content/miniLLMI-stage18/src/model/model_file.cpp",
+  "file": "/content/miniLLMI-stage18/src/model/model_file.cpp",
+  "output": "CMakeFiles/model.dir/src/model/model_file.cpp.o"
+},
+{
+  "directory": "/content/miniLLMI-stage18/build-stage11-benchmark/20261008T152318382193Z-29601/production",
+  "command": "/usr/bin/c++ -DMODEL_CUDA_BUILD=1 -I/content/miniLLMI-stage18/include -I/content/miniLLMI-stage18/build-stage11-benchmark/20261008T152318382193Z-29601/production/generated -isystem /usr/local/cuda/targets/x86_64-linux/include -isystem /usr/local/cuda/targets/x86_64-linux/include/cccl -O3 -DNDEBUG -std=c++17 -Wall -Wextra -Wpedantic -o CMakeFiles/model.dir/src/model/quantization.cpp.o -c /content/miniLLMI-stage18/src/model/quantization.cpp",
+  "file": "/content/miniLLMI-stage18/src/model/quantization.cpp",
+  "output": "CMakeFiles/model.dir/src/model/quantization.cpp.o"
+},
+{
+  "directory": "/content/miniLLMI-stage18/build-stage11-benchmark/20261008T152318382193Z-29601/production",
+  "command": "/usr/bin/c++ -DMODEL_CUDA_BUILD=1 -I/content/miniLLMI-stage18/include -I/content/miniLLMI-stage18/build-stage11-benchmark/20261008T152318382193Z-29601/production/generated -isystem /usr/local/cuda/targets/x86_64-linux/include -isystem /usr/local/cuda/targets/x86_64-linux/include/cccl -O3 -DNDEBUG -std=c++17 -Wall -Wextra -Wpedantic -o CMakeFiles/model.dir/src/model/tokenizer.cpp.o -c /content/miniLLMI-stage18/src/model/tokenizer.cpp",
+  "file": "/content/miniLLMI-stage18/src/model/tokenizer.cpp",
+  "output": "CMakeFiles/model.dir/src/model/tokenizer.cpp.o"
+},
+{
+  "directory": "/content/miniLLMI-stage18/build-stage11-benchmark/20261008T152318382193Z-29601/production",
+  "command": "/usr/bin/c++ -DMODEL_CUDA_BUILD=1 -I/content/miniLLMI-stage18/include -I/content/miniLLMI-stage18/build-stage11-benchmark/20261008T152318382193Z-29601/production/generated -isystem /usr/local/cuda/targets/x86_64-linux/include -isystem /usr/local/cuda/targets/x86_64-linux/include/cccl -O3 -DNDEBUG -std=c++17 -Wall -Wextra -Wpedantic -o CMakeFiles/model.dir/src/model/kv_cache.cpp.o -c /content/miniLLMI-stage18/src/model/kv_cache.cpp",
+  "file": "/content/miniLLMI-stage18/src/model/kv_cache.cpp",
+  "output": "CMakeFiles/model.dir/src/model/kv_cache.cpp.o"
+},
+{
+  "directory": "/content/miniLLMI-stage18/build-stage11-benchmark/20261008T152318382193Z-29601/production",
+  "command": "/usr/bin/c++ -DMODEL_CUDA_BUILD=1 -I/content/miniLLMI-stage18/include -I/content/miniLLMI-stage18/build-stage11-benchmark/20261008T152318382193Z-29601/production/generated -isystem /usr/local/cuda/targets/x86_64-linux/include -isystem /usr/local/cuda/targets/x86_64-linux/include/cccl -O3 -DNDEBUG -std=c++17 -Wall -Wextra -Wpedantic -o CMakeFiles/model.dir/src/model/decoder.cpp.o -c /content/miniLLMI-stage18/src/model/decoder.cpp",
+  "file": "/content/miniLLMI-stage18/src/model/decoder.cpp",
+  "output": "CMakeFiles/model.dir/src/model/decoder.cpp.o"
+},
+{
+  "directory": "/content/miniLLMI-stage18/build-stage11-benchmark/20261008T152318382193Z-29601/production",
+  "command": "/usr/bin/c++ -DMODEL_CUDA_BUILD=1 -I/content/miniLLMI-stage18/include -I/content/miniLLMI-stage18/build-stage11-benchmark/20261008T152318382193Z-29601/production/generated -isystem /usr/local/cuda/targets/x86_64-linux/include -isystem /usr/local/cuda/targets/x86_64-linux/include/cccl -O3 -DNDEBUG -std=c++17 -Wall -Wextra -Wpedantic -o CMakeFiles/model.dir/src/model/generation.cpp.o -c /content/miniLLMI-stage18/src/model/generation.cpp",
+  "file": "/content/miniLLMI-stage18/src/model/generation.cpp",
+  "output": "CMakeFiles/model.dir/src/model/generation.cpp.o"
+},
+{
+  "directory": "/content/miniLLMI-stage18/build-stage11-benchmark/20261008T152318382193Z-29601/production",
+  "command": "/usr/bin/c++  -I/content/miniLLMI-stage18/include -I/content/miniLLMI-stage18/build-stage11-benchmark/20261008T152318382193Z-29601/production/generated -O3 -DNDEBUG -std=c++17 -Wall -Wextra -Wpedantic -o CMakeFiles/bench_allocator.dir/bench/bench_allocator.cpp.o -c /content/miniLLMI-stage18/bench/bench_allocator.cpp",
+  "file": "/content/miniLLMI-stage18/bench/bench_allocator.cpp",
+  "output": "CMakeFiles/bench_allocator.dir/bench/bench_allocator.cpp.o"
+},
+{
+  "directory": "/content/miniLLMI-stage18/build-stage11-benchmark/20261008T152318382193Z-29601/production",
+  "command": "/usr/bin/c++  -I/content/miniLLMI-stage18/include -I/content/miniLLMI-stage18/build-stage11-benchmark/20261008T152318382193Z-29601/production/generated -O3 -DNDEBUG -std=c++17 -Wall -Wextra -Wpedantic -o CMakeFiles/bench_planner.dir/bench/bench_planner.cpp.o -c /content/miniLLMI-stage18/bench/bench_planner.cpp",
+  "file": "/content/miniLLMI-stage18/bench/bench_planner.cpp",
+  "output": "CMakeFiles/bench_planner.dir/bench/bench_planner.cpp.o"
+},
+{
+  "directory": "/content/miniLLMI-stage18/build-stage11-benchmark/20261008T152318382193Z-29601/production",
+  "command": "/usr/bin/c++  -I/content/miniLLMI-stage18/include -I/content/miniLLMI-stage18/build-stage11-benchmark/20261008T152318382193Z-29601/production/generated -O3 -DNDEBUG -std=c++17 -Wall -Wextra -Wpedantic -o CMakeFiles/bench_cpu.dir/bench/bench_cpu.cpp.o -c /content/miniLLMI-stage18/bench/bench_cpu.cpp",
+  "file": "/content/miniLLMI-stage18/bench/bench_cpu.cpp",
+  "output": "CMakeFiles/bench_cpu.dir/bench/bench_cpu.cpp.o"
+},
+{
+  "directory": "/content/miniLLMI-stage18/build-stage11-benchmark/20261008T152318382193Z-29601/production",
+  "command": "/usr/bin/c++ -DSCHEDULER_CUDA_BUILD=1 -I/content/miniLLMI-stage18/include -I/content/miniLLMI-stage18/build-stage11-benchmark/20261008T152318382193Z-29601/production/generated -isystem /usr/local/cuda/targets/x86_64-linux/include -isystem /usr/local/cuda/targets/x86_64-linux/include/cccl -O3 -DNDEBUG -std=c++17 -Wall -Wextra -Wpedantic -o CMakeFiles/bench_scheduler.dir/bench/bench_scheduler.cpp.o -c /content/miniLLMI-stage18/bench/bench_scheduler.cpp",
+  "file": "/content/miniLLMI-stage18/bench/bench_scheduler.cpp",
+  "output": "CMakeFiles/bench_scheduler.dir/bench/bench_scheduler.cpp.o"
+},
+{
+  "directory": "/content/miniLLMI-stage18/build-stage11-benchmark/20261008T152318382193Z-29601/production",
+  "command": "/usr/bin/c++ -DDECODER_CUDA_BUILD=1 -I/content/miniLLMI-stage18/include -I/content/miniLLMI-stage18/build-stage11-benchmark/20261008T152318382193Z-29601/production/generated -isystem /usr/local/cuda/targets/x86_64-linux/include -isystem /usr/local/cuda/targets/x86_64-linux/include/cccl -O3 -DNDEBUG -std=c++17 -Wall -Wextra -Wpedantic -o CMakeFiles/bench_decoder.dir/bench/bench_decoder.cpp.o -c /content/miniLLMI-stage18/bench/bench_decoder.cpp",
+  "file": "/content/miniLLMI-stage18/bench/bench_decoder.cpp",
+  "output": "CMakeFiles/bench_decoder.dir/bench/bench_decoder.cpp.o"
+},
+{
+  "directory": "/content/miniLLMI-stage18/build-stage11-benchmark/20261008T152318382193Z-29601/production",
+  "command": "/usr/bin/c++ -DKV_CACHE_CUDA_BUILD=1 -I/content/miniLLMI-stage18/include -I/content/miniLLMI-stage18/build-stage11-benchmark/20261008T152318382193Z-29601/production/generated -isystem /usr/local/cuda/targets/x86_64-linux/include -isystem /usr/local/cuda/targets/x86_64-linux/include/cccl -O3 -DNDEBUG -std=c++17 -Wall -Wextra -Wpedantic -o CMakeFiles/bench_kv_cache.dir/bench/bench_kv_cache.cpp.o -c /content/miniLLMI-stage18/bench/bench_kv_cache.cpp",
+  "file": "/content/miniLLMI-stage18/bench/bench_kv_cache.cpp",
+  "output": "CMakeFiles/bench_kv_cache.dir/bench/bench_kv_cache.cpp.o"
+},
+{
+  "directory": "/content/miniLLMI-stage18/build-stage11-benchmark/20261008T152318382193Z-29601/production",
+  "command": "/usr/bin/c++  -I/content/miniLLMI-stage18/include -I/content/miniLLMI-stage18/build-stage11-benchmark/20261008T152318382193Z-29601/production/generated -isystem /usr/local/cuda/targets/x86_64-linux/include -isystem /usr/local/cuda/targets/x86_64-linux/include/cccl -O3 -DNDEBUG -std=c++17 -Wall -Wextra -Wpedantic -o CMakeFiles/bench_inference.dir/bench/bench_inference.cpp.o -c /content/miniLLMI-stage18/bench/bench_inference.cpp",
+  "file": "/content/miniLLMI-stage18/bench/bench_inference.cpp",
+  "output": "CMakeFiles/bench_inference.dir/bench/bench_inference.cpp.o"
+},
+{
+  "directory": "/content/miniLLMI-stage18/build-stage11-benchmark/20261008T152318382193Z-29601/production",
+  "command": "/usr/bin/c++  -I/content/miniLLMI-stage18/include -I/content/miniLLMI-stage18/build-stage11-benchmark/20261008T152318382193Z-29601/production/generated -isystem /usr/local/cuda/targets/x86_64-linux/include -isystem /usr/local/cuda/targets/x86_64-linux/include/cccl -O3 -DNDEBUG -std=c++17 -Wall -Wextra -Wpedantic -o CMakeFiles/bench_quantization.dir/bench/bench_quantization.cpp.o -c /content/miniLLMI-stage18/bench/bench_quantization.cpp",
+  "file": "/content/miniLLMI-stage18/bench/bench_quantization.cpp",
+  "output": "CMakeFiles/bench_quantization.dir/bench/bench_quantization.cpp.o"
+},
+{
+  "directory": "/content/miniLLMI-stage18/build-stage11-benchmark/20261008T152318382193Z-29601/production",
+  "command": "/usr/bin/c++  -I/content/miniLLMI-stage18/include -I/content/miniLLMI-stage18/build-stage11-benchmark/20261008T152318382193Z-29601/production/generated -isystem /usr/local/cuda/targets/x86_64-linux/include -isystem /usr/local/cuda/targets/x86_64-linux/include/cccl -O3 -DNDEBUG -std=c++17 -Wall -Wextra -Wpedantic -o CMakeFiles/convert_tiny_model.dir/tools/convert_tiny_model.cpp.o -c /content/miniLLMI-stage18/tools/convert_tiny_model.cpp",
+  "file": "/content/miniLLMI-stage18/tools/convert_tiny_model.cpp",
+  "output": "CMakeFiles/convert_tiny_model.dir/tools/convert_tiny_model.cpp.o"
+},
+{
+  "directory": "/content/miniLLMI-stage18/build-stage11-benchmark/20261008T152318382193Z-29601/production",
+  "command": "/usr/bin/c++  -I/content/miniLLMI-stage18/include -I/content/miniLLMI-stage18/build-stage11-benchmark/20261008T152318382193Z-29601/production/generated -isystem /usr/local/cuda/targets/x86_64-linux/include -isystem /usr/local/cuda/targets/x86_64-linux/include/cccl -O3 -DNDEBUG -std=c++17 -Wall -Wextra -Wpedantic -o CMakeFiles/llm_cli.dir/app/llm_cli.cpp.o -c /content/miniLLMI-stage18/app/llm_cli.cpp",
+  "file": "/content/miniLLMI-stage18/app/llm_cli.cpp",
+  "output": "CMakeFiles/llm_cli.dir/app/llm_cli.cpp.o"
+},
+{
+  "directory": "/content/miniLLMI-stage18/build-stage11-benchmark/20261008T152318382193Z-29601/production",
+  "command": "/usr/bin/c++  -I/content/miniLLMI-stage18/include -I/content/miniLLMI-stage18/build-stage11-benchmark/20261008T152318382193Z-29601/production/generated -isystem /usr/local/cuda/targets/x86_64-linux/include -isystem /usr/local/cuda/targets/x86_64-linux/include/cccl -O3 -DNDEBUG -std=c++17 -Wall -Wextra -Wpedantic -o CMakeFiles/gpu_info.dir/bench/gpu_info.cpp.o -c /content/miniLLMI-stage18/bench/gpu_info.cpp",
+  "file": "/content/miniLLMI-stage18/bench/gpu_info.cpp",
+  "output": "CMakeFiles/gpu_info.dir/bench/gpu_info.cpp.o"
+},
+{
+  "directory": "/content/miniLLMI-stage18/build-stage11-benchmark/20261008T152318382193Z-29601/production",
+  "command": "/usr/bin/c++ -DSTAGE0_CUDA_BUILD=1 -I/content/miniLLMI-stage18/include -I/content/miniLLMI-stage18/build-stage11-benchmark/20261008T152318382193Z-29601/production/generated -isystem /usr/local/cuda/targets/x86_64-linux/include -isystem /usr/local/cuda/targets/x86_64-linux/include/cccl -O3 -DNDEBUG -std=c++17 -Wall -Wextra -Wpedantic -o CMakeFiles/bench_gemm.dir/bench/bench_gemm.cpp.o -c /content/miniLLMI-stage18/bench/bench_gemm.cpp",
+  "file": "/content/miniLLMI-stage18/bench/bench_gemm.cpp",
+  "output": "CMakeFiles/bench_gemm.dir/bench/bench_gemm.cpp.o"
+}
+]

@@ -1,0 +1,1 @@
++ cmake + -S + /content/miniLLMI-stage18 + -B + results/release/v1.0-rc3/20261008T142554Z-colab-stage18/build-production + -G + Unix\ Makefiles + -DCMAKE_BUILD_TYPE=Release + -DENABLE_CUDA=ON + -DCMAKE_CUDA_ARCHITECTURES=75 + -DBUILD_TESTING=OFF 

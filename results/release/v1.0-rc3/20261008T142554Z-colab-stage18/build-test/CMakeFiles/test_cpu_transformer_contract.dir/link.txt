@@ -1,0 +1,1 @@
+/usr/bin/c++ -O3 -DNDEBUG -Wl,--dependency-file=CMakeFiles/test_cpu_transformer_contract.dir/link.d CMakeFiles/test_cpu_transformer_contract.dir/tests/test_cpu_transformer_contract.cpp.o -o test_cpu_transformer_contract  libruntime.a

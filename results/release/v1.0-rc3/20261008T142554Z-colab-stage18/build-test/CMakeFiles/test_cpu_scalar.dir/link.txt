@@ -1,0 +1,1 @@
+/usr/bin/c++ -O3 -DNDEBUG -Wl,--dependency-file=CMakeFiles/test_cpu_scalar.dir/link.d CMakeFiles/test_cpu_scalar.dir/tests/test_cpu_scalar.cpp.o -o test_cpu_scalar  libruntime.a

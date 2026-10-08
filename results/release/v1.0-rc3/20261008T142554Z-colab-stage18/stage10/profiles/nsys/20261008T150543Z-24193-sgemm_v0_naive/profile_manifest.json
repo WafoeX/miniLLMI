@@ -1,0 +1,32 @@
+{
+  "schema_version": 1,
+  "stage": "stage10",
+  "tool": "nsys",
+  "kernel": "sgemm_v0_naive",
+  "shape": [
+    4096,
+    4096,
+    4096
+  ],
+  "warmup": 10,
+  "iterations": 50,
+  "source": {
+    "commit": "3ab74f4ecf451ac6c2c083b5c7d5b8f625792172",
+    "source_digest": "067bb4d80b393b8ed3245f352dd36203d4abf30b7d7fecb1661f3e18efae1c33",
+    "source_dirty": false
+  },
+  "binary": {
+    "commit": "3ab74f4ecf451ac6c2c083b5c7d5b8f625792172",
+    "source_digest": "067bb4d80b393b8ed3245f352dd36203d4abf30b7d7fecb1661f3e18efae1c33",
+    "source_dirty": false,
+    "build_type": "Release",
+    "compiler": "GNU 13.3.0",
+    "cuda_compiler": "NVIDIA 13.0.88",
+    "cuda_architectures": "75"
+  },
+  "command": "nsys profile --trace=cuda\\,cublas\\,osrt --output /content/miniLLMI-stage18/results/profiling/stage10/20261008T150252904190Z-21999/profiles/nsys/20261008T150543Z-24193-sgemm_v0_naive/trace /content/miniLLMI-stage18/build-cuda-stage10/20261008T150252904190Z-21999/bench_gemm --kernel sgemm_v0_naive --m 4096 --n 4096 --k 4096 --warmup 10 --iterations 50 --experiment profiling --run-id 20261008T150543Z-24193-sgemm_v0_naive --raw-dir /content/miniLLMI-stage18/results/profiling/stage10/20261008T150252904190Z-21999/profiles/nsys/20261008T150543Z-24193-sgemm_v0_naive/raw --csv /content/miniLLMI-stage18/results/profiling/stage10/20261008T150252904190Z-21999/profiles/nsys/20261008T150543Z-24193-sgemm_v0_naive/profile_timing.csv --reference-cache-dir /content/miniLLMI-stage18/results/profiling/stage10/20261008T150252904190Z-21999/reference-cache \n",
+  "report": "trace.nsys-rep",
+  "report_sha256": "a861c74528267d643d55be7b5ffc4647121053b0be0bcd2e5558fd58484308a1",
+  "artifact_location": null,
+  "timing_scope": "profiling only; never formal benchmark evidence"
+}

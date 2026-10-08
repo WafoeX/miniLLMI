@@ -1,0 +1,6 @@
+#pragma once
+namespace stage0 {
+inline constexpr const char* kCommit = "3ab74f4ecf451ac6c2c083b5c7d5b8f625792172";
+inline constexpr const char* kSourceDigest = "067bb4d80b393b8ed3245f352dd36203d4abf30b7d7fecb1661f3e18efae1c33";
+inline constexpr bool kSourceDirty = false;
+}

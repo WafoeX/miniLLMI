@@ -1,0 +1,28 @@
+Internal ctest changing into directory: /content/miniLLMI-stage18/results/release/v1.0-rc3/20261008T142554Z-colab-stage18/build-test
+Test project /content/miniLLMI-stage18/results/release/v1.0-rc3/20261008T142554Z-colab-stage18/build-test
+    Start  1: cli_tools
+1/7 Test  #1: cli_tools ........................   Passed    1.52 sec
+    Start  2: generation
+2/7 Test  #2: generation .......................   Passed    0.43 sec
+    Start  3: inference_benchmark_tools
+3/7 Test  #3: inference_benchmark_tools ........   Passed    1.43 sec
+    Start  4: quant_benchmark_tools
+4/7 Test  #4: quant_benchmark_tools ............   Passed    0.51 sec
+    Start 57: cuda_decoder
+5/7 Test #57: cuda_decoder .....................   Passed    0.52 sec
+    Start 58: cuda_quantized_decoder
+6/7 Test #58: cuda_quantized_decoder ...........   Passed    0.44 sec
+    Start 59: cuda_kv_decoder
+7/7 Test #59: cuda_kv_decoder ..................   Passed    0.49 sec
+
+100% tests passed, 0 tests failed out of 7
+
+Label Time Summary:
+cli        =   3.39 sec*proc (3 tests)
+cpu        =   3.90 sec*proc (4 tests)
+decoder    =   1.45 sec*proc (3 tests)
+gpu        =   1.45 sec*proc (3 tests)
+kv         =   0.49 sec*proc (1 test)
+quant      =   0.95 sec*proc (2 tests)
+
+Total Test time (real) =   5.36 sec

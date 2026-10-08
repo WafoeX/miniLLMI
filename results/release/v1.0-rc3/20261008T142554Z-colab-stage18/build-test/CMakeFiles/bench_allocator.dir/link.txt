@@ -1,0 +1,1 @@
+/usr/bin/c++ -O3 -DNDEBUG -Wl,--dependency-file=CMakeFiles/bench_allocator.dir/link.d CMakeFiles/bench_allocator.dir/bench/bench_allocator.cpp.o -o bench_allocator  libruntime.a libstage0_common.a
