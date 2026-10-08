@@ -17,8 +17,9 @@ sudo apt-get update -qq
 sudo apt-get install -y -qq cmake build-essential
 
 # SSH-over-443 works on networks that block GitHub port 22.
-git clone ssh://git@ssh.github.com:443/WafoeX/miniLLMI.git
-cd miniLLMI
+REPO=/content/miniLLMI
+git clone ssh://git@ssh.github.com:443/WafoeX/miniLLMI.git "$REPO"
+cd "$REPO"
 git fetch origin feat/int8-stage16
 git checkout --detach "$SOURCE_COMMIT"
 git status --short                 # must be empty
@@ -26,17 +27,19 @@ git rev-parse HEAD                 # must equal $SOURCE_COMMIT
 nvidia-smi
 nvcc --version
 
-cmake -S . -B build-stage16-t4 -G 'Unix Makefiles' \
+cmake -S "$REPO" -B "$REPO/build-stage16-t4" -G 'Unix Makefiles' \
   -DCMAKE_BUILD_TYPE=Release -DENABLE_CUDA=ON -DBUILD_TESTING=ON
-cmake --build build-stage16-t4 -j"$(nproc)"
+cmake --build "$REPO/build-stage16-t4" -j"$(nproc)"
 ```
 
 ## Required tests
 
 ```bash
-ctest --test-dir build-stage16-t4 --output-on-failure \
+# Define this in every independent %%bash cell; Colab does not retain `cd`.
+REPO=/content/miniLLMI
+ctest --test-dir "$REPO/build-stage16-t4" --output-on-failure \
   -R '^(quantization|model_file|model_loader|cuda_quantized_decoder)$'
-ctest --test-dir build-stage16-t4 --output-on-failure -L gpu
+ctest --test-dir "$REPO/build-stage16-t4" --output-on-failure -L gpu
 ```
 
 The first command must pass all four named tests. In particular,
@@ -53,6 +56,8 @@ commit is a direct child of the tested source and changes only one unique result
 directory.
 
 ```bash
+REPO=/content/miniLLMI
+cd "$REPO"
 RUN_ID="$(date -u +%Y%m%dT%H%M%SZ)-colab-stage16"
 git switch -c "results/stage16-c3-${RUN_ID}" "$SOURCE_COMMIT"
 RESULT_DIR="results/quant/stage16-c3/${RUN_ID}"
@@ -62,14 +67,14 @@ printf '%s\n' "$SOURCE_COMMIT" > "$RESULT_DIR/tested_commit.txt"
 git status --short > "$RESULT_DIR/source_status.txt"
 nvidia-smi > "$RESULT_DIR/nvidia-smi.txt"
 nvcc --version > "$RESULT_DIR/nvcc-version.txt"
-cmake -S . -B build-stage16-t4 -G 'Unix Makefiles' \
+cmake -S "$REPO" -B "$REPO/build-stage16-t4" -G 'Unix Makefiles' \
   -DCMAKE_BUILD_TYPE=Release -DENABLE_CUDA=ON -DBUILD_TESTING=ON \
   > "$RESULT_DIR/configure.log" 2>&1
-cmake --build build-stage16-t4 -j"$(nproc)" > "$RESULT_DIR/build.log" 2>&1
-ctest --test-dir build-stage16-t4 --output-on-failure \
+cmake --build "$REPO/build-stage16-t4" -j"$(nproc)" > "$RESULT_DIR/build.log" 2>&1
+ctest --test-dir "$REPO/build-stage16-t4" --output-on-failure \
   -R '^(quantization|model_file|model_loader|cuda_quantized_decoder)$' \
   > "$RESULT_DIR/stage16_ctest.log" 2>&1
-ctest --test-dir build-stage16-t4 --output-on-failure -L gpu \
+ctest --test-dir "$REPO/build-stage16-t4" --output-on-failure -L gpu \
   > "$RESULT_DIR/gpu_ctest.log" 2>&1
 
 # Inspect both logs; they must show success before committing.
