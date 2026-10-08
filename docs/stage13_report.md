@@ -1,8 +1,8 @@
 # Stage 13 — tiny decoder acceptance status
 
-**Current status: C1–C3 and the C4 CPU path are locally accepted; the required
-T4 mixed-path evidence is pending. Stage 13 is not complete until that clean
-T4 result is fetched and independently verified.**
+**Current status: C1–C3 are accepted, and clean T4 C4 functional/memory
+conformance has passed. The latency record omitted its 10 raw sample values, so
+a final protocol-complete T4 capture is pending and Stage 13 is not yet closed.**
 
 ## Implemented source
 
@@ -85,7 +85,39 @@ Fixture mismatches similarly report index, values and tolerance. Runtime/model
 behavior is unchanged. The result-branch command now includes the unique run ID
 to prevent a later failed retry from colliding with an already-pushed branch.
 
-## Pending T4 gate
+## Passed T4 conformance capture and remaining evidence gap
+
+Result commit `44ca52f0f2cbcb644b40b5dacd4c98492bef982d`, directory
+`results/decoder/stage13-c4/20261008T025048601322Z-13737`, is a direct child of
+source `5a202a2d574379f03eb32fbab677bdb7223550c9`. Independent Git-tree replay over
+217 source files reproduces digest
+`73632093aebfa5bedaa1d60d7063a1a3c0ebfcd8b5f1d35acbef39445318bcd4`.
+Source before/after are clean and identical; all 13 commands exit zero; all
+18 non-manifest artifacts are present and match their hashes. Build/configure
+logs contain no warning/error lines. Testing is Release/CUDA/SM75 with
+`RUNTIME_TESTING`; the separate production build is Release/CUDA/SM75 without
+`RUNTIME_TESTING` or fast-math flags. Frozen weight/logit hashes independently
+match source blobs.
+
+CTest passes **47/47 full**, **6/6 GPU**, and **6/6 decoder**. The production
+mixed record passes frozen logits with 21 CUDA projection nodes, 55
+scheduler-inserted copy nodes, 97 executed copies / 474,656 bytes, 172 backend
+dispatches / 41 switches, zero execute backing allocations, 71,200 logical
+peak-live bytes, and planned capacity 9,216 CPU + 71,232 CUDA bytes. The CPU
+record has 185 dispatches, 115 dynamic allocations, zero planned execute
+allocations, 11,520 peak-live bytes and 12,288 planned capacity bytes.
+
+Diagnostic medians were CPU 2.661411 ms and mixed 3.979601 ms for same-shape
+execution; shape-change end-to-end medians were 12.266259 ms and 34.778396 ms.
+No speedup claim follows. However, each record declared ten samples while only
+its median was retained. The roadmap requires raw samples whenever timing is
+measured, so this capture establishes functional/memory conformance but cannot
+close C4's latency evidence. Commit `64cfe6b` now emits both ten-value raw arrays,
+uses the conventional even-count median, and makes the capture validator replay
+both medians at 1e-12 tolerance while rejecting missing/nonfinite/wrong-count
+samples. A final clean capture is required; no model/runtime behavior changed.
+
+## Pending final raw-sample T4 gate
 
 Run the clean procedure in [stage13_colab.md](stage13_colab.md). Acceptance
 requires:
@@ -97,7 +129,8 @@ requires:
 5. production CPU and mixed records tied to one clean source commit/digest;
 6. mixed record with 21 CUDA projection nodes, explicit H2D/D2H copies, positive
    CPU/CUDA planned capacities and zero execute-time backing allocations;
-7. raw logs, compile commands, caches, metrics and hashes retained under one
+7. both ten-value raw latency arrays with independently replayed medians, plus
+   raw logs, compile commands, caches, metrics and hashes retained under one
    append-only result directory in a separate result commit.
 
 Latency is diagnostic only. Stage 13 has no speedup or language-quality gate.

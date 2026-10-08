@@ -11,8 +11,12 @@ contains the explicit contiguous V projection boundary and a metadata-only
 scheduler regression. The second preserved attempt (`d97d107`, run
 `20261008T024029021362Z-9005`) reached mixed execution and exposed an incomplete
 test-side copy-count expectation; the test now derives exact COPY/MATERIALIZE
-counts and bytes from the rewritten graph. Retry from a fresh clone of the
-latest source branch, not from either failed result branch.
+counts and bytes from the rewritten graph. The third capture (`44ca52f`, run
+`20261008T025048601322Z-13737`) passes 47/47 full, 6/6 GPU and 6/6 decoder plus
+all functional/memory checks, but retained medians without the declared ten raw
+latency samples. The latest runner records both raw arrays and independently
+replays conventional medians. Retry from a fresh clone of the latest source
+branch, not from a result branch.
 
 ## Clone, test, capture and push
 
@@ -51,6 +55,9 @@ if "metrics" in value:
     print("mixed_execute_median_ms=" + str(value["metrics"]["mixed"]["execute_median_ms"]))
     print("mixed_copies=" + str(value["metrics"]["mixed"]["copies"]))
     print("mixed_copy_bytes=" + str(value["metrics"]["mixed"]["copy_bytes"]))
+    for mode in ("cpu", "mixed"):
+        print(mode + "_execute_raw_samples=" + str(len(value["metrics"][mode]["execute_samples_ms"])))
+        print(mode + "_shape_change_raw_samples=" + str(len(value["metrics"][mode]["shape_change_end_to_end_samples_ms"])))
 PY
 
 RESULT_STATUS=$(python3 - "$RESULT_DIR/manifest.json" <<'PY'

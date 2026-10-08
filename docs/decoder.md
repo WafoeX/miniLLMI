@@ -64,5 +64,8 @@ CUDA tolerance is atol `2e-4`, rtol `2e-3`. Random fixture weights validate
 runtime behavior only.
 
 Stage 13 latency is diagnostic. `bench_decoder` reports prepare separately,
-warmed same-shape execution, and shape-change end-to-end time including graph
-build/rewrite/prepare. No speedup gate or external-runtime comparison exists.
+retains ten warmed same-shape samples and ten shape-change end-to-end samples
+(including graph build/rewrite/prepare), and reports the conventional median of
+each raw array. The capture validator independently replays both medians and
+rejects missing, nonfinite or wrong-count samples. No speedup gate or
+external-runtime comparison exists.
