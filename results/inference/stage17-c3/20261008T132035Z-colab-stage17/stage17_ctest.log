@@ -1,0 +1,23 @@
+Internal ctest changing into directory: /content/miniLLMI/build-stage17-test
+Test project /content/miniLLMI/build-stage17-test
+    Start  1: cli_tools
+1/5 Test  #1: cli_tools ........................   Passed    1.03 sec
+    Start  2: generation
+2/5 Test  #2: generation .......................   Passed    0.34 sec
+    Start  3: inference_benchmark_tools
+3/5 Test  #3: inference_benchmark_tools ........   Passed    1.36 sec
+    Start  4: quant_benchmark_tools
+4/5 Test  #4: quant_benchmark_tools ............   Passed    0.50 sec
+    Start 57: cuda_quantized_decoder
+5/5 Test #57: cuda_quantized_decoder ...........   Passed    0.51 sec
+
+100% tests passed, 0 tests failed out of 5
+
+Label Time Summary:
+cli        =   2.74 sec*proc (3 tests)
+cpu        =   3.24 sec*proc (4 tests)
+decoder    =   0.51 sec*proc (1 test)
+gpu        =   0.51 sec*proc (1 test)
+quant      =   1.01 sec*proc (2 tests)
+
+Total Test time (real) =   3.75 sec
