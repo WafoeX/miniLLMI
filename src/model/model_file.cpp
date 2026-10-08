@@ -510,23 +510,38 @@ void write_quantized_model_file(const std::string& path, const ParameterTable& p
 
 LoadedModel load_model_file(const std::string& path, ModelFileLimits limits) {
     const auto metadata = inspect_model_file(path, limits);
-    if (metadata.format_version == MODEL_FILE_VERSION_V2) {
-        for (const auto& descriptor : metadata.tensors)
-            if (descriptor.quantization)
-                throw std::invalid_argument("model file: INT8 payload requires Stage 16 prepare_dequant support");
-    }
     std::ifstream input(path, std::ios::binary);
     if (!input) throw std::runtime_error("model file: cannot open '" + path + "'");
     std::map<std::string, runtime::Tensor> tensors;
+    std::vector<PrepareDequantWeight> prepare_dequant_weights;
     for (const auto& descriptor : metadata.tensors) {
-        auto tensor = runtime::Tensor::allocate_cpu(descriptor.shape, descriptor.dtype);
         input.seekg(as_streamsize(descriptor.offset_bytes, "tensor offset"), std::ios::beg);
         if (!input) invalid("cannot seek to tensor '" + descriptor.name + "'");
-        input.read(reinterpret_cast<char*>(tensor.data<float>()), as_streamsize(descriptor.nbytes, "tensor payload"));
-        if (!input) invalid("truncated tensor payload '" + descriptor.name + "'");
-        tensors.emplace(descriptor.name, std::move(tensor));
+        if (!descriptor.quantization) {
+            auto tensor = runtime::Tensor::allocate_cpu(descriptor.shape, runtime::DType::FP32);
+            input.read(reinterpret_cast<char*>(tensor.data<float>()), as_streamsize(descriptor.nbytes, "tensor payload"));
+            if (!input) invalid("truncated tensor payload '" + descriptor.name + "'");
+            tensors.emplace(descriptor.name, std::move(tensor));
+            continue;
+        }
+
+        auto values = runtime::Tensor::allocate_cpu(descriptor.shape, runtime::DType::INT8);
+        input.read(reinterpret_cast<char*>(values.data<std::int8_t>()), as_streamsize(descriptor.nbytes, "INT8 tensor payload"));
+        if (!input) invalid("truncated INT8 tensor payload '" + descriptor.name + "'");
+        const auto& quantization = *descriptor.quantization;
+        auto scales = runtime::Tensor::allocate_cpu(quantization.scales_shape, runtime::DType::FP32);
+        input.seekg(as_streamsize(quantization.scales_offset_bytes, "scale tensor offset"), std::ios::beg);
+        if (!input) invalid("cannot seek to scales for tensor '" + descriptor.name + "'");
+        input.read(reinterpret_cast<char*>(scales.data<float>()), as_streamsize(quantization.scales_nbytes, "scale tensor payload"));
+        if (!input) invalid("truncated scale tensor payload '" + descriptor.name + "'");
+        QuantizedTensor quantized{std::move(values), std::move(scales), quantization.output_axis};
+        validate_per_output_channel_int8(quantized);
+        auto dequantized = dequantize_per_output_channel(quantized);
+        prepare_dequant_weights.push_back({descriptor.name, std::move(quantized)});
+        tensors.emplace(descriptor.name, std::move(dequantized));
     }
-    return {ParameterTable(metadata.config, std::move(tensors)), metadata.vocabulary_version};
+    return {ParameterTable(metadata.config, std::move(tensors)), metadata.vocabulary_version,
+            std::move(prepare_dequant_weights)};
 }
 
 } // namespace model

@@ -1,5 +1,7 @@
 #include "model/quantization.hpp"
+#include "runtime/graph_executor.hpp"
 
+#include <algorithm>
 #include <cmath>
 #include <cstdint>
 #include <iostream>
@@ -51,6 +53,44 @@ void test_per_channel_rounding_and_error() {
     }
 }
 
+runtime::Tensor matmul_with_existing_backend(const runtime::Tensor& input, const runtime::Tensor& weight) {
+    runtime::Graph graph;
+    graph.add_input(0, "input", input);
+    graph.add_input(1, "weight", weight);
+    graph.add_tensor(2, {input.shape()[0], weight.shape()[1]});
+    graph.add_node(0, runtime::OpDesc(runtime::OpCode::MATMUL, {0, 1}, {2}));
+    graph.add_output("output", 2);
+    const auto frozen = graph.freeze();
+    require(frozen.ok(), frozen.message.c_str());
+    auto result = runtime::execute_graph(graph);
+    require(result.ok(), result.status.message.c_str());
+    return result.outputs.at("output");
+}
+
+void test_prepare_dequant_matmul_path() {
+    auto input = runtime::Tensor::allocate_cpu({2, 3});
+    const float input_values[] = {0.25F, -0.5F, 0.75F, -1.F, 0.5F, 0.125F};
+    std::copy(std::begin(input_values), std::end(input_values), input.data<float>());
+    auto weight = runtime::Tensor::allocate_cpu({3, 2});
+    const float weight_values[] = {0.125F, -0.25F, 0.5F, 0.75F, -0.875F, 1.F};
+    std::copy(std::begin(weight_values), std::end(weight_values), weight.data<float>());
+    const auto expected = matmul_with_existing_backend(input, weight);
+    const auto quantized = model::quantize_per_output_channel(weight);
+    const auto actual = matmul_with_existing_backend(input, model::dequantize_per_output_channel(quantized));
+    for (std::size_t index = 0; index < actual.numel(); ++index) {
+        const auto tolerance = 1e-2F + 1e-2F * std::fabs(expected.data<float>()[index]);
+        require(std::isfinite(actual.data<float>()[index]) &&
+                    std::fabs(actual.data<float>()[index] - expected.data<float>()[index]) <= tolerance,
+                "prepare_dequant matmul error exceeds frozen tolerance");
+    }
+
+    auto zero_weight = runtime::Tensor::allocate_cpu({3, 2});
+    const auto zero_actual = matmul_with_existing_backend(input,
+        model::dequantize_per_output_channel(model::quantize_per_output_channel(zero_weight)));
+    for (std::size_t index = 0; index < zero_actual.numel(); ++index)
+        require(zero_actual.data<float>()[index] == 0.F, "zero weight prepare_dequant matmul");
+}
+
 void test_validation_and_eligibility() {
     auto nonfinite = runtime::Tensor::allocate_cpu({1, 1});
     nonfinite.data<float>()[0] = std::numeric_limits<float>::infinity();
@@ -77,6 +117,7 @@ void test_validation_and_eligibility() {
 int main() {
     try {
         test_per_channel_rounding_and_error();
+        test_prepare_dequant_matmul_path();
         test_validation_and_eligibility();
         std::cout << "Stage 16 C1 per-output-channel INT8 quantization: PASS\n";
         return 0;

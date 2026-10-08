@@ -1,11 +1,15 @@
 #include "decoder_fixture.hpp"
 #include "model/decoder.hpp"
 #include "model/model_file.hpp"
+#include "model/quantization.hpp"
 #include "runtime/planned_executor.hpp"
 
+#include <algorithm>
+#include <cmath>
 #include <cstring>
 #include <filesystem>
 #include <iostream>
+#include <limits>
 #include <stdexcept>
 
 namespace {
@@ -20,10 +24,43 @@ std::uint64_t checksum(const runtime::Tensor& tensor) {
     }
     return hash;
 }
+
+void compare_quantized_parameters(const model::ParameterTable& original, const model::LoadedModel& loaded) {
+    for (const auto& spec : model::parameter_specs(original.config())) {
+        if (!model::is_weight_only_int8_eligible(spec)) continue;
+        const auto source = std::find_if(loaded.prepare_dequant_weights.begin(), loaded.prepare_dequant_weights.end(),
+            [&](const model::PrepareDequantWeight& weight) { return weight.name == spec.name; });
+        require(source != loaded.prepare_dequant_weights.end(), "eligible weight lacks prepare_dequant source");
+        const auto& expected = original.at(spec.name);
+        const auto& actual = loaded.parameters.at(spec.name);
+        const auto* scales = source->source.scales.data<float>();
+        for (std::size_t index = 0; index < expected.numel(); ++index) {
+            const auto output = index % static_cast<std::size_t>(spec.shape[1]);
+            const auto tolerance = scales[output] / 2.F +
+                4.F * std::numeric_limits<float>::epsilon() * std::fabs(expected.data<float>()[index]);
+            require(std::isfinite(actual.data<float>()[index]) &&
+                        std::fabs(actual.data<float>()[index] - expected.data<float>()[index]) <= tolerance,
+                    "prepare_dequant element error");
+        }
+    }
+}
+
+void compare_quantized_logits(const runtime::Tensor& actual, const runtime::Tensor& expected) {
+    require(actual.shape() == expected.shape(), "quantized logits shape");
+    for (std::size_t index = 0; index < actual.numel(); ++index) {
+        const auto value = actual.data<float>()[index];
+        const auto reference = expected.data<float>()[index];
+        const auto tolerance = 1e-2F + 1e-2F * std::fabs(reference);
+        require(std::isfinite(value) && std::fabs(value - reference) <= tolerance,
+                "quantized logit error exceeds frozen tolerance");
+    }
+}
 } // namespace
 
 int main(int argc, char** argv) {
-    const auto temporary = std::filesystem::temp_directory_path() / "mini_llm_stage15_roundtrip.mllm";
+    const auto root = std::filesystem::temp_directory_path();
+    const auto temporary = root / "mini_llm_stage15_roundtrip.mllm";
+    const auto quantized_temporary = root / "mini_llm_stage16_prepare_dequant.mllm";
     try {
         if (argc != 4) throw std::invalid_argument("expected legacy weights, model artifact, and logits fixture");
         const auto config = model::DecoderConfig::tiny();
@@ -57,11 +94,25 @@ int main(int argc, char** argv) {
         decoder_fixture::compare(result.outputs.at("logits"), expected_logits);
         require(result.counts.allocations == 0, "loaded model planned execution allocation-free");
 
+        model::write_quantized_model_file(quantized_temporary.string(), original);
+        const auto quantized = model::load_model_file(quantized_temporary.string());
+        require(quantized.prepare_dequant_weights.size() == 15, "all eligible weights retain INT8/scales sources");
+        compare_quantized_parameters(original, quantized);
+        const auto quantized_decoder = model::build_decoder_prefill(config, quantized.parameters,
+                                                                      decoder_fixture::token_tensor({256, 0, 1, 257}));
+        runtime::PlannedAllocationProvider quantized_plan(quantized_decoder.graph);
+        const auto quantized_result = runtime::execute_planned(quantized_decoder.graph, quantized_plan);
+        require(quantized_result.ok(), quantized_result.status.message.c_str());
+        compare_quantized_logits(quantized_result.outputs.at("logits"), expected_logits);
+        require(quantized_result.counts.allocations == 0, "prepare_dequant execution allocation-free");
+
         std::filesystem::remove(temporary);
-        std::cout << "Stage 15 C2 model write/load/logit round-trip: PASS\n";
+        std::filesystem::remove(quantized_temporary);
+        std::cout << "Stage 15 C2 and Stage 16 C3 model write/load/prepare_dequant/logit round-trip: PASS\n";
         return 0;
     } catch (const std::exception& error) {
         std::filesystem::remove(temporary);
+        std::filesystem::remove(quantized_temporary);
         std::cerr << "test_model_loader: " << error.what() << '\n';
         return 1;
     }

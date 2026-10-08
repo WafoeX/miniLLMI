@@ -1,6 +1,7 @@
 #pragma once
 
 #include "model/config.hpp"
+#include "model/quantization.hpp"
 
 #include <cstddef>
 #include <cstdint>
@@ -56,9 +57,17 @@ struct ModelFileMetadata {
 // positive FP32 scale tensor on output axis 1.
 ModelFileMetadata inspect_model_file(const std::string& path, ModelFileLimits limits = {});
 
+struct PrepareDequantWeight {
+    std::string name;
+    QuantizedTensor source;
+};
+
 struct LoadedModel {
+    // INT8/scales and the ParameterTable's FP32 tensors coexist after the
+    // one-time prepare_dequant step; no graph/backend dispatch is bypassed.
     ParameterTable parameters;
     std::uint32_t vocabulary_version = 0;
+    std::vector<PrepareDequantWeight> prepare_dequant_weights;
 
     const DecoderConfig& config() const noexcept { return parameters.config(); }
 };
