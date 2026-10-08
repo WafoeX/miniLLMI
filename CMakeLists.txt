@@ -95,6 +95,10 @@ add_executable(bench_kv_cache bench/bench_kv_cache.cpp)
 target_link_libraries(bench_kv_cache PRIVATE model stage0_common)
 target_compile_options(bench_kv_cache PRIVATE -Wall -Wextra -Wpedantic)
 
+add_executable(convert_tiny_model tools/convert_tiny_model.cpp)
+target_link_libraries(convert_tiny_model PRIVATE model)
+target_compile_options(convert_tiny_model PRIVATE -Wall -Wextra -Wpedantic)
+
 if(BUILD_TESTING)
     target_compile_definitions(runtime PUBLIC RUNTIME_TESTING=1)
     add_executable(test_model_file tests/test_model_file.cpp)
@@ -102,6 +106,14 @@ if(BUILD_TESTING)
     target_compile_options(test_model_file PRIVATE -Wall -Wextra -Wpedantic)
     add_test(NAME model_file COMMAND test_model_file)
     set_tests_properties(model_file PROPERTIES LABELS "cpu;model_file")
+    add_executable(test_model_loader tests/test_model_loader.cpp)
+    target_link_libraries(test_model_loader PRIVATE model)
+    target_compile_options(test_model_loader PRIVATE -Wall -Wextra -Wpedantic)
+    add_test(NAME model_loader COMMAND test_model_loader
+        "${CMAKE_SOURCE_DIR}/tests/fixtures/operators-v1/tiny-weights-v1.bin"
+        "${CMAKE_SOURCE_DIR}/tests/fixtures/model-v1/tiny-model-v1.mllm"
+        "${CMAKE_SOURCE_DIR}/tests/fixtures/decoder-v1/logits.bin")
+    set_tests_properties(model_loader PROPERTIES LABELS "cpu;model_file")
     add_test(NAME kv_benchmark_workloads COMMAND bench_kv_cache --self-test)
     set_tests_properties(kv_benchmark_workloads PROPERTIES LABELS "cpu;kv")
     add_executable(test_kv_cache tests/test_kv_cache.cpp)

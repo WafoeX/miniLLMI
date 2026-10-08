@@ -40,4 +40,17 @@ struct ModelFileMetadata {
 // contiguous, and exactly cover the file suffix.
 ModelFileMetadata inspect_model_file(const std::string& path, ModelFileLimits limits = {});
 
+struct LoadedModel {
+    ParameterTable parameters;
+    std::uint32_t vocabulary_version = 0;
+
+    const DecoderConfig& config() const noexcept { return parameters.config(); }
+};
+
+// Deterministic offline writer and checked loader for the version-1 container.
+// The loader allocates only after inspect_model_file has enforced its budget.
+void write_model_file(const std::string& path, const ParameterTable& parameters,
+                      std::uint32_t vocabulary_version = BYTE_VOCABULARY_VERSION);
+LoadedModel load_model_file(const std::string& path, ModelFileLimits limits = {});
+
 } // namespace model

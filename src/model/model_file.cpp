@@ -193,4 +193,114 @@ ModelFileMetadata inspect_model_file(const std::string& path, ModelFileLimits li
     return {config, vocabulary_version, std::move(tensors), payload_bytes, total_file_bytes};
 }
 
+namespace {
+void write_u8(std::ostream& output, std::uint8_t value) {
+    output.put(static_cast<char>(value));
+}
+
+void write_u32(std::ostream& output, std::uint32_t value) {
+    for (unsigned shift = 0; shift < 32; shift += 8) write_u8(output, static_cast<std::uint8_t>(value >> shift));
+}
+
+void write_u64(std::ostream& output, std::uint64_t value) {
+    for (unsigned shift = 0; shift < 64; shift += 8) write_u8(output, static_cast<std::uint8_t>(value >> shift));
+}
+
+void write_i64(std::ostream& output, std::int64_t value) {
+    write_u64(output, static_cast<std::uint64_t>(value));
+}
+
+void write_f64(std::ostream& output, double value) {
+    std::uint64_t bits = 0;
+    std::memcpy(&bits, &value, sizeof(bits));
+    write_u64(output, bits);
+}
+
+void write_config(std::ostream& output, const DecoderConfig& config) {
+    for (const auto value : {config.batch, config.layers, config.hidden, config.heads, config.kv_heads,
+                             config.head_dim, config.ffn, config.vocab, config.max_seq})
+        write_i64(output, value);
+    write_f64(output, config.rms_epsilon);
+    write_f64(output, config.rope_base);
+    write_u8(output, config.bias ? 1 : 0);
+    for (std::size_t index = 0; index < 7; ++index) write_u8(output, 0);
+}
+
+std::size_t checked_metadata_bytes(const std::vector<ParameterSpec>& specs) {
+    std::size_t bytes = 0;
+    for (const auto& spec : specs) {
+        bytes = runtime::checked_add(bytes, 4);
+        bytes = runtime::checked_add(bytes, spec.name.size());
+        bytes = runtime::checked_add(bytes, 4 + 4 + 8 + 8);
+        bytes = runtime::checked_add(bytes, runtime::checked_mul(spec.shape.rank(), 8));
+    }
+    return bytes;
+}
+
+std::streamsize as_streamsize(std::size_t value, const char* field) {
+    if (value > static_cast<std::size_t>(std::numeric_limits<std::streamsize>::max()))
+        throw std::overflow_error(std::string(field) + " exceeds streamsize");
+    return static_cast<std::streamsize>(value);
+}
+} // namespace
+
+void write_model_file(const std::string& path, const ParameterTable& parameters,
+                      std::uint32_t vocabulary_version) {
+    const auto& config = parameters.config();
+    if (vocabulary_version != BYTE_VOCABULARY_VERSION)
+        throw std::invalid_argument("model file: unsupported vocabulary version for writer");
+    if (config.vocab != 258) throw std::invalid_argument("model file: byte vocabulary requires vocab=258");
+    const auto specs = parameter_specs(config);
+    const auto metadata_bytes = checked_metadata_bytes(specs);
+    constexpr std::size_t fixed_header_bytes = 8 + 4 + 4 + 4 + 9 * 8 + 2 * 8 + 1 + 7;
+    auto payload_offset = runtime::checked_add(fixed_header_bytes, metadata_bytes);
+
+    std::vector<ModelTensorMetadata> metadata;
+    metadata.reserve(specs.size());
+    for (const auto& spec : specs) {
+        const auto bytes = runtime::nbytes(spec.shape, runtime::DType::FP32);
+        metadata.push_back({spec.name, runtime::DType::FP32, spec.shape, payload_offset, bytes});
+        payload_offset = runtime::checked_add(payload_offset, bytes);
+    }
+
+    std::ofstream output(path, std::ios::binary | std::ios::trunc);
+    if (!output) throw std::runtime_error("model file: cannot create '" + path + "'");
+    for (const auto value : MAGIC) write_u8(output, value);
+    write_u32(output, MODEL_FILE_VERSION);
+    write_u32(output, vocabulary_version);
+    write_u32(output, static_cast<std::uint32_t>(metadata.size()));
+    write_config(output, config);
+    for (const auto& tensor : metadata) {
+        write_u32(output, static_cast<std::uint32_t>(tensor.name.size()));
+        output.write(tensor.name.data(), as_streamsize(tensor.name.size(), "tensor name"));
+        write_u32(output, 1);
+        write_u32(output, static_cast<std::uint32_t>(tensor.shape.rank()));
+        write_u64(output, tensor.offset_bytes);
+        write_u64(output, tensor.nbytes);
+        for (const auto dimension : tensor.shape.values()) write_i64(output, dimension);
+    }
+    for (const auto& spec : specs) {
+        const auto& tensor = parameters.at(spec.name);
+        output.write(reinterpret_cast<const char*>(tensor.data<float>()),
+                     as_streamsize(tensor.nbytes(), "tensor payload"));
+    }
+    if (!output) throw std::runtime_error("model file: failed while writing '" + path + "'");
+}
+
+LoadedModel load_model_file(const std::string& path, ModelFileLimits limits) {
+    const auto metadata = inspect_model_file(path, limits);
+    std::ifstream input(path, std::ios::binary);
+    if (!input) throw std::runtime_error("model file: cannot open '" + path + "'");
+    std::map<std::string, runtime::Tensor> tensors;
+    for (const auto& descriptor : metadata.tensors) {
+        auto tensor = runtime::Tensor::allocate_cpu(descriptor.shape, descriptor.dtype);
+        input.seekg(as_streamsize(descriptor.offset_bytes, "tensor offset"), std::ios::beg);
+        if (!input) invalid("cannot seek to tensor '" + descriptor.name + "'");
+        input.read(reinterpret_cast<char*>(tensor.data<float>()), as_streamsize(descriptor.nbytes, "tensor payload"));
+        if (!input) invalid("truncated tensor payload '" + descriptor.name + "'");
+        tensors.emplace(descriptor.name, std::move(tensor));
+    }
+    return {ParameterTable(metadata.config, std::move(tensors)), metadata.vocabulary_version};
+}
+
 } // namespace model
