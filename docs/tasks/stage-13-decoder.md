@@ -2,10 +2,10 @@
 
 **Goal:** assemble existing graph operators into a deterministic tiny decoder. **Prerequisite:** S12-C5 and S5 planner. **Gate:** model output matches frozen fixture and uses graph/runtime layers.
 
-> **Implementation status.** C1–C3 are accepted; clean T4 C4 functional/memory
-> conformance passes, but its latency record omitted the declared raw samples.
-> A protocol-complete final T4 capture is pending, so Stage 13 is not yet complete.
-> See [`../stage13_report.md`](../stage13_report.md)
+> **Acceptance status.** C1–C4 are accepted. The final clean T4 mixed capture
+> retains replayed raw timing samples alongside full provenance, artifact hashes
+> and conformance logs; latency is diagnostic only. See
+> [`../stage13_report.md`](../stage13_report.md)
 > and [`../stage13_colab.md`](../stage13_colab.md).
 
 ## S13-C1 — Model config and parameter binding

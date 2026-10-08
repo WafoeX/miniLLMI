@@ -15,8 +15,10 @@ counts and bytes from the rewritten graph. The third capture (`44ca52f`, run
 `20261008T025048601322Z-13737`) passes 47/47 full, 6/6 GPU and 6/6 decoder plus
 all functional/memory checks, but retained medians without the declared ten raw
 latency samples. The latest runner records both raw arrays and independently
-replays conventional medians. Retry from a fresh clone of the latest source
-branch, not from a result branch.
+replays conventional medians. The final accepted capture (`1b46111`, run
+`20261008T072123049978Z-1761`) uses source `441b6ec`, passes 47/47 full, 6/6 GPU
+and 6/6 decoder, and retains all raw samples. This procedure remains the
+reproduction path; start from a fresh source branch, not a result branch.
 
 ## Clone, test, capture and push
 

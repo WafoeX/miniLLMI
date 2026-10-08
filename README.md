@@ -1,12 +1,12 @@
-# mini-llm-runtime — Stage 13 implementation / final raw-sample capture pending
+# mini-llm-runtime — Stage 13 accepted
 
-基于 C++17/CUDA 的推理引擎项目，**Stage 0–12 已通过各自必需验收项**；Stage 13 C1–C3 已接受，clean T4 C4 功能/内存一致性已通过，但该次诊断计时只保留 median、缺少声明的十个 raw samples，因此还需一次协议完整的 T4 capture 才能关闭 Stage 13。详见 [路线图](docs/roadmap.md)。已有统一 Tensor/shared Storage、backend-neutral 算子、冻结 DAG/顺序 executor、有界 trace、arena/生命周期内存规划、CPU backend/显式优化路径、CUDA storage/copy/GEMM、Nsight 对比及异构 scheduler。
+基于 C++17/CUDA 的推理引擎项目，**Stage 0–13 已通过各自必需验收项**。Stage 13 的 clean T4 C4 capture 保留完整 raw timing samples，已独立复核 source provenance、制品哈希、测试、构建隔离、fixture 和运行时计数；详见 [路线图](docs/roadmap.md)。已有统一 Tensor/shared Storage、backend-neutral 算子、冻结 DAG/顺序 executor、有界 trace、arena/生命周期内存规划、CPU backend/显式优化路径、CUDA storage/copy/GEMM、Nsight 对比及异构 scheduler。
 
 默认保留 **FP64 CPU reference math、dynamic allocation 与 CUDA v0**；Stage 0 与冻结 CPU 基线不改写。Stage 13 新增配置/21 个命名参数绑定、91-node decoder block 与 185-node 两层 no-cache prefill/logits 图；所有 attention/MLP 中间量均走原 graph/planner/backend 层。没有 tokenizer/model-file loader、KV Cache、自回归循环、量化、性能收益或语言质量声明；Stage 14–19 尚未实现。
 
-## Stage 13 状态（功能/内存通过，最终 raw-sample T4 capture 待验收）
+## Stage 13 验收（C1–C4 完成）
 
-冻结 `[256,0,1,257]` logits 与独立 Python 标量 oracle 一致；动态与 planned CPU 输出一致，planned warmed execute 的中间 backing allocation 为 0。shape 改变必须显式重建/replan，同 shape 可在输出释放后复用。混合路径源码声明 21 个 learned projection 使用 CUDA hint，其余 primitive 通过 scheduler 显式回到 CPU；首次 T4 运行保留了 46/47 的非连续 V alias 传输失败，现已用 graph-visible contiguous V COPY 边界修复并增加本地 metadata scheduler regression；第二次 46/47 已完成 mixed execution，仅暴露测试端遗漏 MATERIALIZE 的 copy-count 期望，现改为从重写图精确推导次数与字节数；第三次已通过 47/47、GPU 6/6、decoder 6/6 及全部功能/内存检查，但未保留原始延迟样本。最新 runner 会保存 CPU/mixed 各两组十值数组并独立重算 median。最终 clean T4 capture 须按 [Stage 13 Colab 步骤](docs/stage13_colab.md) 验收。参见 [decoder 契约](docs/decoder.md)、[临时验收报告](docs/stage13_report.md) 与 [Stage 13 任务书](docs/tasks/stage-13-decoder.md)。
+冻结 `[256,0,1,257]` logits 与独立 Python 标量 oracle 一致；动态与 planned CPU 输出一致，planned warmed execute 的中间 backing allocation 为 0。shape 改变必须显式重建/replan，同 shape 可在输出释放后复用。最终 Tesla T4 capture 在 clean source `441b6ec` 上通过 **47/47** 全套、**6/6** GPU、**6/6** decoder 测试：21 个 learned CUDA projections、55 scheduler COPY 节点、97 实际 copies / 474,656 bytes、零 execute-time backing allocations。CPU/mixed 的两组十值 raw latency arrays 均被保留并独立重算 median；数值只作诊断，不作加速或语言质量宣称。前两次 46/47 失败证据也完整保留。参见 [decoder 契约](docs/decoder.md)、[验收报告](docs/stage13_report.md)、[Colab 复现步骤](docs/stage13_colab.md) 与 [Stage 13 任务书](docs/tasks/stage-13-decoder.md)。
 
 ## Stage 12 验收（C1–C5 完成）
 

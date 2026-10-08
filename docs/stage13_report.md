@@ -1,8 +1,9 @@
 # Stage 13 — tiny decoder acceptance status
 
-**Current status: C1–C3 are accepted, and clean T4 C4 functional/memory
-conformance has passed. The latency record omitted its 10 raw sample values, so
-a final protocol-complete T4 capture is pending and Stage 13 is not yet closed.**
+**Stage 13 is accepted to required C1–C4 gates.** C1–C3 are locally verified;
+C4 has a clean, independently audited Tesla T4 capture with full raw timing
+samples. The latency values are diagnostic only; Stage 13 has no speedup or
+language-quality gate.
 
 ## Implemented source
 
@@ -85,7 +86,7 @@ Fixture mismatches similarly report index, values and tolerance. Runtime/model
 behavior is unchanged. The result-branch command now includes the unique run ID
 to prevent a later failed retry from colliding with an already-pushed branch.
 
-## Passed T4 conformance capture and remaining evidence gap
+## Earlier passed T4 conformance capture and protocol correction
 
 Result commit `44ca52f0f2cbcb644b40b5dacd4c98492bef982d`, directory
 `results/decoder/stage13-c4/20261008T025048601322Z-13737`, is a direct child of
@@ -117,23 +118,33 @@ uses the conventional even-count median, and makes the capture validator replay
 both medians at 1e-12 tolerance while rejecting missing/nonfinite/wrong-count
 samples. A final clean capture is required; no model/runtime behavior changed.
 
-## Pending final raw-sample T4 gate
+## Final accepted raw-sample T4 capture
 
-Run the clean procedure in [stage13_colab.md](stage13_colab.md). Acceptance
-requires:
+Result commit `1b46111cf7179dc0c9875eff8ed6d78137d9702f`, directory
+[`results/decoder/stage13-c4/20261008T072123049978Z-1761`](../results/decoder/stage13-c4/20261008T072123049978Z-1761/),
+is a direct child of tested source `441b6ecfbb2723793508c3c6ac0560ed56a1ecf9`.
+The result commit changes only its run directory. Independent reconstruction over
+217 Git-tree source files—including executable bits—reproduces clean source
+digest `d4a5418782a76e84f1653fe747995115a8d94920d084ce64ccaaf91a4cea5166`;
+source before/after are identical. All 13 capture commands exit zero, all 18
+non-manifest artifacts hash-match and exactly cover the retained run artifacts.
 
-1. one visible Tesla/NVIDIA T4 with compute capability 7.5;
-2. clean Release testing and separate non-testing production builds at SM75;
-3. full CTest plus `gpu` and `decoder` label suites passing;
-4. `cuda_decoder` matching frozen logits within the predeclared mixed tolerance;
-5. production CPU and mixed records tied to one clean source commit/digest;
-6. mixed record with 21 CUDA projection nodes, explicit H2D/D2H copies, positive
-   CPU/CUDA planned capacities and zero execute-time backing allocations;
-7. both ten-value raw latency arrays with independently replayed medians, plus
-   raw logs, compile commands, caches, metrics and hashes retained under one
-   append-only result directory in a separate result commit.
+Tesla T4 (CC 7.5), driver 580.82.07 and CUDA 13.0 built fresh Release/SM75
+testing and production configurations. Testing has `RUNTIME_TESTING`; production
+does not, and neither uses fast math. Logs contain no warning/error lines.
+Frozen weight/logit hashes again match source. CTest passes **47/47 full**,
+**6/6 GPU** and **6/6 decoder**. Mixed execution matches frozen logits with 21
+CUDA projections, 55 inserted copy nodes, 97 copies / 474,656 bytes, 172
+dispatches / 41 switches, zero execute backing allocations, 71,200 peak-live
+bytes and planned capacity 9,216 CPU + 71,232 CUDA bytes. CPU planned execution
+has 185 dispatches, zero execute allocations, 11,520 peak-live bytes and 12,288
+capacity bytes; its dynamic baseline has 115 backing allocations.
 
-Latency is diagnostic only. Stage 13 has no speedup or language-quality gate.
-After the result branch is pushed, it must be fetched and its source identity,
-fixture hashes, commands, logs and metrics independently checked before this
-report, roadmap, task book and README may say Stage 13 is complete.
+Both CPU and mixed records retain 3 warmups plus 10 finite positive same-shape
+samples and 10 shape-change end-to-end samples. Independent replay matches the
+recorded conventional medians exactly: CPU **2.744023 ms** / **11.654339 ms**,
+and mixed **3.5422665 ms** / **31.5854535 ms**. These timings are diagnostic;
+they make no speedup or external-runtime claim.
+
+All C1–C4 acceptance criteria are satisfied. Stage 14 is the next dependent,
+unimplemented Change; it requires separate scope and acceptance work.
