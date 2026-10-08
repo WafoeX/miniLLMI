@@ -99,6 +99,10 @@ add_executable(bench_inference bench/bench_inference.cpp)
 target_link_libraries(bench_inference PRIVATE model stage0_common)
 target_compile_options(bench_inference PRIVATE -Wall -Wextra -Wpedantic)
 
+add_executable(bench_quantization bench/bench_quantization.cpp)
+target_link_libraries(bench_quantization PRIVATE model stage0_common)
+target_compile_options(bench_quantization PRIVATE -Wall -Wextra -Wpedantic)
+
 add_executable(convert_tiny_model tools/convert_tiny_model.cpp)
 target_link_libraries(convert_tiny_model PRIVATE model)
 target_compile_options(convert_tiny_model PRIVATE -Wall -Wextra -Wpedantic)
@@ -123,6 +127,11 @@ if(BUILD_TESTING)
         "${CMAKE_SOURCE_DIR}/tests/test_inference_benchmark_tools.py" "$<TARGET_FILE:bench_inference>"
         "${CMAKE_SOURCE_DIR}/tests/fixtures/model-v1/tiny-model-v1.mllm")
     set_tests_properties(inference_benchmark_tools PROPERTIES LABELS "cpu;cli")
+    add_test(NAME quant_benchmark_tools COMMAND "${Python3_EXECUTABLE}"
+        "${CMAKE_SOURCE_DIR}/tests/test_quant_benchmark_tools.py" "$<TARGET_FILE:bench_quantization>"
+        "$<TARGET_FILE:convert_tiny_model>" "${CMAKE_SOURCE_DIR}/tests/fixtures/operators-v1/tiny-weights-v1.bin"
+        "${CMAKE_SOURCE_DIR}/tests/fixtures/model-v1/tiny-model-v1.mllm")
+    set_tests_properties(quant_benchmark_tools PROPERTIES LABELS "cpu;quant")
     add_executable(test_quantization tests/test_quantization.cpp)
     target_link_libraries(test_quantization PRIVATE model)
     target_compile_options(test_quantization PRIVATE -Wall -Wextra -Wpedantic)
