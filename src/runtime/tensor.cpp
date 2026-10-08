@@ -43,6 +43,9 @@ Tensor Tensor::allocate_cpu(Shape shape, DType dtype) {
         case DType::INT32:
             std::uninitialized_value_construct_n(static_cast<std::int32_t*>(storage->data()), count);
             break;
+        case DType::INT8:
+            std::uninitialized_value_construct_n(static_cast<std::int8_t*>(storage->data()), count);
+            break;
         }
     }
     return Tensor(std::move(storage), dtype, std::move(shape), stride);
