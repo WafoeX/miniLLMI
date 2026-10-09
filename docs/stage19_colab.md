@@ -64,7 +64,8 @@ ctest --test-dir "$BUILD_DIR" --output-on-failure --no-tests=error \
   |& tee "$RESULT_DIR/ctest-full.log"
 ctest --test-dir "$BUILD_DIR" -L gpu --output-on-failure --no-tests=error \
   |& tee "$RESULT_DIR/ctest-gpu.log"
-ctest --test-dir "$BUILD_DIR" -R 'cuda_(decoder|kv_decoder|quantized_decoder)|cli_tools|generation|quant_benchmark_tools' \
+ctest --test-dir "$BUILD_DIR" \
+  -R '^(cli_tools|generation|inference_benchmark_tools|quant_benchmark_tools|cuda_decoder|cuda_quantized_decoder|cuda_kv_decoder)$' \
   --output-on-failure --no-tests=error |& tee "$RESULT_DIR/ctest-focused.log"
 printf 'passed\n' > "$RESULT_DIR/status.txt"
 find "$RESULT_DIR" -type f ! -name artifact_sha256.txt -print0 | sort -z \
