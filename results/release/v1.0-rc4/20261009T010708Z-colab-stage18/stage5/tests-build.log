@@ -1,0 +1,688 @@
+Change Dir: '/content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests'
+
+Run Build Command(s): /usr/local/lib/python3.13/dist-packages/cmake/data/bin/cmake -E env VERBOSE=1 /usr/bin/gmake -f Makefile -j8
+/usr/local/lib/python3.13/dist-packages/cmake/data/bin/cmake -S/content/miniLLMI-stage18 -B/content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests --check-build-system CMakeFiles/Makefile.cmake 0
+/usr/local/lib/python3.13/dist-packages/cmake/data/bin/cmake -E cmake_progress_start /content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests/CMakeFiles /content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests//CMakeFiles/progress.marks
+/usr/bin/gmake  -f CMakeFiles/Makefile2 all
+gmake[1]: Entering directory '/content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests'
+/usr/bin/gmake  -f CMakeFiles/refresh_provenance.dir/build.make CMakeFiles/refresh_provenance.dir/depend
+/usr/bin/gmake  -f CMakeFiles/runtime.dir/build.make CMakeFiles/runtime.dir/depend
+gmake[2]: Entering directory '/content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests'
+cd /content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests && /usr/local/lib/python3.13/dist-packages/cmake/data/bin/cmake -E cmake_depends "Unix Makefiles" /content/miniLLMI-stage18 /content/miniLLMI-stage18 /content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests /content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests /content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests/CMakeFiles/refresh_provenance.dir/DependInfo.cmake "--color="
+gmake[2]: Entering directory '/content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests'
+cd /content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests && /usr/local/lib/python3.13/dist-packages/cmake/data/bin/cmake -E cmake_depends "Unix Makefiles" /content/miniLLMI-stage18 /content/miniLLMI-stage18 /content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests /content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests /content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests/CMakeFiles/runtime.dir/DependInfo.cmake "--color="
+gmake[2]: Leaving directory '/content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests'
+/usr/bin/gmake  -f CMakeFiles/refresh_provenance.dir/build.make CMakeFiles/refresh_provenance.dir/build
+gmake[2]: Leaving directory '/content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests'
+/usr/bin/gmake  -f CMakeFiles/runtime.dir/build.make CMakeFiles/runtime.dir/build
+gmake[2]: Entering directory '/content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests'
+/usr/local/bin/python /content/miniLLMI-stage18/tools/provenance.py --root /content/miniLLMI-stage18 --header /content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests/generated/stage0/provenance.hpp
+gmake[2]: Entering directory '/content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests'
+[  1%] Building CXX object CMakeFiles/runtime.dir/src/runtime/storage.cpp.o
+/usr/bin/c++ -DRUNTIME_TESTING=1 -I/content/miniLLMI-stage18/include -O3 -DNDEBUG -std=c++17 -Wall -Wextra -Wpedantic -MD -MT CMakeFiles/runtime.dir/src/runtime/storage.cpp.o -MF CMakeFiles/runtime.dir/src/runtime/storage.cpp.o.d -o CMakeFiles/runtime.dir/src/runtime/storage.cpp.o -c /content/miniLLMI-stage18/src/runtime/storage.cpp
+[  2%] Building CXX object CMakeFiles/runtime.dir/src/runtime/tensor.cpp.o
+/usr/bin/c++ -DRUNTIME_TESTING=1 -I/content/miniLLMI-stage18/include -O3 -DNDEBUG -std=c++17 -Wall -Wextra -Wpedantic -MD -MT CMakeFiles/runtime.dir/src/runtime/tensor.cpp.o -MF CMakeFiles/runtime.dir/src/runtime/tensor.cpp.o.d -o CMakeFiles/runtime.dir/src/runtime/tensor.cpp.o -c /content/miniLLMI-stage18/src/runtime/tensor.cpp
+[  2%] Building CXX object CMakeFiles/runtime.dir/src/runtime/copy.cpp.o
+[  3%] Building CXX object CMakeFiles/runtime.dir/src/runtime/operator.cpp.o
+/usr/bin/c++ -DRUNTIME_TESTING=1 -I/content/miniLLMI-stage18/include -O3 -DNDEBUG -std=c++17 -Wall -Wextra -Wpedantic -MD -MT CMakeFiles/runtime.dir/src/runtime/copy.cpp.o -MF CMakeFiles/runtime.dir/src/runtime/copy.cpp.o.d -o CMakeFiles/runtime.dir/src/runtime/copy.cpp.o -c /content/miniLLMI-stage18/src/runtime/copy.cpp
+/usr/bin/c++ -DRUNTIME_TESTING=1 -I/content/miniLLMI-stage18/include -O3 -DNDEBUG -std=c++17 -Wall -Wextra -Wpedantic -MD -MT CMakeFiles/runtime.dir/src/runtime/operator.cpp.o -MF CMakeFiles/runtime.dir/src/runtime/operator.cpp.o.d -o CMakeFiles/runtime.dir/src/runtime/operator.cpp.o -c /content/miniLLMI-stage18/src/runtime/operator.cpp
+[  4%] Building CXX object CMakeFiles/runtime.dir/src/runtime/shape_inference.cpp.o
+/usr/bin/c++ -DRUNTIME_TESTING=1 -I/content/miniLLMI-stage18/include -O3 -DNDEBUG -std=c++17 -Wall -Wextra -Wpedantic -MD -MT CMakeFiles/runtime.dir/src/runtime/shape_inference.cpp.o -MF CMakeFiles/runtime.dir/src/runtime/shape_inference.cpp.o.d -o CMakeFiles/runtime.dir/src/runtime/shape_inference.cpp.o -c /content/miniLLMI-stage18/src/runtime/shape_inference.cpp
+[  5%] Building CXX object CMakeFiles/runtime.dir/src/runtime/reference.cpp.o
+[  6%] Building CXX object CMakeFiles/runtime.dir/src/runtime/layout.cpp.o
+/usr/bin/c++ -DRUNTIME_TESTING=1 -I/content/miniLLMI-stage18/include -O3 -DNDEBUG -std=c++17 -Wall -Wextra -Wpedantic -MD -MT CMakeFiles/runtime.dir/src/runtime/reference.cpp.o -MF CMakeFiles/runtime.dir/src/runtime/reference.cpp.o.d -o CMakeFiles/runtime.dir/src/runtime/reference.cpp.o -c /content/miniLLMI-stage18/src/runtime/reference.cpp
+/usr/bin/c++ -DRUNTIME_TESTING=1 -I/content/miniLLMI-stage18/include -O3 -DNDEBUG -std=c++17 -Wall -Wextra -Wpedantic -MD -MT CMakeFiles/runtime.dir/src/runtime/layout.cpp.o -MF CMakeFiles/runtime.dir/src/runtime/layout.cpp.o.d -o CMakeFiles/runtime.dir/src/runtime/layout.cpp.o -c /content/miniLLMI-stage18/src/runtime/layout.cpp
+gmake[2]: Leaving directory '/content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests'
+[  6%] Built target refresh_provenance
+/usr/bin/gmake  -f CMakeFiles/stage0_common.dir/build.make CMakeFiles/stage0_common.dir/depend
+gmake[2]: Entering directory '/content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests'
+cd /content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests && /usr/local/lib/python3.13/dist-packages/cmake/data/bin/cmake -E cmake_depends "Unix Makefiles" /content/miniLLMI-stage18 /content/miniLLMI-stage18 /content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests /content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests /content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests/CMakeFiles/stage0_common.dir/DependInfo.cmake "--color="
+gmake[2]: Leaving directory '/content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests'
+/usr/bin/gmake  -f CMakeFiles/stage0_common.dir/build.make CMakeFiles/stage0_common.dir/build
+gmake[2]: Entering directory '/content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests'
+[  7%] Building CXX object CMakeFiles/stage0_common.dir/src/common.cpp.o
+/usr/bin/c++  -I/content/miniLLMI-stage18/include -I/content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests/generated -O3 -DNDEBUG -std=c++17 -Wall -Wextra -Wpedantic -MD -MT CMakeFiles/stage0_common.dir/src/common.cpp.o -MF CMakeFiles/stage0_common.dir/src/common.cpp.o.d -o CMakeFiles/stage0_common.dir/src/common.cpp.o -c /content/miniLLMI-stage18/src/common.cpp
+[  8%] Building CXX object CMakeFiles/runtime.dir/src/runtime/graph.cpp.o
+/usr/bin/c++ -DRUNTIME_TESTING=1 -I/content/miniLLMI-stage18/include -O3 -DNDEBUG -std=c++17 -Wall -Wextra -Wpedantic -MD -MT CMakeFiles/runtime.dir/src/runtime/graph.cpp.o -MF CMakeFiles/runtime.dir/src/runtime/graph.cpp.o.d -o CMakeFiles/runtime.dir/src/runtime/graph.cpp.o -c /content/miniLLMI-stage18/src/runtime/graph.cpp
+[  8%] Building CXX object CMakeFiles/runtime.dir/src/runtime/graph_executor.cpp.o
+/usr/bin/c++ -DRUNTIME_TESTING=1 -I/content/miniLLMI-stage18/include -O3 -DNDEBUG -std=c++17 -Wall -Wextra -Wpedantic -MD -MT CMakeFiles/runtime.dir/src/runtime/graph_executor.cpp.o -MF CMakeFiles/runtime.dir/src/runtime/graph_executor.cpp.o.d -o CMakeFiles/runtime.dir/src/runtime/graph_executor.cpp.o -c /content/miniLLMI-stage18/src/runtime/graph_executor.cpp
+[  9%] Building CXX object CMakeFiles/runtime.dir/src/runtime/graph_trace.cpp.o
+/usr/bin/c++ -DRUNTIME_TESTING=1 -I/content/miniLLMI-stage18/include -O3 -DNDEBUG -std=c++17 -Wall -Wextra -Wpedantic -MD -MT CMakeFiles/runtime.dir/src/runtime/graph_trace.cpp.o -MF CMakeFiles/runtime.dir/src/runtime/graph_trace.cpp.o.d -o CMakeFiles/runtime.dir/src/runtime/graph_trace.cpp.o -c /content/miniLLMI-stage18/src/runtime/graph_trace.cpp
+[ 10%] Building CXX object CMakeFiles/runtime.dir/src/runtime/arena.cpp.o
+/usr/bin/c++ -DRUNTIME_TESTING=1 -I/content/miniLLMI-stage18/include -O3 -DNDEBUG -std=c++17 -Wall -Wextra -Wpedantic -MD -MT CMakeFiles/runtime.dir/src/runtime/arena.cpp.o -MF CMakeFiles/runtime.dir/src/runtime/arena.cpp.o.d -o CMakeFiles/runtime.dir/src/runtime/arena.cpp.o -c /content/miniLLMI-stage18/src/runtime/arena.cpp
+[ 11%] Building CXX object CMakeFiles/runtime.dir/src/runtime/allocation_provider.cpp.o
+/usr/bin/c++ -DRUNTIME_TESTING=1 -I/content/miniLLMI-stage18/include -O3 -DNDEBUG -std=c++17 -Wall -Wextra -Wpedantic -MD -MT CMakeFiles/runtime.dir/src/runtime/allocation_provider.cpp.o -MF CMakeFiles/runtime.dir/src/runtime/allocation_provider.cpp.o.d -o CMakeFiles/runtime.dir/src/runtime/allocation_provider.cpp.o -c /content/miniLLMI-stage18/src/runtime/allocation_provider.cpp
+[ 12%] Building CXX object CMakeFiles/runtime.dir/src/runtime/memory_planner.cpp.o
+/usr/bin/c++ -DRUNTIME_TESTING=1 -I/content/miniLLMI-stage18/include -O3 -DNDEBUG -std=c++17 -Wall -Wextra -Wpedantic -MD -MT CMakeFiles/runtime.dir/src/runtime/memory_planner.cpp.o -MF CMakeFiles/runtime.dir/src/runtime/memory_planner.cpp.o.d -o CMakeFiles/runtime.dir/src/runtime/memory_planner.cpp.o -c /content/miniLLMI-stage18/src/runtime/memory_planner.cpp
+[ 13%] Building CXX object CMakeFiles/runtime.dir/src/runtime/planned_executor.cpp.o
+/usr/bin/c++ -DRUNTIME_TESTING=1 -I/content/miniLLMI-stage18/include -O3 -DNDEBUG -std=c++17 -Wall -Wextra -Wpedantic -MD -MT CMakeFiles/runtime.dir/src/runtime/planned_executor.cpp.o -MF CMakeFiles/runtime.dir/src/runtime/planned_executor.cpp.o.d -o CMakeFiles/runtime.dir/src/runtime/planned_executor.cpp.o -c /content/miniLLMI-stage18/src/runtime/planned_executor.cpp
+[ 13%] Building CXX object CMakeFiles/runtime.dir/src/runtime/cpu_backend.cpp.o
+/usr/bin/c++ -DRUNTIME_TESTING=1 -I/content/miniLLMI-stage18/include -O3 -DNDEBUG -std=c++17 -Wall -Wextra -Wpedantic -MD -MT CMakeFiles/runtime.dir/src/runtime/cpu_backend.cpp.o -MF CMakeFiles/runtime.dir/src/runtime/cpu_backend.cpp.o.d -o CMakeFiles/runtime.dir/src/runtime/cpu_backend.cpp.o -c /content/miniLLMI-stage18/src/runtime/cpu_backend.cpp
+[ 14%] Linking CXX static library libstage0_common.a
+/usr/local/lib/python3.13/dist-packages/cmake/data/bin/cmake -P CMakeFiles/stage0_common.dir/cmake_clean_target.cmake
+/usr/local/lib/python3.13/dist-packages/cmake/data/bin/cmake -E cmake_link_script CMakeFiles/stage0_common.dir/link.txt --verbose=1
+/usr/bin/ar qc libstage0_common.a CMakeFiles/stage0_common.dir/src/common.cpp.o
+/usr/bin/ranlib libstage0_common.a
+gmake[2]: Leaving directory '/content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests'
+[ 14%] Built target stage0_common
+/usr/bin/gmake  -f CMakeFiles/test_common.dir/build.make CMakeFiles/test_common.dir/depend
+gmake[2]: Entering directory '/content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests'
+cd /content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests && /usr/local/lib/python3.13/dist-packages/cmake/data/bin/cmake -E cmake_depends "Unix Makefiles" /content/miniLLMI-stage18 /content/miniLLMI-stage18 /content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests /content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests /content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests/CMakeFiles/test_common.dir/DependInfo.cmake "--color="
+gmake[2]: Leaving directory '/content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests'
+/usr/bin/gmake  -f CMakeFiles/test_common.dir/build.make CMakeFiles/test_common.dir/build
+gmake[2]: Entering directory '/content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests'
+[ 15%] Building CXX object CMakeFiles/test_common.dir/tests/test_common.cpp.o
+/usr/bin/c++  -I/content/miniLLMI-stage18/include -I/content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests/generated -O3 -DNDEBUG -std=c++17 -Wall -Wextra -Wpedantic -MD -MT CMakeFiles/test_common.dir/tests/test_common.cpp.o -MF CMakeFiles/test_common.dir/tests/test_common.cpp.o.d -o CMakeFiles/test_common.dir/tests/test_common.cpp.o -c /content/miniLLMI-stage18/tests/test_common.cpp
+[ 16%] Building CXX object CMakeFiles/runtime.dir/src/runtime/cpu_scalar.cpp.o
+/usr/bin/c++ -DRUNTIME_TESTING=1 -I/content/miniLLMI-stage18/include -O3 -DNDEBUG -std=c++17 -Wall -Wextra -Wpedantic -MD -MT CMakeFiles/runtime.dir/src/runtime/cpu_scalar.cpp.o -MF CMakeFiles/runtime.dir/src/runtime/cpu_scalar.cpp.o.d -o CMakeFiles/runtime.dir/src/runtime/cpu_scalar.cpp.o -c /content/miniLLMI-stage18/src/runtime/cpu_scalar.cpp
+[ 17%] Building CXX object CMakeFiles/runtime.dir/src/runtime/cpu_optimized.cpp.o
+/usr/bin/c++ -DRUNTIME_TESTING=1 -I/content/miniLLMI-stage18/include -O3 -DNDEBUG -std=c++17 -Wall -Wextra -Wpedantic -MD -MT CMakeFiles/runtime.dir/src/runtime/cpu_optimized.cpp.o -MF CMakeFiles/runtime.dir/src/runtime/cpu_optimized.cpp.o.d -o CMakeFiles/runtime.dir/src/runtime/cpu_optimized.cpp.o -c /content/miniLLMI-stage18/src/runtime/cpu_optimized.cpp
+[ 18%] Building CXX object CMakeFiles/runtime.dir/src/runtime/thread_pool.cpp.o
+/usr/bin/c++ -DRUNTIME_TESTING=1 -I/content/miniLLMI-stage18/include -O3 -DNDEBUG -std=c++17 -Wall -Wextra -Wpedantic -MD -MT CMakeFiles/runtime.dir/src/runtime/thread_pool.cpp.o -MF CMakeFiles/runtime.dir/src/runtime/thread_pool.cpp.o.d -o CMakeFiles/runtime.dir/src/runtime/thread_pool.cpp.o -c /content/miniLLMI-stage18/src/runtime/thread_pool.cpp
+[ 19%] Building CXX object CMakeFiles/runtime.dir/src/runtime/scheduler.cpp.o
+/usr/bin/c++ -DRUNTIME_TESTING=1 -I/content/miniLLMI-stage18/include -O3 -DNDEBUG -std=c++17 -Wall -Wextra -Wpedantic -MD -MT CMakeFiles/runtime.dir/src/runtime/scheduler.cpp.o -MF CMakeFiles/runtime.dir/src/runtime/scheduler.cpp.o.d -o CMakeFiles/runtime.dir/src/runtime/scheduler.cpp.o -c /content/miniLLMI-stage18/src/runtime/scheduler.cpp
+[ 20%] Building CXX object CMakeFiles/runtime.dir/src/runtime/transformer_ops.cpp.o
+/usr/bin/c++ -DRUNTIME_TESTING=1 -I/content/miniLLMI-stage18/include -O3 -DNDEBUG -std=c++17 -Wall -Wextra -Wpedantic -MD -MT CMakeFiles/runtime.dir/src/runtime/transformer_ops.cpp.o -MF CMakeFiles/runtime.dir/src/runtime/transformer_ops.cpp.o.d -o CMakeFiles/runtime.dir/src/runtime/transformer_ops.cpp.o -c /content/miniLLMI-stage18/src/runtime/transformer_ops.cpp
+[ 20%] Building CXX object CMakeFiles/runtime.dir/src/runtime/attention.cpp.o
+/usr/bin/c++ -DRUNTIME_TESTING=1 -I/content/miniLLMI-stage18/include -O3 -DNDEBUG -std=c++17 -Wall -Wextra -Wpedantic -MD -MT CMakeFiles/runtime.dir/src/runtime/attention.cpp.o -MF CMakeFiles/runtime.dir/src/runtime/attention.cpp.o.d -o CMakeFiles/runtime.dir/src/runtime/attention.cpp.o -c /content/miniLLMI-stage18/src/runtime/attention.cpp
+[ 21%] Linking CXX executable test_common
+/usr/local/lib/python3.13/dist-packages/cmake/data/bin/cmake -E cmake_link_script CMakeFiles/test_common.dir/link.txt --verbose=1
+/usr/bin/c++ -O3 -DNDEBUG -Wl,--dependency-file=CMakeFiles/test_common.dir/link.d CMakeFiles/test_common.dir/tests/test_common.cpp.o -o test_common  libstage0_common.a
+gmake[2]: Leaving directory '/content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests'
+[ 21%] Built target test_common
+[ 22%] Linking CXX static library libruntime.a
+/usr/local/lib/python3.13/dist-packages/cmake/data/bin/cmake -P CMakeFiles/runtime.dir/cmake_clean_target.cmake
+/usr/local/lib/python3.13/dist-packages/cmake/data/bin/cmake -E cmake_link_script CMakeFiles/runtime.dir/link.txt --verbose=1
+/usr/bin/ar qc libruntime.a CMakeFiles/runtime.dir/src/runtime/storage.cpp.o CMakeFiles/runtime.dir/src/runtime/tensor.cpp.o CMakeFiles/runtime.dir/src/runtime/copy.cpp.o CMakeFiles/runtime.dir/src/runtime/operator.cpp.o CMakeFiles/runtime.dir/src/runtime/shape_inference.cpp.o CMakeFiles/runtime.dir/src/runtime/reference.cpp.o CMakeFiles/runtime.dir/src/runtime/layout.cpp.o CMakeFiles/runtime.dir/src/runtime/graph.cpp.o CMakeFiles/runtime.dir/src/runtime/graph_executor.cpp.o CMakeFiles/runtime.dir/src/runtime/graph_trace.cpp.o CMakeFiles/runtime.dir/src/runtime/arena.cpp.o CMakeFiles/runtime.dir/src/runtime/allocation_provider.cpp.o CMakeFiles/runtime.dir/src/runtime/memory_planner.cpp.o CMakeFiles/runtime.dir/src/runtime/planned_executor.cpp.o CMakeFiles/runtime.dir/src/runtime/cpu_backend.cpp.o CMakeFiles/runtime.dir/src/runtime/cpu_scalar.cpp.o CMakeFiles/runtime.dir/src/runtime/cpu_optimized.cpp.o CMakeFiles/runtime.dir/src/runtime/thread_pool.cpp.o CMakeFiles/runtime.dir/src/runtime/scheduler.cpp.o CMakeFiles/runtime.dir/src/runtime/transformer_ops.cpp.o CMakeFiles/runtime.dir/src/runtime/attention.cpp.o
+/usr/bin/ranlib libruntime.a
+gmake[2]: Leaving directory '/content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests'
+[ 22%] Built target runtime
+/usr/bin/gmake  -f CMakeFiles/model.dir/build.make CMakeFiles/model.dir/depend
+/usr/bin/gmake  -f CMakeFiles/bench_allocator.dir/build.make CMakeFiles/bench_allocator.dir/depend
+/usr/bin/gmake  -f CMakeFiles/bench_planner.dir/build.make CMakeFiles/bench_planner.dir/depend
+gmake[2]: Entering directory '/content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests'
+cd /content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests && /usr/local/lib/python3.13/dist-packages/cmake/data/bin/cmake -E cmake_depends "Unix Makefiles" /content/miniLLMI-stage18 /content/miniLLMI-stage18 /content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests /content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests /content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests/CMakeFiles/model.dir/DependInfo.cmake "--color="
+gmake[2]: Entering directory '/content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests'
+cd /content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests && /usr/local/lib/python3.13/dist-packages/cmake/data/bin/cmake -E cmake_depends "Unix Makefiles" /content/miniLLMI-stage18 /content/miniLLMI-stage18 /content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests /content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests /content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests/CMakeFiles/bench_planner.dir/DependInfo.cmake "--color="
+gmake[2]: Entering directory '/content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests'
+cd /content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests && /usr/local/lib/python3.13/dist-packages/cmake/data/bin/cmake -E cmake_depends "Unix Makefiles" /content/miniLLMI-stage18 /content/miniLLMI-stage18 /content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests /content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests /content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests/CMakeFiles/bench_allocator.dir/DependInfo.cmake "--color="
+/usr/bin/gmake  -f CMakeFiles/bench_cpu.dir/build.make CMakeFiles/bench_cpu.dir/depend
+/usr/bin/gmake  -f CMakeFiles/bench_scheduler.dir/build.make CMakeFiles/bench_scheduler.dir/depend
+gmake[2]: Entering directory '/content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests'
+cd /content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests && /usr/local/lib/python3.13/dist-packages/cmake/data/bin/cmake -E cmake_depends "Unix Makefiles" /content/miniLLMI-stage18 /content/miniLLMI-stage18 /content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests /content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests /content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests/CMakeFiles/bench_cpu.dir/DependInfo.cmake "--color="
+/usr/bin/gmake  -f CMakeFiles/test_scheduler.dir/build.make CMakeFiles/test_scheduler.dir/depend
+gmake[2]: Entering directory '/content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests'
+cd /content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests && /usr/local/lib/python3.13/dist-packages/cmake/data/bin/cmake -E cmake_depends "Unix Makefiles" /content/miniLLMI-stage18 /content/miniLLMI-stage18 /content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests /content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests /content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests/CMakeFiles/bench_scheduler.dir/DependInfo.cmake "--color="
+gmake[2]: Leaving directory '/content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests'
+/usr/bin/gmake  -f CMakeFiles/bench_allocator.dir/build.make CMakeFiles/bench_allocator.dir/build
+gmake[2]: Leaving directory '/content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests'
+/usr/bin/gmake  -f CMakeFiles/model.dir/build.make CMakeFiles/model.dir/build
+/usr/bin/gmake  -f CMakeFiles/test_cpu_transformer_contract.dir/build.make CMakeFiles/test_cpu_transformer_contract.dir/depend
+gmake[2]: Entering directory '/content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests'
+gmake[2]: Entering directory '/content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests'
+cd /content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests && /usr/local/lib/python3.13/dist-packages/cmake/data/bin/cmake -E cmake_depends "Unix Makefiles" /content/miniLLMI-stage18 /content/miniLLMI-stage18 /content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests /content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests /content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests/CMakeFiles/test_scheduler.dir/DependInfo.cmake "--color="
+/usr/bin/gmake  -f CMakeFiles/test_transformer_ops.dir/build.make CMakeFiles/test_transformer_ops.dir/depend
+gmake[2]: Leaving directory '/content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests'
+gmake[2]: Leaving directory '/content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests'
+gmake[2]: Entering directory '/content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests'
+/usr/bin/gmake  -f CMakeFiles/bench_planner.dir/build.make CMakeFiles/bench_planner.dir/build
+/usr/bin/gmake  -f CMakeFiles/bench_scheduler.dir/build.make CMakeFiles/bench_scheduler.dir/build
+gmake[2]: Entering directory '/content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests'
+gmake[2]: Leaving directory '/content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests'
+/usr/bin/gmake  -f CMakeFiles/bench_cpu.dir/build.make CMakeFiles/bench_cpu.dir/build
+gmake[2]: Entering directory '/content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests'
+cd /content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests && /usr/local/lib/python3.13/dist-packages/cmake/data/bin/cmake -E cmake_depends "Unix Makefiles" /content/miniLLMI-stage18 /content/miniLLMI-stage18 /content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests /content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests /content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests/CMakeFiles/test_cpu_transformer_contract.dir/DependInfo.cmake "--color="
+gmake[2]: Entering directory '/content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests'
+gmake[2]: Entering directory '/content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests'
+gmake[2]: Entering directory '/content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests'
+cd /content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests && /usr/local/lib/python3.13/dist-packages/cmake/data/bin/cmake -E cmake_depends "Unix Makefiles" /content/miniLLMI-stage18 /content/miniLLMI-stage18 /content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests /content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests /content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests/CMakeFiles/test_transformer_ops.dir/DependInfo.cmake "--color="
+[ 22%] Building CXX object CMakeFiles/bench_allocator.dir/bench/bench_allocator.cpp.o
+/usr/bin/c++ -DRUNTIME_TESTING=1 -I/content/miniLLMI-stage18/include -I/content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests/generated -O3 -DNDEBUG -std=c++17 -Wall -Wextra -Wpedantic -MD -MT CMakeFiles/bench_allocator.dir/bench/bench_allocator.cpp.o -MF CMakeFiles/bench_allocator.dir/bench/bench_allocator.cpp.o.d -o CMakeFiles/bench_allocator.dir/bench/bench_allocator.cpp.o -c /content/miniLLMI-stage18/bench/bench_allocator.cpp
+gmake[2]: Leaving directory '/content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests'
+/usr/bin/gmake  -f CMakeFiles/test_scheduler.dir/build.make CMakeFiles/test_scheduler.dir/build
+gmake[2]: Leaving directory '/content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests'
+gmake[2]: Entering directory '/content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests'
+/usr/bin/gmake  -f CMakeFiles/test_cpu_transformer_contract.dir/build.make CMakeFiles/test_cpu_transformer_contract.dir/build
+[ 23%] Building CXX object CMakeFiles/model.dir/src/model/config.cpp.o
+/usr/bin/c++ -DRUNTIME_TESTING=1 -I/content/miniLLMI-stage18/include -O3 -DNDEBUG -std=c++17 -Wall -Wextra -Wpedantic -MD -MT CMakeFiles/model.dir/src/model/config.cpp.o -MF CMakeFiles/model.dir/src/model/config.cpp.o.d -o CMakeFiles/model.dir/src/model/config.cpp.o -c /content/miniLLMI-stage18/src/model/config.cpp
+[ 24%] Building CXX object CMakeFiles/bench_planner.dir/bench/bench_planner.cpp.o
+gmake[2]: Entering directory '/content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests'
+/usr/bin/c++ -DRUNTIME_TESTING=1 -I/content/miniLLMI-stage18/include -I/content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests/generated -O3 -DNDEBUG -std=c++17 -Wall -Wextra -Wpedantic -MD -MT CMakeFiles/bench_planner.dir/bench/bench_planner.cpp.o -MF CMakeFiles/bench_planner.dir/bench/bench_planner.cpp.o.d -o CMakeFiles/bench_planner.dir/bench/bench_planner.cpp.o -c /content/miniLLMI-stage18/bench/bench_planner.cpp
+[ 25%] Building CXX object CMakeFiles/bench_scheduler.dir/bench/bench_scheduler.cpp.o
+[ 26%] Building CXX object CMakeFiles/bench_cpu.dir/bench/bench_cpu.cpp.o
+/usr/bin/c++ -DRUNTIME_TESTING=1 -I/content/miniLLMI-stage18/include -I/content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests/generated -O3 -DNDEBUG -std=c++17 -Wall -Wextra -Wpedantic -MD -MT CMakeFiles/bench_cpu.dir/bench/bench_cpu.cpp.o -MF CMakeFiles/bench_cpu.dir/bench/bench_cpu.cpp.o.d -o CMakeFiles/bench_cpu.dir/bench/bench_cpu.cpp.o -c /content/miniLLMI-stage18/bench/bench_cpu.cpp
+/usr/bin/c++ -DRUNTIME_TESTING=1 -I/content/miniLLMI-stage18/include -I/content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests/generated -O3 -DNDEBUG -std=c++17 -Wall -Wextra -Wpedantic -MD -MT CMakeFiles/bench_scheduler.dir/bench/bench_scheduler.cpp.o -MF CMakeFiles/bench_scheduler.dir/bench/bench_scheduler.cpp.o.d -o CMakeFiles/bench_scheduler.dir/bench/bench_scheduler.cpp.o -c /content/miniLLMI-stage18/bench/bench_scheduler.cpp
+[ 27%] Building CXX object CMakeFiles/test_scheduler.dir/tests/test_scheduler.cpp.o
+/usr/bin/c++ -DRUNTIME_TESTING=1 -I/content/miniLLMI-stage18/include -O3 -DNDEBUG -std=c++17 -Wall -Wextra -Wpedantic -MD -MT CMakeFiles/test_scheduler.dir/tests/test_scheduler.cpp.o -MF CMakeFiles/test_scheduler.dir/tests/test_scheduler.cpp.o.d -o CMakeFiles/test_scheduler.dir/tests/test_scheduler.cpp.o -c /content/miniLLMI-stage18/tests/test_scheduler.cpp
+gmake[2]: Leaving directory '/content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests'
+/usr/bin/gmake  -f CMakeFiles/test_transformer_ops.dir/build.make CMakeFiles/test_transformer_ops.dir/build
+[ 27%] Building CXX object CMakeFiles/test_cpu_transformer_contract.dir/tests/test_cpu_transformer_contract.cpp.o
+/usr/bin/c++ -DRUNTIME_TESTING=1 -I/content/miniLLMI-stage18/include -O3 -DNDEBUG -std=c++17 -Wall -Wextra -Wpedantic -MD -MT CMakeFiles/test_cpu_transformer_contract.dir/tests/test_cpu_transformer_contract.cpp.o -MF CMakeFiles/test_cpu_transformer_contract.dir/tests/test_cpu_transformer_contract.cpp.o.d -o CMakeFiles/test_cpu_transformer_contract.dir/tests/test_cpu_transformer_contract.cpp.o -c /content/miniLLMI-stage18/tests/test_cpu_transformer_contract.cpp
+gmake[2]: Entering directory '/content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests'
+[ 28%] Building CXX object CMakeFiles/test_transformer_ops.dir/tests/test_transformer_ops.cpp.o
+/usr/bin/c++ -DRUNTIME_TESTING=1 -I/content/miniLLMI-stage18/include -O3 -DNDEBUG -std=c++17 -Wall -Wextra -Wpedantic -MD -MT CMakeFiles/test_transformer_ops.dir/tests/test_transformer_ops.cpp.o -MF CMakeFiles/test_transformer_ops.dir/tests/test_transformer_ops.cpp.o.d -o CMakeFiles/test_transformer_ops.dir/tests/test_transformer_ops.cpp.o -c /content/miniLLMI-stage18/tests/test_transformer_ops.cpp
+[ 29%] Building CXX object CMakeFiles/model.dir/src/model/model_file.cpp.o
+/usr/bin/c++ -DRUNTIME_TESTING=1 -I/content/miniLLMI-stage18/include -O3 -DNDEBUG -std=c++17 -Wall -Wextra -Wpedantic -MD -MT CMakeFiles/model.dir/src/model/model_file.cpp.o -MF CMakeFiles/model.dir/src/model/model_file.cpp.o.d -o CMakeFiles/model.dir/src/model/model_file.cpp.o -c /content/miniLLMI-stage18/src/model/model_file.cpp
+[ 30%] Linking CXX executable bench_scheduler
+/usr/local/lib/python3.13/dist-packages/cmake/data/bin/cmake -E cmake_link_script CMakeFiles/bench_scheduler.dir/link.txt --verbose=1
+[ 31%] Linking CXX executable bench_cpu
+/usr/local/lib/python3.13/dist-packages/cmake/data/bin/cmake -E cmake_link_script CMakeFiles/bench_cpu.dir/link.txt --verbose=1
+/usr/bin/c++ -O3 -DNDEBUG -Wl,--dependency-file=CMakeFiles/bench_scheduler.dir/link.d CMakeFiles/bench_scheduler.dir/bench/bench_scheduler.cpp.o -o bench_scheduler  libruntime.a libstage0_common.a
+gmake[2]: Leaving directory '/content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests'
+[ 31%] Built target bench_scheduler
+/usr/bin/gmake  -f CMakeFiles/test_attention_graph.dir/build.make CMakeFiles/test_attention_graph.dir/depend
+gmake[2]: Entering directory '/content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests'
+cd /content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests && /usr/local/lib/python3.13/dist-packages/cmake/data/bin/cmake -E cmake_depends "Unix Makefiles" /content/miniLLMI-stage18 /content/miniLLMI-stage18 /content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests /content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests /content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests/CMakeFiles/test_attention_graph.dir/DependInfo.cmake "--color="
+gmake[2]: Leaving directory '/content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests'
+/usr/bin/gmake  -f CMakeFiles/test_attention_graph.dir/build.make CMakeFiles/test_attention_graph.dir/build
+gmake[2]: Entering directory '/content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests'
+[ 32%] Building CXX object CMakeFiles/test_attention_graph.dir/tests/test_attention_graph.cpp.o
+/usr/bin/c++ -DRUNTIME_TESTING=1 -I/content/miniLLMI-stage18/include -O3 -DNDEBUG -std=c++17 -Wall -Wextra -Wpedantic -MD -MT CMakeFiles/test_attention_graph.dir/tests/test_attention_graph.cpp.o -MF CMakeFiles/test_attention_graph.dir/tests/test_attention_graph.cpp.o.d -o CMakeFiles/test_attention_graph.dir/tests/test_attention_graph.cpp.o -c /content/miniLLMI-stage18/tests/test_attention_graph.cpp
+[ 33%] Linking CXX executable bench_allocator
+/usr/local/lib/python3.13/dist-packages/cmake/data/bin/cmake -E cmake_link_script CMakeFiles/bench_allocator.dir/link.txt --verbose=1
+/usr/bin/c++ -O3 -DNDEBUG -Wl,--dependency-file=CMakeFiles/bench_cpu.dir/link.d CMakeFiles/bench_cpu.dir/bench/bench_cpu.cpp.o -o bench_cpu  libruntime.a libstage0_common.a
+gmake[2]: Leaving directory '/content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests'
+[ 33%] Built target bench_cpu
+/usr/bin/gmake  -f CMakeFiles/test_cpu_scalar.dir/build.make CMakeFiles/test_cpu_scalar.dir/depend
+gmake[2]: Entering directory '/content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests'
+cd /content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests && /usr/local/lib/python3.13/dist-packages/cmake/data/bin/cmake -E cmake_depends "Unix Makefiles" /content/miniLLMI-stage18 /content/miniLLMI-stage18 /content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests /content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests /content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests/CMakeFiles/test_cpu_scalar.dir/DependInfo.cmake "--color="
+gmake[2]: Leaving directory '/content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests'
+/usr/bin/gmake  -f CMakeFiles/test_cpu_scalar.dir/build.make CMakeFiles/test_cpu_scalar.dir/build
+gmake[2]: Entering directory '/content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests'
+[ 34%] Building CXX object CMakeFiles/test_cpu_scalar.dir/tests/test_cpu_scalar.cpp.o
+/usr/bin/c++ -DRUNTIME_TESTING=1 -I/content/miniLLMI-stage18/include -O3 -DNDEBUG -std=c++17 -Wall -Wextra -Wpedantic -MD -MT CMakeFiles/test_cpu_scalar.dir/tests/test_cpu_scalar.cpp.o -MF CMakeFiles/test_cpu_scalar.dir/tests/test_cpu_scalar.cpp.o.d -o CMakeFiles/test_cpu_scalar.dir/tests/test_cpu_scalar.cpp.o -c /content/miniLLMI-stage18/tests/test_cpu_scalar.cpp
+[ 35%] Linking CXX executable bench_planner
+/usr/local/lib/python3.13/dist-packages/cmake/data/bin/cmake -E cmake_link_script CMakeFiles/bench_planner.dir/link.txt --verbose=1
+/usr/bin/c++ -O3 -DNDEBUG -Wl,--dependency-file=CMakeFiles/bench_allocator.dir/link.d CMakeFiles/bench_allocator.dir/bench/bench_allocator.cpp.o -o bench_allocator  libruntime.a libstage0_common.a
+gmake[2]: Leaving directory '/content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests'
+[ 35%] Built target bench_allocator
+/usr/bin/gmake  -f CMakeFiles/test_thread_pool.dir/build.make CMakeFiles/test_thread_pool.dir/depend
+gmake[2]: Entering directory '/content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests'
+cd /content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests && /usr/local/lib/python3.13/dist-packages/cmake/data/bin/cmake -E cmake_depends "Unix Makefiles" /content/miniLLMI-stage18 /content/miniLLMI-stage18 /content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests /content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests /content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests/CMakeFiles/test_thread_pool.dir/DependInfo.cmake "--color="
+gmake[2]: Leaving directory '/content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests'
+/usr/bin/gmake  -f CMakeFiles/test_thread_pool.dir/build.make CMakeFiles/test_thread_pool.dir/build
+gmake[2]: Entering directory '/content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests'
+[ 36%] Building CXX object CMakeFiles/test_thread_pool.dir/tests/test_thread_pool.cpp.o
+/usr/bin/c++ -DRUNTIME_TESTING=1 -I/content/miniLLMI-stage18/include -O3 -DNDEBUG -std=c++17 -Wall -Wextra -Wpedantic -MD -MT CMakeFiles/test_thread_pool.dir/tests/test_thread_pool.cpp.o -MF CMakeFiles/test_thread_pool.dir/tests/test_thread_pool.cpp.o.d -o CMakeFiles/test_thread_pool.dir/tests/test_thread_pool.cpp.o -c /content/miniLLMI-stage18/tests/test_thread_pool.cpp
+/usr/bin/c++ -O3 -DNDEBUG -Wl,--dependency-file=CMakeFiles/bench_planner.dir/link.d CMakeFiles/bench_planner.dir/bench/bench_planner.cpp.o -o bench_planner  libruntime.a libstage0_common.a
+gmake[2]: Leaving directory '/content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests'
+[ 36%] Built target bench_planner
+/usr/bin/gmake  -f CMakeFiles/test_cpu_backend_fixtures.dir/build.make CMakeFiles/test_cpu_backend_fixtures.dir/depend
+gmake[2]: Entering directory '/content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests'
+cd /content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests && /usr/local/lib/python3.13/dist-packages/cmake/data/bin/cmake -E cmake_depends "Unix Makefiles" /content/miniLLMI-stage18 /content/miniLLMI-stage18 /content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests /content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests /content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests/CMakeFiles/test_cpu_backend_fixtures.dir/DependInfo.cmake "--color="
+gmake[2]: Leaving directory '/content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests'
+/usr/bin/gmake  -f CMakeFiles/test_cpu_backend_fixtures.dir/build.make CMakeFiles/test_cpu_backend_fixtures.dir/build
+gmake[2]: Entering directory '/content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests'
+[ 37%] Building CXX object CMakeFiles/test_cpu_backend_fixtures.dir/tests/test_operator_fixtures.cpp.o
+/usr/bin/c++ -DCPU_BACKEND_FIXTURES=1 -DRUNTIME_TESTING=1 -I/content/miniLLMI-stage18/include -O3 -DNDEBUG -std=c++17 -Wall -Wextra -Wpedantic -MD -MT CMakeFiles/test_cpu_backend_fixtures.dir/tests/test_operator_fixtures.cpp.o -MF CMakeFiles/test_cpu_backend_fixtures.dir/tests/test_operator_fixtures.cpp.o.d -o CMakeFiles/test_cpu_backend_fixtures.dir/tests/test_operator_fixtures.cpp.o -c /content/miniLLMI-stage18/tests/test_operator_fixtures.cpp
+[ 38%] Linking CXX executable test_transformer_ops
+/usr/local/lib/python3.13/dist-packages/cmake/data/bin/cmake -E cmake_link_script CMakeFiles/test_transformer_ops.dir/link.txt --verbose=1
+/usr/bin/c++ -O3 -DNDEBUG -Wl,--dependency-file=CMakeFiles/test_transformer_ops.dir/link.d CMakeFiles/test_transformer_ops.dir/tests/test_transformer_ops.cpp.o -o test_transformer_ops  libruntime.a
+gmake[2]: Leaving directory '/content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests'
+[ 38%] Built target test_transformer_ops
+/usr/bin/gmake  -f CMakeFiles/test_cpu_backend.dir/build.make CMakeFiles/test_cpu_backend.dir/depend
+gmake[2]: Entering directory '/content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests'
+cd /content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests && /usr/local/lib/python3.13/dist-packages/cmake/data/bin/cmake -E cmake_depends "Unix Makefiles" /content/miniLLMI-stage18 /content/miniLLMI-stage18 /content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests /content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests /content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests/CMakeFiles/test_cpu_backend.dir/DependInfo.cmake "--color="
+gmake[2]: Leaving directory '/content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests'
+/usr/bin/gmake  -f CMakeFiles/test_cpu_backend.dir/build.make CMakeFiles/test_cpu_backend.dir/build
+gmake[2]: Entering directory '/content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests'
+[ 38%] Building CXX object CMakeFiles/test_cpu_backend.dir/tests/test_cpu_backend.cpp.o
+/usr/bin/c++ -DRUNTIME_TESTING=1 -I/content/miniLLMI-stage18/include -O3 -DNDEBUG -std=c++17 -Wall -Wextra -Wpedantic -MD -MT CMakeFiles/test_cpu_backend.dir/tests/test_cpu_backend.cpp.o -MF CMakeFiles/test_cpu_backend.dir/tests/test_cpu_backend.cpp.o.d -o CMakeFiles/test_cpu_backend.dir/tests/test_cpu_backend.cpp.o -c /content/miniLLMI-stage18/tests/test_cpu_backend.cpp
+[ 39%] Linking CXX executable test_cpu_transformer_contract
+/usr/local/lib/python3.13/dist-packages/cmake/data/bin/cmake -E cmake_link_script CMakeFiles/test_cpu_transformer_contract.dir/link.txt --verbose=1
+[ 40%] Linking CXX executable test_scheduler
+/usr/local/lib/python3.13/dist-packages/cmake/data/bin/cmake -E cmake_link_script CMakeFiles/test_scheduler.dir/link.txt --verbose=1
+/usr/bin/c++ -O3 -DNDEBUG -Wl,--dependency-file=CMakeFiles/test_scheduler.dir/link.d CMakeFiles/test_scheduler.dir/tests/test_scheduler.cpp.o -o test_scheduler  libruntime.a
+gmake[2]: Leaving directory '/content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests'
+/usr/bin/c++ -O3 -DNDEBUG -Wl,--dependency-file=CMakeFiles/test_cpu_transformer_contract.dir/link.d CMakeFiles/test_cpu_transformer_contract.dir/tests/test_cpu_transformer_contract.cpp.o -o test_cpu_transformer_contract  libruntime.a
+gmake[2]: Leaving directory '/content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests'
+[ 40%] Built target test_scheduler
+/usr/bin/gmake  -f CMakeFiles/test_tensor.dir/build.make CMakeFiles/test_tensor.dir/depend
+gmake[2]: Entering directory '/content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests'
+cd /content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests && /usr/local/lib/python3.13/dist-packages/cmake/data/bin/cmake -E cmake_depends "Unix Makefiles" /content/miniLLMI-stage18 /content/miniLLMI-stage18 /content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests /content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests /content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests/CMakeFiles/test_tensor.dir/DependInfo.cmake "--color="
+[ 40%] Built target test_cpu_transformer_contract
+/usr/bin/gmake  -f CMakeFiles/test_tensor_properties.dir/build.make CMakeFiles/test_tensor_properties.dir/depend
+gmake[2]: Entering directory '/content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests'
+cd /content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests && /usr/local/lib/python3.13/dist-packages/cmake/data/bin/cmake -E cmake_depends "Unix Makefiles" /content/miniLLMI-stage18 /content/miniLLMI-stage18 /content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests /content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests /content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests/CMakeFiles/test_tensor_properties.dir/DependInfo.cmake "--color="
+gmake[2]: Leaving directory '/content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests'
+/usr/bin/gmake  -f CMakeFiles/test_tensor.dir/build.make CMakeFiles/test_tensor.dir/build
+gmake[2]: Leaving directory '/content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests'
+/usr/bin/gmake  -f CMakeFiles/test_tensor_properties.dir/build.make CMakeFiles/test_tensor_properties.dir/build
+gmake[2]: Entering directory '/content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests'
+gmake[2]: Entering directory '/content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests'
+[ 41%] Building CXX object CMakeFiles/test_tensor_properties.dir/tests/test_tensor_properties.cpp.o
+/usr/bin/c++ -DRUNTIME_TESTING=1 -I/content/miniLLMI-stage18/include -O3 -DNDEBUG -std=c++17 -Wall -Wextra -Wpedantic -MD -MT CMakeFiles/test_tensor_properties.dir/tests/test_tensor_properties.cpp.o -MF CMakeFiles/test_tensor_properties.dir/tests/test_tensor_properties.cpp.o.d -o CMakeFiles/test_tensor_properties.dir/tests/test_tensor_properties.cpp.o -c /content/miniLLMI-stage18/tests/test_tensor_properties.cpp
+[ 41%] Building CXX object CMakeFiles/test_tensor.dir/tests/test_tensor.cpp.o
+/usr/bin/c++ -DRUNTIME_TESTING=1 -I/content/miniLLMI-stage18/include -O3 -DNDEBUG -std=c++17 -Wall -Wextra -Wpedantic -MD -MT CMakeFiles/test_tensor.dir/tests/test_tensor.cpp.o -MF CMakeFiles/test_tensor.dir/tests/test_tensor.cpp.o.d -o CMakeFiles/test_tensor.dir/tests/test_tensor.cpp.o -c /content/miniLLMI-stage18/tests/test_tensor.cpp
+[ 42%] Linking CXX executable test_thread_pool
+/usr/local/lib/python3.13/dist-packages/cmake/data/bin/cmake -E cmake_link_script CMakeFiles/test_thread_pool.dir/link.txt --verbose=1
+/usr/bin/c++ -O3 -DNDEBUG -Wl,--dependency-file=CMakeFiles/test_thread_pool.dir/link.d CMakeFiles/test_thread_pool.dir/tests/test_thread_pool.cpp.o -o test_thread_pool  libruntime.a
+gmake[2]: Leaving directory '/content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests'
+[ 42%] Built target test_thread_pool
+/usr/bin/gmake  -f CMakeFiles/test_operator.dir/build.make CMakeFiles/test_operator.dir/depend
+gmake[2]: Entering directory '/content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests'
+cd /content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests && /usr/local/lib/python3.13/dist-packages/cmake/data/bin/cmake -E cmake_depends "Unix Makefiles" /content/miniLLMI-stage18 /content/miniLLMI-stage18 /content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests /content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests /content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests/CMakeFiles/test_operator.dir/DependInfo.cmake "--color="
+gmake[2]: Leaving directory '/content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests'
+/usr/bin/gmake  -f CMakeFiles/test_operator.dir/build.make CMakeFiles/test_operator.dir/build
+gmake[2]: Entering directory '/content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests'
+[ 43%] Building CXX object CMakeFiles/test_operator.dir/tests/test_operator.cpp.o
+/usr/bin/c++ -DRUNTIME_TESTING=1 -I/content/miniLLMI-stage18/include -O3 -DNDEBUG -std=c++17 -Wall -Wextra -Wpedantic -MD -MT CMakeFiles/test_operator.dir/tests/test_operator.cpp.o -MF CMakeFiles/test_operator.dir/tests/test_operator.cpp.o.d -o CMakeFiles/test_operator.dir/tests/test_operator.cpp.o -c /content/miniLLMI-stage18/tests/test_operator.cpp
+[ 44%] Linking CXX executable test_cpu_backend
+/usr/local/lib/python3.13/dist-packages/cmake/data/bin/cmake -E cmake_link_script CMakeFiles/test_cpu_backend.dir/link.txt --verbose=1
+/usr/bin/c++ -O3 -DNDEBUG -Wl,--dependency-file=CMakeFiles/test_cpu_backend.dir/link.d CMakeFiles/test_cpu_backend.dir/tests/test_cpu_backend.cpp.o -o test_cpu_backend  libruntime.a
+gmake[2]: Leaving directory '/content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests'
+[ 44%] Built target test_cpu_backend
+/usr/bin/gmake  -f CMakeFiles/test_shape_inference.dir/build.make CMakeFiles/test_shape_inference.dir/depend
+gmake[2]: Entering directory '/content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests'
+cd /content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests && /usr/local/lib/python3.13/dist-packages/cmake/data/bin/cmake -E cmake_depends "Unix Makefiles" /content/miniLLMI-stage18 /content/miniLLMI-stage18 /content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests /content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests /content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests/CMakeFiles/test_shape_inference.dir/DependInfo.cmake "--color="
+gmake[2]: Leaving directory '/content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests'
+/usr/bin/gmake  -f CMakeFiles/test_shape_inference.dir/build.make CMakeFiles/test_shape_inference.dir/build
+gmake[2]: Entering directory '/content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests'
+[ 45%] Building CXX object CMakeFiles/test_shape_inference.dir/tests/test_shape_inference.cpp.o
+/usr/bin/c++ -DRUNTIME_TESTING=1 -I/content/miniLLMI-stage18/include -O3 -DNDEBUG -std=c++17 -Wall -Wextra -Wpedantic -MD -MT CMakeFiles/test_shape_inference.dir/tests/test_shape_inference.cpp.o -MF CMakeFiles/test_shape_inference.dir/tests/test_shape_inference.cpp.o.d -o CMakeFiles/test_shape_inference.dir/tests/test_shape_inference.cpp.o -c /content/miniLLMI-stage18/tests/test_shape_inference.cpp
+[ 46%] Building CXX object CMakeFiles/model.dir/src/model/quantization.cpp.o
+/usr/bin/c++ -DRUNTIME_TESTING=1 -I/content/miniLLMI-stage18/include -O3 -DNDEBUG -std=c++17 -Wall -Wextra -Wpedantic -MD -MT CMakeFiles/model.dir/src/model/quantization.cpp.o -MF CMakeFiles/model.dir/src/model/quantization.cpp.o.d -o CMakeFiles/model.dir/src/model/quantization.cpp.o -c /content/miniLLMI-stage18/src/model/quantization.cpp
+[ 47%] Linking CXX executable test_cpu_backend_fixtures
+/usr/local/lib/python3.13/dist-packages/cmake/data/bin/cmake -E cmake_link_script CMakeFiles/test_cpu_backend_fixtures.dir/link.txt --verbose=1
+[ 48%] Linking CXX executable test_cpu_scalar
+/usr/local/lib/python3.13/dist-packages/cmake/data/bin/cmake -E cmake_link_script CMakeFiles/test_cpu_scalar.dir/link.txt --verbose=1
+[ 49%] Linking CXX executable test_attention_graph
+/usr/local/lib/python3.13/dist-packages/cmake/data/bin/cmake -E cmake_link_script CMakeFiles/test_attention_graph.dir/link.txt --verbose=1
+/usr/bin/c++ -O3 -DNDEBUG -Wl,--dependency-file=CMakeFiles/test_cpu_backend_fixtures.dir/link.d CMakeFiles/test_cpu_backend_fixtures.dir/tests/test_operator_fixtures.cpp.o -o test_cpu_backend_fixtures  libruntime.a
+gmake[2]: Leaving directory '/content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests'
+[ 49%] Built target test_cpu_backend_fixtures
+/usr/bin/gmake  -f CMakeFiles/test_reference.dir/build.make CMakeFiles/test_reference.dir/depend
+gmake[2]: Entering directory '/content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests'
+cd /content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests && /usr/local/lib/python3.13/dist-packages/cmake/data/bin/cmake -E cmake_depends "Unix Makefiles" /content/miniLLMI-stage18 /content/miniLLMI-stage18 /content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests /content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests /content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests/CMakeFiles/test_reference.dir/DependInfo.cmake "--color="
+gmake[2]: Leaving directory '/content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests'
+/usr/bin/gmake  -f CMakeFiles/test_reference.dir/build.make CMakeFiles/test_reference.dir/build
+gmake[2]: Entering directory '/content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests'
+[ 49%] Building CXX object CMakeFiles/test_reference.dir/tests/test_reference.cpp.o
+/usr/bin/c++ -DRUNTIME_TESTING=1 -I/content/miniLLMI-stage18/include -O3 -DNDEBUG -std=c++17 -Wall -Wextra -Wpedantic -MD -MT CMakeFiles/test_reference.dir/tests/test_reference.cpp.o -MF CMakeFiles/test_reference.dir/tests/test_reference.cpp.o.d -o CMakeFiles/test_reference.dir/tests/test_reference.cpp.o -c /content/miniLLMI-stage18/tests/test_reference.cpp
+/usr/bin/c++ -O3 -DNDEBUG -Wl,--dependency-file=CMakeFiles/test_cpu_scalar.dir/link.d CMakeFiles/test_cpu_scalar.dir/tests/test_cpu_scalar.cpp.o -o test_cpu_scalar  libruntime.a
+gmake[2]: Leaving directory '/content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests'
+[ 49%] Built target test_cpu_scalar
+/usr/bin/gmake  -f CMakeFiles/test_transformer_contracts.dir/build.make CMakeFiles/test_transformer_contracts.dir/depend
+gmake[2]: Entering directory '/content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests'
+cd /content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests && /usr/local/lib/python3.13/dist-packages/cmake/data/bin/cmake -E cmake_depends "Unix Makefiles" /content/miniLLMI-stage18 /content/miniLLMI-stage18 /content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests /content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests /content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests/CMakeFiles/test_transformer_contracts.dir/DependInfo.cmake "--color="
+gmake[2]: Leaving directory '/content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests'
+/usr/bin/gmake  -f CMakeFiles/test_transformer_contracts.dir/build.make CMakeFiles/test_transformer_contracts.dir/build
+gmake[2]: Entering directory '/content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests'
+[ 50%] Building CXX object CMakeFiles/test_transformer_contracts.dir/tests/test_transformer_contracts.cpp.o
+/usr/bin/c++ -DRUNTIME_TESTING=1 -I/content/miniLLMI-stage18/include -O3 -DNDEBUG -std=c++17 -Wall -Wextra -Wpedantic -MD -MT CMakeFiles/test_transformer_contracts.dir/tests/test_transformer_contracts.cpp.o -MF CMakeFiles/test_transformer_contracts.dir/tests/test_transformer_contracts.cpp.o.d -o CMakeFiles/test_transformer_contracts.dir/tests/test_transformer_contracts.cpp.o -c /content/miniLLMI-stage18/tests/test_transformer_contracts.cpp
+/usr/bin/c++ -O3 -DNDEBUG -Wl,--dependency-file=CMakeFiles/test_attention_graph.dir/link.d CMakeFiles/test_attention_graph.dir/tests/test_attention_graph.cpp.o -o test_attention_graph  libruntime.a
+gmake[2]: Leaving directory '/content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests'
+[ 50%] Built target test_attention_graph
+/usr/bin/gmake  -f CMakeFiles/test_operator_fixtures.dir/build.make CMakeFiles/test_operator_fixtures.dir/depend
+gmake[2]: Entering directory '/content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests'
+cd /content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests && /usr/local/lib/python3.13/dist-packages/cmake/data/bin/cmake -E cmake_depends "Unix Makefiles" /content/miniLLMI-stage18 /content/miniLLMI-stage18 /content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests /content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests /content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests/CMakeFiles/test_operator_fixtures.dir/DependInfo.cmake "--color="
+gmake[2]: Leaving directory '/content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests'
+/usr/bin/gmake  -f CMakeFiles/test_operator_fixtures.dir/build.make CMakeFiles/test_operator_fixtures.dir/build
+gmake[2]: Entering directory '/content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests'
+[ 50%] Building CXX object CMakeFiles/test_operator_fixtures.dir/tests/test_operator_fixtures.cpp.o
+/usr/bin/c++ -DRUNTIME_TESTING=1 -I/content/miniLLMI-stage18/include -O3 -DNDEBUG -std=c++17 -Wall -Wextra -Wpedantic -MD -MT CMakeFiles/test_operator_fixtures.dir/tests/test_operator_fixtures.cpp.o -MF CMakeFiles/test_operator_fixtures.dir/tests/test_operator_fixtures.cpp.o.d -o CMakeFiles/test_operator_fixtures.dir/tests/test_operator_fixtures.cpp.o -c /content/miniLLMI-stage18/tests/test_operator_fixtures.cpp
+[ 51%] Linking CXX executable test_operator
+/usr/local/lib/python3.13/dist-packages/cmake/data/bin/cmake -E cmake_link_script CMakeFiles/test_operator.dir/link.txt --verbose=1
+/usr/bin/c++ -O3 -DNDEBUG -Wl,--dependency-file=CMakeFiles/test_operator.dir/link.d CMakeFiles/test_operator.dir/tests/test_operator.cpp.o -o test_operator  libruntime.a
+gmake[2]: Leaving directory '/content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests'
+[ 51%] Built target test_operator
+[ 52%] Building CXX object CMakeFiles/model.dir/src/model/tokenizer.cpp.o
+/usr/bin/c++ -DRUNTIME_TESTING=1 -I/content/miniLLMI-stage18/include -O3 -DNDEBUG -std=c++17 -Wall -Wextra -Wpedantic -MD -MT CMakeFiles/model.dir/src/model/tokenizer.cpp.o -MF CMakeFiles/model.dir/src/model/tokenizer.cpp.o.d -o CMakeFiles/model.dir/src/model/tokenizer.cpp.o -c /content/miniLLMI-stage18/src/model/tokenizer.cpp
+[ 53%] Linking CXX executable test_tensor_properties
+/usr/local/lib/python3.13/dist-packages/cmake/data/bin/cmake -E cmake_link_script CMakeFiles/test_tensor_properties.dir/link.txt --verbose=1
+/usr/bin/c++ -O3 -DNDEBUG -Wl,--dependency-file=CMakeFiles/test_tensor_properties.dir/link.d CMakeFiles/test_tensor_properties.dir/tests/test_tensor_properties.cpp.o -o test_tensor_properties  libruntime.a
+gmake[2]: Leaving directory '/content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests'
+[ 53%] Built target test_tensor_properties
+[ 53%] Building CXX object CMakeFiles/model.dir/src/model/kv_cache.cpp.o
+/usr/bin/c++ -DRUNTIME_TESTING=1 -I/content/miniLLMI-stage18/include -O3 -DNDEBUG -std=c++17 -Wall -Wextra -Wpedantic -MD -MT CMakeFiles/model.dir/src/model/kv_cache.cpp.o -MF CMakeFiles/model.dir/src/model/kv_cache.cpp.o.d -o CMakeFiles/model.dir/src/model/kv_cache.cpp.o -c /content/miniLLMI-stage18/src/model/kv_cache.cpp
+[ 54%] Linking CXX executable test_tensor
+/usr/local/lib/python3.13/dist-packages/cmake/data/bin/cmake -E cmake_link_script CMakeFiles/test_tensor.dir/link.txt --verbose=1
+/usr/bin/c++ -O3 -DNDEBUG -Wl,--dependency-file=CMakeFiles/test_tensor.dir/link.d CMakeFiles/test_tensor.dir/tests/test_tensor.cpp.o -o test_tensor  libruntime.a
+gmake[2]: Leaving directory '/content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests'
+[ 54%] Built target test_tensor
+/usr/bin/gmake  -f CMakeFiles/test_graph.dir/build.make CMakeFiles/test_graph.dir/depend
+gmake[2]: Entering directory '/content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests'
+cd /content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests && /usr/local/lib/python3.13/dist-packages/cmake/data/bin/cmake -E cmake_depends "Unix Makefiles" /content/miniLLMI-stage18 /content/miniLLMI-stage18 /content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests /content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests /content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests/CMakeFiles/test_graph.dir/DependInfo.cmake "--color="
+gmake[2]: Leaving directory '/content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests'
+/usr/bin/gmake  -f CMakeFiles/test_graph.dir/build.make CMakeFiles/test_graph.dir/build
+gmake[2]: Entering directory '/content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests'
+[ 55%] Building CXX object CMakeFiles/test_graph.dir/tests/test_graph.cpp.o
+/usr/bin/c++ -DRUNTIME_TESTING=1 -I/content/miniLLMI-stage18/include -O3 -DNDEBUG -std=c++17 -Wall -Wextra -Wpedantic -MD -MT CMakeFiles/test_graph.dir/tests/test_graph.cpp.o -MF CMakeFiles/test_graph.dir/tests/test_graph.cpp.o.d -o CMakeFiles/test_graph.dir/tests/test_graph.cpp.o -c /content/miniLLMI-stage18/tests/test_graph.cpp
+[ 56%] Building CXX object CMakeFiles/model.dir/src/model/decoder.cpp.o
+/usr/bin/c++ -DRUNTIME_TESTING=1 -I/content/miniLLMI-stage18/include -O3 -DNDEBUG -std=c++17 -Wall -Wextra -Wpedantic -MD -MT CMakeFiles/model.dir/src/model/decoder.cpp.o -MF CMakeFiles/model.dir/src/model/decoder.cpp.o.d -o CMakeFiles/model.dir/src/model/decoder.cpp.o -c /content/miniLLMI-stage18/src/model/decoder.cpp
+[ 57%] Building CXX object CMakeFiles/model.dir/src/model/generation.cpp.o
+/usr/bin/c++ -DRUNTIME_TESTING=1 -I/content/miniLLMI-stage18/include -O3 -DNDEBUG -std=c++17 -Wall -Wextra -Wpedantic -MD -MT CMakeFiles/model.dir/src/model/generation.cpp.o -MF CMakeFiles/model.dir/src/model/generation.cpp.o.d -o CMakeFiles/model.dir/src/model/generation.cpp.o -c /content/miniLLMI-stage18/src/model/generation.cpp
+[ 58%] Linking CXX executable test_shape_inference
+/usr/local/lib/python3.13/dist-packages/cmake/data/bin/cmake -E cmake_link_script CMakeFiles/test_shape_inference.dir/link.txt --verbose=1
+/usr/bin/c++ -O3 -DNDEBUG -Wl,--dependency-file=CMakeFiles/test_shape_inference.dir/link.d CMakeFiles/test_shape_inference.dir/tests/test_shape_inference.cpp.o -o test_shape_inference  libruntime.a
+gmake[2]: Leaving directory '/content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests'
+[ 58%] Built target test_shape_inference
+/usr/bin/gmake  -f CMakeFiles/test_graph_executor.dir/build.make CMakeFiles/test_graph_executor.dir/depend
+gmake[2]: Entering directory '/content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests'
+cd /content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests && /usr/local/lib/python3.13/dist-packages/cmake/data/bin/cmake -E cmake_depends "Unix Makefiles" /content/miniLLMI-stage18 /content/miniLLMI-stage18 /content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests /content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests /content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests/CMakeFiles/test_graph_executor.dir/DependInfo.cmake "--color="
+gmake[2]: Leaving directory '/content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests'
+/usr/bin/gmake  -f CMakeFiles/test_graph_executor.dir/build.make CMakeFiles/test_graph_executor.dir/build
+gmake[2]: Entering directory '/content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests'
+[ 58%] Building CXX object CMakeFiles/test_graph_executor.dir/tests/test_graph_executor.cpp.o
+/usr/bin/c++ -DRUNTIME_TESTING=1 -I/content/miniLLMI-stage18/include -O3 -DNDEBUG -std=c++17 -Wall -Wextra -Wpedantic -MD -MT CMakeFiles/test_graph_executor.dir/tests/test_graph_executor.cpp.o -MF CMakeFiles/test_graph_executor.dir/tests/test_graph_executor.cpp.o.d -o CMakeFiles/test_graph_executor.dir/tests/test_graph_executor.cpp.o -c /content/miniLLMI-stage18/tests/test_graph_executor.cpp
+/usr/bin/gmake  -f CMakeFiles/test_graph_fixtures.dir/build.make CMakeFiles/test_graph_fixtures.dir/depend
+gmake[2]: Entering directory '/content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests'
+cd /content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests && /usr/local/lib/python3.13/dist-packages/cmake/data/bin/cmake -E cmake_depends "Unix Makefiles" /content/miniLLMI-stage18 /content/miniLLMI-stage18 /content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests /content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests /content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests/CMakeFiles/test_graph_fixtures.dir/DependInfo.cmake "--color="
+gmake[2]: Leaving directory '/content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests'
+/usr/bin/gmake  -f CMakeFiles/test_graph_fixtures.dir/build.make CMakeFiles/test_graph_fixtures.dir/build
+gmake[2]: Entering directory '/content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests'
+[ 59%] Building CXX object CMakeFiles/test_graph_fixtures.dir/tests/test_graph_fixtures.cpp.o
+/usr/bin/c++ -DRUNTIME_TESTING=1 -I/content/miniLLMI-stage18/include -O3 -DNDEBUG -std=c++17 -Wall -Wextra -Wpedantic -MD -MT CMakeFiles/test_graph_fixtures.dir/tests/test_graph_fixtures.cpp.o -MF CMakeFiles/test_graph_fixtures.dir/tests/test_graph_fixtures.cpp.o.d -o CMakeFiles/test_graph_fixtures.dir/tests/test_graph_fixtures.cpp.o -c /content/miniLLMI-stage18/tests/test_graph_fixtures.cpp
+[ 60%] Linking CXX executable test_transformer_contracts
+/usr/local/lib/python3.13/dist-packages/cmake/data/bin/cmake -E cmake_link_script CMakeFiles/test_transformer_contracts.dir/link.txt --verbose=1
+/usr/bin/c++ -O3 -DNDEBUG -Wl,--dependency-file=CMakeFiles/test_transformer_contracts.dir/link.d CMakeFiles/test_transformer_contracts.dir/tests/test_transformer_contracts.cpp.o -o test_transformer_contracts  libruntime.a
+gmake[2]: Leaving directory '/content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests'
+[ 60%] Built target test_transformer_contracts
+/usr/bin/gmake  -f CMakeFiles/test_graph_trace.dir/build.make CMakeFiles/test_graph_trace.dir/depend
+gmake[2]: Entering directory '/content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests'
+cd /content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests && /usr/local/lib/python3.13/dist-packages/cmake/data/bin/cmake -E cmake_depends "Unix Makefiles" /content/miniLLMI-stage18 /content/miniLLMI-stage18 /content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests /content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests /content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests/CMakeFiles/test_graph_trace.dir/DependInfo.cmake "--color="
+gmake[2]: Leaving directory '/content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests'
+/usr/bin/gmake  -f CMakeFiles/test_graph_trace.dir/build.make CMakeFiles/test_graph_trace.dir/build
+gmake[2]: Entering directory '/content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests'
+[ 61%] Building CXX object CMakeFiles/test_graph_trace.dir/tests/test_graph_trace.cpp.o
+/usr/bin/c++ -DRUNTIME_TESTING=1 -I/content/miniLLMI-stage18/include -O3 -DNDEBUG -std=c++17 -Wall -Wextra -Wpedantic -MD -MT CMakeFiles/test_graph_trace.dir/tests/test_graph_trace.cpp.o -MF CMakeFiles/test_graph_trace.dir/tests/test_graph_trace.cpp.o.d -o CMakeFiles/test_graph_trace.dir/tests/test_graph_trace.cpp.o -c /content/miniLLMI-stage18/tests/test_graph_trace.cpp
+[ 62%] Linking CXX executable test_reference
+/usr/local/lib/python3.13/dist-packages/cmake/data/bin/cmake -E cmake_link_script CMakeFiles/test_reference.dir/link.txt --verbose=1
+/usr/bin/c++ -O3 -DNDEBUG -Wl,--dependency-file=CMakeFiles/test_reference.dir/link.d CMakeFiles/test_reference.dir/tests/test_reference.cpp.o -o test_reference  libruntime.a
+gmake[2]: Leaving directory '/content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests'
+[ 62%] Built target test_reference
+/usr/bin/gmake  -f CMakeFiles/test_arena.dir/build.make CMakeFiles/test_arena.dir/depend
+gmake[2]: Entering directory '/content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests'
+cd /content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests && /usr/local/lib/python3.13/dist-packages/cmake/data/bin/cmake -E cmake_depends "Unix Makefiles" /content/miniLLMI-stage18 /content/miniLLMI-stage18 /content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests /content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests /content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests/CMakeFiles/test_arena.dir/DependInfo.cmake "--color="
+gmake[2]: Leaving directory '/content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests'
+/usr/bin/gmake  -f CMakeFiles/test_arena.dir/build.make CMakeFiles/test_arena.dir/build
+gmake[2]: Entering directory '/content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests'
+[ 62%] Building CXX object CMakeFiles/test_arena.dir/tests/test_arena.cpp.o
+/usr/bin/c++ -DRUNTIME_TESTING=1 -I/content/miniLLMI-stage18/include -O3 -DNDEBUG -std=c++17 -Wall -Wextra -Wpedantic -MD -MT CMakeFiles/test_arena.dir/tests/test_arena.cpp.o -MF CMakeFiles/test_arena.dir/tests/test_arena.cpp.o.d -o CMakeFiles/test_arena.dir/tests/test_arena.cpp.o -c /content/miniLLMI-stage18/tests/test_arena.cpp
+[ 63%] Linking CXX executable test_operator_fixtures
+/usr/local/lib/python3.13/dist-packages/cmake/data/bin/cmake -E cmake_link_script CMakeFiles/test_operator_fixtures.dir/link.txt --verbose=1
+/usr/bin/c++ -O3 -DNDEBUG -Wl,--dependency-file=CMakeFiles/test_operator_fixtures.dir/link.d CMakeFiles/test_operator_fixtures.dir/tests/test_operator_fixtures.cpp.o -o test_operator_fixtures  libruntime.a
+gmake[2]: Leaving directory '/content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests'
+[ 63%] Built target test_operator_fixtures
+/usr/bin/gmake  -f CMakeFiles/test_allocation_provider.dir/build.make CMakeFiles/test_allocation_provider.dir/depend
+gmake[2]: Entering directory '/content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests'
+cd /content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests && /usr/local/lib/python3.13/dist-packages/cmake/data/bin/cmake -E cmake_depends "Unix Makefiles" /content/miniLLMI-stage18 /content/miniLLMI-stage18 /content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests /content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests /content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests/CMakeFiles/test_allocation_provider.dir/DependInfo.cmake "--color="
+gmake[2]: Leaving directory '/content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests'
+/usr/bin/gmake  -f CMakeFiles/test_allocation_provider.dir/build.make CMakeFiles/test_allocation_provider.dir/build
+gmake[2]: Entering directory '/content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests'
+[ 64%] Building CXX object CMakeFiles/test_allocation_provider.dir/tests/test_allocation_provider.cpp.o
+/usr/bin/c++ -DRUNTIME_TESTING=1 -I/content/miniLLMI-stage18/include -O3 -DNDEBUG -std=c++17 -Wall -Wextra -Wpedantic -MD -MT CMakeFiles/test_allocation_provider.dir/tests/test_allocation_provider.cpp.o -MF CMakeFiles/test_allocation_provider.dir/tests/test_allocation_provider.cpp.o.d -o CMakeFiles/test_allocation_provider.dir/tests/test_allocation_provider.cpp.o -c /content/miniLLMI-stage18/tests/test_allocation_provider.cpp
+[ 65%] Linking CXX executable test_graph_trace
+/usr/local/lib/python3.13/dist-packages/cmake/data/bin/cmake -E cmake_link_script CMakeFiles/test_graph_trace.dir/link.txt --verbose=1
+[ 66%] Linking CXX executable test_arena
+/usr/local/lib/python3.13/dist-packages/cmake/data/bin/cmake -E cmake_link_script CMakeFiles/test_arena.dir/link.txt --verbose=1
+/usr/bin/c++ -O3 -DNDEBUG -Wl,--dependency-file=CMakeFiles/test_graph_trace.dir/link.d CMakeFiles/test_graph_trace.dir/tests/test_graph_trace.cpp.o -o test_graph_trace  libruntime.a
+gmake[2]: Leaving directory '/content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests'
+[ 66%] Built target test_graph_trace
+/usr/bin/gmake  -f CMakeFiles/test_memory_planner.dir/build.make CMakeFiles/test_memory_planner.dir/depend
+gmake[2]: Entering directory '/content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests'
+cd /content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests && /usr/local/lib/python3.13/dist-packages/cmake/data/bin/cmake -E cmake_depends "Unix Makefiles" /content/miniLLMI-stage18 /content/miniLLMI-stage18 /content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests /content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests /content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests/CMakeFiles/test_memory_planner.dir/DependInfo.cmake "--color="
+gmake[2]: Leaving directory '/content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests'
+/usr/bin/gmake  -f CMakeFiles/test_memory_planner.dir/build.make CMakeFiles/test_memory_planner.dir/build
+gmake[2]: Entering directory '/content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests'
+[ 67%] Building CXX object CMakeFiles/test_memory_planner.dir/tests/test_memory_planner.cpp.o
+/usr/bin/c++ -DRUNTIME_TESTING=1 -I/content/miniLLMI-stage18/include -O3 -DNDEBUG -std=c++17 -Wall -Wextra -Wpedantic -MD -MT CMakeFiles/test_memory_planner.dir/tests/test_memory_planner.cpp.o -MF CMakeFiles/test_memory_planner.dir/tests/test_memory_planner.cpp.o.d -o CMakeFiles/test_memory_planner.dir/tests/test_memory_planner.cpp.o -c /content/miniLLMI-stage18/tests/test_memory_planner.cpp
+/usr/bin/c++ -O3 -DNDEBUG -Wl,--dependency-file=CMakeFiles/test_arena.dir/link.d CMakeFiles/test_arena.dir/tests/test_arena.cpp.o -o test_arena  libruntime.a
+gmake[2]: Leaving directory '/content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests'
+[ 67%] Built target test_arena
+/usr/bin/gmake  -f CMakeFiles/test_planned_executor.dir/build.make CMakeFiles/test_planned_executor.dir/depend
+gmake[2]: Entering directory '/content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests'
+cd /content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests && /usr/local/lib/python3.13/dist-packages/cmake/data/bin/cmake -E cmake_depends "Unix Makefiles" /content/miniLLMI-stage18 /content/miniLLMI-stage18 /content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests /content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests /content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests/CMakeFiles/test_planned_executor.dir/DependInfo.cmake "--color="
+gmake[2]: Leaving directory '/content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests'
+/usr/bin/gmake  -f CMakeFiles/test_planned_executor.dir/build.make CMakeFiles/test_planned_executor.dir/build
+gmake[2]: Entering directory '/content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests'
+[ 68%] Building CXX object CMakeFiles/test_planned_executor.dir/tests/test_planned_executor.cpp.o
+/usr/bin/c++ -DRUNTIME_TESTING=1 -I/content/miniLLMI-stage18/include -O3 -DNDEBUG -std=c++17 -Wall -Wextra -Wpedantic -MD -MT CMakeFiles/test_planned_executor.dir/tests/test_planned_executor.cpp.o -MF CMakeFiles/test_planned_executor.dir/tests/test_planned_executor.cpp.o.d -o CMakeFiles/test_planned_executor.dir/tests/test_planned_executor.cpp.o -c /content/miniLLMI-stage18/tests/test_planned_executor.cpp
+[ 69%] Linking CXX executable test_graph
+/usr/local/lib/python3.13/dist-packages/cmake/data/bin/cmake -E cmake_link_script CMakeFiles/test_graph.dir/link.txt --verbose=1
+/usr/bin/c++ -O3 -DNDEBUG -Wl,--dependency-file=CMakeFiles/test_graph.dir/link.d CMakeFiles/test_graph.dir/tests/test_graph.cpp.o -o test_graph  libruntime.a
+gmake[2]: Leaving directory '/content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests'
+[ 69%] Built target test_graph
+[ 70%] Linking CXX static library libmodel.a
+/usr/local/lib/python3.13/dist-packages/cmake/data/bin/cmake -P CMakeFiles/model.dir/cmake_clean_target.cmake
+/usr/local/lib/python3.13/dist-packages/cmake/data/bin/cmake -E cmake_link_script CMakeFiles/model.dir/link.txt --verbose=1
+/usr/bin/ar qc libmodel.a CMakeFiles/model.dir/src/model/config.cpp.o CMakeFiles/model.dir/src/model/model_file.cpp.o CMakeFiles/model.dir/src/model/quantization.cpp.o CMakeFiles/model.dir/src/model/tokenizer.cpp.o CMakeFiles/model.dir/src/model/kv_cache.cpp.o CMakeFiles/model.dir/src/model/decoder.cpp.o CMakeFiles/model.dir/src/model/generation.cpp.o
+/usr/bin/ranlib libmodel.a
+gmake[2]: Leaving directory '/content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests'
+[ 70%] Built target model
+/usr/bin/gmake  -f CMakeFiles/bench_decoder.dir/build.make CMakeFiles/bench_decoder.dir/depend
+/usr/bin/gmake  -f CMakeFiles/bench_kv_cache.dir/build.make CMakeFiles/bench_kv_cache.dir/depend
+/usr/bin/gmake  -f CMakeFiles/bench_inference.dir/build.make CMakeFiles/bench_inference.dir/depend
+gmake[2]: Entering directory '/content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests'
+cd /content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests && /usr/local/lib/python3.13/dist-packages/cmake/data/bin/cmake -E cmake_depends "Unix Makefiles" /content/miniLLMI-stage18 /content/miniLLMI-stage18 /content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests /content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests /content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests/CMakeFiles/bench_decoder.dir/DependInfo.cmake "--color="
+gmake[2]: Entering directory '/content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests'
+cd /content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests && /usr/local/lib/python3.13/dist-packages/cmake/data/bin/cmake -E cmake_depends "Unix Makefiles" /content/miniLLMI-stage18 /content/miniLLMI-stage18 /content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests /content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests /content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests/CMakeFiles/bench_inference.dir/DependInfo.cmake "--color="
+gmake[2]: Entering directory '/content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests'
+cd /content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests && /usr/local/lib/python3.13/dist-packages/cmake/data/bin/cmake -E cmake_depends "Unix Makefiles" /content/miniLLMI-stage18 /content/miniLLMI-stage18 /content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests /content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests /content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests/CMakeFiles/bench_kv_cache.dir/DependInfo.cmake "--color="
+gmake[2]: Leaving directory '/content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests'
+/usr/bin/gmake  -f CMakeFiles/bench_decoder.dir/build.make CMakeFiles/bench_decoder.dir/build
+gmake[2]: Entering directory '/content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests'
+[ 71%] Building CXX object CMakeFiles/bench_decoder.dir/bench/bench_decoder.cpp.o
+/usr/bin/c++ -DRUNTIME_TESTING=1 -I/content/miniLLMI-stage18/include -I/content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests/generated -O3 -DNDEBUG -std=c++17 -Wall -Wextra -Wpedantic -MD -MT CMakeFiles/bench_decoder.dir/bench/bench_decoder.cpp.o -MF CMakeFiles/bench_decoder.dir/bench/bench_decoder.cpp.o.d -o CMakeFiles/bench_decoder.dir/bench/bench_decoder.cpp.o -c /content/miniLLMI-stage18/bench/bench_decoder.cpp
+gmake[2]: Leaving directory '/content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests'
+/usr/bin/gmake  -f CMakeFiles/bench_inference.dir/build.make CMakeFiles/bench_inference.dir/build
+gmake[2]: Leaving directory '/content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests'
+/usr/bin/gmake  -f CMakeFiles/bench_kv_cache.dir/build.make CMakeFiles/bench_kv_cache.dir/build
+gmake[2]: Entering directory '/content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests'
+gmake[2]: Entering directory '/content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests'
+[ 71%] Building CXX object CMakeFiles/bench_inference.dir/bench/bench_inference.cpp.o
+/usr/bin/c++ -DRUNTIME_TESTING=1 -I/content/miniLLMI-stage18/include -I/content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests/generated -O3 -DNDEBUG -std=c++17 -Wall -Wextra -Wpedantic -MD -MT CMakeFiles/bench_inference.dir/bench/bench_inference.cpp.o -MF CMakeFiles/bench_inference.dir/bench/bench_inference.cpp.o.d -o CMakeFiles/bench_inference.dir/bench/bench_inference.cpp.o -c /content/miniLLMI-stage18/bench/bench_inference.cpp
+[ 72%] Building CXX object CMakeFiles/bench_kv_cache.dir/bench/bench_kv_cache.cpp.o
+/usr/bin/c++ -DRUNTIME_TESTING=1 -I/content/miniLLMI-stage18/include -I/content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests/generated -O3 -DNDEBUG -std=c++17 -Wall -Wextra -Wpedantic -MD -MT CMakeFiles/bench_kv_cache.dir/bench/bench_kv_cache.cpp.o -MF CMakeFiles/bench_kv_cache.dir/bench/bench_kv_cache.cpp.o.d -o CMakeFiles/bench_kv_cache.dir/bench/bench_kv_cache.cpp.o -c /content/miniLLMI-stage18/bench/bench_kv_cache.cpp
+[ 73%] Linking CXX executable test_graph_fixtures
+/usr/local/lib/python3.13/dist-packages/cmake/data/bin/cmake -E cmake_link_script CMakeFiles/test_graph_fixtures.dir/link.txt --verbose=1
+[ 74%] Linking CXX executable test_graph_executor
+/usr/local/lib/python3.13/dist-packages/cmake/data/bin/cmake -E cmake_link_script CMakeFiles/test_graph_executor.dir/link.txt --verbose=1
+/usr/bin/c++ -O3 -DNDEBUG -Wl,--dependency-file=CMakeFiles/test_graph_executor.dir/link.d CMakeFiles/test_graph_executor.dir/tests/test_graph_executor.cpp.o -o test_graph_executor  libruntime.a
+gmake[2]: Leaving directory '/content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests'
+[ 74%] Built target test_graph_executor
+/usr/bin/gmake  -f CMakeFiles/bench_quantization.dir/build.make CMakeFiles/bench_quantization.dir/depend
+gmake[2]: Entering directory '/content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests'
+cd /content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests && /usr/local/lib/python3.13/dist-packages/cmake/data/bin/cmake -E cmake_depends "Unix Makefiles" /content/miniLLMI-stage18 /content/miniLLMI-stage18 /content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests /content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests /content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests/CMakeFiles/bench_quantization.dir/DependInfo.cmake "--color="
+/usr/bin/c++ -O3 -DNDEBUG -Wl,--dependency-file=CMakeFiles/test_graph_fixtures.dir/link.d CMakeFiles/test_graph_fixtures.dir/tests/test_graph_fixtures.cpp.o -o test_graph_fixtures  libruntime.a
+gmake[2]: Leaving directory '/content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests'
+gmake[2]: Leaving directory '/content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests'
+/usr/bin/gmake  -f CMakeFiles/bench_quantization.dir/build.make CMakeFiles/bench_quantization.dir/build
+gmake[2]: Entering directory '/content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests'
+[ 74%] Built target test_graph_fixtures
+/usr/bin/gmake  -f CMakeFiles/convert_tiny_model.dir/build.make CMakeFiles/convert_tiny_model.dir/depend
+[ 74%] Building CXX object CMakeFiles/bench_quantization.dir/bench/bench_quantization.cpp.o
+/usr/bin/c++ -DRUNTIME_TESTING=1 -I/content/miniLLMI-stage18/include -I/content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests/generated -O3 -DNDEBUG -std=c++17 -Wall -Wextra -Wpedantic -MD -MT CMakeFiles/bench_quantization.dir/bench/bench_quantization.cpp.o -MF CMakeFiles/bench_quantization.dir/bench/bench_quantization.cpp.o.d -o CMakeFiles/bench_quantization.dir/bench/bench_quantization.cpp.o -c /content/miniLLMI-stage18/bench/bench_quantization.cpp
+gmake[2]: Entering directory '/content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests'
+cd /content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests && /usr/local/lib/python3.13/dist-packages/cmake/data/bin/cmake -E cmake_depends "Unix Makefiles" /content/miniLLMI-stage18 /content/miniLLMI-stage18 /content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests /content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests /content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests/CMakeFiles/convert_tiny_model.dir/DependInfo.cmake "--color="
+gmake[2]: Leaving directory '/content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests'
+/usr/bin/gmake  -f CMakeFiles/convert_tiny_model.dir/build.make CMakeFiles/convert_tiny_model.dir/build
+gmake[2]: Entering directory '/content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests'
+[ 75%] Building CXX object CMakeFiles/convert_tiny_model.dir/tools/convert_tiny_model.cpp.o
+/usr/bin/c++ -DRUNTIME_TESTING=1 -I/content/miniLLMI-stage18/include -O3 -DNDEBUG -std=c++17 -Wall -Wextra -Wpedantic -MD -MT CMakeFiles/convert_tiny_model.dir/tools/convert_tiny_model.cpp.o -MF CMakeFiles/convert_tiny_model.dir/tools/convert_tiny_model.cpp.o.d -o CMakeFiles/convert_tiny_model.dir/tools/convert_tiny_model.cpp.o -c /content/miniLLMI-stage18/tools/convert_tiny_model.cpp
+[ 76%] Linking CXX executable test_allocation_provider
+/usr/local/lib/python3.13/dist-packages/cmake/data/bin/cmake -E cmake_link_script CMakeFiles/test_allocation_provider.dir/link.txt --verbose=1
+/usr/bin/c++ -O3 -DNDEBUG -Wl,--dependency-file=CMakeFiles/test_allocation_provider.dir/link.d CMakeFiles/test_allocation_provider.dir/tests/test_allocation_provider.cpp.o -o test_allocation_provider  libruntime.a
+gmake[2]: Leaving directory '/content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests'
+[ 76%] Built target test_allocation_provider
+/usr/bin/gmake  -f CMakeFiles/llm_cli.dir/build.make CMakeFiles/llm_cli.dir/depend
+gmake[2]: Entering directory '/content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests'
+cd /content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests && /usr/local/lib/python3.13/dist-packages/cmake/data/bin/cmake -E cmake_depends "Unix Makefiles" /content/miniLLMI-stage18 /content/miniLLMI-stage18 /content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests /content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests /content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests/CMakeFiles/llm_cli.dir/DependInfo.cmake "--color="
+gmake[2]: Leaving directory '/content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests'
+/usr/bin/gmake  -f CMakeFiles/llm_cli.dir/build.make CMakeFiles/llm_cli.dir/build
+gmake[2]: Entering directory '/content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests'
+[ 76%] Building CXX object CMakeFiles/llm_cli.dir/app/llm_cli.cpp.o
+/usr/bin/c++ -DRUNTIME_TESTING=1 -I/content/miniLLMI-stage18/include -O3 -DNDEBUG -std=c++17 -Wall -Wextra -Wpedantic -MD -MT CMakeFiles/llm_cli.dir/app/llm_cli.cpp.o -MF CMakeFiles/llm_cli.dir/app/llm_cli.cpp.o.d -o CMakeFiles/llm_cli.dir/app/llm_cli.cpp.o -c /content/miniLLMI-stage18/app/llm_cli.cpp
+[ 77%] Linking CXX executable test_memory_planner
+/usr/local/lib/python3.13/dist-packages/cmake/data/bin/cmake -E cmake_link_script CMakeFiles/test_memory_planner.dir/link.txt --verbose=1
+/usr/bin/c++ -O3 -DNDEBUG -Wl,--dependency-file=CMakeFiles/test_memory_planner.dir/link.d CMakeFiles/test_memory_planner.dir/tests/test_memory_planner.cpp.o -o test_memory_planner  libruntime.a
+gmake[2]: Leaving directory '/content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests'
+[ 77%] Built target test_memory_planner
+/usr/bin/gmake  -f CMakeFiles/test_generation.dir/build.make CMakeFiles/test_generation.dir/depend
+gmake[2]: Entering directory '/content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests'
+cd /content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests && /usr/local/lib/python3.13/dist-packages/cmake/data/bin/cmake -E cmake_depends "Unix Makefiles" /content/miniLLMI-stage18 /content/miniLLMI-stage18 /content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests /content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests /content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests/CMakeFiles/test_generation.dir/DependInfo.cmake "--color="
+gmake[2]: Leaving directory '/content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests'
+/usr/bin/gmake  -f CMakeFiles/test_generation.dir/build.make CMakeFiles/test_generation.dir/build
+gmake[2]: Entering directory '/content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests'
+[ 78%] Building CXX object CMakeFiles/test_generation.dir/tests/test_generation.cpp.o
+/usr/bin/c++ -DRUNTIME_TESTING=1 -I/content/miniLLMI-stage18/include -O3 -DNDEBUG -std=c++17 -Wall -Wextra -Wpedantic -MD -MT CMakeFiles/test_generation.dir/tests/test_generation.cpp.o -MF CMakeFiles/test_generation.dir/tests/test_generation.cpp.o.d -o CMakeFiles/test_generation.dir/tests/test_generation.cpp.o -c /content/miniLLMI-stage18/tests/test_generation.cpp
+[ 79%] Linking CXX executable convert_tiny_model
+/usr/local/lib/python3.13/dist-packages/cmake/data/bin/cmake -E cmake_link_script CMakeFiles/convert_tiny_model.dir/link.txt --verbose=1
+/usr/bin/c++ -O3 -DNDEBUG -Wl,--dependency-file=CMakeFiles/convert_tiny_model.dir/link.d CMakeFiles/convert_tiny_model.dir/tools/convert_tiny_model.cpp.o -o convert_tiny_model  libmodel.a libruntime.a
+gmake[2]: Leaving directory '/content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests'
+[ 79%] Built target convert_tiny_model
+/usr/bin/gmake  -f CMakeFiles/test_quantization.dir/build.make CMakeFiles/test_quantization.dir/depend
+gmake[2]: Entering directory '/content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests'
+cd /content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests && /usr/local/lib/python3.13/dist-packages/cmake/data/bin/cmake -E cmake_depends "Unix Makefiles" /content/miniLLMI-stage18 /content/miniLLMI-stage18 /content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests /content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests /content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests/CMakeFiles/test_quantization.dir/DependInfo.cmake "--color="
+gmake[2]: Leaving directory '/content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests'
+/usr/bin/gmake  -f CMakeFiles/test_quantization.dir/build.make CMakeFiles/test_quantization.dir/build
+gmake[2]: Entering directory '/content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests'
+[ 80%] Building CXX object CMakeFiles/test_quantization.dir/tests/test_quantization.cpp.o
+/usr/bin/c++ -DRUNTIME_TESTING=1 -I/content/miniLLMI-stage18/include -O3 -DNDEBUG -std=c++17 -Wall -Wextra -Wpedantic -MD -MT CMakeFiles/test_quantization.dir/tests/test_quantization.cpp.o -MF CMakeFiles/test_quantization.dir/tests/test_quantization.cpp.o.d -o CMakeFiles/test_quantization.dir/tests/test_quantization.cpp.o -c /content/miniLLMI-stage18/tests/test_quantization.cpp
+[ 81%] Linking CXX executable llm_cli
+/usr/local/lib/python3.13/dist-packages/cmake/data/bin/cmake -E cmake_link_script CMakeFiles/llm_cli.dir/link.txt --verbose=1
+[ 82%] Linking CXX executable bench_inference
+/usr/local/lib/python3.13/dist-packages/cmake/data/bin/cmake -E cmake_link_script CMakeFiles/bench_inference.dir/link.txt --verbose=1
+/usr/bin/c++ -O3 -DNDEBUG -Wl,--dependency-file=CMakeFiles/llm_cli.dir/link.d CMakeFiles/llm_cli.dir/app/llm_cli.cpp.o -o llm_cli  libmodel.a libruntime.a
+gmake[2]: Leaving directory '/content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests'
+[ 82%] Built target llm_cli
+/usr/bin/gmake  -f CMakeFiles/test_model_file.dir/build.make CMakeFiles/test_model_file.dir/depend
+gmake[2]: Entering directory '/content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests'
+cd /content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests && /usr/local/lib/python3.13/dist-packages/cmake/data/bin/cmake -E cmake_depends "Unix Makefiles" /content/miniLLMI-stage18 /content/miniLLMI-stage18 /content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests /content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests /content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests/CMakeFiles/test_model_file.dir/DependInfo.cmake "--color="
+gmake[2]: Leaving directory '/content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests'
+/usr/bin/gmake  -f CMakeFiles/test_model_file.dir/build.make CMakeFiles/test_model_file.dir/build
+gmake[2]: Entering directory '/content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests'
+[ 82%] Building CXX object CMakeFiles/test_model_file.dir/tests/test_model_file.cpp.o
+/usr/bin/c++ -DRUNTIME_TESTING=1 -I/content/miniLLMI-stage18/include -O3 -DNDEBUG -std=c++17 -Wall -Wextra -Wpedantic -MD -MT CMakeFiles/test_model_file.dir/tests/test_model_file.cpp.o -MF CMakeFiles/test_model_file.dir/tests/test_model_file.cpp.o.d -o CMakeFiles/test_model_file.dir/tests/test_model_file.cpp.o -c /content/miniLLMI-stage18/tests/test_model_file.cpp
+/usr/bin/c++ -O3 -DNDEBUG -Wl,--dependency-file=CMakeFiles/bench_inference.dir/link.d CMakeFiles/bench_inference.dir/bench/bench_inference.cpp.o -o bench_inference  libmodel.a libstage0_common.a libruntime.a
+gmake[2]: Leaving directory '/content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests'
+[ 82%] Built target bench_inference
+/usr/bin/gmake  -f CMakeFiles/test_model_loader.dir/build.make CMakeFiles/test_model_loader.dir/depend
+gmake[2]: Entering directory '/content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests'
+cd /content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests && /usr/local/lib/python3.13/dist-packages/cmake/data/bin/cmake -E cmake_depends "Unix Makefiles" /content/miniLLMI-stage18 /content/miniLLMI-stage18 /content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests /content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests /content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests/CMakeFiles/test_model_loader.dir/DependInfo.cmake "--color="
+gmake[2]: Leaving directory '/content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests'
+/usr/bin/gmake  -f CMakeFiles/test_model_loader.dir/build.make CMakeFiles/test_model_loader.dir/build
+gmake[2]: Entering directory '/content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests'
+[ 83%] Building CXX object CMakeFiles/test_model_loader.dir/tests/test_model_loader.cpp.o
+/usr/bin/c++ -DRUNTIME_TESTING=1 -I/content/miniLLMI-stage18/include -O3 -DNDEBUG -std=c++17 -Wall -Wextra -Wpedantic -MD -MT CMakeFiles/test_model_loader.dir/tests/test_model_loader.cpp.o -MF CMakeFiles/test_model_loader.dir/tests/test_model_loader.cpp.o.d -o CMakeFiles/test_model_loader.dir/tests/test_model_loader.cpp.o -c /content/miniLLMI-stage18/tests/test_model_loader.cpp
+[ 84%] Linking CXX executable bench_quantization
+/usr/local/lib/python3.13/dist-packages/cmake/data/bin/cmake -E cmake_link_script CMakeFiles/bench_quantization.dir/link.txt --verbose=1
+/usr/bin/c++ -O3 -DNDEBUG -Wl,--dependency-file=CMakeFiles/bench_quantization.dir/link.d CMakeFiles/bench_quantization.dir/bench/bench_quantization.cpp.o -o bench_quantization  libmodel.a libstage0_common.a libruntime.a
+gmake[2]: Leaving directory '/content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests'
+[ 84%] Built target bench_quantization
+/usr/bin/gmake  -f CMakeFiles/test_tokenizer.dir/build.make CMakeFiles/test_tokenizer.dir/depend
+gmake[2]: Entering directory '/content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests'
+cd /content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests && /usr/local/lib/python3.13/dist-packages/cmake/data/bin/cmake -E cmake_depends "Unix Makefiles" /content/miniLLMI-stage18 /content/miniLLMI-stage18 /content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests /content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests /content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests/CMakeFiles/test_tokenizer.dir/DependInfo.cmake "--color="
+gmake[2]: Leaving directory '/content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests'
+/usr/bin/gmake  -f CMakeFiles/test_tokenizer.dir/build.make CMakeFiles/test_tokenizer.dir/build
+gmake[2]: Entering directory '/content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests'
+[ 84%] Building CXX object CMakeFiles/test_tokenizer.dir/tests/test_tokenizer.cpp.o
+/usr/bin/c++ -DRUNTIME_TESTING=1 -I/content/miniLLMI-stage18/include -O3 -DNDEBUG -std=c++17 -Wall -Wextra -Wpedantic -MD -MT CMakeFiles/test_tokenizer.dir/tests/test_tokenizer.cpp.o -MF CMakeFiles/test_tokenizer.dir/tests/test_tokenizer.cpp.o.d -o CMakeFiles/test_tokenizer.dir/tests/test_tokenizer.cpp.o -c /content/miniLLMI-stage18/tests/test_tokenizer.cpp
+[ 85%] Linking CXX executable bench_decoder
+/usr/local/lib/python3.13/dist-packages/cmake/data/bin/cmake -E cmake_link_script CMakeFiles/bench_decoder.dir/link.txt --verbose=1
+/usr/bin/c++ -O3 -DNDEBUG -Wl,--dependency-file=CMakeFiles/bench_decoder.dir/link.d CMakeFiles/bench_decoder.dir/bench/bench_decoder.cpp.o -o bench_decoder  libmodel.a libstage0_common.a libruntime.a
+gmake[2]: Leaving directory '/content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests'
+[ 85%] Built target bench_decoder
+/usr/bin/gmake  -f CMakeFiles/test_kv_cache.dir/build.make CMakeFiles/test_kv_cache.dir/depend
+gmake[2]: Entering directory '/content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests'
+cd /content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests && /usr/local/lib/python3.13/dist-packages/cmake/data/bin/cmake -E cmake_depends "Unix Makefiles" /content/miniLLMI-stage18 /content/miniLLMI-stage18 /content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests /content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests /content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests/CMakeFiles/test_kv_cache.dir/DependInfo.cmake "--color="
+gmake[2]: Leaving directory '/content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests'
+/usr/bin/gmake  -f CMakeFiles/test_kv_cache.dir/build.make CMakeFiles/test_kv_cache.dir/build
+gmake[2]: Entering directory '/content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests'
+[ 85%] Building CXX object CMakeFiles/test_kv_cache.dir/tests/test_kv_cache.cpp.o
+/usr/bin/c++ -DRUNTIME_TESTING=1 -I/content/miniLLMI-stage18/include -O3 -DNDEBUG -std=c++17 -Wall -Wextra -Wpedantic -MD -MT CMakeFiles/test_kv_cache.dir/tests/test_kv_cache.cpp.o -MF CMakeFiles/test_kv_cache.dir/tests/test_kv_cache.cpp.o.d -o CMakeFiles/test_kv_cache.dir/tests/test_kv_cache.cpp.o -c /content/miniLLMI-stage18/tests/test_kv_cache.cpp
+[ 86%] Linking CXX executable test_planned_executor
+/usr/local/lib/python3.13/dist-packages/cmake/data/bin/cmake -E cmake_link_script CMakeFiles/test_planned_executor.dir/link.txt --verbose=1
+/usr/bin/c++ -O3 -DNDEBUG -Wl,--dependency-file=CMakeFiles/test_planned_executor.dir/link.d CMakeFiles/test_planned_executor.dir/tests/test_planned_executor.cpp.o -o test_planned_executor  libruntime.a
+gmake[2]: Leaving directory '/content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests'
+[ 87%] Linking CXX executable test_generation
+/usr/local/lib/python3.13/dist-packages/cmake/data/bin/cmake -E cmake_link_script CMakeFiles/test_generation.dir/link.txt --verbose=1
+[ 87%] Built target test_planned_executor
+/usr/bin/gmake  -f CMakeFiles/test_kv_decoder.dir/build.make CMakeFiles/test_kv_decoder.dir/depend
+gmake[2]: Entering directory '/content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests'
+cd /content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests && /usr/local/lib/python3.13/dist-packages/cmake/data/bin/cmake -E cmake_depends "Unix Makefiles" /content/miniLLMI-stage18 /content/miniLLMI-stage18 /content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests /content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests /content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests/CMakeFiles/test_kv_decoder.dir/DependInfo.cmake "--color="
+gmake[2]: Leaving directory '/content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests'
+/usr/bin/gmake  -f CMakeFiles/test_kv_decoder.dir/build.make CMakeFiles/test_kv_decoder.dir/build
+gmake[2]: Entering directory '/content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests'
+[ 88%] Building CXX object CMakeFiles/test_kv_decoder.dir/tests/test_kv_decoder.cpp.o
+/usr/bin/c++ -DRUNTIME_TESTING=1 -I/content/miniLLMI-stage18/include -O3 -DNDEBUG -std=c++17 -Wall -Wextra -Wpedantic -MD -MT CMakeFiles/test_kv_decoder.dir/tests/test_kv_decoder.cpp.o -MF CMakeFiles/test_kv_decoder.dir/tests/test_kv_decoder.cpp.o.d -o CMakeFiles/test_kv_decoder.dir/tests/test_kv_decoder.cpp.o -c /content/miniLLMI-stage18/tests/test_kv_decoder.cpp
+/usr/bin/c++ -O3 -DNDEBUG -Wl,--dependency-file=CMakeFiles/test_generation.dir/link.d CMakeFiles/test_generation.dir/tests/test_generation.cpp.o -o test_generation  libmodel.a libruntime.a
+gmake[2]: Leaving directory '/content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests'
+[ 88%] Built target test_generation
+/usr/bin/gmake  -f CMakeFiles/test_decoder_config.dir/build.make CMakeFiles/test_decoder_config.dir/depend
+gmake[2]: Entering directory '/content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests'
+cd /content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests && /usr/local/lib/python3.13/dist-packages/cmake/data/bin/cmake -E cmake_depends "Unix Makefiles" /content/miniLLMI-stage18 /content/miniLLMI-stage18 /content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests /content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests /content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests/CMakeFiles/test_decoder_config.dir/DependInfo.cmake "--color="
+gmake[2]: Leaving directory '/content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests'
+/usr/bin/gmake  -f CMakeFiles/test_decoder_config.dir/build.make CMakeFiles/test_decoder_config.dir/build
+gmake[2]: Entering directory '/content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests'
+[ 88%] Building CXX object CMakeFiles/test_decoder_config.dir/tests/test_decoder_config.cpp.o
+/usr/bin/c++ -DRUNTIME_TESTING=1 -I/content/miniLLMI-stage18/include -O3 -DNDEBUG -std=c++17 -Wall -Wextra -Wpedantic -MD -MT CMakeFiles/test_decoder_config.dir/tests/test_decoder_config.cpp.o -MF CMakeFiles/test_decoder_config.dir/tests/test_decoder_config.cpp.o.d -o CMakeFiles/test_decoder_config.dir/tests/test_decoder_config.cpp.o -c /content/miniLLMI-stage18/tests/test_decoder_config.cpp
+[ 89%] Linking CXX executable bench_kv_cache
+/usr/local/lib/python3.13/dist-packages/cmake/data/bin/cmake -E cmake_link_script CMakeFiles/bench_kv_cache.dir/link.txt --verbose=1
+/usr/bin/c++ -O3 -DNDEBUG -Wl,--dependency-file=CMakeFiles/bench_kv_cache.dir/link.d CMakeFiles/bench_kv_cache.dir/bench/bench_kv_cache.cpp.o -o bench_kv_cache  libmodel.a libstage0_common.a libruntime.a
+gmake[2]: Leaving directory '/content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests'
+[ 89%] Built target bench_kv_cache
+/usr/bin/gmake  -f CMakeFiles/test_decoder_block.dir/build.make CMakeFiles/test_decoder_block.dir/depend
+gmake[2]: Entering directory '/content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests'
+cd /content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests && /usr/local/lib/python3.13/dist-packages/cmake/data/bin/cmake -E cmake_depends "Unix Makefiles" /content/miniLLMI-stage18 /content/miniLLMI-stage18 /content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests /content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests /content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests/CMakeFiles/test_decoder_block.dir/DependInfo.cmake "--color="
+gmake[2]: Leaving directory '/content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests'
+/usr/bin/gmake  -f CMakeFiles/test_decoder_block.dir/build.make CMakeFiles/test_decoder_block.dir/build
+gmake[2]: Entering directory '/content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests'
+[ 90%] Building CXX object CMakeFiles/test_decoder_block.dir/tests/test_decoder_block.cpp.o
+/usr/bin/c++ -DRUNTIME_TESTING=1 -I/content/miniLLMI-stage18/include -O3 -DNDEBUG -std=c++17 -Wall -Wextra -Wpedantic -MD -MT CMakeFiles/test_decoder_block.dir/tests/test_decoder_block.cpp.o -MF CMakeFiles/test_decoder_block.dir/tests/test_decoder_block.cpp.o.d -o CMakeFiles/test_decoder_block.dir/tests/test_decoder_block.cpp.o -c /content/miniLLMI-stage18/tests/test_decoder_block.cpp
+[ 91%] Linking CXX executable test_tokenizer
+/usr/local/lib/python3.13/dist-packages/cmake/data/bin/cmake -E cmake_link_script CMakeFiles/test_tokenizer.dir/link.txt --verbose=1
+/usr/bin/c++ -O3 -DNDEBUG -Wl,--dependency-file=CMakeFiles/test_tokenizer.dir/link.d CMakeFiles/test_tokenizer.dir/tests/test_tokenizer.cpp.o -o test_tokenizer  libmodel.a libruntime.a
+gmake[2]: Leaving directory '/content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests'
+[ 91%] Built target test_tokenizer
+/usr/bin/gmake  -f CMakeFiles/test_decoder.dir/build.make CMakeFiles/test_decoder.dir/depend
+gmake[2]: Entering directory '/content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests'
+cd /content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests && /usr/local/lib/python3.13/dist-packages/cmake/data/bin/cmake -E cmake_depends "Unix Makefiles" /content/miniLLMI-stage18 /content/miniLLMI-stage18 /content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests /content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests /content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests/CMakeFiles/test_decoder.dir/DependInfo.cmake "--color="
+gmake[2]: Leaving directory '/content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests'
+/usr/bin/gmake  -f CMakeFiles/test_decoder.dir/build.make CMakeFiles/test_decoder.dir/build
+gmake[2]: Entering directory '/content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests'
+[ 92%] Building CXX object CMakeFiles/test_decoder.dir/tests/test_decoder.cpp.o
+/usr/bin/c++ -DRUNTIME_TESTING=1 -I/content/miniLLMI-stage18/include -O3 -DNDEBUG -std=c++17 -Wall -Wextra -Wpedantic -MD -MT CMakeFiles/test_decoder.dir/tests/test_decoder.cpp.o -MF CMakeFiles/test_decoder.dir/tests/test_decoder.cpp.o.d -o CMakeFiles/test_decoder.dir/tests/test_decoder.cpp.o -c /content/miniLLMI-stage18/tests/test_decoder.cpp
+[ 93%] Linking CXX executable test_quantization
+/usr/local/lib/python3.13/dist-packages/cmake/data/bin/cmake -E cmake_link_script CMakeFiles/test_quantization.dir/link.txt --verbose=1
+/usr/bin/c++ -O3 -DNDEBUG -Wl,--dependency-file=CMakeFiles/test_quantization.dir/link.d CMakeFiles/test_quantization.dir/tests/test_quantization.cpp.o -o test_quantization  libmodel.a libruntime.a
+gmake[2]: Leaving directory '/content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests'
+[ 93%] Built target test_quantization
+[ 94%] Linking CXX executable test_kv_cache
+/usr/local/lib/python3.13/dist-packages/cmake/data/bin/cmake -E cmake_link_script CMakeFiles/test_kv_cache.dir/link.txt --verbose=1
+/usr/bin/c++ -O3 -DNDEBUG -Wl,--dependency-file=CMakeFiles/test_kv_cache.dir/link.d CMakeFiles/test_kv_cache.dir/tests/test_kv_cache.cpp.o -o test_kv_cache  libmodel.a libruntime.a
+gmake[2]: Leaving directory '/content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests'
+[ 94%] Built target test_kv_cache
+[ 95%] Linking CXX executable test_model_file
+/usr/local/lib/python3.13/dist-packages/cmake/data/bin/cmake -E cmake_link_script CMakeFiles/test_model_file.dir/link.txt --verbose=1
+[ 96%] Linking CXX executable test_decoder_config
+/usr/local/lib/python3.13/dist-packages/cmake/data/bin/cmake -E cmake_link_script CMakeFiles/test_decoder_config.dir/link.txt --verbose=1
+/usr/bin/c++ -O3 -DNDEBUG -Wl,--dependency-file=CMakeFiles/test_model_file.dir/link.d CMakeFiles/test_model_file.dir/tests/test_model_file.cpp.o -o test_model_file  libmodel.a libruntime.a
+gmake[2]: Leaving directory '/content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests'
+[ 96%] Built target test_model_file
+/usr/bin/c++ -O3 -DNDEBUG -Wl,--dependency-file=CMakeFiles/test_decoder_config.dir/link.d CMakeFiles/test_decoder_config.dir/tests/test_decoder_config.cpp.o -o test_decoder_config  libmodel.a libruntime.a
+gmake[2]: Leaving directory '/content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests'
+[ 96%] Built target test_decoder_config
+[ 97%] Linking CXX executable test_model_loader
+/usr/local/lib/python3.13/dist-packages/cmake/data/bin/cmake -E cmake_link_script CMakeFiles/test_model_loader.dir/link.txt --verbose=1
+[ 98%] Linking CXX executable test_decoder_block
+/usr/local/lib/python3.13/dist-packages/cmake/data/bin/cmake -E cmake_link_script CMakeFiles/test_decoder_block.dir/link.txt --verbose=1
+/usr/bin/c++ -O3 -DNDEBUG -Wl,--dependency-file=CMakeFiles/test_model_loader.dir/link.d CMakeFiles/test_model_loader.dir/tests/test_model_loader.cpp.o -o test_model_loader  libmodel.a libruntime.a
+gmake[2]: Leaving directory '/content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests'
+[ 98%] Built target test_model_loader
+/usr/bin/c++ -O3 -DNDEBUG -Wl,--dependency-file=CMakeFiles/test_decoder_block.dir/link.d CMakeFiles/test_decoder_block.dir/tests/test_decoder_block.cpp.o -o test_decoder_block  libmodel.a libruntime.a
+gmake[2]: Leaving directory '/content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests'
+[ 98%] Built target test_decoder_block
+[ 99%] Linking CXX executable test_kv_decoder
+/usr/local/lib/python3.13/dist-packages/cmake/data/bin/cmake -E cmake_link_script CMakeFiles/test_kv_decoder.dir/link.txt --verbose=1
+/usr/bin/c++ -O3 -DNDEBUG -Wl,--dependency-file=CMakeFiles/test_kv_decoder.dir/link.d CMakeFiles/test_kv_decoder.dir/tests/test_kv_decoder.cpp.o -o test_kv_decoder  libmodel.a libruntime.a
+gmake[2]: Leaving directory '/content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests'
+[ 99%] Built target test_kv_decoder
+[100%] Linking CXX executable test_decoder
+/usr/local/lib/python3.13/dist-packages/cmake/data/bin/cmake -E cmake_link_script CMakeFiles/test_decoder.dir/link.txt --verbose=1
+/usr/bin/c++ -O3 -DNDEBUG -Wl,--dependency-file=CMakeFiles/test_decoder.dir/link.d CMakeFiles/test_decoder.dir/tests/test_decoder.cpp.o -o test_decoder  libmodel.a libruntime.a
+gmake[2]: Leaving directory '/content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests'
+[100%] Built target test_decoder
+gmake[1]: Leaving directory '/content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests'
+/usr/local/lib/python3.13/dist-packages/cmake/data/bin/cmake -E cmake_progress_start /content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests/CMakeFiles 0
+

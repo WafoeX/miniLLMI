@@ -1,0 +1,46 @@
+{
+  "status": "passed",
+  "source": {
+    "commit": "ec116ce078eb7601e7cccc27a03f0c005eac9c7e",
+    "source_digest": "b819584a2efee94a6428d05d36b428343ef25779a8cb044a67c02942c96d3dd4",
+    "source_dirty": false
+  },
+  "paired_runs": [
+    {
+      "repeat": 0,
+      "order": "v0,v1,cublas",
+      "ratios": [
+        1.5403457113186902,
+        1.5976587370267181,
+        1.525832979734435,
+        1.4903847203005252
+      ],
+      "geomean_speedup": 1.53807283691806
+    },
+    {
+      "repeat": 1,
+      "order": "v1,v0,cublas",
+      "ratios": [
+        1.5808880654264543,
+        1.5652515805454297,
+        1.5263938289103427,
+        1.5584472523383375
+      ],
+      "geomean_speedup": 1.5576181361301762
+    },
+    {
+      "repeat": 2,
+      "order": "v0,v1,cublas",
+      "ratios": [
+        1.360406872684805,
+        1.577155637659064,
+        1.5079780498366235,
+        1.4860093418452245
+      ],
+      "geomean_speedup": 1.4807780987054242
+    }
+  ],
+  "median_paired_geomean_speedup": 1.53807283691806,
+  "candidate_wins_every_run": true,
+  "gate_passed": true
+}

@@ -1,0 +1,2 @@
+/usr/bin/ar qc libstage0_cuda.a CMakeFiles/stage0_cuda.dir/backend/cuda/sgemm_v0_naive.cu.o CMakeFiles/stage0_cuda.dir/backend/cuda/sgemm_v1_tiled.cu.o CMakeFiles/stage0_cuda.dir/backend/cuda/sgemm_registry.cu.o CMakeFiles/stage0_cuda.dir/backend/cuda/cublas_gemm.cu.o
+/usr/bin/ranlib libstage0_cuda.a

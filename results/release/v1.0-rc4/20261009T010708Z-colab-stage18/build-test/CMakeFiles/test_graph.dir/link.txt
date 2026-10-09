@@ -1,0 +1,1 @@
+/usr/bin/c++ -O3 -DNDEBUG -Wl,--dependency-file=CMakeFiles/test_graph.dir/link.d CMakeFiles/test_graph.dir/tests/test_graph.cpp.o -o test_graph  libruntime.a

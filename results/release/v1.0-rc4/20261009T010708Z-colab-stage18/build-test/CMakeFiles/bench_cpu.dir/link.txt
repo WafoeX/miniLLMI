@@ -1,0 +1,1 @@
+/usr/bin/c++ -O3 -DNDEBUG -Wl,--dependency-file=CMakeFiles/bench_cpu.dir/link.d CMakeFiles/bench_cpu.dir/bench/bench_cpu.cpp.o -o bench_cpu  libruntime.a libstage0_common.a

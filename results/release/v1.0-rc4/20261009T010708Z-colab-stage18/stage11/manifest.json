@@ -1,0 +1,237 @@
+{
+  "schema_version": 1,
+  "stage": "stage11-c4",
+  "timestamp": "2026-10-09T02:06:19.248553+00:00",
+  "run_id": "20261009T020619248218Z-30364",
+  "status": "passed",
+  "platform": "Linux-6.6.122+-x86_64-with-glibc2.39",
+  "python": "3.13.15 (main, Aug  6 2026, 11:06:22) [GCC 13.3.0]",
+  "source_before": {
+    "commit": "ec116ce078eb7601e7cccc27a03f0c005eac9c7e",
+    "source_digest": "b819584a2efee94a6428d05d36b428343ef25779a8cb044a67c02942c96d3dd4",
+    "source_dirty": false
+  },
+  "commands": [
+    {
+      "name": "gpu-query",
+      "argv": [
+        "nvidia-smi",
+        "--query-gpu=name,compute_cap,driver_version,memory.total",
+        "--format=csv,noheader,nounits"
+      ],
+      "log": "gpu-query.log",
+      "exit_code": 0
+    },
+    {
+      "name": "gpu-info",
+      "argv": [
+        "nvidia-smi",
+        "-q"
+      ],
+      "log": "gpu-info.log",
+      "exit_code": 0
+    },
+    {
+      "name": "nvcc-version",
+      "argv": [
+        "nvcc",
+        "--version"
+      ],
+      "log": "nvcc-version.log",
+      "exit_code": 0
+    },
+    {
+      "name": "cmake-version",
+      "argv": [
+        "cmake",
+        "--version"
+      ],
+      "log": "cmake-version.log",
+      "exit_code": 0
+    },
+    {
+      "name": "configure-testing",
+      "argv": [
+        "cmake",
+        "-S",
+        "/content/miniLLMI-stage18",
+        "-B",
+        "/content/miniLLMI-stage18/build-stage11-benchmark/20261009T020619248218Z-30364/testing",
+        "-DCMAKE_BUILD_TYPE=Release",
+        "-DENABLE_CUDA=ON",
+        "-DCMAKE_CUDA_ARCHITECTURES=75",
+        "-DCMAKE_EXPORT_COMPILE_COMMANDS=ON",
+        "-DBUILD_TESTING=ON"
+      ],
+      "log": "configure-testing.log",
+      "exit_code": 0
+    },
+    {
+      "name": "build-testing",
+      "argv": [
+        "cmake",
+        "--build",
+        "/content/miniLLMI-stage18/build-stage11-benchmark/20261009T020619248218Z-30364/testing",
+        "--parallel",
+        "2"
+      ],
+      "log": "build-testing.log",
+      "exit_code": 0
+    },
+    {
+      "name": "ctest",
+      "argv": [
+        "ctest",
+        "--test-dir",
+        "/content/miniLLMI-stage18/build-stage11-benchmark/20261009T020619248218Z-30364/testing",
+        "--output-on-failure"
+      ],
+      "log": "ctest.log",
+      "exit_code": 0
+    },
+    {
+      "name": "configure-production",
+      "argv": [
+        "cmake",
+        "-S",
+        "/content/miniLLMI-stage18",
+        "-B",
+        "/content/miniLLMI-stage18/build-stage11-benchmark/20261009T020619248218Z-30364/production",
+        "-DCMAKE_BUILD_TYPE=Release",
+        "-DENABLE_CUDA=ON",
+        "-DCMAKE_CUDA_ARCHITECTURES=75",
+        "-DCMAKE_EXPORT_COMPILE_COMMANDS=ON",
+        "-DBUILD_TESTING=OFF"
+      ],
+      "log": "configure-production.log",
+      "exit_code": 0
+    },
+    {
+      "name": "build-production",
+      "argv": [
+        "cmake",
+        "--build",
+        "/content/miniLLMI-stage18/build-stage11-benchmark/20261009T020619248218Z-30364/production",
+        "--parallel",
+        "2"
+      ],
+      "log": "build-production.log",
+      "exit_code": 0
+    },
+    {
+      "name": "probe",
+      "argv": [
+        "/content/miniLLMI-stage18/build-stage11-benchmark/20261009T020619248218Z-30364/production/bench_scheduler",
+        "--probe"
+      ],
+      "log": "probe.log",
+      "exit_code": 0
+    },
+    {
+      "name": "self-test",
+      "argv": [
+        "/content/miniLLMI-stage18/build-stage11-benchmark/20261009T020619248218Z-30364/production/bench_scheduler",
+        "--self-test"
+      ],
+      "log": "self-test.log",
+      "exit_code": 0
+    },
+    {
+      "name": "paired-1",
+      "argv": [
+        "/content/miniLLMI-stage18/build-stage11-benchmark/20261009T020619248218Z-30364/production/bench_scheduler",
+        "--output",
+        "/content/miniLLMI-stage18/results/scheduler/stage11-c4/20261009T020619248218Z-30364/repeat-1",
+        "--repeat",
+        "1",
+        "--order",
+        "manual,automatic"
+      ],
+      "log": "paired-1.log",
+      "exit_code": 0
+    },
+    {
+      "name": "paired-2",
+      "argv": [
+        "/content/miniLLMI-stage18/build-stage11-benchmark/20261009T020619248218Z-30364/production/bench_scheduler",
+        "--output",
+        "/content/miniLLMI-stage18/results/scheduler/stage11-c4/20261009T020619248218Z-30364/repeat-2",
+        "--repeat",
+        "2",
+        "--order",
+        "automatic,manual"
+      ],
+      "log": "paired-2.log",
+      "exit_code": 0
+    },
+    {
+      "name": "paired-3",
+      "argv": [
+        "/content/miniLLMI-stage18/build-stage11-benchmark/20261009T020619248218Z-30364/production/bench_scheduler",
+        "--output",
+        "/content/miniLLMI-stage18/results/scheduler/stage11-c4/20261009T020619248218Z-30364/repeat-3",
+        "--repeat",
+        "3",
+        "--order",
+        "manual,automatic"
+      ],
+      "log": "paired-3.log",
+      "exit_code": 0
+    }
+  ],
+  "scope": "T4-only fixed 64x64x64; no speedup gate",
+  "build_directory": "/content/miniLLMI-stage18/build-stage11-benchmark/20261009T020619248218Z-30364",
+  "gpu_name": "Tesla T4",
+  "driver_version": "580.82.07",
+  "gpu_memory_mib": "15360",
+  "cuda_architecture": "75",
+  "source_after": {
+    "commit": "ec116ce078eb7601e7cccc27a03f0c005eac9c7e",
+    "source_digest": "b819584a2efee94a6428d05d36b428343ef25779a8cb044a67c02942c96d3dd4",
+    "source_dirty": false
+  },
+  "analysis": {
+    "function": "analyze_scheduler.generate",
+    "status": "passed",
+    "raw_samples": 60,
+    "full_snapshots": 12
+  },
+  "artifact_sha256": {
+    "analysis.json": "0e2bfd6370cf39826b11aaa180ce3f928973579b2c9ddbe833ceff5a713217bb",
+    "build-production.log": "c1efbce8a8dbf45c7bbcf70b5ad5508ab301ac9e913846c3de3a4d71af480c6a",
+    "build-testing.log": "a53486334cbd4920d701c9d8bd72d2392694bff212a7a277ee3ade3aa20dd381",
+    "cmake-version.log": "246a2f1394c1f89d947b498ec32196bac864589d0a4aa532c7990a6e011e9fa8",
+    "configure-production.log": "ee76d10300f17e8d7b8443e477a904901ef5ba76b925f9ca78a42106fbcc33d9",
+    "configure-testing.log": "1b7f9db8019be639c512f3d8393c427a3c96962fae5f3eaa7ba0e4df9e529553",
+    "ctest.log": "4259d8039aeca13eca058390c3e93f315583e42becf64797b967d0bd894bc1d6",
+    "gpu-info.log": "74e3b51638e125da66636655ce94431dc3b331f833eb0910a481e109b530e16c",
+    "gpu-query.log": "b42d04f9c05e3aeb9dbfbf40e71f68d17566e80b3dea48478f444a9d36ef7d0a",
+    "nvcc-version.log": "fc7ce0c80d28ed925fd490dc4e3915ce620fcf115f965189688c6f049243aad5",
+    "paired-1.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "paired-2.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "paired-3.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "probe.log": "4fd9b2443c281e27b607125473a4b76073f651f10b506987b8248885e2522203",
+    "production-CMakeCache.txt": "ac15be0ac736910b3deb9b72bb093d3a5c1d0e7d4f8b82918ee50266d3de63a7",
+    "production-compile_commands.json": "9a2b83486e4e5373ad25e0b989adc29b1a5e2bdab104d0bf2094deceade4acbf",
+    "repeat-1/automatic-final.json": "f69ee07adb95cd37dd7a21b2da14ec8669fa7be07134f75fb9189f1420279731",
+    "repeat-1/automatic-initial.json": "f69ee07adb95cd37dd7a21b2da14ec8669fa7be07134f75fb9189f1420279731",
+    "repeat-1/manual-final.json": "69d3691dad5db17d0e543be810f709e1106318e81d36f8d62f5ac5b5274f63d9",
+    "repeat-1/manual-initial.json": "69d3691dad5db17d0e543be810f709e1106318e81d36f8d62f5ac5b5274f63d9",
+    "repeat-1/samples.csv": "b40c8740b4beae77d13f016126f346af499c5a1c01db94f1ffa3cc602dde7bb6",
+    "repeat-2/automatic-final.json": "f69ee07adb95cd37dd7a21b2da14ec8669fa7be07134f75fb9189f1420279731",
+    "repeat-2/automatic-initial.json": "f69ee07adb95cd37dd7a21b2da14ec8669fa7be07134f75fb9189f1420279731",
+    "repeat-2/manual-final.json": "69d3691dad5db17d0e543be810f709e1106318e81d36f8d62f5ac5b5274f63d9",
+    "repeat-2/manual-initial.json": "69d3691dad5db17d0e543be810f709e1106318e81d36f8d62f5ac5b5274f63d9",
+    "repeat-2/samples.csv": "b4524eed52da53ad44f382c8a1e4b976c6199d54d7757f417a1148a53da9eb31",
+    "repeat-3/automatic-final.json": "f69ee07adb95cd37dd7a21b2da14ec8669fa7be07134f75fb9189f1420279731",
+    "repeat-3/automatic-initial.json": "f69ee07adb95cd37dd7a21b2da14ec8669fa7be07134f75fb9189f1420279731",
+    "repeat-3/manual-final.json": "69d3691dad5db17d0e543be810f709e1106318e81d36f8d62f5ac5b5274f63d9",
+    "repeat-3/manual-initial.json": "69d3691dad5db17d0e543be810f709e1106318e81d36f8d62f5ac5b5274f63d9",
+    "repeat-3/samples.csv": "b19c4c61b12792376d1dcc737a8603228bf7e110bc5a63b7f9350af6e43a5bb9",
+    "report.md": "1fb1182c6d561aedf7d598bbd231cddb3301e4604478ff6952c44ec21a595b73",
+    "scheduler.csv": "4da944323dd7248394f5d9a76db4414372767f7d5d9cf1bbafed21cbf7a05b2f",
+    "self-test.log": "ee45137cd5a36c9d979a9dbe07998739b2d32e07893524743294e32e1e8f40cf",
+    "testing-CMakeCache.txt": "98fe77dbfd4b76e8d3d6902c2a31c0aa56c2e81da385469ad7fbd05df0a1065c",
+    "testing-compile_commands.json": "d09ff2e8681854a078552693c3d00d55df2a1f0a5cd0dc2cff0e7d7a13d2fb03"
+  }
+}

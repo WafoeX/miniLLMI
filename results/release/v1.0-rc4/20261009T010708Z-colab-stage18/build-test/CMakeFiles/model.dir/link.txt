@@ -1,0 +1,2 @@
+/usr/bin/ar qc libmodel.a CMakeFiles/model.dir/src/model/config.cpp.o CMakeFiles/model.dir/src/model/model_file.cpp.o CMakeFiles/model.dir/src/model/quantization.cpp.o CMakeFiles/model.dir/src/model/tokenizer.cpp.o CMakeFiles/model.dir/src/model/kv_cache.cpp.o CMakeFiles/model.dir/src/model/decoder.cpp.o CMakeFiles/model.dir/src/model/generation.cpp.o
+/usr/bin/ranlib libmodel.a

@@ -1,0 +1,497 @@
+{
+  "schema_version": 1,
+  "scope": "CPU-only Stage 5 planner memory gate",
+  "run_id": "20261009T011214860730Z-8736",
+  "timestamp": "2026-10-09T01:12:14.860712+00:00",
+  "source": {
+    "commit": "ec116ce078eb7601e7cccc27a03f0c005eac9c7e",
+    "source_digest": "b819584a2efee94a6428d05d36b428343ef25779a8cb044a67c02942c96d3dd4",
+    "source_dirty": false
+  },
+  "host": "5450a72e24fc",
+  "platform": "Linux-6.6.122+-x86_64-with-glibc2.39",
+  "machine": "x86_64",
+  "python": "3.13.15 (main, Aug  6 2026, 11:06:22) [GCC 13.3.0]",
+  "configuration": {
+    "runs": 3,
+    "samples": 10,
+    "warmup": 3,
+    "batch": 20,
+    "prepare_batch": 1,
+    "alignment": 64,
+    "workload_version": 1,
+    "gate_workload": "chain"
+  },
+  "timing_boundary": "steady_clock execute incl validation/begin/reference/oracle/output destruction; prepare and CSV excluded. Prepare constructor timed separately, destruction excluded.",
+  "environment_note": "Named local CPU host; no exclusive-core/process isolation guarantee. Retain slow runs. No CUDA/model claim.",
+  "alignment_note": "Prepared policies both 64; dynamic retains S3 malloc alignment. Not an alignment-isolated latency experiment.",
+  "commands": [
+    {
+      "argv": [
+        "cmake",
+        "--version"
+      ],
+      "cwd": "/content/miniLLMI-stage18",
+      "log": "cmake-version.log",
+      "exit_code": 0
+    },
+    {
+      "argv": [
+        "cmake",
+        "-S",
+        "/content/miniLLMI-stage18",
+        "-B",
+        "/content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests",
+        "-DCMAKE_BUILD_TYPE=Release",
+        "-DENABLE_CUDA=OFF",
+        "-DENABLE_SANITIZERS=OFF",
+        "-DBUILD_TESTING=ON"
+      ],
+      "cwd": "/content/miniLLMI-stage18",
+      "log": "tests-configure.log",
+      "exit_code": 0
+    },
+    {
+      "argv": [
+        "cmake",
+        "--build",
+        "/content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests",
+        "--parallel",
+        "8",
+        "--verbose"
+      ],
+      "cwd": "/content/miniLLMI-stage18",
+      "log": "tests-build.log",
+      "exit_code": 0
+    },
+    {
+      "argv": [
+        "ctest",
+        "--test-dir",
+        "/content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/tests",
+        "--output-on-failure",
+        "--verbose"
+      ],
+      "cwd": "/content/miniLLMI-stage18",
+      "log": "ctest.log",
+      "exit_code": 0
+    },
+    {
+      "argv": [
+        "cmake",
+        "-S",
+        "/content/miniLLMI-stage18",
+        "-B",
+        "/content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/production",
+        "-DCMAKE_BUILD_TYPE=Release",
+        "-DENABLE_CUDA=OFF",
+        "-DENABLE_SANITIZERS=OFF",
+        "-DBUILD_TESTING=OFF"
+      ],
+      "cwd": "/content/miniLLMI-stage18",
+      "log": "production-configure.log",
+      "exit_code": 0
+    },
+    {
+      "argv": [
+        "cmake",
+        "--build",
+        "/content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/production",
+        "--parallel",
+        "8",
+        "--verbose"
+      ],
+      "cwd": "/content/miniLLMI-stage18",
+      "log": "production-build.log",
+      "exit_code": 0
+    },
+    {
+      "argv": [
+        "/content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/production/bench_planner",
+        "--probe"
+      ],
+      "cwd": "/content/miniLLMI-stage18",
+      "log": "binary-probe.log",
+      "exit_code": 0
+    },
+    {
+      "argv": [
+        "/content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/production/bench_planner",
+        "--self-test"
+      ],
+      "cwd": "/content/miniLLMI-stage18",
+      "log": "production-correctness.log",
+      "exit_code": 0
+    },
+    {
+      "argv": [
+        "/content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/production/bench_planner",
+        "--workload",
+        "chain",
+        "--policy",
+        "dynamic",
+        "--raw",
+        "/content/miniLLMI-stage18/results/release/v1.0-rc4/20261009T010708Z-colab-stage18/planner/20261009T011214860730Z-8736/pair-0/chain-dynamic.csv",
+        "--prepare-raw",
+        "/content/miniLLMI-stage18/results/release/v1.0-rc4/20261009T010708Z-colab-stage18/planner/20261009T011214860730Z-8736/pair-0/chain-dynamic-prepare.csv"
+      ],
+      "cwd": "/content/miniLLMI-stage18",
+      "log": "pair-0-chain-dynamic.log",
+      "exit_code": 0
+    },
+    {
+      "argv": [
+        "/content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/production/bench_planner",
+        "--workload",
+        "chain",
+        "--policy",
+        "no_reuse",
+        "--raw",
+        "/content/miniLLMI-stage18/results/release/v1.0-rc4/20261009T010708Z-colab-stage18/planner/20261009T011214860730Z-8736/pair-0/chain-no_reuse.csv",
+        "--prepare-raw",
+        "/content/miniLLMI-stage18/results/release/v1.0-rc4/20261009T010708Z-colab-stage18/planner/20261009T011214860730Z-8736/pair-0/chain-no_reuse-prepare.csv"
+      ],
+      "cwd": "/content/miniLLMI-stage18",
+      "log": "pair-0-chain-no_reuse.log",
+      "exit_code": 0
+    },
+    {
+      "argv": [
+        "/content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/production/bench_planner",
+        "--workload",
+        "chain",
+        "--policy",
+        "reuse",
+        "--raw",
+        "/content/miniLLMI-stage18/results/release/v1.0-rc4/20261009T010708Z-colab-stage18/planner/20261009T011214860730Z-8736/pair-0/chain-reuse.csv",
+        "--prepare-raw",
+        "/content/miniLLMI-stage18/results/release/v1.0-rc4/20261009T010708Z-colab-stage18/planner/20261009T011214860730Z-8736/pair-0/chain-reuse-prepare.csv"
+      ],
+      "cwd": "/content/miniLLMI-stage18",
+      "log": "pair-0-chain-reuse.log",
+      "exit_code": 0
+    },
+    {
+      "argv": [
+        "/content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/production/bench_planner",
+        "--workload",
+        "diamond",
+        "--policy",
+        "dynamic",
+        "--raw",
+        "/content/miniLLMI-stage18/results/release/v1.0-rc4/20261009T010708Z-colab-stage18/planner/20261009T011214860730Z-8736/pair-0/diamond-dynamic.csv",
+        "--prepare-raw",
+        "/content/miniLLMI-stage18/results/release/v1.0-rc4/20261009T010708Z-colab-stage18/planner/20261009T011214860730Z-8736/pair-0/diamond-dynamic-prepare.csv"
+      ],
+      "cwd": "/content/miniLLMI-stage18",
+      "log": "pair-0-diamond-dynamic.log",
+      "exit_code": 0
+    },
+    {
+      "argv": [
+        "/content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/production/bench_planner",
+        "--workload",
+        "diamond",
+        "--policy",
+        "no_reuse",
+        "--raw",
+        "/content/miniLLMI-stage18/results/release/v1.0-rc4/20261009T010708Z-colab-stage18/planner/20261009T011214860730Z-8736/pair-0/diamond-no_reuse.csv",
+        "--prepare-raw",
+        "/content/miniLLMI-stage18/results/release/v1.0-rc4/20261009T010708Z-colab-stage18/planner/20261009T011214860730Z-8736/pair-0/diamond-no_reuse-prepare.csv"
+      ],
+      "cwd": "/content/miniLLMI-stage18",
+      "log": "pair-0-diamond-no_reuse.log",
+      "exit_code": 0
+    },
+    {
+      "argv": [
+        "/content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/production/bench_planner",
+        "--workload",
+        "diamond",
+        "--policy",
+        "reuse",
+        "--raw",
+        "/content/miniLLMI-stage18/results/release/v1.0-rc4/20261009T010708Z-colab-stage18/planner/20261009T011214860730Z-8736/pair-0/diamond-reuse.csv",
+        "--prepare-raw",
+        "/content/miniLLMI-stage18/results/release/v1.0-rc4/20261009T010708Z-colab-stage18/planner/20261009T011214860730Z-8736/pair-0/diamond-reuse-prepare.csv"
+      ],
+      "cwd": "/content/miniLLMI-stage18",
+      "log": "pair-0-diamond-reuse.log",
+      "exit_code": 0
+    },
+    {
+      "argv": [
+        "/content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/production/bench_planner",
+        "--workload",
+        "chain",
+        "--policy",
+        "reuse",
+        "--raw",
+        "/content/miniLLMI-stage18/results/release/v1.0-rc4/20261009T010708Z-colab-stage18/planner/20261009T011214860730Z-8736/pair-1/chain-reuse.csv",
+        "--prepare-raw",
+        "/content/miniLLMI-stage18/results/release/v1.0-rc4/20261009T010708Z-colab-stage18/planner/20261009T011214860730Z-8736/pair-1/chain-reuse-prepare.csv"
+      ],
+      "cwd": "/content/miniLLMI-stage18",
+      "log": "pair-1-chain-reuse.log",
+      "exit_code": 0
+    },
+    {
+      "argv": [
+        "/content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/production/bench_planner",
+        "--workload",
+        "chain",
+        "--policy",
+        "no_reuse",
+        "--raw",
+        "/content/miniLLMI-stage18/results/release/v1.0-rc4/20261009T010708Z-colab-stage18/planner/20261009T011214860730Z-8736/pair-1/chain-no_reuse.csv",
+        "--prepare-raw",
+        "/content/miniLLMI-stage18/results/release/v1.0-rc4/20261009T010708Z-colab-stage18/planner/20261009T011214860730Z-8736/pair-1/chain-no_reuse-prepare.csv"
+      ],
+      "cwd": "/content/miniLLMI-stage18",
+      "log": "pair-1-chain-no_reuse.log",
+      "exit_code": 0
+    },
+    {
+      "argv": [
+        "/content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/production/bench_planner",
+        "--workload",
+        "chain",
+        "--policy",
+        "dynamic",
+        "--raw",
+        "/content/miniLLMI-stage18/results/release/v1.0-rc4/20261009T010708Z-colab-stage18/planner/20261009T011214860730Z-8736/pair-1/chain-dynamic.csv",
+        "--prepare-raw",
+        "/content/miniLLMI-stage18/results/release/v1.0-rc4/20261009T010708Z-colab-stage18/planner/20261009T011214860730Z-8736/pair-1/chain-dynamic-prepare.csv"
+      ],
+      "cwd": "/content/miniLLMI-stage18",
+      "log": "pair-1-chain-dynamic.log",
+      "exit_code": 0
+    },
+    {
+      "argv": [
+        "/content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/production/bench_planner",
+        "--workload",
+        "diamond",
+        "--policy",
+        "reuse",
+        "--raw",
+        "/content/miniLLMI-stage18/results/release/v1.0-rc4/20261009T010708Z-colab-stage18/planner/20261009T011214860730Z-8736/pair-1/diamond-reuse.csv",
+        "--prepare-raw",
+        "/content/miniLLMI-stage18/results/release/v1.0-rc4/20261009T010708Z-colab-stage18/planner/20261009T011214860730Z-8736/pair-1/diamond-reuse-prepare.csv"
+      ],
+      "cwd": "/content/miniLLMI-stage18",
+      "log": "pair-1-diamond-reuse.log",
+      "exit_code": 0
+    },
+    {
+      "argv": [
+        "/content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/production/bench_planner",
+        "--workload",
+        "diamond",
+        "--policy",
+        "no_reuse",
+        "--raw",
+        "/content/miniLLMI-stage18/results/release/v1.0-rc4/20261009T010708Z-colab-stage18/planner/20261009T011214860730Z-8736/pair-1/diamond-no_reuse.csv",
+        "--prepare-raw",
+        "/content/miniLLMI-stage18/results/release/v1.0-rc4/20261009T010708Z-colab-stage18/planner/20261009T011214860730Z-8736/pair-1/diamond-no_reuse-prepare.csv"
+      ],
+      "cwd": "/content/miniLLMI-stage18",
+      "log": "pair-1-diamond-no_reuse.log",
+      "exit_code": 0
+    },
+    {
+      "argv": [
+        "/content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/production/bench_planner",
+        "--workload",
+        "diamond",
+        "--policy",
+        "dynamic",
+        "--raw",
+        "/content/miniLLMI-stage18/results/release/v1.0-rc4/20261009T010708Z-colab-stage18/planner/20261009T011214860730Z-8736/pair-1/diamond-dynamic.csv",
+        "--prepare-raw",
+        "/content/miniLLMI-stage18/results/release/v1.0-rc4/20261009T010708Z-colab-stage18/planner/20261009T011214860730Z-8736/pair-1/diamond-dynamic-prepare.csv"
+      ],
+      "cwd": "/content/miniLLMI-stage18",
+      "log": "pair-1-diamond-dynamic.log",
+      "exit_code": 0
+    },
+    {
+      "argv": [
+        "/content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/production/bench_planner",
+        "--workload",
+        "chain",
+        "--policy",
+        "dynamic",
+        "--raw",
+        "/content/miniLLMI-stage18/results/release/v1.0-rc4/20261009T010708Z-colab-stage18/planner/20261009T011214860730Z-8736/pair-2/chain-dynamic.csv",
+        "--prepare-raw",
+        "/content/miniLLMI-stage18/results/release/v1.0-rc4/20261009T010708Z-colab-stage18/planner/20261009T011214860730Z-8736/pair-2/chain-dynamic-prepare.csv"
+      ],
+      "cwd": "/content/miniLLMI-stage18",
+      "log": "pair-2-chain-dynamic.log",
+      "exit_code": 0
+    },
+    {
+      "argv": [
+        "/content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/production/bench_planner",
+        "--workload",
+        "chain",
+        "--policy",
+        "no_reuse",
+        "--raw",
+        "/content/miniLLMI-stage18/results/release/v1.0-rc4/20261009T010708Z-colab-stage18/planner/20261009T011214860730Z-8736/pair-2/chain-no_reuse.csv",
+        "--prepare-raw",
+        "/content/miniLLMI-stage18/results/release/v1.0-rc4/20261009T010708Z-colab-stage18/planner/20261009T011214860730Z-8736/pair-2/chain-no_reuse-prepare.csv"
+      ],
+      "cwd": "/content/miniLLMI-stage18",
+      "log": "pair-2-chain-no_reuse.log",
+      "exit_code": 0
+    },
+    {
+      "argv": [
+        "/content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/production/bench_planner",
+        "--workload",
+        "chain",
+        "--policy",
+        "reuse",
+        "--raw",
+        "/content/miniLLMI-stage18/results/release/v1.0-rc4/20261009T010708Z-colab-stage18/planner/20261009T011214860730Z-8736/pair-2/chain-reuse.csv",
+        "--prepare-raw",
+        "/content/miniLLMI-stage18/results/release/v1.0-rc4/20261009T010708Z-colab-stage18/planner/20261009T011214860730Z-8736/pair-2/chain-reuse-prepare.csv"
+      ],
+      "cwd": "/content/miniLLMI-stage18",
+      "log": "pair-2-chain-reuse.log",
+      "exit_code": 0
+    },
+    {
+      "argv": [
+        "/content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/production/bench_planner",
+        "--workload",
+        "diamond",
+        "--policy",
+        "dynamic",
+        "--raw",
+        "/content/miniLLMI-stage18/results/release/v1.0-rc4/20261009T010708Z-colab-stage18/planner/20261009T011214860730Z-8736/pair-2/diamond-dynamic.csv",
+        "--prepare-raw",
+        "/content/miniLLMI-stage18/results/release/v1.0-rc4/20261009T010708Z-colab-stage18/planner/20261009T011214860730Z-8736/pair-2/diamond-dynamic-prepare.csv"
+      ],
+      "cwd": "/content/miniLLMI-stage18",
+      "log": "pair-2-diamond-dynamic.log",
+      "exit_code": 0
+    },
+    {
+      "argv": [
+        "/content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/production/bench_planner",
+        "--workload",
+        "diamond",
+        "--policy",
+        "no_reuse",
+        "--raw",
+        "/content/miniLLMI-stage18/results/release/v1.0-rc4/20261009T010708Z-colab-stage18/planner/20261009T011214860730Z-8736/pair-2/diamond-no_reuse.csv",
+        "--prepare-raw",
+        "/content/miniLLMI-stage18/results/release/v1.0-rc4/20261009T010708Z-colab-stage18/planner/20261009T011214860730Z-8736/pair-2/diamond-no_reuse-prepare.csv"
+      ],
+      "cwd": "/content/miniLLMI-stage18",
+      "log": "pair-2-diamond-no_reuse.log",
+      "exit_code": 0
+    },
+    {
+      "argv": [
+        "/content/miniLLMI-stage18/build-planner-benchmark/20261009T011214860730Z-8736/production/bench_planner",
+        "--workload",
+        "diamond",
+        "--policy",
+        "reuse",
+        "--raw",
+        "/content/miniLLMI-stage18/results/release/v1.0-rc4/20261009T010708Z-colab-stage18/planner/20261009T011214860730Z-8736/pair-2/diamond-reuse.csv",
+        "--prepare-raw",
+        "/content/miniLLMI-stage18/results/release/v1.0-rc4/20261009T010708Z-colab-stage18/planner/20261009T011214860730Z-8736/pair-2/diamond-reuse-prepare.csv"
+      ],
+      "cwd": "/content/miniLLMI-stage18",
+      "log": "pair-2-diamond-reuse.log",
+      "exit_code": 0
+    }
+  ],
+  "pairs": [
+    {
+      "pair": 0,
+      "order": [
+        "dynamic",
+        "no_reuse",
+        "reuse"
+      ]
+    },
+    {
+      "pair": 1,
+      "order": [
+        "reuse",
+        "no_reuse",
+        "dynamic"
+      ]
+    },
+    {
+      "pair": 2,
+      "order": [
+        "dynamic",
+        "no_reuse",
+        "reuse"
+      ]
+    }
+  ],
+  "raw_sha256": {
+    "pair-0/chain-dynamic.csv": "ae2853f972506d30206072cb4d90310ea8c4a440e2f4dcc3a1e2b2dccbb38b20",
+    "pair-0/chain-dynamic-prepare.csv": "30f3cfaec757a6f76cd1d8b4c7e04884c513fe145ad51cacb1921a9d36e7a908",
+    "pair-0/chain-no_reuse.csv": "9f437d826807942ff1a429b12b6bf238d6f0035565d38eb56a4fb3c344792b22",
+    "pair-0/chain-no_reuse-prepare.csv": "8b32d7c40d20533c72cb2bdfae59faff5c9471e3e71266c45441575b2cb0901d",
+    "pair-0/chain-reuse.csv": "8be2709197936becb07b630816a8eece73d334db2fc31a74896440fa2bd1b1a9",
+    "pair-0/chain-reuse-prepare.csv": "45e02e44d19b5b7b2cd1adbcc03608940ae38b209a87533b4b9f2fd92ba91822",
+    "pair-0/diamond-dynamic.csv": "7825079f531179f7e8e960fea0c47e04da27ac39776204b4b0b0bb9222409bf3",
+    "pair-0/diamond-dynamic-prepare.csv": "30f3cfaec757a6f76cd1d8b4c7e04884c513fe145ad51cacb1921a9d36e7a908",
+    "pair-0/diamond-no_reuse.csv": "d1f611d32414e5edc180158b1cc5f220fb060e42d7f95908439e72cdc305fddb",
+    "pair-0/diamond-no_reuse-prepare.csv": "a233e49e451207b837e4a3d85b4c2ffd1874e87760a58e691784d44c37c05c68",
+    "pair-0/diamond-reuse.csv": "b5817174976114e080f1e7ffb4563ef90b76ede59780543ac9c9cc0cd1f1348c",
+    "pair-0/diamond-reuse-prepare.csv": "6238a342c614d8d447b9422eaba9e98ac0acad88371db295df1a7545542ef97b",
+    "pair-1/chain-reuse.csv": "3ce2c040984b2b2e22f1ae969fab1cb8e5262f67665119183fb79d293b155d2c",
+    "pair-1/chain-reuse-prepare.csv": "13d9fc76d6077e85509a525831ecf2b9584c23d2d46f2644a2b8803c61073367",
+    "pair-1/chain-no_reuse.csv": "4ca149d7ff99f1771ac2a101caea90bfaa1ce750c89d9ff3fe5284c31989ccbb",
+    "pair-1/chain-no_reuse-prepare.csv": "66d762cf075ca31220cef6547237f9577064a6807043ce39782eb565a02f66d0",
+    "pair-1/chain-dynamic.csv": "13b545ba177bd57c55a7bb61dd2cbf2f870286e609e0e4a230f8d68377f1a7ba",
+    "pair-1/chain-dynamic-prepare.csv": "30f3cfaec757a6f76cd1d8b4c7e04884c513fe145ad51cacb1921a9d36e7a908",
+    "pair-1/diamond-reuse.csv": "87b5cfd3730f1a722006cbe0e684196ead1e8237067c5f0278a2dd571cfab423",
+    "pair-1/diamond-reuse-prepare.csv": "8f6de16808af496a37e50cd357829c559a8d47b4039283dc6c9aaff38a7ea723",
+    "pair-1/diamond-no_reuse.csv": "87b5c5222ef24b23a7e33df70b0138c4aef55976c4b03119c35a1ea35058fa84",
+    "pair-1/diamond-no_reuse-prepare.csv": "8dc4bf73d62faa02b463fb59a26c2628235aebce2a641d128839fdc585210d19",
+    "pair-1/diamond-dynamic.csv": "eca0d5d06fc83e656410168fa340536fa5d0d1f0dc5ac73d08a6654dccb5694a",
+    "pair-1/diamond-dynamic-prepare.csv": "30f3cfaec757a6f76cd1d8b4c7e04884c513fe145ad51cacb1921a9d36e7a908",
+    "pair-2/chain-dynamic.csv": "d6b7081b5b5c972f15505ef011758e9dd750df9c2e1f41ef6f9d2a1279758bb2",
+    "pair-2/chain-dynamic-prepare.csv": "30f3cfaec757a6f76cd1d8b4c7e04884c513fe145ad51cacb1921a9d36e7a908",
+    "pair-2/chain-no_reuse.csv": "53fe462aa4589baabd07bd6ca47e34d5b0178ad46fce5f41097662675cda57e1",
+    "pair-2/chain-no_reuse-prepare.csv": "05f7bc58378a56491a0a9d64b282a04ecf58f91ee9e4f65951a9e8f7cacec0a1",
+    "pair-2/chain-reuse.csv": "f44eb931f08cfe5711dc4444078b6d488830aad80cf4eccf2f00ab2995026c0e",
+    "pair-2/chain-reuse-prepare.csv": "b02be3ef71a016af3fdec91205af931459d152fc1f5bdedd4099ddad5c3d8aec",
+    "pair-2/diamond-dynamic.csv": "30d084047fc4ec5dbce9173f1659669480e34f454855fc01d203ea702e8f5797",
+    "pair-2/diamond-dynamic-prepare.csv": "30f3cfaec757a6f76cd1d8b4c7e04884c513fe145ad51cacb1921a9d36e7a908",
+    "pair-2/diamond-no_reuse.csv": "6bb1f92a1f991dd9ae8acaa709c001e9bca874aee2d1ec8793999c4ba42bdb40",
+    "pair-2/diamond-no_reuse-prepare.csv": "388d39f6711155e7f6487a97df63988efb45cc852bbe89beabecb24d6cada44f",
+    "pair-2/diamond-reuse.csv": "f8bd97d641e2412c7632971076099cfeee208a62b5ccd107a3176c0526469fd8",
+    "pair-2/diamond-reuse-prepare.csv": "6b8010dc89b0ccecbcf78fae9e099af4f059511727a79ca021cf436a38138254"
+  },
+  "status": "passed",
+  "binary": {
+    "schema_version": 1,
+    "commit": "ec116ce078eb7601e7cccc27a03f0c005eac9c7e",
+    "source_digest": "b819584a2efee94a6428d05d36b428343ef25779a8cb044a67c02942c96d3dd4",
+    "source_dirty": false,
+    "build_type": "Release",
+    "compiler": "GNU 13.3.0",
+    "testing": false,
+    "backend": "cpu",
+    "benchmark": "planner-v1"
+  },
+  "binary_sha256": "d0683fce7771c359a3dcb1655e668b8e9ebef23bf5cedd94c142ecd4de997f44",
+  "source_after": {
+    "commit": "ec116ce078eb7601e7cccc27a03f0c005eac9c7e",
+    "source_digest": "b819584a2efee94a6428d05d36b428343ef25779a8cb044a67c02942c96d3dd4",
+    "source_dirty": false
+  }
+}

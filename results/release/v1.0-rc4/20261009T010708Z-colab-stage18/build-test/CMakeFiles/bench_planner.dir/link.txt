@@ -1,0 +1,1 @@
+/usr/bin/c++ -O3 -DNDEBUG -Wl,--dependency-file=CMakeFiles/bench_planner.dir/link.d CMakeFiles/bench_planner.dir/bench/bench_planner.cpp.o -o bench_planner  libruntime.a libstage0_common.a

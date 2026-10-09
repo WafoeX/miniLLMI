@@ -1,0 +1,1 @@
+diamond/no_reuse: PASS execute/prepare samples=10 warmup=3 execute batch=20

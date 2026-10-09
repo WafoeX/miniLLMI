@@ -1,0 +1,133 @@
+Internal ctest changing into directory: /content/miniLLMI-stage18/build-cpu-parallel/20261009T011551457339Z-11457/tests
+Test project /content/miniLLMI-stage18/build-cpu-parallel/20261009T011551457339Z-11457/tests
+      Start  1: cli_tools
+ 1/54 Test  #1: cli_tools ........................   Passed    0.32 sec
+      Start  2: generation
+ 2/54 Test  #2: generation .......................   Passed    0.46 sec
+      Start  3: inference_benchmark_tools
+ 3/54 Test  #3: inference_benchmark_tools ........   Passed    1.29 sec
+      Start  4: quant_benchmark_tools
+ 4/54 Test  #4: quant_benchmark_tools ............   Passed    0.42 sec
+      Start  5: quantization
+ 5/54 Test  #5: quantization .....................   Passed    0.00 sec
+      Start  6: model_file
+ 6/54 Test  #6: model_file .......................   Passed    0.01 sec
+      Start  7: model_loader
+ 7/54 Test  #7: model_loader .....................   Passed    0.05 sec
+      Start  8: tokenizer
+ 8/54 Test  #8: tokenizer ........................   Passed    0.00 sec
+      Start  9: kv_benchmark_workloads
+ 9/54 Test  #9: kv_benchmark_workloads ...........   Passed    0.00 sec
+      Start 10: kv_cache
+10/54 Test #10: kv_cache .........................   Passed    0.00 sec
+      Start 11: kv_decoder
+11/54 Test #11: kv_decoder .......................   Passed    0.13 sec
+      Start 12: decoder_config
+12/54 Test #12: decoder_config ...................   Passed    0.00 sec
+      Start 13: decoder_block
+13/54 Test #13: decoder_block ....................   Passed    0.01 sec
+      Start 14: decoder
+14/54 Test #14: decoder ..........................   Passed    0.10 sec
+      Start 15: decoder_benchmark_workloads
+15/54 Test #15: decoder_benchmark_workloads ......   Passed    0.17 sec
+      Start 16: decoder_tools
+16/54 Test #16: decoder_tools ....................   Passed    0.10 sec
+      Start 17: scheduler_benchmark_workloads
+17/54 Test #17: scheduler_benchmark_workloads ....   Passed    0.01 sec
+      Start 18: scheduler_benchmark_tools
+18/54 Test #18: scheduler_benchmark_tools ........   Passed    2.15 sec
+      Start 19: scheduler
+19/54 Test #19: scheduler ........................   Passed    0.00 sec
+      Start 20: scheduler_tools
+20/54 Test #20: scheduler_tools ..................   Passed    0.41 sec
+      Start 21: cpu_benchmark_workloads
+21/54 Test #21: cpu_benchmark_workloads ..........   Passed    0.00 sec
+      Start 22: cpu_tools
+22/54 Test #22: cpu_tools ........................   Passed    1.11 sec
+      Start 23: cpu_transformer_contract
+23/54 Test #23: cpu_transformer_contract .........   Passed    0.00 sec
+      Start 24: transformer_ops
+24/54 Test #24: transformer_ops ..................   Passed    0.00 sec
+      Start 25: attention_graph
+25/54 Test #25: attention_graph ..................   Passed    0.00 sec
+      Start 26: cpu_scalar
+26/54 Test #26: cpu_scalar .......................   Passed    0.02 sec
+      Start 27: thread_pool
+27/54 Test #27: thread_pool ......................   Passed    0.00 sec
+      Start 28: cpu_backend_fixtures
+28/54 Test #28: cpu_backend_fixtures .............   Passed    0.09 sec
+      Start 29: cpu_backend
+29/54 Test #29: cpu_backend ......................   Passed    0.00 sec
+      Start 30: tensor
+30/54 Test #30: tensor ...........................   Passed    0.00 sec
+      Start 31: tensor_properties
+31/54 Test #31: tensor_properties ................   Passed    0.01 sec
+      Start 32: tensor_validation
+32/54 Test #32: tensor_validation ................   Passed    0.20 sec
+      Start 33: operator
+33/54 Test #33: operator .........................   Passed    0.00 sec
+      Start 34: shape_inference
+34/54 Test #34: shape_inference ..................   Passed    0.00 sec
+      Start 35: operator_reference
+35/54 Test #35: operator_reference ...............   Passed    0.00 sec
+      Start 36: transformer_contracts
+36/54 Test #36: transformer_contracts ............   Passed    0.00 sec
+      Start 37: operator_fixtures
+37/54 Test #37: operator_fixtures ................   Passed    0.10 sec
+      Start 38: operator_fixture_tools
+38/54 Test #38: operator_fixture_tools ...........   Passed    0.21 sec
+      Start 39: graph
+39/54 Test #39: graph ............................   Passed    0.00 sec
+      Start 40: graph_executor
+40/54 Test #40: graph_executor ...................   Passed    0.01 sec
+      Start 41: graph_fixtures
+41/54 Test #41: graph_fixtures ...................   Passed    0.08 sec
+      Start 42: graph_trace
+42/54 Test #42: graph_trace ......................   Passed    0.00 sec
+      Start 43: arena
+43/54 Test #43: arena ............................   Passed    0.07 sec
+      Start 44: allocation_provider
+44/54 Test #44: allocation_provider ..............   Passed    0.00 sec
+      Start 45: allocator_benchmark_workloads
+45/54 Test #45: allocator_benchmark_workloads ....   Passed    0.00 sec
+      Start 46: allocator_tools
+46/54 Test #46: allocator_tools ..................   Passed    0.20 sec
+      Start 47: memory_planner
+47/54 Test #47: memory_planner ...................   Passed    0.01 sec
+      Start 48: planned_executor
+48/54 Test #48: planned_executor .................   Passed    0.43 sec
+      Start 49: planner_benchmark_workloads
+49/54 Test #49: planner_benchmark_workloads ......   Passed    0.00 sec
+      Start 50: planner_tools
+50/54 Test #50: planner_tools ....................   Passed    0.46 sec
+      Start 51: common
+51/54 Test #51: common ...........................   Passed    0.00 sec
+      Start 52: tools
+52/54 Test #52: tools ............................   Passed    1.23 sec
+      Start 53: cuda_gemm_tools
+53/54 Test #53: cuda_gemm_tools ..................   Passed    0.09 sec
+      Start 54: release_evidence_tools
+54/54 Test #54: release_evidence_tools ...........   Passed    0.10 sec
+
+100% tests passed, 0 tests failed out of 54
+
+Label Time Summary:
+arena          =   0.27 sec*proc (4 tests)
+backend        =   1.23 sec*proc (7 tests)
+cli            =   2.07 sec*proc (3 tests)
+cpu            =   8.85 sec*proc (52 tests)
+decoder        =   0.50 sec*proc (6 tests)
+graph          =   0.10 sec*proc (5 tests)
+kv             =   0.13 sec*proc (3 tests)
+model_file     =   0.06 sec*proc (2 tests)
+operators      =   0.32 sec*proc (6 tests)
+planner        =   0.90 sec*proc (4 tests)
+quant          =   0.42 sec*proc (2 tests)
+release        =   0.10 sec*proc (1 test)
+scheduler      =   2.57 sec*proc (4 tests)
+tensor         =   0.21 sec*proc (3 tests)
+tokenizer      =   0.00 sec*proc (1 test)
+tools          =   2.84 sec*proc (5 tests)
+transformer    =   0.01 sec*proc (2 tests)
+
+Total Test time (real) =  10.10 sec

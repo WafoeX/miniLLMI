@@ -1,0 +1,1 @@
++ results/release/v1.0-rc4/20261009T010708Z-colab-stage18/build-production/bench_inference + --model + results/release/v1.0-rc4/20261009T010708Z-colab-stage18/models/tiny-v2-int8.mllm + --backend + cpu + --quant + int8 + --cache + off 
