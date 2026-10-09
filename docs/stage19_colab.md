@@ -39,8 +39,12 @@ identity. The commands preserve logs on failure because `tee` is used with
 `pipefail`; do not delete a failed directory.
 
 ```bash
+# This is intentionally self-contained: Colab %%bash cells do not share shell variables.
 set -euo pipefail
 cd /content/miniLLMI-stage19
+SOURCE_COMMIT=$(git rev-parse HEAD)
+SOURCE_DIGEST=$(python3 tools/provenance.py --root . | python3 -c 'import json,sys; print(json.load(sys.stdin)["source_digest"])')
+test -z "$(git status --porcelain)"
 RUN_ID="$(date -u +%Y%m%dT%H%M%SZ)-colab-stage19-c4"
 RESULT_DIR="results/documentation/stage19-c4/${RUN_ID}"
 BUILD_DIR="/content/build-stage19-${RUN_ID}"
@@ -78,11 +82,13 @@ must change only its unique result directory. It is not merged into the feature
 branch and it does not modify the RC4 tag.
 
 ```bash
+# Also self-contained when run in a new Colab %%bash cell.
 set -euo pipefail
 cd /content/miniLLMI-stage19
 RESULT_DIR="$(find results/documentation/stage19-c4 -mindepth 1 -maxdepth 1 -type d | sort | tail -n1)"
 test -n "$RESULT_DIR"
-test "$(cat "$RESULT_DIR/tested_commit.txt")" = "$SOURCE_COMMIT"
+SOURCE_COMMIT=$(cat "$RESULT_DIR/tested_commit.txt")
+test "$(git rev-parse HEAD)" = "$SOURCE_COMMIT"
 test "$(cat "$RESULT_DIR/status.txt")" = passed
 test -z "$(cat "$RESULT_DIR/source_status_before_results.txt")"
 git switch -c "results/stage19-c4-$(basename "$RESULT_DIR")" "$SOURCE_COMMIT"
