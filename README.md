@@ -1,8 +1,7 @@
 # mini-llm-runtime
 
 A C++17 tiny-decoder inference runtime with a graph/planner/scheduler/backend
-architecture. **Stages 0–18 are accepted; Stage 19 documentation is being
-finalized.** The authoritative status and limits are the
+architecture. **Stages 0–19 are accepted.** The authoritative status and limits are the
 [roadmap](docs/roadmap.md) and [Stage 18 release evidence](docs/stage18_report.md),
 not historical text in individual reports.
 
