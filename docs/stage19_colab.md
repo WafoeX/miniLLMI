@@ -44,14 +44,15 @@ set -euo pipefail
 cd /content/miniLLMI-stage19
 SOURCE_COMMIT=$(git rev-parse HEAD)
 SOURCE_DIGEST=$(python3 tools/provenance.py --root . | python3 -c 'import json,sys; print(json.load(sys.stdin)["source_digest"])')
-test -z "$(git status --porcelain)"
+SOURCE_STATUS=$(git status --porcelain)
+test -z "$SOURCE_STATUS"
 RUN_ID="$(date -u +%Y%m%dT%H%M%SZ)-colab-stage19-c4"
 RESULT_DIR="results/documentation/stage19-c4/${RUN_ID}"
 BUILD_DIR="/content/build-stage19-${RUN_ID}"
 mkdir -p "$RESULT_DIR"
 printf '%s\n' "$SOURCE_COMMIT" > "$RESULT_DIR/tested_commit.txt"
 printf '%s\n' "$SOURCE_DIGEST" > "$RESULT_DIR/source_digest.txt"
-git status --porcelain > "$RESULT_DIR/source_status_before_results.txt"
+printf '%s' "$SOURCE_STATUS" > "$RESULT_DIR/source_status_before_results.txt"
 nvidia-smi -q > "$RESULT_DIR/nvidia-smi.txt"
 nvcc --version > "$RESULT_DIR/nvcc-version.txt"
 python3 tools/check_documentation.py |& tee "$RESULT_DIR/documentation-check.log"
@@ -106,6 +107,12 @@ If configure/build/CTest fails, do **not** write `passed`, do **not** rerun in
 place, and do not present the capture as acceptance. Commit the logs on a
 similarly constrained `results/stage19-c4-...` branch with `status.txt` set to
 `failed`, then return the branch, commit, directory and failing log.
+
+> **Recovery for the first revision of this guide:** it recorded Git status
+> after creating result files. If that revision otherwise passed, preserve the
+> completed logs, truncate only `source_status_before_results.txt` (the block
+> had already asserted clean source before the directory existed), then rebuild
+> `artifact_sha256.txt` before running section B. Do not rerun the tests.
 
 ## C. Replay the accepted RC4 generated report
 
