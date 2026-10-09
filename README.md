@@ -22,7 +22,8 @@ not historical text in individual reports.
 
 The [architecture and operation guide](docs/architecture.md) maps each layer to
 its source and contract. The [interview evidence index](docs/interview/README.md)
-provides concise, auditable discussion entry points.
+and [resume claim matrix](docs/resume_evidence.md) provide concise, auditable
+discussion entry points.
 
 ## Accepted release evidence
 
