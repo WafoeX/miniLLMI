@@ -56,7 +56,8 @@ printf '%s' "$SOURCE_STATUS" > "$RESULT_DIR/source_status_before_results.txt"
 nvidia-smi -q > "$RESULT_DIR/nvidia-smi.txt"
 nvcc --version > "$RESULT_DIR/nvcc-version.txt"
 python3 tools/check_documentation.py |& tee "$RESULT_DIR/documentation-check.log"
-cmake -S . -B "$BUILD_DIR" -DCMAKE_BUILD_TYPE=Release -DENABLE_CUDA=ON -DBUILD_TESTING=ON \
+cmake -S . -B "$BUILD_DIR" -DCMAKE_BUILD_TYPE=Release -DENABLE_CUDA=ON \
+  -DCMAKE_CUDA_ARCHITECTURES=75 -DBUILD_TESTING=ON \
   |& tee "$RESULT_DIR/configure.log"
 cmake --build "$BUILD_DIR" --parallel 2 \
   |& tee "$RESULT_DIR/build.log"
