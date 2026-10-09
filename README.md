@@ -21,7 +21,8 @@ not historical text in individual reports.
   provenance, hashes, failed runs and generated reports.
 
 The [architecture and operation guide](docs/architecture.md) maps each layer to
-its source and contract.
+its source and contract. The [interview evidence index](docs/interview/README.md)
+provides concise, auditable discussion entry points.
 
 ## Accepted release evidence
 
