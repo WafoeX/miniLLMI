@@ -1,9 +1,8 @@
 # Stage 18 — release-candidate final evaluation
 
-**Status: C1 frozen; C2–C4 await the required clean Tesla T4 capture.** This
-page is the release contract, not a performance-result substitution. The
-annotated source tag `v1.0-rc4` is immutable; resolve its exact source identity
-with `git rev-parse v1.0-rc4^{commit}` and its tree digest with
+**Status: accepted to required C1–C4 on 2026-10-09.** The annotated source tag
+`v1.0-rc4` is immutable; resolve its exact source identity with
+`git rev-parse v1.0-rc4^{commit}` and its tree digest with
 `python3 tools/provenance.py --root .` in a clean checkout.
 
 ## C1 — frozen contract
@@ -36,14 +35,32 @@ inference configurations. It generates the final table/report from those raw
 artifacts; performance numbers must never be typed into a report by hand.
 `tests/test_stage18_evidence.py` gives the aggregation schema negative coverage.
 
-## Pending C2–C4 evidence
+## Verified C2–C4 evidence
 
-GPU-backed functional validation and final performance claims require the T4;
-local CPU results are not a substitute. Run the exact procedure in
-[the Stage 18 Colab guide](stage18_colab.md). The resulting branch must be a
-direct child of `v1.0-rc4` and change only its unique
-`results/release/v1.0-rc4/<run-id>/` directory. Preserve a failing capture as
-well; any failed/inconclusive required gate blocks release completion.
+The clean Tesla T4 capture is retained at
+`results/release/v1.0-rc4/20261009T010708Z-colab-stage18/` on branch
+`results/stage18-20261009T010708Z-colab-stage18`, evidence commit
+`9f9c5d2d7503a77de9c03ca77c1f235b704175fa`. Its sole parent is
+`ec116ce078eb7601e7cccc27a03f0c005eac9c7e` (`v1.0-rc4`), and its 1,992 changed
+paths are all beneath that one result directory. Every row names the one source
+digest `b819584a2efee94a6428d05d36b428343ef25779a8cb044a67c02942c96d3dd4`.
+
+C2 passed the full fresh CTest suite (61/61), GPU label (8/8), and release
+focused matrix (7/7), all from the clean T4 build. C3's generated raw-data
+report records the required gates: planner `passed`; CPU GEMM paired geomean
+`5.334258x`; CUDA GEMM paired geomean `1.538073x`; context-512 KV paired median
+`13.470029x`; and mixed INT8 eligible payload including scales `26.432500%`.
+
+C4 was independently regenerated with `tools/verify_stage18_evidence.py`; both
+`stage18_report.md` and `stage18_report.json` match byte-for-byte. The result
+manifest lists 1,987 evidence artifacts. Six size-excluded Nsight files are
+retained in the companion archive
+`stage18-v1.0-rc4-20261009T010708Z-colab-stage18-evidence.tar.gz` (SHA-256
+`de91f2190964dbc46e0478e40642e050a5a24ea912aaf90a3ef183e2946e7185`); the
+archive contains 2,268 entries, including those six files, and all 1,987 listed
+artifact hashes verify. The Git result commit plus this checksum-addressed
+archive are the complete evidence set; do not treat the Git checkout alone as a
+complete profiler-artifact package.
 
 ## Declared optional skips
 
