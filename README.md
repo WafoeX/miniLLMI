@@ -58,6 +58,8 @@ CUDA nor substitutes for GPU validation.
 
 Use a clean clone and a visible Tesla T4 for CUDA integration. The frozen RC
 measurement matrix is documented in [Stage 18 Colab instructions](docs/stage18_colab.md).
+The Stage 19 fresh-checkout documentation/reproducibility audit—including how
+to return a data-only result branch—is in [Stage 19 instructions](docs/stage19_colab.md).
 
 Every accepted performance or GPU claim names a tested source and separate
 result commit. Do not hand-edit metrics, reuse stale binaries, or combine
