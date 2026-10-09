@@ -1,63 +1,126 @@
-# Stage 0 核心设计
+# Runtime architecture and operation
 
-本阶段只构建 Baseline，不建立 Tensor、Operator/Graph 或 Transformer runtime。
+This document describes the implementation retained by the accepted Stage 18
+release candidate, [`v1.0-rc4`](stage18_report.md). It is an ownership and
+execution map, not a performance claim. Exact acceptance numbers and the
+source/result provenance are in the linked stage reports.
 
-## 职责边界
+## Layering
 
-- `stage0_common`：标准 C++17 CPU oracle、确定性输入、误差检查、统计与 CSV。无 CUDA 依赖。
-- `stage0_cuda`：Naive kernel 的 `.cu` 文件与 cuBLAS row-major wrapper，链接 CUDA runtime/cuBLAS。
-- `bench_gemm.cpp`：host-only C++17 编排；CUDA 调用只通过明确 wrapper 和 runtime API。
-- `gpu_info.cpp`：实际设备查询，不写设备规格常量。
-- Python：只负责源码 provenance 和实测 CSV 的核对/报告，不代替 CUDA Timer 或生成性能值。
-- Bash：干净源码→Release Build→环境快照→CTest→Benchmark→原始数据→报告。
+```text
+Tokenizer / model-file loader / CLI
+              |
+       model::Decoder + KVCache
+              |
+Graph nodes, tensor descriptors, operator descriptors
+              |
+Scheduler: capability placement + explicit COPY insertion
+              |
+GraphExecutor / PlannedExecutor + MemoryPlanner
+       |                                  |
+ CPU backend / FIFO pool             CUDA backend / Stage-0 GEMM registry
+       \                                  /
+          Tensor metadata + shared Storage
+```
 
-关闭 `ENABLE_CUDA` 后仅构建 common 与 CPU/工具测试；没有占位 CUDA 模拟实现。不存在用 CPU 调用假装 GPU 测试成功的路径。
+The source follows this dependency direction: model → graph/operators →
+scheduler → backends → tensor/storage. `model` constructs ordinary graph nodes;
+it neither calls CUDA kernels nor owns a second allocator, tensor type, or
+matmul route. The public headers are grouped under `include/model/` and
+`include/runtime/`; CMake builds the `runtime` and `model` libraries before the
+CLI and benchmark executables.
 
-## 数值与 layout
+| Layer | Primary code | Contract and tests |
+|---|---|---|
+| Storage and views | `include/runtime/{storage,tensor,layout}.hpp`, `src/runtime/{storage,tensor,layout}.cpp` | [Tensor contract](tensor.md); `tensor`, `tensor_properties` |
+| Operators and validated DAG | `operator.hpp`, `shape_inference.hpp`, `graph.hpp`, `graph_executor.hpp` | [Operator](operators.md) and [graph](graph.md) contracts; graph/operator CTests |
+| Allocation and planning | `allocation_provider.hpp`, `arena.hpp`, `memory_planner.hpp`, `planned_executor.hpp` | [Planner contract](planner.md); `memory_planner`, `planned_executor` |
+| Execution backends | `cpu_backend.hpp`, `cuda_backend.hpp`, `src/runtime/cpu_*`, `backend/cuda/` | [CPU](cpu_backend.md), [CUDA](cuda_backend.md), and [SGEMM](cuda_gemm.md) contracts |
+| Placement | `scheduler.hpp`, `src/runtime/scheduler.cpp`, `copy.hpp` | [Scheduler contract](scheduler.md); scheduler/CUDA scheduler CTests |
+| Decoder and files | `include/model/{decoder,kv_cache,model_file,quantization,tokenizer,generation}.hpp` | [Decoder](decoder.md), [KV](kv_cache.md), [model file](model_file.md), [tokenizer](tokenizer.md) |
 
-所有矩阵是连续 row-major FP32；C=A×B，alpha=1，beta=0。CPU reference 使用单线程 ijk，FP64 累加后转 FP32，避免仅用另一个 FP32 reduction 作为唯一数值 oracle。它不参与性能计时，也不声称是 CPU 性能 baseline（CPU 优化将在后续阶段单独建立）。
+## Ownership and lifetime
 
-cuBLAS 使用 column-major API，因此传 `(N,M,K,B,ld=N,A,ld=K,C,ld=N)`，对应 Cᵀ=BᵀAᵀ，不额外 transpose。非方阵测试是防止这个映射被方阵掩盖的关键。
+`Tensor` owns shape, strides, dtype, offset, and a shared `Storage` handle; it
+does **not** own a separate data buffer. Views share that storage and change
+metadata/offset only. `Storage` owns exactly one host or CUDA backing buffer;
+CPU↔CUDA movement is an explicit graph `COPY` operation. A non-contiguous view
+must be materialized visibly before a backend that requires contiguous input.
 
-Naive 默认 launch block 16×16（算法配置，不是硬编码 GPU 属性），每 thread 一个 output，FP32 累加；允许编译器正常 FMA 和标准 Release 优化，不故意关闭编译优化或使用异常访存来制造低 baseline。
+A frozen `Graph` owns topology and tensor descriptors. At execute time, the
+ordinary executor uses dynamic last-use reclamation. The opt-in prepared path
+has `MemoryPlanner` compute deterministic slots and `PlannedExecutor` allocate
+the backing arena at prepare time; warmed execution allocates no intermediate
+backing buffer. Outputs, external inputs, aliases, persistent K/V state, and
+copy buffers have separately defined lifetimes and are never silently counted
+as reusable intermediates. The required planner gate and its slower tiny-graph
+latency result are documented in [Stage 5](stage5_report.md).
 
-cuBLAS 使用 `CUBLAS_PEDANTIC_MATH` 和 `CUBLAS_ATOMICS_NOT_ALLOWED`，明确控制 FP32 数学口径。与默认/TF32/Tensor Core 模式不是同一实验组；T4 的 actual runtime/CC 仍必须查询后保存。该参考并非所有数学模式中绝对最快的 cuBLAS。
+`KVCache` owns persistent FP32 K/V storage and commits its active range only
+after all layer writes complete. Quantized V2 loading intentionally keeps the
+INT8/scales **and** a persistent FP32 dequantized workspace; artifact
+compression is therefore not a resident-memory-reduction claim. See
+[Stage 14](stage14_report.md) and [Stage 16](stage16_report.md).
 
-## CUDA 资源与 Timer
+## Execution path
 
-DeviceBuffer、Stream、BlasHandle、EventTimer 都不允许复制，用 RAII 回收资源；初始化失败会释放已经创建的资源。析构不抛异常，所有正常执行路径的 CUDA/cuBLAS API 和 launch 状态明确检查；异步执行错误由 stream/event 同步检查暴露。若 CUDA context 已因 fatal error 失效，析构仅做 best-effort 清理，进程非零退出。
+1. `model_file` validates a versioned, bounded little-endian model container;
+   `tokenizer` maps bytes plus BOS/EOS deterministically.
+2. `Decoder` composes embedding, RMSNorm, RoPE, causal attention, SwiGLU and
+   output projections as standard graph operators. Prefill/decode graph writes
+   to `KVCache` are graph-visible copies.
+3. `Scheduler` checks backend capabilities, assigns supported learned
+   projections to CUDA when requested, and inserts/deduplicates explicit copy
+   nodes. Unsupported primitives stay on CPU; there is no hidden model-level
+   CUDA fallback.
+4. The executor either performs dynamic allocation or uses a previously
+   validated prepared plan. Each backend owns its own dispatch and validates
+   device/dtype/layout bindings.
+5. `llm_cli` calls `generate_greedy`; it exposes backend, quantization, and
+   cache mode and records deterministic configuration. It does not claim
+   sampling or language quality.
 
-两个 kernel 和 cuBLAS handle 使用同一非默认 nonblocking stream。H2D/D2H 都在该 stream 排队并同步；不依赖隐式 default-stream 顺序。
+The CPU reference remains FP64 accumulation where the corresponding contract
+requires it. Stable defaults retain dynamic allocation and CUDA V0; the Stage
+9 V1 kernel is explicit/selectable rather than an automatic replacement. The
+frozen Stage 0 `sgemm_v0_naive` is preserved.
 
-每轮 Event：record start→launch→record stop→synchronize stop→elapsed time。区间包含设备 stream 上这次调用的执行/可能的提交空隙，不能声称完全消除了所有 host dispatch 影响。分配、拷贝、reference、CSV 写入不在区间内。无 fast-math 编译参数。
+## Operational runbooks
 
-## 正确性优先于性能
+### Local CPU correctness
 
-每个 shape：生成同一 A/B→完整 CPU reference→分别检查 Naive/cuBLAS→各自 warmup→各自 50 轮计时→检查最终输出→汇总统计。初次验证 C 预填 NaN，避免未写输出或 beta=0 行为错误被零初始化掩盖。独立 CUDA 测试还保护输出 buffer 的前后 guard。
+A local machine needs CMake, a C++17 compiler, Python 3 and Git. CUDA is
+intentionally disabled below; passing this suite does not validate CUDA.
 
-逐元素失败规则：非有限值，或 `abs(actual-ref) > atol + rtol*abs(ref)`。默认 atol=rtol=1e-3，CLI 可显式设置，两者必须相同，并随数据保存。相对误差在参考值接近零时可能很大；它单独报告，不作为错误的唯一判据。误差超限不能自动放宽阈值重跑后只保留好结果。
+```bash
+cmake -S . -B build-local -DCMAKE_BUILD_TYPE=Release -DENABLE_CUDA=OFF -DBUILD_TESTING=ON
+cmake --build build-local --parallel 4
+ctest --test-dir build-local --output-on-failure --no-tests=error
+python3 tools/check_documentation.py
+```
 
-若 initial correctness 失败，不计时。若 final correctness 失败，已经保存的 raw timing 仍保留但不发布成功 GFLOPS；保存失败状态并退出。计时异常、API 错误、I/O 错误同样失败。
+### T4 release validation
 
-## 版本与可复现性
+CUDA-backed claims require a visible Tesla T4, CUDA Toolkit and cuBLAS. The
+complete frozen Stage 18 measurement/report procedure is
+[stage18_colab.md](stage18_colab.md). The final Stage 19 fresh-checkout audit,
+which reuses the accepted Stage 18 artifact rather than tuning again, is
+[stage19_colab.md](stage19_colab.md).
 
-`tools/provenance.py` 读取 Git HEAD、源码 SHA256、dirty 状态，生成构建时 header；每次 build 刷新，避免仅在 configure 时记录旧 commit。digest 包括代码、测试、构建脚本、静态文档和可执行权限，不包括 ignored build 目录、实验输出 `results/`、自动生成的 `docs/baseline.md`。
+### Evidence discipline
 
-基线 Binary 内嵌被构建的代码身份。Runner 比较当前源码与 binary 身份、构建日志身份，前后再比较源码快照。只允许 clean source、40 位 commit、Release。结果提交后 HEAD 变化，必须重新 build，不能拿旧 binary 冒充新提交。结果 commit 不等于被测试代码 commit。
+Every formal measurement is captured under `results/` with raw samples,
+commands, environment, source identity and hashes. Code source and result
+commits are separate. Failed or slower runs stay in the evidence tree; a
+correctness pass is not rewritten as a performance pass. The accepted RC4
+capture has an external archive for six Git-size-excluded Nsight files; its
+SHA-256 and retrieval condition are in [Stage 18](stage18_report.md).
 
-完整构建 flags 和依赖版本记录在 CMakeCache、compile_commands 和 verbose build log。GPU 指标来自 actual API，不假设 SM 数、带宽或显存容量。CUDA 13 中显存时钟 property 被移除，环境脚本补充 UUID 关联的 `nvidia-smi` 时钟查询，不填猜测值。
+## Supported scope and explicit limits
 
-## 数据与并发
-
-CSV 表头严格校验，追加输出；原始样本逐轮记录，保留失败证据。Runner 使用目录锁序列化同仓库的正式/Profiling 实验。直接执行 binary 时 CSV writer 本身不跨进程加锁，调用者必须串行运行。若 runner 被 SIGKILL，锁可能残留；先确认没有运行中的实验，再人工 `rmdir results/.stage0.lock`。
-
-分析工具拒绝不同输入、尺寸、GPU UUID、commit、数学模式、warmup/iterations、容差之间的配对；从 raw 样本重算统计、GFLOPS、比值，确认 initial/final correctness 和 run 完成标记后才生成文档。没有数据就非零退出，不生成示例性能。
-
-## 参考资料
-
-- [CUDA Runtime Event API](https://docs.nvidia.com/cuda/cuda-runtime-api/group__CUDART__EVENT.html)
-- [cuBLAS Data Layout、Math Mode、SGEMM](https://docs.nvidia.com/cuda/cublas/index.html)
-- [CUDA Device Properties](https://docs.nvidia.com/cuda/cuda-runtime-api/structcudaDeviceProp.html)
-- [CMake CUDA architectures](https://cmake.org/cmake/help/latest/prop_tgt/CUDA_ARCHITECTURES.html)
-
-GPU 环境未提供前，不宣称 CUDA 编译、正确性或性能已验收。
+The project demonstrates a batch-1, bias-free, deterministic tiny decoder
+runtime. It does not claim pretrained-model compatibility, text quality,
+batching service support, multi-GPU execution, Flash/paged attention, training,
+INT8 GEMM acceleration, scheduler acceleration, or lower INT8 resident memory.
+Optional skips are listed in [Stage 18](stage18_report.md); they are not hidden
+as completed work.

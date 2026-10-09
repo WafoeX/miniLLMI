@@ -1,181 +1,70 @@
-# mini-llm-runtime — Stage 15 accepted
+# mini-llm-runtime
 
-基于 C++17/CUDA 的推理引擎项目，**Stage 0–15 已通过各自必需验收项**。Stage 13 的 clean T4 C4 capture 保留完整 raw timing samples，已独立复核 source provenance、制品哈希、测试、构建隔离、fixture 和运行时计数；详见 [路线图](docs/roadmap.md)。已有统一 Tensor/shared Storage、backend-neutral 算子、冻结 DAG/顺序 executor、有界 trace、arena/生命周期内存规划、CPU backend/显式优化路径、CUDA storage/copy/GEMM、Nsight 对比及异构 scheduler。
+A C++17 tiny-decoder inference runtime with a graph/planner/scheduler/backend
+architecture. **Stages 0–18 are accepted; Stage 19 documentation is being
+finalized.** The authoritative status and limits are the
+[roadmap](docs/roadmap.md) and [Stage 18 release evidence](docs/stage18_report.md),
+not historical text in individual reports.
 
-默认保留 **FP64 CPU reference math、dynamic allocation 与 CUDA v0**；Stage 0 与冻结 CPU 基线不改写。Stage 13 新增配置/21 个命名参数绑定、91-node decoder block 与 185-node 两层 no-cache prefill/logits 图；所有 attention/MLP 中间量均走原 graph/planner/backend 层。Stage 14 增加持久 KV cache；Stage 15 增加严格版本化模型容器、离线 fixture converter 和固定 byte tokenizer。没有自回归循环、量化、性能收益或语言质量声明；Stage 16–19 尚未实现。
+## What is implemented
 
-## Stage 15 验收（C1–C3 完成；C4 可选跳过）
+- One metadata-only `Tensor` / shared-`Storage` representation with views,
+  explicit CPU↔CUDA copies, typed operators and a validated frozen DAG.
+- Dynamic last-use execution plus opt-in prepared memory planning; planned
+  warmed execution has no intermediate backing allocations.
+- CPU scalar/reference and explicit optimized paths, CUDA storage/copies, the
+  preserved Stage 0 V0 GEMM and explicit Stage 9 V1 SGEMM.
+- Deterministic placement/copy insertion, graph-composed transformer primitives,
+  a tiny decoder with persistent K/V cache, strict model files, byte tokenizer,
+  weight-only INT8 loading, and a greedy CLI.
+- Reproducible result tooling that preserves raw samples, environment,
+  provenance, hashes, failed runs and generated reports.
 
-Stage 15 的严格 little-endian `MLLMRTF\0` v1 模型文件会在分配前检查 metadata、范围、canonical tensor schema、payload overlap/gap 和预算；加载后使用现有 `ParameterTable`/`Tensor`，不引入第二套运行时。提交的 21-tensor fixture 可 round-trip 回到 Stage 13 frozen logits。byte tokenizer 固定为 0..255 byte、BOS=256、EOS=257，保留任意 bytes；无效 UTF-8 仅在显示时替换。Release CPU **48/48** CTests 和 focused ASan+UBSan **3/3** 通过；本阶段没有 GPU 或性能 gate。详见 [model-file contract](docs/model_file.md)、[tokenizer contract](docs/tokenizer.md)、[Stage 15 report](docs/stage15_report.md) 与 [server procedure](docs/stage15_colab.md)。
+The [architecture and operation guide](docs/architecture.md) maps each layer to
+its source and contract.
 
-## Stage 13 验收（C1–C4 完成）
+## Accepted release evidence
 
-冻结 `[256,0,1,257]` logits 与独立 Python 标量 oracle 一致；动态与 planned CPU 输出一致，planned warmed execute 的中间 backing allocation 为 0。shape 改变必须显式重建/replan，同 shape 可在输出释放后复用。最终 Tesla T4 capture 在 clean source `441b6ec` 上通过 **47/47** 全套、**6/6** GPU、**6/6** decoder 测试：21 个 learned CUDA projections、55 scheduler COPY 节点、97 实际 copies / 474,656 bytes、零 execute-time backing allocations。CPU/mixed 的两组十值 raw latency arrays 均被保留并独立重算 median；数值只作诊断，不作加速或语言质量宣称。前两次 46/47 失败证据也完整保留。参见 [decoder 契约](docs/decoder.md)、[验收报告](docs/stage13_report.md)、[Colab 复现步骤](docs/stage13_colab.md) 与 [Stage 13 任务书](docs/tasks/stage-13-decoder.md)。
+The immutable source tag is `v1.0-rc4` (`ec116ce078eb7601e7cccc27a03f0c005eac9c7e`).
+Its clean T4 capture passed **61/61** full CTests, **8/8** GPU-labelled CTests,
+and **7/7** focused release checks. The generated report's required benefit
+gates are planner memory, CPU GEMM, custom CUDA GEMM, context-512 KV decode,
+and eligible INT8 payload including scales; the exact values, source digest,
+result commit and external profiler archive checksum are in
+[Stage 18](docs/stage18_report.md).
 
-## Stage 12 验收（C1–C5 完成）
+These facts do **not** imply an overall inference speedup, scheduler speedup,
+INT8 throughput gain, INT8 resident-memory reduction, or language-quality
+claim. Stage-specific limits and retained slower/failed experiments remain part
+of the record.
 
-CPU Release **37/37 CTests** 通过。Tesla T4 上 GPU 标签 **5/5**、transformer 标签 **3/3** 通过；`cuda_transformer_ops` 验证 CUDA projection MATMUL、两次 H2D/一次 D2H 显式调度传输以及 CPU Softmax/RMSNorm。参见 [Stage 12 验收记录](docs/stage12_report.md)、[primitive 任务书](docs/tasks/stage-12-transformer-ops.md) 和 [Colab 步骤](docs/stage12_colab.md)。这是功能/集成验收而非基准测试。
+## Build and test locally (CPU-only)
 
-## Stage 11 验收（C1/C2/C4 完成，C3 可选跳过）
-
-C1 已 CPU 验收；C2 T4 验收覆盖显式传输、状态版本和 alias 生命周期；C4 在 clean `906af4d` 上完成三轮固定 64×64×64 CUDA-v0 手动 COPY／自动插入配对执行，结果提交 `a84fbd8`。**38/38 CTests、36/36 文件哈希、60 条原始计时记录和 12 份完整输出/trace 快照**独立复核通过。
-
-配对比值中位数 **1.004480×** 仅作诊断；第三轮自动图稍慢且保留，没有调度器提速门槛或收益宣称。每次执行实际 4 copies / 65536 bytes / 9 backend dispatches / 2 switches，执行期中间 backing 分配为 0。计时包含同步执行、counter/full-output 检查和 output release，不含构图/rewrite/prepare/trace I/O，也不是裸 kernel 或模型延迟。
-
-[Scheduler 契约](docs/scheduler.md) · [Stage 11 验收记录](docs/stage11_report.md) · [Colab 复现步骤](docs/stage11_colab.md) · [生成的 T4 配对报告](results/scheduler/stage11-c4/20261007T101728202151Z-1834/report.md)
-
-以下保留早期阶段的历史验收入口，不表示项目仍停留在该阶段。
-
-Stage 0 naive GEMM 与历史结果保持不变。Stage 1 的 gate 是 CPU-only Debug/Release、属性测试与 ASan/UBSan；不要求 CUDA allocation 或服务器性能数据。后续按 [路线图](docs/roadmap.md) 与 [Change 任务书](docs/tasks/README.md) 执行。
-
-## Stage 6 验收（明确 CPU-only，无需 GPU）
-
-```bash
-python3 tools/validate_cpu.py
-python3 tools/run_cpu_benchmark.py
-# dirty 源码只允许开发正确性验证，不允许计时：
-# python3 tools/validate_cpu.py --allow-dirty
-```
-
-[CPU backend / 冻结基线契约](docs/cpu_backend.md)、[Stage 6 验收记录](docs/stage6_report.md)。同一 clean source 的 Release/Debug/ASan+UBSan 各 29/29 通过；128/256/512/1024 完成三轮独立 Release 基线，原始样本、GFLOPS、compiler auto-vectorization 备注和 provenance 已归档。Transformer primitives 仍明确 `Unsupported`；小图 prepared reuse 更慢，数据保留且不改默认。本节仅记录 Stage 6 历史基线，不是 CPU/GPU 对比。Stage 7 后续 CPU-only 验收另见 [CPU 并行契约](docs/cpu_parallel.md) 与 [Stage 7 报告](docs/stage7_report.md)。
-
-## Stage 5 验收（明确 CPU-only，无需 GPU）
-
-```bash
-python3 tools/validate_planner.py
-python3 tools/run_planner_benchmark.py
-# dirty 源码仅允许正确性开发验证：
-# python3 tools/validate_planner.py --allow-dirty
-```
-
-[Planner 契约与冻结基准](docs/planner.md)、[Stage 5 验收记录](docs/stage5_report.md)。Release/Debug/ASan+UBSan 各 23/23 通过；预声明 chain 的执行期中间 backing 分配 11→0，prepared capacity 3072→512 bytes（降低 83.33%）。与最后使用释放的 dynamic 对比，计划执行在本机小图上**更慢**，原始数据全部保留；无延迟收益 gate。默认仍为 dynamic，inplace 为 `skipped_optional`；零 backing 分配不等于零 C++ heap 分配，不宣称模型或 CUDA 性能收益。
-
-## Stage 4 验收（明确 CPU-only，无需 GPU）
+Requirements: CMake ≥3.24, C++17 compiler, Python ≥3.8, Git and Bash.
 
 ```bash
-# clean 已提交源码；fresh Release/Debug/ASan+UBSan/production 正确性证据
-python3 tools/validate_arena.py
-# 独立 CPU-only 诊断基准：3 paired runs / 3 warmups / 10 samples / batch 20
-python3 tools/run_allocator_benchmark.py
-# 有本地未跟踪源码时，用 clean worktree；dirty 只允许正确性验证，不允许计时：
-# python3 tools/validate_arena.py --allow-dirty
-```
-
-[Arena / provider / benchmark 契约](docs/arena.md)、[Stage 4 验收记录](docs/stage4_report.md)。默认 executor 仍为 S3 dynamic baseline；arena 明确 opt-in，容量不足无 malloc fallback，持有输出/alias 时禁止覆盖同一 context。基准含 synthetic、chain、diamond，较慢结果保留；不宣称 Stage 5 planner、零 C++ heap 或模型吞吐收益。
-
-## Stage 3 验收（CPU-only，无需 GPU）
-
-```bash
-# clean 已提交源码；fresh Release/Debug/ASan+UBSan/production 原始证据
-python3 tools/validate_graph.py
-# 开发源码带未跟踪文件时，仅作 labelled development validation：
-# python3 tools/validate_graph.py --allow-dirty
-# 当前 build 中单独运行 Stage 3 tests：
-# cmake --build build-local --target check_graph
-```
-
-[Graph / executor / trace 契约](docs/graph.md)、[Stage 3 验收记录](docs/stage3_report.md)。动态 baseline 每个 NewTensor 节点在 execute 内分配输出，最后使用释放、graph outputs pin backing，alias 保留 base；没有隐式 copy 或自动切换到 arena；S4 仅通过显式 provider 选择策略。所有执行复用 S2 CPU reference。
-
-## Stage 2 验收（无需 GPU / Colab 服务器）
-
-```bash
-# clean 已提交源码；新建唯一 CPU 验收 run，保存 Debug/Release/sanitizer/production 原始证据
-python3 tools/validate_operators.py
-python3 tools/generate_operator_fixtures.py --check
-# 开发源码带未跟踪文件时，仅作 labelled development validation：
-# python3 tools/validate_operators.py --allow-dirty
-```
-
-[Operator / tiny-model 契约](docs/operators.md)、[Stage 2 验收记录](docs/stage2_report.md)。无隐藏 materialization、buffer allocation 或 CUDA host fallback；没有性能收益声明。用户选择不进行 Stage 1 服务器复验，本阶段亦无强制 GPU gate，未执行服务器验收。
-
-## Stage 1 验收
-
-```bash
-# 要求源码已提交；会新建唯一 run 目录，保存原始日志、source identity 与构建快照
-python3 tools/validate_tensor.py
-# 若仍有未跟踪源码（例如本地 AGENTS.md），仅作明确标记的开发验证：
-# python3 tools/validate_tensor.py --allow-dirty
-```
-
-参见 [Tensor API 契约](docs/tensor.md)、[Stage 1 验收记录](docs/stage1_report.md) 与 [全新 Colab / Drive 恢复指南](docs/stage1_colab.md)。这里没有 Stage 1 吞吐或性能提升声明。
-
-## 本地（不需要 NVIDIA GPU）
-
-依赖：CMake ≥3.24、C++17 编译器、Python ≥3.8、Git、Bash。无外部测试框架下载。
-
-```bash
-cmake -S . -B build-local -DCMAKE_BUILD_TYPE=Release -DENABLE_CUDA=OFF
+cmake -S . -B build-local -DCMAKE_BUILD_TYPE=Release -DENABLE_CUDA=OFF -DBUILD_TESTING=ON
 cmake --build build-local --parallel 4
-BUILD_DIR=build-local ./scripts/run_tests.sh
-# 编辑器可读取本地编译命令：文件已被 .gitignore 排除
-ln -sfn build-local/compile_commands.json compile_commands.json
+ctest --test-dir build-local --output-on-failure --no-tests=error
+python3 tools/check_documentation.py
 ```
 
-CPU Reference、数值校验、统计、CSV、结果分析、源码版本记录可在本地验证。CUDA 文件需要 Toolkit 才能完整静态检查；CPU-only 测试通过不代表 CUDA 通过。
+This validates the CPU build and documentation links only. It neither compiles
+CUDA nor substitutes for GPU validation.
 
-## T4 服务器
+## T4 reproducibility
 
-需要实际 NVIDIA 驱动/可见 GPU、支持宿主编译器的 CUDA Toolkit ≥11.0、cuBLAS；Nsight 工具用于单独 Profiling。参数以实际查询为准。
+Use a clean clone and a visible Tesla T4 for CUDA integration. The frozen RC
+measurement matrix is documented in [Stage 18 Colab instructions](docs/stage18_colab.md).
 
-```bash
-git pull --ff-only origin main
-git rev-parse HEAD
-nvidia-smi
-nvcc --version
-./scripts/build_server.sh
-./scripts/run_tests.sh
-# 首先小规模检查（不代表四个正式尺寸已验收）
-./scripts/run_gemm_benchmark.sh --sizes 512
-# 正式：512、1024、2048、4096；warmup=10、iterations=50
-./scripts/run_gemm_benchmark.sh
-# 可选：独立重复完整实验，不混合不同 run 的配对结果
-REPEATS=3 ./scripts/run_gemm_benchmark.sh
-```
+Every accepted performance or GPU claim names a tested source and separate
+result commit. Do not hand-edit metrics, reuse stale binaries, or combine
+measurements across source identities. Profiler timing is not benchmark timing.
 
-CMake 默认查询可见 GPU 的 `native` architecture，不硬编码 T4 参数。`BUILD_DIR` 默认 `build/`，`JOBS` 默认 4。CMakeCache、完整 configure/build 命令、日志、编译命令和环境自动归档。正式 Benchmark 拒绝 Debug、未提交源码及陈旧二进制。
+## Boundaries
 
-**注意：每个尺寸都运行完整单线程 ijk CPU Reference，4096³ 的 CPU 校验可能很慢。其时间不计入 GPU 性能。不要因等待过久就跳过验证或用未经验证数据生成报告。**
-
-## Baseline 与数据
-
-- CPU Reference：FP32 输入/输出、FP64 累加、单线程 ijk，仅作正确性参考。
-- `sgemm_v0_naive`：一个 thread 计算一个元素，16×16 launch block；无高级优化。
-- `cublas`：row-major 映射、FP32 `CUBLAS_PEDANTIC_MATH`、alpha=1、beta=0。
-- 同输入/seed、同 stream；CUDA Event 逐轮同步；分配、拷贝、CPU 校验和 CSV 写入不计入计时间隔。
-- `median` 为主指标；同时保存 min/max/mean/总体 stddev、max/mean absolute error 与 relative error。
-- NaN/Inf、超阈值误差、CUDA API 错误导致非零退出；失败日志及已有原始数据保留。
-
-真实 GPU 数据运行后才创建 `results/gemm/baseline.csv`。每次原始计时、环境、构建信息、校验记录和报告保存在 `results/gemm/raw/<run_id>/`。分析工具核对原始样本并重新计算 GFLOPS/比值，生成 [docs/baseline.md](docs/baseline.md)；README 不手填性能数字。
-
-```bash
-python3 tools/analyze_results.py --run-id <实际-run-id> \
-  --csv results/gemm/baseline.csv --raw-root results/gemm/raw --output docs/baseline.md
-```
-
-`cuBLAS ratio` 单位是 **%**。此处 cuBLAS 是同 FP32 pedantic 口径的参考，不代表其他数学模式的性能上限。Stage 0 不设参考设备上的绝对 GFLOPS 或优化版本趋势目标。
-
-## Profiling（与正式计时分开）
-
-```bash
-./scripts/profile_gemm.sh nsys v0
-./scripts/profile_gemm.sh ncu v0
-```
-
-采集仅用于分析；Profiler 的 Event 时间带扰动，标记 `experiment=profiling`，不得用于正式性能比较。Stage 10 的 T4 V0/V1 全量采集使用 `python3 tools/run_cuda_gemm_stage10.py`；详见 [profiling protocol](docs/profiling.md) 和 [Colab acceptance guide](docs/stage10_colab.md)。
-
-## 文件与操作文档
-
-- [Stage 0 文件映射、Git/服务器流程、验收 checklist](docs/stage0.md)
-- [核心设计](docs/architecture.md)
-- [CSV 字段、实验方法与失败策略](docs/experiments.md)
-- [本地验收报告](docs/stage0_report.md)
-
-实验结果提交时保留原始 CSV、文本环境与日志：
-
-```bash
-git add results/ docs/baseline.md
-git commit -m "bench: record T4 stage 0 baselines"
-git push origin main
-```
-
-`build*/` 和 Profiler 大型二进制不进 Git。Profiler 二进制保存到外部制品存储，保留校验和、获取位置及导出文本。Stage 0 已验收；历史报告中的待验收文字是当时状态，当前状态以路线图和各阶段验收记录为准。Stage 1 不重跑或改写 Stage 0 性能数据。
+The frozen tiny model is batch-1, bias-free FP32 with deterministic byte tokens.
+No external/pretrained-model compatibility, BPE, sampling, training, batching
+service, distributed execution, Flash/paged attention, or fused INT8/INT4
+kernel is implemented. Optional work is explicitly marked `skipped_optional`
+in the [roadmap](docs/roadmap.md) and [Stage 18 report](docs/stage18_report.md).
